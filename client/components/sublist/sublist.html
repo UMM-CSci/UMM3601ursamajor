@@ -1,6 +1,6 @@
 <div class="container-fluid breakLongWords" ng-controller="SublistCtrl">
     <tabset>
-        <tab ng-repeat="option in filterData.reviewGroupFilterOptions" heading="{{option}}" ng-click="setReviewGroupSelection(option)"></tab>
+        <tab ng-hide="selection.selected" ng-show="isAdmin()" ng-repeat="option in filterData.reviewGroupFilterOptions" heading="{{option}}" ng-click="setReviewGroupSelection(option)"></tab>
     </tabset>
     <ul class="list-group" ng-hide="selection.selected">
         <li class="list-group-item" id="text">
