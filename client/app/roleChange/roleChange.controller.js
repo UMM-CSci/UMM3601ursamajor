@@ -18,9 +18,10 @@ angular.module('umm3601ursamajorApp')
 //    });
 
         $scope.roleOptions =
-            [   'user',
+            [   'co-chair',
                 'reviewer',
-                'admin'
+                'admin',
+                'user'
             ];
         $scope.groupOptions =
             [   1,

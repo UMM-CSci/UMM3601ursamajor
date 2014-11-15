@@ -15,12 +15,44 @@
     padding: 10px 16px;
     font-size: 20px;
     line-height: 1.33;
-    border-radius: 6px;
-    background: #ffcc33;
+    border-radius: 2px;
+    background-color: #ffcc33;
     font-weight: bold;
     font-family: "Lucida Grande", "Helvetica Nueue", Arial, sans-serif, monospace;
-
+    border-width: 0px;
 }
+
+.buttonLrg:hover {
+    color: #ffcc33;
+    padding: 10px 16px;
+    font-size: 20px;
+    line-height: 1.33;
+    border-radius: 2px;
+    background: #7a0019;
+    font-weight: bold;
+    font-family: "Lucida Grande", "Helvetica Nueue", Arial, sans-serif, monospace;
+    border-width: 0px;
+}
+
+.buttonLrg:active {
+    color: #ffcc33;
+    padding: 10px 16px;
+    font-size: 20px;
+    line-height: 1.33;
+    border-radius: 2px;
+    background: #7a0019;
+    font-weight: bold;
+    font-family: "Lucida Grande", "Helvetica Nueue", Arial, sans-serif, monospace;
+    border-width: 0px;
+}
+
+.btn-default:focus {
+    background: #7a0019;
+    color: #ffcc33;
+}
+
+
+
 #center {
     text-align: center;
 }

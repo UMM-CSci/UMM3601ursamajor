@@ -155,8 +155,17 @@ angular.module('umm3601ursamajorApp')
          *
          * @return {Boolean}
          */
-        isMember: function() {
-            return currentUser.role === 'member';
+        isReviewer: function() {
+            return currentUser.role === 'reviewer';
+        },
+
+        /**
+         * Check if a user is a reviewer
+         *
+         * @return {Boolean}
+         */
+        isCoChair: function() {
+            return currentUser.role === 'co-chair';
         },
 
       /**

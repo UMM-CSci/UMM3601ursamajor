@@ -10,6 +10,7 @@ angular.module('umm3601ursamajorApp')
     $scope.isCollapsed = true;
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.isAdmin = Auth.isAdmin;
+    $scope.isCoChair = Auth.isCoChair;
     $scope.getCurrentUser = Auth.getCurrentUser;
     //$scope.group = Auth.getCurrentUser.group;
 

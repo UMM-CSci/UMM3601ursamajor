@@ -8,7 +8,7 @@
             <br>
             <input type="text" ng-model="filterData.searchText" placeholder="Search">
             <select ng-show="isAdmin()" ng-model="filterData.reviewGroupFilterSelection">
-                <option ng-repeat="option in filterData.reviewGroupFilterOptions" ng-value="{{option}}">{{option}}</option>
+                <option ng-repeat="option in filterData.reviewGroupFilterOptions" ng-value="'{{option}}'">{{option}}</option>
             </select>
         </li>
 
@@ -30,7 +30,7 @@
                     <!--<p>Discipline: {{sub.discipline}}</p>-->
                     <!--<p>Format:  {{sub.format}}</p>-->
                     <!--<p>Abstract: <br> {{sub.abstract | fancyLimitTo: 300}}</p>-->
-                    <!--<strong><p ng-show="isMemberGroup(sub)"> This submission is in your review group</p></strong>-->
+                    <!--<strong><p ng-show="isReviewerGroup(sub)"> This submission is in your review group</p></strong>-->
                     <!--<p>Date of submission: {{sub.timestamp}}</p>-->
                 <!--&lt;!&ndash;</li>&ndash;&gt;-->
             <!--&lt;!&ndash;</ul>&ndash;&gt;-->
@@ -94,10 +94,10 @@
             </ul>
             <br>
             <p>You are seeing this submission because you are a(n):</p>
-            <p>Admin: {{hasAdminPrivs()}}</p>
-            <p>Presenter: {{isPresenter(selection.item)}}</p>
-            <p>Co-presenter: {{isCoPresenter(selection.item)}}</p>
-            <p>Review Group: {{selection.item.group}}</p>
+            <p ng-show="hasAdminPrivs()">{{"Admin"}}</p>
+            <p ng-show="isPresenter(selection.item)">{{"Presenter of this submission"}}</p>
+            <p ng-show="isCoPresenter(selection.item)">{{"Co-presenter of this submission"}}</p>
+            <p ng-show="isReviewerGroup(selection.item)">{{"Reviewer in " + "reviewer group " +selection.item.group}}</p>
         </li>
     </ul>
 </div>

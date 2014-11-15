@@ -6,14 +6,21 @@
             <div class="btn-group-vertical">
                 <button type="button" class="btn btn-default buttonLrg" ng-click="toggleStats()">System Information</button>
                 <button type="button" class="btn btn-default buttonLrg" ng-click="toggleSubList()">Submission List</button>
-                <a type="button" class="btn btn-default buttonLrg" href="/subformeditor"> Edit the Submission Form</a>
-                <a type="button" class="btn btn-default buttonLrg" href="/roleChange">Edit users</a>
+                <button type="button" class="btn btn-default buttonLrg" ng-click="toggleSubEditor()"> Edit the Submission Form</button>
+                <button type="button" class="btn btn-default buttonLrg" ng-click="toggleUserEdit()">Edit users</button>
             </div>
         </div>
 
         <div class="col-md-8">
+            <div ng-show="toggles.subFormEditorToggle">
+                <div ng-include="'app/subformeditor/subformeditor.html'"></div>
+            </div>
             <div ng-show="toggles.subListToggle">
                 <div ng-include="'components/sublist/sublist.html'"></div>
+            </div>
+
+            <div ng-show="toggles.userEditToggle">
+                <div ng-include="'app/roleChange/roleChange.html'"></div>
             </div>
 
             <div ng-show="toggles.statsToggle">

@@ -1,4 +1,4 @@
-/**/
+/*--------------------------------Code to overwrite the default grey navbar stuff------------------------------------*/
 .navbarFormating {
     background-color: #ffcc33;
     color: #7a0019;
@@ -45,3 +45,4 @@
 .navbar-default .navbar-brand:hover{
     color: #7a0019;
 }
+/*----------------------------------------------------------------------------------------*/

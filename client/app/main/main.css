@@ -10,13 +10,14 @@ a:visited {
 
 /* mouse over link */
 a:hover {
-    color: antiquewhite;
+    color: #000000;
+
     text-decoration: none;
 }
 
 /* selected link */
 a:active {
-    color: antiquewhite;
+    color: #000000;
 }
 
 
@@ -43,6 +44,17 @@ a:active {
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
     background: #7a0019;
     font-family: "Times New Roman", Times, monospace;
+}
+
+.fitImage {
+    width: 70%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.row h2 {
+    text-align: center;
 }
 
 .footer {
@@ -78,5 +90,5 @@ a:active {
     margin-left: auto;
     margin-right: auto;
     display: block;
-
 }
+

@@ -131,11 +131,18 @@ User.find({}).remove(function() {
             group: -1
         }, {
             provider: 'local',
+            role: 'co-chair',
+            name: 'Co-Chair',
+            email: 'coChair@coChair.com',
+            password: 'cochair',
+            group: -1
+        }, {
+            provider: 'local',
             role: 'reviewer',
             name: 'Reviewer',
             email: 'reviewer@reviewer.com',
             password: 'reviewer',
-            group: 1
+            group: 3
         }, function () {
             console.log('finished populating users');
         }, {

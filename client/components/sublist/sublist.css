@@ -43,13 +43,14 @@ hr {
 
 .buttonL{
     float: right;
-    color: antiquewhite;
+    color: #ffcc33;
     padding: 8px 10px;
     font-size: 15px;
     line-height: 1.33;
     border-radius: 6px;
+    border-width: 0px;
     background: maroon;
-    font-style: oblique;
-    font-family: "Times New Roman", Times, monospace;
+    font-weight: bold;
+    font-family: "Helvetica Neue Light", "Lucida Grande", "Calibri", "Arial", sans-serif;
 
 }
