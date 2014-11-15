@@ -20,6 +20,12 @@ hr {
     font-size: 12px;
 }
 
+.noTopBorder {
+    border-top: none;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+}
+
 .floatLeft {
     float: left;
 }

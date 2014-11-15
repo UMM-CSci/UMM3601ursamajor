@@ -3,7 +3,7 @@
         <tab ng-hide="selection.selected" ng-show="isAdmin()" ng-repeat="option in filterData.reviewGroupFilterOptions" heading="{{option}}" ng-click="setReviewGroupSelection(option)"></tab>
     </tabset>
     <ul class="list-group" ng-hide="selection.selected">
-        <li class="list-group-item" id="text">
+        <li class="list-group-item noTopBorder" id="text">
             <h2>Submissions </h2>
             <br>
             <input type="text" ng-model="filterData.searchText" placeholder="Search">
@@ -80,7 +80,7 @@
                     <p>Discipline: {{selection.item.discipline}}</p>
                     <p>Format:  {{selection.item.format}}</p>
                     <p>Type: {{selection.item.presentationType}}</p>
-                    <p>Advisor: {{selection.item.adviserInfo.last}}, {{selection.item.adviserInfo.first}} email: {{selection.item.adviserInfo.email}}</p>
+                    <p>Adviser: {{selection.item.adviserInfo.last}}, {{selection.item.adviserInfo.first}} email: {{selection.item.adviserInfo.email}}</p>
                     <p>Adviser Approved: {{approvalWordChange(selection.item.approval)}}</p>
                     <p>{{selection.item.sponsors | isntEmpty:"Sponsors:":""}}</p>
                     <p>{{selection.item.mediaServicesEquipment | isntEmpty:"Media Services Equipment:":""}}</p>

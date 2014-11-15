@@ -45,7 +45,8 @@ angular.module('umm3601ursamajorApp')
                 "Unassigned",
                 "Review Group 1",
                 "Review Group 2",
-                "Review Group 3"
+                "Review Group 3",
+                "Review Group 4"
             ]
         };
 
@@ -107,6 +108,8 @@ angular.module('umm3601ursamajorApp')
                 return submission.group == 2;
             } else if($scope.filterData.reviewGroupFilterSelection === "Review Group 3"){
                 return submission.group == 3;
+            } else if($scope.filterData.reviewGroupFilterSelection === "Review Group 4"){
+                return submission.group == 4;
             } else {
                 return false;
             }
