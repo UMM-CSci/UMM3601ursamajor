@@ -495,8 +495,8 @@ angular.module('umm3601ursamajorApp')
                     console.log(submission.abstract);
                     console.log(i, "Cats");
                 } else if (comments[i].indicator == 0){
-                    start += 7 * (i + 2);
-                    end += 7 * (i + 2);
+                    start += 7 * (i);
+                    end += 7 * (i);
                     submission.abstract = submission.abstract.substring(0, start) + '<b>' + submission.abstract.substring(start, end) + '</b>' + submission.abstract.substring(end, submission.abstract.length);
                     comments[i].indicator = 1;
                     console.log(submission.abstract);
