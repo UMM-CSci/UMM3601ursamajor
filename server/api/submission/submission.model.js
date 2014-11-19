@@ -24,8 +24,9 @@ var SubmissionSchema = new Schema({
   status: {strict: String, text: String},
   timestamp: String,
   group: Number,
-  resubmissionData: {comment: String, parentSubmission: String, childSubmission: String, resubmitFlag: Boolean},
+  resubmissionData: {comment: String, parentSubmission: String, isPrimary: Boolean, resubmitFlag: Boolean},
   comments: []
+
 });
 
-module.exports = mongoose.model('Submission', SubmissionSchema);
+module.exports = mongoose.model('Submission', SubmissionSchema)

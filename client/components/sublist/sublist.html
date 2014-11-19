@@ -11,7 +11,7 @@
             <h2>Submissions </h2>
             <br>
             <input type="text" ng-model="filterData.searchText" placeholder="Search">
-            <select ng-show="isAdmin() || isCoChair()" ng-model="filterData.reviewGroupFilterSelection">
+            <select ng-show="isAdmin() || isChair()" ng-model="filterData.reviewGroupFilterSelection">
                 <option ng-repeat="option in filterData.reviewGroupFilterOptions" ng-value="'{{option}}'">{{option}}</option>
             </select>
             <!--<button type="button" class="btn btn-default" ng-click="filterData.orderByPredicate='timestamp'">Order by timestamp</button>-->
@@ -95,6 +95,8 @@
             <hr>
             <ul class="list-group">
                 <li class="list-group-item">
+                    <p>{{selection.item.copresenterOneInfo.first | isntEmpty:"Co-Presenter(s):":""}} {{selection.item.copresenterOneInfo.last | isntEmpty:"":""}}{{selection.item.copresenterTwoInfo.first | isntEmpty:",":""}} {{selection.item.copresenterTwoInfo.last | isntEmpty:"":""}}
+                    </p>
                     <p>Discipline: {{selection.item.discipline}}</p>
                     <p>Format:  {{selection.item.format}}</p>
                     <p>Type: {{selection.item.presentationType}}</p>
@@ -118,11 +120,14 @@
                 </li>
             </ul>
             <br>
-            <p>You are seeing this submission because you are a(n):</p>
-            <p ng-show="hasAdminPrivs()">{{"admin"}}</p>
-            <p ng-show="isPresenter(selection.item)">{{"presenter of this submission"}}</p>
-            <p ng-show="isCoPresenter(selection.item)">{{"co-presenter of this submission"}}</p>
-            <p ng-show="isReviewerGroup(selection.item)">{{"reviewer in " + "Reviewer Group " +selection.item.group}}</p>
+            <p ng-show="isAdmin()">You are seeing this submission because you are an:</p>
+            <p ng-show="isAdmin()">admin</p>
+            <p ng-show="!isAdmin()">You are seeing this submission because you are a:</p>
+            <p ng-show="isChair()">chair</p>
+            <p ng-show="isPresenter(selection.item)">presenter of this submission</p>
+            <p ng-show="isCoPresenter(selection.item)">co-presenter of this submission</p>
+            <p ng-show="isAdviser(selection.item)">adviser of this submission</p>
+            <p ng-show="isReviewerGroup(selection.item)">reviewer in Reviewer Group {{selection.item.group}}</p>
         </li>
     </ul>
 
@@ -131,6 +136,7 @@
         <ul class="list-group" ng-show="(selection.resubmission != null) && selection.selected">
             <li class="list-group-item">
                 <h1>Resubmission</h1>
+                <button type="button" class="btn btn-success resubbutton" ng-click="approveResubmit()">Approve Resubmission</button>
             </li>
             <li class="list-group-item">
                 <h3 id="text">{{selection.resubmission.title}}</h3>
@@ -138,6 +144,8 @@
                 <hr>
                 <ul class="list-group">
                     <li class="list-group-item">
+                        <p>{{selection.resubmission.copresenterOneInfo.first | isntEmpty:"Co-Presenter(s):":""}} {{selection.resubmission.copresenterOneInfo.last | isntEmpty:"":""}}{{selection.resubmission.copresenterTwoInfo.first | isntEmpty:",":""}} {{selection.item.copresenterTwoInfo.last | isntEmpty:"":""}}
+                        </p>
                         <p>Discipline: {{selection.resubmission.discipline}}</p>
                         <p>Format:  {{selection.resubmission.format}}</p>
                         <p>Type: {{selection.resubmission.presentationType}}</p>
@@ -162,6 +170,7 @@
                 <p ng-show="isChair()">chair</p>
                 <p ng-show="isPresenter(selection.resubmission)">presenter of this submission</p>
                 <p ng-show="isCoPresenter(selection.resubmission)">co-presenter of this submission</p>
+                <p ng-show="isAdviser(selection.resubmission)">adviser of this submission</p>
                 <p ng-show="isReviewerGroup(selection.resubmission)">reviewer in Reviewer Group {{selection.resubmission.group}}</p>
             </li>
         </ul>

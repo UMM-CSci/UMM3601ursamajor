@@ -196,7 +196,7 @@ Submission.find({}).remove(function(){
         status:  {strict: "Awaiting Adviser Approval", text: "Your adviser has yet to approve this submission."},
         timestamp: "Sat Oct 18 2014 10:48:54 GMT-0500 (CDT)",
         group: 1,
-        resubmissionData: {comment: "Initial Submission", parentSubmission: "", resubmitFlag: false},
+        resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
         comments: []
     }, {
         title: "Blind Construction: Mixed Media",
@@ -223,7 +223,7 @@ Submission.find({}).remove(function(){
         status: {strict: "Revisions Needed", text: "Your URS submission has been flagged for revisions, and is in need of changes."},
         timestamp: "Tue Oct 21 2014 23:22:54 GMT-0500 (CDT)",
         group: 1,
-        resubmissionData: {comment: "Initial Submission", parentSubmission: "", resubmitFlag: false},
+        resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
         comments: []
     }, {
         title: "On the Migration of Majestic Space Whales",
@@ -257,7 +257,7 @@ Submission.find({}).remove(function(){
         status: {strict: "Awaiting Adviser Approval", text: "Your adviser has yet to approve this submission."},
         timestamp: "Mon Sept 2 2014 1:48:54 GMT-0500 (CDT)",
         group: 1,
-        resubmissionData: {comment: "Initial Submission", parentSubmission: "", resubmitFlag: false},
+        resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
         comments: []
     }, {
         title: "The Commemoration and Memorialization of the American Revolution",
@@ -286,7 +286,7 @@ Submission.find({}).remove(function(){
         status: {strict: "Reviewing in Process", text: "Your URS submission has been approved by your adviser"},
         timestamp: "Mon Oct 20 2014 1:48:54 GMT-0500 (CDT)",
         group: 3,
-        resubmissionData: {comment: "Initial Submission", parentSubmission: "", resubmitFlag: false},
+        resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
         comments: []
     }, {
         title: "Margaret C. Anderson’s Little Review",
@@ -300,7 +300,7 @@ Submission.find({}).remove(function(){
         presentationType: "Poster or Visual Display",
         formatChange: true,
         presenterInfo: {first: "Savannah", last: "Farm", email: "farmx009@morris.umn.edu"},
-        copresenterOneInfo: {first: "Matthew", last: "Kangas", email: "kanga139@morris.umn.edu"},
+        copresenterOneInfo: {first: "", last: "", email: ""},
         copresenterTwoInfo: {first: "", last: "", email: ""},
         discipline: "English",
         sponsors: [], //Might need to worry about if this is static for the DB later.
@@ -314,7 +314,7 @@ Submission.find({}).remove(function(){
         status: {strict: "Accepted", text: "Your URS submission has been approved, congratulations!"},
         timestamp: "Thur Oct 23 2014 1:48:54 GMT-0500 (CDT)",
         group: 2,
-        resubmissionData: {comment: "Initial Submission", parentSubmission: "", resubmitFlag: false},
+        resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
         comments: []
     }, {
         title: "A Study of the Properties of a Paperclip in the Digestive System of a Sloth",
@@ -330,7 +330,7 @@ Submission.find({}).remove(function(){
         copresenterTwoInfo: {first: "Dalton", last: "Gusaas", email: "gusaa004@morris.umn.edu"},
         discipline: "Biology",
         sponsors: [], //Might need to worry about if this is static for the DB later.
-        adviserInfo: {first: "Maggie", last: "Casal", email: "casal033@morris.umn.edu"},
+        adviserInfo: {first: "Maggie", last: "Casale", email: "casal033@morris.umn.edu"},
         featured: false,
         mediaServicesEquipment: "",
         specialRequirements: "a sloth",
@@ -340,7 +340,7 @@ Submission.find({}).remove(function(){
         status: {strict: "Awaiting Adviser Approval", text: "Your adviser has yet to approve this submission."},
         timestamp: "Mon Oct 20 2014 1:48:54 GMT-0500 (CDT)",
         group: 3,
-        resubmissionData: {comment: "Initial Submission", parentSubmission: "", resubmitFlag: false},
+        resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
         comments: []
     });
 });

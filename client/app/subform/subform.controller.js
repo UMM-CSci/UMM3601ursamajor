@@ -99,6 +99,7 @@ angular.module('umm3601ursamajorApp')
         var tempSponsors = [];
         var addedToggle = false;
 
+        //TODO: this is still a bit broken, I'll fix it later (joe)
         for(var x = 0; x <= $scope.fundingSources.length; x++){
             addedToggle = false;
 //            console.log("Main for loop, sponsor: " + $scope.fundingSources[x]);
@@ -194,7 +195,7 @@ angular.module('umm3601ursamajorApp')
                     status: {strict: "Awaiting Adviser Approval", text: "Adviser has not been notified"},
                     timestamp: $scope.timestamp,
                     group: 0,
-                    resubmissionData: {comment: $scope.submissionData.resubmitComment, parentSubmission: $scope.submissionData.resubmitParent, resubmitFlag: $scope.submissionData.resubmitFlag }
+                    resubmissionData: {comment: $scope.submissionData.resubmitComment, parentSubmission: $scope.submissionData.resubmitParent, isPrimary: false, resubmitFlag: $scope.submissionData.resubmitFlag }
                 });
         };
 

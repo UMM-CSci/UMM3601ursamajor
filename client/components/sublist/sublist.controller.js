@@ -54,12 +54,14 @@ angular.module('umm3601ursamajorApp')
             tabFilter: {isPresenter:false, isCoPresenter:false, isReviewer:false, isAdviser:false}
         };
 
+        // Returns true when the submission HAS a parent, and ISN'T the primary.
         $scope.isResubmission = function(submission){
-            return submission.resubmissionData.parentSubmission != "";
+            return (submission.resubmissionData.parentSubmission != "" && !submission.resubmissionData.isPrimary);
         };
 
         //TODO: this method could easily be made more efficient? It currently checks for ANY resubmission the the entire database for EVERY submission in the database... Horrible... I'm so sorry...
         $scope.getResubmission = function(submission){
+            //Perhaps we could move this into the http call...?
             var resubmits = $filter('filter')($scope.submissions, $scope.isResubmission);
 
             for(var x = 0; x < resubmits.length; x++){
@@ -416,7 +418,6 @@ angular.module('umm3601ursamajorApp')
             });
         };
 
-
         $scope.approvalWordChange = function(approval){
              if(approval){
                  return "Yes";
@@ -426,16 +427,30 @@ angular.module('umm3601ursamajorApp')
                  }
              };
 
-
         //--------------------------------------------- Resubmission ---------------------------------------
         $scope.flagForResubmit = function(){
-            console.log("SAttempting to flag for resubmission.");
+            console.log("Attempting to flag for resubmission.");
             $http.patch('api/submissions/' + $scope.selection.item._id,
                 {resubmissionData: {comment: "flagged for resubmit", parentSubmission: "", resubmitFlag: true}}
             ).success(function(){
                     console.log("Successfully flagged submission for resubmit");
                     if(!$scope.hasAdminPrivs()){$location.path('/subform');}
                 });
+        };
+
+        //TODO: Right now anyone that can see a resubmission can approve a resubmission, so that needs to get fixed. Should wait to fix until the permissions system is sorted out.
+        $scope.approveResubmit = function(){
+            console.log("Attempting to approve resubmission.");
+            $http.patch('api/submissions/' + $scope.selection.item._id,
+                {resubmissionData: {isPrimary: false}}
+            ).success(function(){
+                    console.log("old primary is no longer primary");
+                    $http.patch('api/submissions/' + $scope.selection.resubmission._id,
+                        {resubmissionData: {isPrimary: true}}
+                    ).success(function(){
+                        console.log("resubmission set as new primary")
+                    });
+            });
         };
 
 
