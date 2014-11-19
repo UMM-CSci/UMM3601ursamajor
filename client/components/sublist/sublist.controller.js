@@ -455,11 +455,13 @@ angular.module('umm3601ursamajorApp')
             commentObj.selectionText = selection.toString();
             commentObj.indicator = 0;
             comments.push(commentObj);
+            console.log(comments);
             $http.patch('api/submissions/' + $scope.selection.item._id,
                 {comments: comments}
             ).success(function(){
                     console.log("successfully pushed comments to submission!");
                 });
+            console.log(submission.comments);
 //            console.log(submission.comments);
 //            console.log(submission.abstract.length);
 //            console.log(comments.length);
