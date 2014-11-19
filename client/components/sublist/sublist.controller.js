@@ -261,7 +261,7 @@ angular.module('umm3601ursamajorApp')
         $scope.statusColorTab = function(strict) {
             var index = $scope.statusEdit.options.indexOf(strict);
             if ($scope.statusEdit.color.length == 0 || index == -1) {
-                return {'border-left': '4px solid rgba(0, 0, 0, 1)'};
+                return {'border-left': '4px solid rgba(255, 255, 255, 1)'};
             } else {
             return {'border-left': '4px solid rgba(' + $scope.statusEdit.color[index].red
                                                + ',' + $scope.statusEdit.color[index].green
@@ -272,7 +272,7 @@ angular.module('umm3601ursamajorApp')
         $scope.statusColorBody = function(strict) {
             var index = $scope.statusEdit.options.indexOf(strict);
             if ($scope.statusEdit.color.length == 0 || index == -1) {
-                return {'background-color': 'rgba(0, 0, 0, 1)'};
+                return {'background-color': 'rgba(255, 255, 255, 1)'};
             } else {
                 return {'background-color': 'rgba(' + $scope.statusEdit.color[index].red
                                                         + ',' + $scope.statusEdit.color[index].green
@@ -376,6 +376,7 @@ angular.module('umm3601ursamajorApp')
                     console.log("Successfully updated status of submission");
             });
 
+
             //TODO: needs to be updated to work with the current status system
             if($scope.selection.item.approval && $scope.statusEdit.temp.strict === "Awaiting Adviser Approval"){
                 $http.patch('api/submissions/' + $scope.selection.item._id,
@@ -406,6 +407,15 @@ angular.module('umm3601ursamajorApp')
             });
             $scope.resetTemps();
             $scope.editStatus();
+        };
+        //TODO: broken, fix pls
+        $scope.advisorApprover = function(){
+            $http.patch('api/submissions/' + $scope.selection.item._id,
+                {approval: true}
+            ).success(function(){
+                    $scope.selection.item.approval = true;
+                    console.log("Approve this submission");
+                });
         };
 
         $scope.flagForResubmit = function(){
