@@ -46,4 +46,38 @@ describe('Functions used for filtering', function() {
     it('should ...', function () {
         expect(1).toEqual(1);
     });
+
+    //this is broken. it's all broken. Apparently it cannot find "io"....
+    it('Should be a resubmission... ', function($scope) {
+        var testSubmission =
+        {
+            title: "A Study of the Properties of a Paperclip in the Digestive System of a Sloth",
+            format: "Artist Statement",
+            abstract: "Many physicists would agree that, had it not been for scatter/gather I/O, the study of link-level acknowledgements might never have occurred. " +
+                "While such a claim might seem unexpected, it usually conflicts with the need to provide thin clients to hackers worldwide. " +
+                "In fact, few security experts would disagree with the construction of kernels. In order to overcome this question, we construct an analysis of the Ethernet (Mollah)," +
+                " which we use to prove that redundancy and replication can interfere to achieve this aim. ",
+            presentationType: "Oral Presentation",
+            formatChange: false,
+            presenterInfo: {first: "Hongya", last: "Zhou", email: "zhoux616@morris.umn.edu"},
+            copresenterOneInfo: {first: "Otto", last: "Marckel II", email: "marck018@morris.umn.edu"},
+            copresenterTwoInfo: {first: "Dalton", last: "Gusaas", email: "gusaa004@morris.umn.edu"},
+            discipline: "Biology",
+            sponsors: [], //Might need to worry about if this is static for the DB later.
+            adviserInfo: {first: "Maggie", last: "Casale", email: "casal033@morris.umn.edu"},
+            featured: false,
+            mediaServicesEquipment: "",
+            specialRequirements: "a sloth",
+            presenterTeeSize: "M",
+            otherInfo: "Maybe",
+            approval: false,
+            status: {strict: "Awaiting Adviser Approval", text: "Your adviser has yet to approve this submission."},
+            timestamp: "Mon Oct 20 2014 1:48:54 GMT-0500 (CDT)",
+            group: 3,
+            resubmissionData: {comment: "Initial Submission", parentSubmission: "testIdForTesting", isPrimary: false, resubmitFlag: false},
+            comments: []
+        };
+
+        expect($scope.isResubmission(testSubmission)).toEqual(true);
+    });
 });

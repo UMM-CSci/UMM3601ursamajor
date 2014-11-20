@@ -99,7 +99,7 @@ angular.module('umm3601ursamajorApp')
         var tempSponsors = [];
         var addedToggle = false;
 
-        //TODO: this is still a bit broken, I'll fix it later (joe)
+        //fixed now (probably)
         for(var x = 0; x <= $scope.fundingSources.length; x++){
             addedToggle = false;
 //            console.log("Main for loop, sponsor: " + $scope.fundingSources[x]);
@@ -108,7 +108,9 @@ angular.module('umm3601ursamajorApp')
             for(var y = 0; y < submission.sponsors.length; y++){
 //                console.log("final case? " + (x == $scope.fundingSources.length));
                 if(x == $scope.fundingSources.length){
-                    tempSponsors.push(submission.sponsors[submission.sponsors.length - 1]);
+                    if(submission.sponsors[submission.sponsors.length - 1] != $scope.fundingSources[x -1]){
+                        tempSponsors.push(submission.sponsors[submission.sponsors.length - 1]);
+                    }
                     break;
                 } else if(submission.sponsors[y] === $scope.fundingSources[x]){
                     tempSponsors.push(submission.sponsors[y]);
@@ -165,60 +167,87 @@ angular.module('umm3601ursamajorApp')
         $scope.submissionText = $scope.submissionTextArray[0];
     });
 
-    $scope.submitSubmission = function(){
-        var r = confirm("Are you sure you want to submit?");
-        if (r) {
-            for (var i = 0; i < $scope.submissionData.sponsors.length; i++) {
-                if ($scope.submissionData.sponsors[i] != "" && $scope.submissionData.sponsors[i] != null) {
-                    $scope.submissionData.sponsorsFinal.push($scope.submissionData.sponsors[i]);
-                }
-            }
-            console.log('posting Data!');
-            $http.post('/api/submissions/',
-                {   title: $scope.submissionData.title,
-                    format: $scope.submissionData.format,
-                    abstract: $scope.submissionData.abstract,
-                    presentationType: $scope.submissionData.presentationType,
-                    formatChange: $scope.submissionData.formatChange,
-                    presenterInfo: {first: $scope.submissionData.presenterInfo.first, last: $scope.submissionData.presenterInfo.last, email: $scope.submissionData.presenterInfo.email},
-                    copresenterOneInfo: {first: $scope.submissionData.copresenterOne.first, last: $scope.submissionData.copresenterOne.last, email: $scope.submissionData.copresenterOne.email},
-                    copresenterTwoInfo: {first: $scope.submissionData.copresenterTwo.first, last: $scope.submissionData.copresenterTwo.last, email: $scope.submissionData.copresenterTwo.email},
-                    discipline: $scope.submissionData.discipline,
-                    sponsors: $scope.submissionData.sponsorsFinal,
-                    adviserInfo: {first: $scope.submissionData.adviserInfo.first, last: $scope.submissionData.adviserInfo.last, email: $scope.submissionData.adviserInfo.email},
-                    featured: $scope.submissionData.featuredPresentation,
-                    mediaServicesEquipment: $scope.submissionData.mediaServicesEquipment,
-                    specialRequirements: $scope.submissionData.specialRequirements,
-                    presenterTeeSize: $scope.submissionData.presenterTeeSize,
-                    otherInfo: $scope.submissionData.otherInfo,
-                    approval: false,
-                    status: {strict: "Awaiting Adviser Approval", text: "Adviser has not been notified"},
-                    timestamp: $scope.timestamp,
-                    group: 0,
-                    resubmissionData: {comment: $scope.submissionData.resubmitComment, parentSubmission: $scope.submissionData.resubmitParent, isPrimary: false, resubmitFlag: $scope.submissionData.resubmitFlag }
-                });
-        };
+    $scope.checkEmailsAreMorris = function (){
+        var presenterEmail = $scope.submissionData.presenterInfo.email;
+        var copresenterOneEmail = $scope.submissionData.copresenterOne.email;
+        var copresenterTwoEmail = $scope.submissionData.copresenterTwo.email;
 
-        if (r) {
-            alert("Please send the email that is about to be generated.");
-            sendGmail({
-                to: $scope.submissionData.adviserInfo.email,
-                subject: 'URS Submission requires approval',
-                message: $scope.submissionData.presenterInfo.first + " " + $scope.submissionData.presenterInfo.last +
-                    ' has submitted a URS submission that requires your approval. Please go to https://ursa-major.herokuapp.com/ to log in and approve the submission.'
-            });
+        var presenterCheck = (presenterEmail.indexOf("morris.umn.edu") != -1);
+
+        if(copresenterOneEmail != ""){
+            var copresenterOneCheck = (copresenterOneEmail.indexOf("morris.umn.edu") != -1);
+        } else{
+            var copresenterOneCheck = true;
         }
-        if ($scope.isResubmitting && r) {
-            $http.patch('api/submissions/' + $scope.submissionData.resubmitParent,
-             // This is only setting false right now. comment and submission donot get stored.
-                 {resubmissionData: {comment: $scope.resubmitParent.resubmissionData.comment, parentSubmission: $scope.resubmitParent.resubmissionData.parentSubmission, resubmitFlag: false}}
-            ).success(function(){
-                console.log("Successfully unflagged the original submission for resbumission.");
-            });
+
+        if(copresenterTwoEmail != ""){
+            var copresenterTwoCheck = (copresenterTwoEmail.indexOf("morris.umn.edu") != -1);
+        } else{
+            var copresenterTwoCheck = true;
         }
-        if(r) {
-            $scope.resetData();
-            $location.path('/submissionpage');
+
+        return presenterCheck && copresenterOneCheck && copresenterTwoCheck;
+    };
+
+    $scope.submitSubmission = function(){
+        if($scope.checkEmailsAreMorris() === true) {
+            var r = confirm("Are you sure you want to submit?");
+            if (r) {
+                for (var i = 0; i < $scope.submissionData.sponsors.length; i++) {
+                    if ($scope.submissionData.sponsors[i] != "" && $scope.submissionData.sponsors[i] != null) {
+                        $scope.submissionData.sponsorsFinal.push($scope.submissionData.sponsors[i]);
+                    }
+                }
+                console.log('posting Data!');
+                $http.post('/api/submissions/',
+                    {   title: $scope.submissionData.title,
+                        format: $scope.submissionData.format,
+                        abstract: $scope.submissionData.abstract,
+                        presentationType: $scope.submissionData.presentationType,
+                        formatChange: $scope.submissionData.formatChange,
+                        presenterInfo: {first: $scope.submissionData.presenterInfo.first, last: $scope.submissionData.presenterInfo.last, email: $scope.submissionData.presenterInfo.email},
+                        copresenterOneInfo: {first: $scope.submissionData.copresenterOne.first, last: $scope.submissionData.copresenterOne.last, email: $scope.submissionData.copresenterOne.email},
+                        copresenterTwoInfo: {first: $scope.submissionData.copresenterTwo.first, last: $scope.submissionData.copresenterTwo.last, email: $scope.submissionData.copresenterTwo.email},
+                        discipline: $scope.submissionData.discipline,
+                        sponsors: $scope.submissionData.sponsorsFinal,
+                        adviserInfo: {first: $scope.submissionData.adviserInfo.first, last: $scope.submissionData.adviserInfo.last, email: $scope.submissionData.adviserInfo.email},
+                        featured: $scope.submissionData.featuredPresentation,
+                        mediaServicesEquipment: $scope.submissionData.mediaServicesEquipment,
+                        specialRequirements: $scope.submissionData.specialRequirements,
+                        presenterTeeSize: $scope.submissionData.presenterTeeSize,
+                        otherInfo: $scope.submissionData.otherInfo,
+                        approval: false,
+                        status: {strict: "Awaiting Adviser Approval", text: "Adviser has not been notified"},
+                        timestamp: $scope.timestamp,
+                        group: 0,
+                        resubmissionData: {comment: $scope.submissionData.resubmitComment, parentSubmission: $scope.submissionData.resubmitParent, isPrimary: false, resubmitFlag: $scope.submissionData.resubmitFlag }
+                    });
+            }
+            ;
+
+            if (r) {
+                alert("Please send the email that is about to be generated.");
+                sendGmail({
+                    to: $scope.submissionData.adviserInfo.email,
+                    subject: 'URS Submission requires approval',
+                    message: $scope.submissionData.presenterInfo.first + " " + $scope.submissionData.presenterInfo.last +
+                        ' has submitted a URS submission that requires your approval. Please go to https://ursa-major.herokuapp.com/ to log in and approve the submission.'
+                });
+            }
+            if ($scope.isResubmitting && r) {
+                $http.patch('api/submissions/' + $scope.submissionData.resubmitParent,
+                    // This is only setting false right now. comment and submission donot get stored.
+                    {resubmissionData: {comment: $scope.resubmitParent.resubmissionData.comment, parentSubmission: $scope.resubmitParent.resubmissionData.parentSubmission, resubmitFlag: false}}
+                ).success(function () {
+                        console.log("Successfully unflagged the original submission for resbumission.");
+                    });
+            }
+            if (r) {
+                $scope.resetData();
+                $location.path('/submissionpage');
+            }
+        } else{
+            $window.alert("One of the emails you entered is not a UMN Morris email.");
         }
     };
 

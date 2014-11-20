@@ -34,8 +34,8 @@ Status.find({}).remove(function() {
     },{
         strict: "Awaiting Adviser Approval",
         color: {red: 255, green: 0, blue: 0, alpha: 1},
-        emailSubject: "",
-        emailBody: "",
+        emailSubject: "URS submission update",
+        emailBody: ", Your URS submission is pending approval from your adviser.",
         priority: 15
     });
 });
@@ -275,12 +275,13 @@ Submission.find({}).remove(function(){
             "this research highlights the importance of the revolution in shaping the actions of the United States government.",
         presentationType: "Performance",
         formatChange: false,
-        presenterInfo: {first: "Mitchell", last: "Finzel", email: "finze008"},
+        presenterInfo: {first: "Mitchell", last: "Finzel", email: "finze008@morris.umn.edu"},
         copresenterOneInfo: {first: "Brandon", last: "Moody", email: "moody107@morris.umn.edu"},
         copresenterTwoInfo: {first: "", last: "", email: ""},
         discipline: "History",
         sponsors: [], //Might need to worry about if this is static for the DB later.
-        adviserInfo: {first: "Niccolas", last: "Ricci", email: "ricc0082@morris.umn.edu"},
+        adviserInfo: {first: "Niccolas", last: "Ricci", email: "saxxx027@morris.umn.edu"},
+        //ricc0082@morris.umn.edu
         featured: true,
         mediaServicesEquipment: "A way to show images, either a projector or a warning so I can print them.",
         specialRequirements: "",

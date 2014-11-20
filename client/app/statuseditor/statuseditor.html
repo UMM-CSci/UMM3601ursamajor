@@ -1,12 +1,13 @@
-<div ng-controller="StatuseditorCtrl" ng-show="isAdmin() || isCoChair()" class="container-fluid">
-    <form ng-submit="submitChanges()" id="statusEditorStyle">
+<div ng-controller="StatuseditorCtrl" ng-show="isAdmin() || isChair()" class="container-fluid">
+        <button class="btn btn-primary padded" ng-click="addStatus()">Add New Status</button>
         <ul class="list-group">
             <li class="list-group-item"><h1>Status Option Editor</h1></li>
             <li class="list-group-item" ng-repeat="status in statusArray" ng-style="statusEditorColor(status)">
                 <div>
                     <h2>{{status.strict}}</h2>
-                    <h3>Priority {{status.priority}}</h3>
-                    <button ng-show="requiredStatus(status)" class="btn btn-md btn-danger" ng-click="deleteStatus(status)">
+                    <h3>Priority: {{status.priority}}</h3>
+                    <textarea ng-hide="requiredStatus(status)" ng-model="status.priority"  cols="3" rows="1" name="priority"></textarea>
+                    <button ng-hide="requiredStatus(status)" class="btn btn-md btn-danger" ng-click="deleteStatus(status)">
                         <span class="glyphicon glyphicon-trash"></span></button><br>
 
                     <label class="padded">
@@ -48,6 +49,8 @@
 
                         <button class="btn btn-primary padded" ng-click="submitChanges(status)">Submit Changes</button>
                     </label>
+
+
                     <br>
                 </div>
             </li>

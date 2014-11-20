@@ -16,6 +16,12 @@ angular.module('umm3601ursamajorApp')
             $scope.statusArray = statusArray;
         });
 
+        $scope.getStatuses = function(){
+            $http.get('/api/statuss').success(function(statusArray) {
+                $scope.statusArray = statusArray;
+            });
+        };
+
         $scope.statusEditorColor = function(status){
             return {'border-left': '4px solid rgb(' + status.color.red + ','
                                                  + status.color.green + ','
@@ -33,9 +39,34 @@ angular.module('umm3601ursamajorApp')
             });
         };
 
-        //TODO: still not working, boolean is being FALSE
+        $scope.findEmptyPriority = function(status){
+            var count = 1;
+            for(var j = 0; j < status.length; j++) {
+                for (var i = 0; i < status.length; i++) {
+                    if (status[i].priority == count) {
+                        count++;
+                    }
+                }
+            }
+            return count;
+        };
+
+        $scope.addStatus = function() {
+            $http.post('/api/statuss/',
+            {   strict: "Default Status",
+                color: {red: 0, green: 0, blue: 0, alpha: 1},
+                emailSubject: "",
+                emailBody: "",
+                priority: $scope.findEmptyPriority($scope.statusArray)
+            }).success(function (){
+                    console.log("Succesfully added new status")
+                    $scope.getStatuses();
+                });
+        };
+
+
         $scope.requiredStatus = function(status){
-          return(status.initialState || status.finalState);
+            return(status.priority == 1 || status.priority == 15);
         };
 
 
