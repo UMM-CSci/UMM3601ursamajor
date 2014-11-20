@@ -472,13 +472,21 @@ angular.module('umm3601ursamajorApp')
             console.log(submission.abstract.length);
             var commentObj = {};
             var comments = submission.comments;
+            var commenter = $scope.getCurrentUser;
             var selection = $window.getSelection();
             var commentText = prompt("Comment");
-            commentObj.beginner = selection.anchorOffset;
-            commentObj.ender = selection.focusOffset;
+            if(selection.anchorOffset <= selection.focusOffset) {
+                commentObj.beginner = selection.anchorOffset;
+                commentObj.ender = selection.focusOffset;
+            } else if(selection.anchorOffset > selection.focusOffset){
+                commentObj.ender = selection.anchorOffset;
+                commentObj.beginner = selection.focusOffset;
+            }
             commentObj.commentText = commentText;
+            commentObj.commenter = commenter;
             commentObj.selectionText = selection.toString();
             commentObj.indicator = 0;
+            commentObj.responses = [];
             comments.push(commentObj);
             console.log(comments);
             $http.patch('api/submissions/' + $scope.selection.item._id,
@@ -493,28 +501,41 @@ angular.module('umm3601ursamajorApp')
 //            $scope.populateComments(submission);
         };
 
-        $scope.populateComments = function (submission) {
-//            var submission = submission;
+        $scope.populateComments = function (submissionCopy , index) {
+            var submission = submissionCopy;
+            var abstract = submission.abstract;
             var comments = submission.comments;
-            for (var i = 0; i < comments.length; i++) {
-                var start = comments[i].beginner;
-                var end = comments[i].ender;
-                if (i == 0 && comments[i].indicator == 0) {
-                    submission.abstract = submission.abstract.substring(0, start) + '<b>' + submission.abstract.substring(start, end) + '</b>' + submission.abstract.substring(end, submission.abstract.length);
-                    comments[i].indicator = 1;
-                    console.log(submission.abstract);
-                    console.log(i, "Cats");
-                } else if (comments[i].indicator == 0){
-                    start += 7 * (i);
-                    end += 7 * (i);
-                    submission.abstract = submission.abstract.substring(0, start) + '<b>' + submission.abstract.substring(start, end) + '</b>' + submission.abstract.substring(end, submission.abstract.length);
-                    comments[i].indicator = 1;
-                    console.log(submission.abstract);
-                    console.log(start);
-                    console.log(end);
-                }
+            var start = comments[index].beginner;
+            var end = comments[index].ender;
+            abstract = abstract.substring(0, start) + '<b>' + abstract.substring(start, end) + '</b>' + abstract.substring(end, abstract.length);
+            var newWindow = $window.open("", null, "height=300,width=600,status=yes,toolbar=no,menubar=no,location=no");
+            newWindow.document.write("<i>" + comments[index].commentText + "</i>");
+            newWindow.document.write("<br></br>");
+            newWindow.document.write(abstract);
+        };
+
+        $scope.addResponse = function (submission, index){
+            var comments = submission.comments;
+            var comment = comments[index];
+            var response = prompt("response");
+            comment.responses.push(response);
+            $http.patch('api/submissions/' + $scope.selection.item._id,
+                {comments: comments}
+            ).success(function(){
+                    console.log("successfully pushed comments to submission!");
+                });
+        };
+
+        $scope.deleteComment = function (submission, index){
+            var comments = submission.comments;
+            if (confirm("Do you wish to delete this comment and all of its responses?")) {
+                comments.splice(index, 1);
+                $http.patch('api/submissions/' + $scope.selection.item._id,
+                    {comments: comments}
+                ).success(function(){
+                        console.log("successfully pushed comments to submission!");
+                    });
             }
-            return submission.abstract;
         };
 
     });

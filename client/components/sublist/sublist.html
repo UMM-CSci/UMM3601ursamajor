@@ -112,12 +112,14 @@
                 <li class="list-group-item">
                     <h3>Abstract</h3>
                     <button class="btn btn-primary" ng-click="addComment(selection.item)">COMMENT!</button>
-                    <button class="btn btn-primary" ng-click="populateComments(selection.item)">Show comments in context!</button>
                 </li>
                 <li class="list-group-item"><p ng-bind-html="selection.item.abstract"></p>
                     <h3>Comments</h3>
-                <li class="list-group-itwm" ng-repeat="comment in selection.item.comments">
+                <li class="list-group-item" ng-repeat="comment in selection.item.comments">
                 <b>{{comment.selectionText}}:</b> {{comment.commentText}}
+                <button class="btn xs" ng-click="addResponse(selection.item , $index)">Respond to comment</button>
+                <button class="btn xs" ng-click="populateComments(selection.item , $index)">Show comment in context!</button>
+                <button class="btn xs" ng-click="deleteComment(selection.item , $index)">Delete Comment</button>
                 </li>
             </ul>
             <br>
