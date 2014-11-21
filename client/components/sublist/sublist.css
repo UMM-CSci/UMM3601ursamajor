@@ -77,7 +77,9 @@ hr {
 .overflowAuto {
     overflow: auto;
 }
-
+/*
+block alert ng-binding < --css Look this up for the transparent button size
+*/
 /*----------------------------------------------------------------------------------------------*/
 
 
