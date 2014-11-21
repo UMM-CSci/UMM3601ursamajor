@@ -10,10 +10,16 @@ angular.module('umm3601ursamajorApp')
         $scope.isAdmin = Auth.isAdmin;
         $scope.isChair = Auth.isChair;
         $scope.statusArray = [];
+        $scope.submissions = [];
 
 
         $http.get('/api/statuss').success(function(statusArray) {
             $scope.statusArray = statusArray;
+        });
+
+        $http.get('/api/submissions').success(function(submissions) {
+            $scope.submissions = submissions;
+            socket.syncUpdates('submission', $scope.submissions);
         });
 
         $scope.getStatuses = function(){
@@ -23,9 +29,9 @@ angular.module('umm3601ursamajorApp')
         };
 
         $scope.statusEditorColor = function(status){
-            return {'border-left': '4px solid rgb(' + status.color.red + ','
-                                                 + status.color.green + ','
-                                                 + status.color.blue + ')'};
+            return {'border-left': '4px solid rgb(' + status.color.red   + ','
+                                                    + status.color.green + ','
+                                                    + status.color.blue  + ')'};
         };
 
         $scope.deleteSubmissionConfirm = function(item){
@@ -79,20 +85,41 @@ angular.module('umm3601ursamajorApp')
 
 
         $scope.submitChanges = function(status) {
-            var r = confirm("Are you sure you want to edit this status?")
+
             var x = $scope.statusArray.indexOf(status);
-            if (r == true){
-                    $http.put('/api/statuss/' + $scope.statusArray[x]._id,
+            var strict = "";
+            var r = confirm("Are you sure you want to edit this status?");
+            $http.get('/api/statuss/' + $scope.statusArray[x]._id).success(function(oldStatus) {
+                console.log("this should come first");
+                strict  = oldStatus.strict;
+                if (r){
+                    $http.patch('/api/statuss/' + $scope.statusArray[x]._id,
                         {
                             strict: $scope.statusArray[x].strict,
                             color: $scope.statusArray[x].color,
                             emailSubject: $scope.statusArray[x].emailSubject,
                             emailBody: $scope.statusArray[x].emailBody
                         }
+
                     ).success(function () {
+                            console.log("this should come second");
+                            for(var j = 0; j < $scope.submissions.length; j++){
+                                if($scope.submissions[j].status.strict == strict){
+                                    console.log("things were detected to be different");
+                                    $scope.submissions[j].status.strict = $scope.statusArray[x].strict;
+                                    $http.patch('/api/submissions/' + $scope.submissions[j]._id, {
+                                        status: {strict: $scope.statusArray[x].strict, text: $scope.submissions[j].status.text}
+                                    })
+                                }
+                            }
+
                             $location.path('/admin');
                         })
                 }
+            });
+
+
+
         };
 
 
