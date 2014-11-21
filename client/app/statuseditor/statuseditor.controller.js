@@ -85,7 +85,6 @@ angular.module('umm3601ursamajorApp')
 
 
         $scope.submitChanges = function(status) {
-
             var x = $scope.statusArray.indexOf(status);
             var strict = "";
             var r = confirm("Are you sure you want to edit this status?");
@@ -100,7 +99,6 @@ angular.module('umm3601ursamajorApp')
                             emailSubject: $scope.statusArray[x].emailSubject,
                             emailBody: $scope.statusArray[x].emailBody
                         }
-
                     ).success(function () {
                             console.log("this should come second");
                             for(var j = 0; j < $scope.submissions.length; j++){
@@ -112,14 +110,10 @@ angular.module('umm3601ursamajorApp')
                                     })
                                 }
                             }
-
                             $location.path('/admin');
                         })
                 }
             });
-
-
-
         };
 
 
