@@ -54,16 +54,17 @@
 #circle {
     width: 30px;
     height: 30px;
-    background: #ffcc33;
+    background: #7a0019;
     border-style: solid;
+    border-radius: 1px;
     border-radius: 25px;
-    border-color: red;
+    border-color: black;
     margin: 10px 10px 0 2px;
     text-align: center;
     padding-top: 5px;
     color: white;
 }
 #circle:hover {
-    background: maroon;
+    background: #ffcc33;
 }
 /*----------------------------------------------------------------------------------------*/
