@@ -25,7 +25,7 @@ angular.module('umm3601ursamajorApp')
         //document.location.href = "https://www.google.com/accounts/Logout";
         Auth.logout();
         $window.open("https://www.google.com/accounts/Logout");
-        $location.path('/login');
+        //$location.path('/login');
     };
 
     $scope.isActive = function(route) {
