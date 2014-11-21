@@ -54,8 +54,10 @@
 #circle {
     width: 30px;
     height: 30px;
-    background: red;
+    background: #ffcc33;
+    border-style: solid;
     border-radius: 25px;
+    border-color: red;
     margin: 10px 10px 0 2px;
     text-align: center;
     padding-top: 5px;
