@@ -524,6 +524,7 @@ angular.module('umm3601ursamajorApp')
             ).success(function(){
                     console.log("successfully pushed comments to submission!");
                 });
+            console.log(comment.responses);
         };
 
         $scope.deleteComment = function (submission, index){

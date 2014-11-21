@@ -120,6 +120,9 @@
                 <button class="btn xs" ng-click="addResponse(selection.item , $index)">Respond to comment</button>
                 <button class="btn xs" ng-click="populateComments(selection.item , $index)">Show comment in context!</button>
                 <button class="btn xs" ng-click="deleteComment(selection.item , $index)">Delete Comment</button>
+                <li class="list-group-item" ng-repeat="response in selection.item.comments.responses">
+                {{response}}
+                </li>
                 </li>
             </ul>
             <br>
