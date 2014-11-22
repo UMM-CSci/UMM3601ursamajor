@@ -272,6 +272,11 @@ angular.module('umm3601ursamajorApp')
             socket.syncUpdates('status', $scope.status);
         });
 
+        $http.get('/api/users').success(function(users) {
+            $scope.users = users;
+            $scope.syncUpdates('users', $scope.users)
+        });
+
         //*******Needs to be updated with new status system******
         var sendGmail = function(opts){
             var str = 'http://mail.google.com/mail/?view=cm&fs=1'+
@@ -309,7 +314,7 @@ angular.module('umm3601ursamajorApp')
 
         // ---------------------- Controlling selection of submission for detail view ---------------------------------
 
-        $scope.selection = {selected: false, item: null, resubmission: null};
+        $scope.selection = {selected: false, item: null, resubmission: null, reviewGroup: 0};
 
         $scope.selectItem = function(itemIndex){
             var filteredSubmissions =
@@ -330,6 +335,7 @@ angular.module('umm3601ursamajorApp')
             $scope.selection.selected = true;
             $scope.selection.item = filteredSubmissions[itemIndex];
             $scope.selection.resubmission = $scope.getResubmission($scope.selection.item);
+            $scope.selection.reviewGroup = $scope.selection.item.group;
 
             $scope.resetTemps();
         };
@@ -389,12 +395,39 @@ angular.module('umm3601ursamajorApp')
                 4
             ];
 
+        $scope.getReviewGroupMembers = function(group) {
+            return $filter('filter')($scope.users,
+                function(user) {
+                    return user.group == group;
+                })
+        };
+
+        $scope.checkForConflict = function(submission) {
+            console.log("checking for conflicts for: " + submission.title + " and review group " + $scope.selection.reviewGroup);
+            if (
+                $filter('filter')($scope.getReviewGroupMembers($scope.selection.reviewGroup),
+                    function(user) {
+                        return user.email === submission.copresenterOneInfo.email || user.email === submission.presenterInfo.email || user.email === submission.adviserInfo.email || user.email === submission.copresenterTwoInfo.email;
+                    }
+                ).length > 0
+                ) {
+                console.log("Conflict with submission and review group.");
+                alert('Conflict with submission and review group.');
+            }
+        };
+
         $scope.setReviewGroup = function(submission) {
-            $http.patch('api/submissions/' + submission._id,
-                {group: submission.group}
-            ).success(function(){
-                    console.log("Successfully updated status of submission");
+            $scope.checkForConflict(submission);
+            var bl = confirm('Are you sure you want to change this submissions review group?');
+            if(bl) {
+                console.log(bl);
+                $http.patch('api/submissions/' + submission._id,
+                    {group: $scope.selection.reviewGroup}
+                ).success(function(){
+                        console.log("Successfully updated status of submission");
+                        submission.group = $scope.selection.reviewGroup;
                 });
+            }
         };
 
         $scope.resetTemps = function() {
