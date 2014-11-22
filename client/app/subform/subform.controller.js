@@ -4,6 +4,7 @@ angular.module('umm3601ursamajorApp')
 
   .controller('SubformCtrl', function ($scope, $http, Auth, $location, socket, $filter, $window) {
 
+
     if(Auth.isLoggedIn() === false) {
         $location.path('/');
     }

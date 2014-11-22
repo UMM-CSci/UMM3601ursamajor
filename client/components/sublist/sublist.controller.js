@@ -72,36 +72,51 @@ angular.module('umm3601ursamajorApp')
             return null;
         };
 
+        // Takes a String and sets the review group filter selection to that string.
+        // Used for changing which review group filter is applied.
         $scope.setReviewGroupSelection = function(str) {
             $scope.filterData.reviewGroupFilterSelection = str;
         };
 
+        // Takes no arguments and returns true if the user provided by Auth is an admin, or is in the admin group.
         $scope.hasAdminPrivs = function(){
             return (($scope.getCurrentUser.role != null && $scope.getCurrentUser.role == "Admin") || $scope.isAdmin() || $scope.isChair());
         };
 
+        // Takes a submission as an argument and returns true if the user provided by Auth is listed as the primary presenter on that submission.
+        // (based on email, not name)
+        // Returns false if the submission is null, or the user isn't listed as the primary presenter.
         $scope.isPresenter = function(submission) {
             if(submission == null) return false;
             return $scope.email === submission.presenterInfo.email;
         };
 
+        // Takes a submission as an argument and returns true if the user provided by Auth is listed as a co-presenter on that submission.
+        // (based on email, not name)
+        // Returns false if the submission is null, or if the user isn't listed as a co-presenter.
         $scope.isCoPresenter = function(submission) {
             if(submission == null) return false;
             return $scope.email === submission.copresenterOneInfo.email ||
                 $scope.email === submission.copresenterTwoInfo.email;
         };
 
+        // Takes a submission as an argument and returns true if the user provided by Auth is listed as the adviser on that submission.
+        // (based on email, not name)
+        // returns false if the submission is null, or if the user isn't listed as the adviser.
         $scope.isAdviser = function(submission) {
             if(submission == null) return false;
             return $scope.email === submission.adviserInfo.email;
         };
 
+        // Takes a submission as an argument and returns true if the user provided by Auth is in the review group that the submission is assigned to.
+        // returns false if the submission is null, or if the user isn't in the correct review group.
         $scope.isReviewerGroup = function(submission){
             if(submission == null) return false;
             return $scope.group === submission.group;
         };
 
-
+        // Takes a submission and returns true if the user provided by Auth has permission to see that submission.
+        // True
         $scope.hasPermissions = function(submission) {
             if(submission == null) return false;
             if(!Auth.isLoggedIn){
@@ -401,7 +416,7 @@ angular.module('umm3601ursamajorApp')
 
             sendGmail({
                 to: $scope.selection.item.presenterInfo.email +" "+ $scope.selection.item.copresenterOneInfo.email +" "+ $scope.selection.item.copresenterTwoInfo.email,
-                subject: $scope.statusEdit.subject[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)],
+                subject: $scope.statusEdit.subject,
                 message: $scope.selection.item.presenterInfo.first +
                     $scope.statusEdit.body[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)]
             });
@@ -445,7 +460,16 @@ angular.module('umm3601ursamajorApp')
             ).success(function(){
                     console.log("Successfully flagged submission for resubmit");
                     if(!$scope.hasAdminPrivs()){$location.path('/subform');}
-                });
+            });
+
+            //Playing with trying to use the Submission service instead of the above http request (as per the role change controller)
+//            Submission.update({id: $scope.selection.item._id},
+//                {resubmissionData: {comment: "flagged for resubmit", parentSubmission: $scope.selection.item.resubmissionData.parentSubmission, resubmitFlag: true}}
+//            ).success(function(){
+//                    console.log("successfully flagged submission for resubmit");
+//                    $scope.selection.item.resubmissionData.resubmitFlag = true;
+//                    if(!$scope.hasAdminPrivs()){$location.path('/subform');}
+//            });
         };
 
         //TODO: Right now anyone that can see a resubmission can approve a resubmission, so that needs to get fixed. Should wait to fix until the permissions system is sorted out.
@@ -472,47 +496,84 @@ angular.module('umm3601ursamajorApp')
             console.log(submission.abstract.length);
             var commentObj = {};
             var comments = submission.comments;
+            var commenter = $scope.getCurrentUser().name;
             var selection = $window.getSelection();
             var commentText = prompt("Comment");
-            commentObj.beginner = selection.anchorOffset;
-            commentObj.ender = selection.focusOffset;
+            if(selection.anchorOffset <= selection.focusOffset) {
+                commentObj.beginner = selection.anchorOffset;
+                commentObj.ender = selection.focusOffset;
+            } else if(selection.anchorOffset > selection.focusOffset){
+                commentObj.ender = selection.anchorOffset;
+                commentObj.beginner = selection.focusOffset;
+            }
             commentObj.commentText = commentText;
+            commentObj.commenter = commenter;
             commentObj.selectionText = selection.toString();
             commentObj.indicator = 0;
+            commentObj.responses = [];
             comments.push(commentObj);
+            console.log(comments);
             $http.patch('api/submissions/' + $scope.selection.item._id,
                 {comments: comments}
             ).success(function(){
                     console.log("successfully pushed comments to submission!");
                 });
-//            console.log(submission.comments);
-//            console.log(submission.abstract.length);
-//            console.log(comments.length);
-//            $scope.populateComments(submission);
+            console.log(submission.comments);
         };
 
-        $scope.populateComments = function (submission) {
-//            var submission = submission;
+        $scope.populateComments = function (submissionCopy , index) {
+            var submission = submissionCopy;
+            var abstract = submission.abstract;
             var comments = submission.comments;
-            for (var i = 0; i < comments.length; i++) {
-                var start = comments[i].beginner;
-                var end = comments[i].ender;
-                if (i == 0 && comments[i].indicator == 0) {
-                    submission.abstract = submission.abstract.substring(0, start) + '<b>' + submission.abstract.substring(start, end) + '</b>' + submission.abstract.substring(end, submission.abstract.length);
-                    comments[i].indicator = 1;
-                    console.log(submission.abstract);
-                    console.log(i, "Cats");
-                } else if (comments[i].indicator == 0){
-                    start += 7 * (i + 2);
-                    end += 7 * (i + 2);
-                    submission.abstract = submission.abstract.substring(0, start) + '<b>' + submission.abstract.substring(start, end) + '</b>' + submission.abstract.substring(end, submission.abstract.length);
-                    comments[i].indicator = 1;
-                    console.log(submission.abstract);
-                    console.log(start);
-                    console.log(end);
-                }
+            var start = comments[index].beginner;
+            var end = comments[index].ender;
+            abstract = abstract.substring(0, start) + '<b>' + abstract.substring(start, end) + '</b>' + abstract.substring(end, abstract.length);
+            var newWindow = $window.open("", null, "height=300,width=600,status=yes,toolbar=no,menubar=no,location=no");
+            newWindow.document.write("<b>"+"Comment made by " + comments[index].commenter + ": " +"</b>"+"<i>" + comments[index].commentText + "</i>");
+            newWindow.document.write("<br></br>");
+            newWindow.document.write(abstract);
+        };
+
+        $scope.showResponses = false;
+
+        $scope.addResponse = function (submission, index){
+            var comments = submission.comments;
+            var comment = comments[index];
+            var responseObj = {};
+            var response = prompt("response");
+            responseObj.response = response;
+            responseObj.responder = $scope.getCurrentUser().name;
+            comment.responses.push(responseObj);
+            $http.patch('api/submissions/' + $scope.selection.item._id,
+                {comments: comments}
+            ).success(function(){
+                    console.log("successfully pushed comments to submission!");
+                });
+            console.log(comment.responses);
+        };
+
+        $scope.deleteComment = function (submission, index){
+            var comments = submission.comments;
+            if (confirm("Do you wish to delete this comment and all of its responses?")) {
+                comments.splice(index, 1);
+                $http.patch('api/submissions/' + $scope.selection.item._id,
+                    {comments: comments}
+                ).success(function(){
+                        console.log("successfully pushed comments to submission!");
+                    });
             }
-            return submission.abstract;
+        };
+
+        $scope.deleteResponse = function (submission, parentIndex, childIndex){
+            var comments = submission.comments;
+            if (confirm("Do you wish to delete this response?")) {
+                comments[parentIndex].responses.splice(childIndex, 1);
+                $http.patch('api/submissions/' + $scope.selection.item._id,
+                    {comments: comments}
+                ).success(function(){
+                        console.log("successfully pushed comments to submission!");
+                    });
+            }
         };
 
     });
