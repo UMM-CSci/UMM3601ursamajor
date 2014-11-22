@@ -2,12 +2,12 @@
 
 angular.module('umm3601ursamajorApp')
   .controller('LoginCtrl', function ($scope, Auth, $location, $window) {
-    $scope.user = {};
-    $scope.errors = {};
 
-        if(Auth.isLoggedIn() === true) {
-            $location.path('/');
-        }
+    //TODO: this is really broken right now we have no idea why. We'll fix it later (tm) (11/22/14)
+    if((Auth.isLoggedIn())) {
+        console.log("Made it in the if-statement" + Auth.isLoggedIn());
+        $location.path('/');
+    }
 
     $scope.login = function(form) {
       $scope.submitted = true;
