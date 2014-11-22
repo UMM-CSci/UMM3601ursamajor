@@ -65,8 +65,8 @@
         </li>
         <li class="list-group-item" ng-style="statusColorTab(selection.item.status.strict)">
 
-            <div class="block alert" ng-style="statusColorBody(selection.item.status.strict)">
-                <button ng-show="hasAdminPrivs()" class="btn btn-sm btn-warning close" ng-click="editStatus(selection.item)"><span class="glyphicon glyphicon-file"></span></button>
+            <div class="block alert" ng-style="statusColorBody(selection.item.status.strict)" ng-click="editStatus(selection.item)">
+                <!--<button ng-show="hasAdminPrivs()" class="btn btn-sm btn-warning close" ng-click="editStatus(selection.item)"><span class="glyphicon glyphicon-file"></span></button>-->
                 <b>Status:</b> {{selection.item.status.strict}} <br>
                 <b>Comment:</b> {{selection.item.status.text}}</p>
                 <div ng-show="statusEdit.editing">
