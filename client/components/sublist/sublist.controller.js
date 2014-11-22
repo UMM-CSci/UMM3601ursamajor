@@ -350,6 +350,7 @@ angular.module('umm3601ursamajorApp')
         };
 
         $scope.isApproved = function(submission) {
+          if(submission == null) return false;
           return submission.approval;
         };
 
