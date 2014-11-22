@@ -145,6 +145,11 @@
             <p ng-show="isAdviser(selection.item)">adviser of this submission</p>
             <p ng-show="isReviewerGroup(selection.item)">reviewer in Reviewer Group {{selection.item.group}}</p>
         </li>
+        <li class="list-group-item">
+            <select ng-change="setReviewGroup(selection.item)" ng-model="selection.item.group">
+                <option ng-repeat="option in groupOptions" value={{option}}>{{option}}</option>
+            </select>
+        </li>
     </ul>
 
 <!-- Starts showing resubmissions in details view here. -->

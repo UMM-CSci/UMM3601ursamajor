@@ -382,6 +382,21 @@ angular.module('umm3601ursamajorApp')
 
         // -------------------------- Editing of status ----------------------------------------------
 
+        $scope.groupOptions =
+            [   1,
+                2,
+                3,
+                4
+            ];
+
+        $scope.setReviewGroup = function(submission) {
+            $http.patch('api/submissions/' + submission._id,
+                {group: submission.group}
+            ).success(function(){
+                    console.log("Successfully updated status of submission");
+                });
+        };
+
         $scope.resetTemps = function() {
             if($scope.selection.item != null){
                 $scope.statusEdit.temp.strict = $scope.selection.item.status.strict;
