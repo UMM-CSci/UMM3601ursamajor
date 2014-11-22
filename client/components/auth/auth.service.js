@@ -34,7 +34,7 @@ angular.module('umm3601ursamajorApp')
           this.logout();
           deferred.reject(err);
           return cb(err);
-        }.bind(this));
+        }.bind(this));$window.open
 
         return deferred.promise;
       },

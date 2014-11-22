@@ -37,6 +37,14 @@ angular.module('umm3601ursamajorApp')
             $http.delete('/api/statuss/' + item._id).success(function(){
                 $scope.statusArray.splice($scope.statusArray.indexOf(item), 1);
             });
+            var threshold = item.priority;
+            for(var j = 0; j < status.length; j++) {
+                if($scope.statusArray[j].priority != 1 || $scope.statusArray[j].priority != 15) {
+                    if ($scope.statusArray[j].priority > threshold) {
+                        $scope.statusArray[j].priority--;
+                    }
+                }
+            }
         };
 
         $scope.findEmptyPriority = function(status){

@@ -103,22 +103,81 @@ Subformtext.find({}).remove(function() {
 
 User.find({}).remove(function() {
     User.create({
-            provider: 'google',
-            role: 'admin',
             name: 'Matthew Kangas',
             email: 'kanga139@morris.umn.edu',
+            provider: 'google',
             google: {
-                email: 'kanga139@morris.umn.edu',
+                hd: 'morris.umn.edu',
+                locale: "en",
+                gender: "male",
+                picture: "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg",
+                link: "https://plus.google.com/112639306116346340748",
                 family_name: 'Kangas',
                 given_name: 'Matthew',
-                hd: 'morris.umn.edu',
-                id: '112564589444054176387',
-                link: "https://plus.google.com/112639306116346340748",
-                locale: "en",
                 name: "Matthew Kangas",
+                verified_email: true,
+                email: 'kanga139@morris.umn.edu',
+                id:"112564589444054176387"
+            },
+            group: -1,
+            role: "chair",
+            __v: 0
+            }, {
+            name: "Maggie Casale",
+            email: "casal033@morris.umn.edu",
+            provider: "google",
+            google: {
+                hd: "morris.umn.edu",
+                locale: "en",
+                gender: "female",
                 picture: "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg",
-                verified_email: true
-            }
+                link: "https://plus.google.com/116234824364241021424",
+                family_name: "Casale",
+                given_name: "Maggie",
+                name: "Maggie Casale",
+                verified_email: true,
+                email: "casal033@morris.umn.edu",
+                id: "116234824364241021424"
+            },
+            group: -1,
+            role: "admin",
+            __v: 0
+            }, {
+            name: "Jacob Opdahl",
+            email: "opdah023@morris.umn.edu",
+            provider: "google",
+            google: {
+                hd: "morris.umn.edu",
+                locale: "en",
+                picture: "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg",
+                family_name: "Opdahl",
+                given_name: "Jacob",
+                name: "Jacob Opdahl",
+                verified_email: true,
+                email: "opdah023@morris.umn.edu",
+                id: "111717955914079275928"
+            },
+            group: -1,
+            role: "admin",
+            __v: 0
+            }, {
+            name: "Joseph Thelen",
+            email: "thele116@morris.umn.edu",
+            provider: "google",
+            google: {
+                hd: "morris.umn.edu",
+                locale: "en",
+                picture: "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg",
+                family_name: "Thelen",
+                given_name: "Joseph",
+                name: "Joseph Thelen",
+                verified_email: true,
+                email: "thele116@morris.umn.edu",
+                id: "114952307600153399103"
+            },
+            group: -1,
+            role: "admin",
+            __v: 0
         }, {
             provider: 'local',
             role: 'user',
@@ -143,30 +202,32 @@ User.find({}).remove(function() {
         }, {
             provider: 'local',
             role: 'reviewer',
-            name: 'Reviewer',
+            name: 'Reviewer3',
             email: 'reviewer@reviewer.com',
             password: 'reviewer',
             group: 3
         }, function () {
             console.log('finished populating users');
         }, {
-            provider: 'google',
-            role: 'reviewer',
-            email: 'gusaa004@morris.umn.edu',
             name: 'Dalton Gusaas',
-            group: 2,
+            email: 'gusaa004@morris.umn.edu',
+            provider: 'google',
             google: {
-                email: 'gusaa004@morris.umn.edu',
+                hd: 'morris.umn.edu',
+                locale: "en",
+                gender: "male",
+                picture: "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg",
+                link: "https://plus.google.com/105501894365476440976",
                 family_name: 'Gusaas',
                 given_name: 'Dalton',
-                hd: 'morris.umn.edu',
-                id: '105501894365476440976',
-                link: "https://plus.google.com/105501894365476440976",
-                locale: "en",
                 name: "Dalton Gusaas",
-                picture: "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg",
-                verified_email: true
-            }
+                verified_email: true,
+                email: 'gusaa004@morris.umn.edu',
+                id: '105501894365476440976'
+            },
+            group: 2,
+            role: "reviewer",
+            __v: 0
         }
     );
 });

@@ -9,6 +9,16 @@ hr {
     text-align: left;
 }
 
+/*adds inline block to misc. things */
+.inlineBlock {
+    display: inline-block;
+}
+
+.sideMargins {
+   margin-left: 5px;
+   margin-right: 5px;
+}
+
 /*Adds word wrapping*/
 .breakLongWords {
     word-wrap: break-word;

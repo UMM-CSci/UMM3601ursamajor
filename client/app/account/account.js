@@ -18,5 +18,10 @@ angular.module('umm3601ursamajorApp')
         templateUrl: 'app/account/settings/settings.html',
         controller: 'SettingsCtrl',
         authenticate: true
+      })
+      .state('accountInfo', {
+        url: '/accountInfo',
+        templateUrl: 'app/account/accountInfo/accountInfo.html',
+        controller: 'AccountinfoCtrl'
       });
   });

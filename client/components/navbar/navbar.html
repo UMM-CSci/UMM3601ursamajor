@@ -17,6 +17,8 @@
         <li ng-show="isAdmin()" ng-class="{active: isActive('/admin')}"><a href="/admin">Admin</a></li>
         <li ng-show="isChair()" ng-class="{active: isActive('/admin')}"><a href="/admin">Chair</a></li>
         <li ng-show="isLoggedIn()" ng-class="{active: isActive('/submissionpage')}"><a href="/submissionpage">Submission List</a></li>
+            <li ng-show ="count()!=0" id="circle">{{count()}}</li>
+            <!-- <a href="/submissionpage" id="circle">{{count()}}</a> --><!-- Making it a link moves the text to weird position for unknown reasons. -->
         <li ng-show="isLoggedIn()" ng-class="{active: isActive('/accountInfo')}"><a href="/accountInfo">Account Information</a></li>
       </ul>
 
