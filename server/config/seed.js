@@ -8,33 +8,37 @@
 var User = require('../api/user/user.model');
 var Submission = require('../api/submission/submission.model');
 var Subformtext = require('../api/subformtext/subformtext.model');
-//var Status = require('../api/status/status.model');
+var Status = require('../api/status/status.model');
 
 //Not working code, scrapped to use on a later date
 //      -Nic, (11/9)
-//Status.find({}).remove(function() {
-//    Status.create({
-//        strict: "Reviewing in Process",
-//        color: {red: 255, green: 220, blue: 10, alpha: 1},
-//        emailSubject: "URS submission update",
-//        emailBody: ", your URS submission has been approved by your adviser."
-//    },{
-//        strict: "Revisions Needed",
-//        color: {red: 0, green: 100, blue: 255, alpha: 1},
-//        emailSubject: "URS submission update",
-//        emailBody: ", your URS submission has been flagged for revisions, and is in need of changes."
-//    },{
-//        strict: "Accepted",
-//        color: {red: 0, green: 255, blue: 0, alpha: 1},
-//        emailSubject: "URS submission update",
-//        emailBody:  ", your URS submission has been approved, congratulations!"
-//    },{
-//        strict: "Awaiting Adviser Approval",
-//        color: {red: 255, green: 0, blue: 0, alpha: 1},
-//        emailSubject: "",
-//        emailBody: ""
-//    });
-//});
+Status.find({}).remove(function() {
+    Status.create({
+        strict: "Accepted",
+        color: {red: 0, green: 255, blue: 0, alpha: 1},
+        emailSubject: "URS submission update",
+        emailBody:  ", Your URS submission has been approved, congratulations!",
+        priority: 1
+    },{
+        strict: "Revisions Needed",
+        color: {red: 0, green: 100, blue: 255, alpha: 1},
+        emailSubject: "URS submission update",
+        emailBody: ", Your URS submission has been flagged for revisions, and is in need of changes.",
+        priority: 3
+    },{
+        strict: "Reviewing in Process",
+        color: {red: 255, green: 220, blue: 10, alpha: 1},
+        emailSubject: "URS submission update",
+        emailBody: ", Your URS submission has been approved by your adviser.",
+        priority: 2
+    },{
+        strict: "Awaiting Adviser Approval",
+        color: {red: 255, green: 0, blue: 0, alpha: 1},
+        emailSubject: "URS submission update",
+        emailBody: ", Your URS submission is pending approval from your adviser.",
+        priority: 15
+    });
+});
 
 Subformtext.find({}).remove(function() {
     Subformtext.create({
@@ -56,18 +60,18 @@ Subformtext.find({}).remove(function() {
             "\n3. Professional tone, including appropriate word choice and correct grammar, spelling, and punctuation.",
         header2: "Field-specific criteria:",
         notes2: "Mark the category below that best describes your project. Your 250-word submission must also include the appropriate field-specific elements listed below.",
-        artistCriteria: "Artist statements" +
-            "\n1. A concise explanation of the subject matter or concepts you are exploring (what you do)." +
+        artistCriteria:
+            "1. A concise explanation of the subject matter or concepts you are exploring (what you do)." +
             "\n2. A concise explanation of artistic goals (why you do what you do)." +
             "\n3. A concise explanation of processes, production methods, tools, media, innovations, etc. (how you do what you do)." +
             "\n4. A concise explanation of historical context, including how this work builds on, differs from, or responds to existing work or performances.",
-        humanitiesCriteria: "Humanities proposals" +
-            "\n1. A concise explanation of the relevant intellectual and scholarly context of your work." +
+        humanitiesCriteria:
+            "1. A concise explanation of the relevant intellectual and scholarly context of your work." +
             "\n2. A concise explanation of how your project fits within this intellectual context. Does it extend, revise, or complicate, or provide a new way of looking at existing work in the field?" +
             "\n3. A clear statement of argument: a specific, debatable claim, not merely a summary of others’ research." +
             "\n4. An explanation of the significance and broader implications of your work.",
-        scienceCriteria: "Science & Social Science abstracts" +
-            "\n1. A concise explanation of the scholarly context for the project with a statement of the project’s specific objective." +
+        scienceCriteria:
+            "1. A concise explanation of the scholarly context for the project with a statement of the project’s specific objective." +
             "\n2. A clear explanation of the methods used to address the objective." +
             "\n3. A clear explanation of the results or findings." +
             "\n4. An explanation of the significance and broader implications of the project's results.",
@@ -99,22 +103,81 @@ Subformtext.find({}).remove(function() {
 
 User.find({}).remove(function() {
     User.create({
-            provider: 'google',
-            role: 'admin',
             name: 'Matthew Kangas',
             email: 'kanga139@morris.umn.edu',
+            provider: 'google',
             google: {
-                email: 'kanga139@morris.umn.edu',
+                hd: 'morris.umn.edu',
+                locale: "en",
+                gender: "male",
+                picture: "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg",
+                link: "https://plus.google.com/112639306116346340748",
                 family_name: 'Kangas',
                 given_name: 'Matthew',
-                hd: 'morris.umn.edu',
-                id: '112564589444054176387',
-                link: "https://plus.google.com/112639306116346340748",
-                locale: "en",
                 name: "Matthew Kangas",
+                verified_email: true,
+                email: 'kanga139@morris.umn.edu',
+                id:"112564589444054176387"
+            },
+            group: -1,
+            role: "chair",
+            __v: 0
+            }, {
+            name: "Maggie Casale",
+            email: "casal033@morris.umn.edu",
+            provider: "google",
+            google: {
+                hd: "morris.umn.edu",
+                locale: "en",
+                gender: "female",
                 picture: "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg",
-                verified_email: true
-            }
+                link: "https://plus.google.com/116234824364241021424",
+                family_name: "Casale",
+                given_name: "Maggie",
+                name: "Maggie Casale",
+                verified_email: true,
+                email: "casal033@morris.umn.edu",
+                id: "116234824364241021424"
+            },
+            group: -1,
+            role: "admin",
+            __v: 0
+            }, {
+            name: "Jacob Opdahl",
+            email: "opdah023@morris.umn.edu",
+            provider: "google",
+            google: {
+                hd: "morris.umn.edu",
+                locale: "en",
+                picture: "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg",
+                family_name: "Opdahl",
+                given_name: "Jacob",
+                name: "Jacob Opdahl",
+                verified_email: true,
+                email: "opdah023@morris.umn.edu",
+                id: "111717955914079275928"
+            },
+            group: -1,
+            role: "admin",
+            __v: 0
+            }, {
+            name: "Joseph Thelen",
+            email: "thele116@morris.umn.edu",
+            provider: "google",
+            google: {
+                hd: "morris.umn.edu",
+                locale: "en",
+                picture: "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg",
+                family_name: "Thelen",
+                given_name: "Joseph",
+                name: "Joseph Thelen",
+                verified_email: true,
+                email: "thele116@morris.umn.edu",
+                id: "114952307600153399103"
+            },
+            group: -1,
+            role: "admin",
+            __v: 0
         }, {
             provider: 'local',
             role: 'user',
@@ -131,38 +194,40 @@ User.find({}).remove(function() {
             group: -1
         }, {
             provider: 'local',
-            role: 'co-chair',
-            name: 'Co-Chair',
-            email: 'coChair@coChair.com',
-            password: 'cochair',
+            role: 'chair',
+            name: 'Chair',
+            email: 'chair@chair.com',
+            password: 'chair',
             group: -1
         }, {
             provider: 'local',
             role: 'reviewer',
-            name: 'Reviewer',
+            name: 'Reviewer3',
             email: 'reviewer@reviewer.com',
             password: 'reviewer',
             group: 3
         }, function () {
             console.log('finished populating users');
         }, {
-            provider: 'google',
-            role: 'reviewer',
-            email: 'gusaa004@morris.umn.edu',
             name: 'Dalton Gusaas',
-            group: 2,
+            email: 'gusaa004@morris.umn.edu',
+            provider: 'google',
             google: {
-                email: 'gusaa004@morris.umn.edu',
+                hd: 'morris.umn.edu',
+                locale: "en",
+                gender: "male",
+                picture: "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg",
+                link: "https://plus.google.com/105501894365476440976",
                 family_name: 'Gusaas',
                 given_name: 'Dalton',
-                hd: 'morris.umn.edu',
-                id: '105501894365476440976',
-                link: "https://plus.google.com/105501894365476440976",
-                locale: "en",
                 name: "Dalton Gusaas",
-                picture: "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg",
-                verified_email: true
-            }
+                verified_email: true,
+                email: 'gusaa004@morris.umn.edu',
+                id: '105501894365476440976'
+            },
+            group: 2,
+            role: "reviewer",
+            __v: 0
         }
     );
 });
@@ -186,16 +251,18 @@ Submission.find({}).remove(function(){
         copresenterTwoInfo: {first: "", last: "", email: ""},
         discipline: "Chemistry",
         sponsors: [], //Might need to worry about if this is static for the DB later.
-        adviserInfo: {first: "Jim", last: "Togeas", email: "togeasjb@morris.umn.edu"},
-        featuredPresentation: false,
+        adviserInfo: {first: "Joseph", last: "Thelen", email: "thele116@morris.umn.edu"},
+        featured: false,
         mediaServicesEquipment: "",
         specialRequirements: "",
         presenterTeeSize: "L",
         otherInfo: "",
         approval: false,
-        status:  {strict: "Awaiting Adviser Approval", text: "Has not been reviewed yet"},
+        status:  {strict: "Awaiting Adviser Approval", text: "Your adviser has yet to approve this submission."},
         timestamp: "Sat Oct 18 2014 10:48:54 GMT-0500 (CDT)",
-        group: 1
+        group: 1,
+        resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+        comments: []
     }, {
         title: "Blind Construction: Mixed Media",
         format: "Artist Statement",
@@ -206,21 +273,23 @@ Submission.find({}).remove(function(){
             "Upon completion of the assignment we found the piece aesthetically pleasing because of the way it molds to the human body, but can be a piece all on its own.",
         presentationType: "Performance",
         formatChange: false,
-        presenterInfo: {first: "Diana", last: "Dewi", email: "saxxx027@morris.umn.edu"},
-        copresenterOneInfo: {first: "Jennifer", last: "Kittleson", email: "kittle003@morris.umn.edu"},
+        presenterInfo: {first: "Jacob", last: "Opdahl", email: "opdah023@morris.umn.edu"},
+        copresenterOneInfo: {first: "Savannah", last: "Farm", email: "farmx009@morris.umn.edu"},
         copresenterTwoInfo: {first: "Maggie", last: "Casale", email: "casal033@morris.umn.edu"},
         discipline: "Art History",
         sponsors: [],
-        adviserInfo: {first: "Julia", last: "Dabbs", email: "dabbsj@morris.umn.edu"},
-        featuredPresentation: true,
+        adviserInfo: {first: "Jacob", last: "Opdahl", email: "opdah023@morris.umn.edu"},
+        featured: true,
         mediaServicesEquipment: "",
         specialRequirements: "A space to perform with three people.",
         presenterTeeSize: "M",
         otherInfo: "",
         approval: true,
-        status: {strict: "Revisions Needed", text: "Submitter is working on updating"},
+        status: {strict: "Revisions Needed", text: "Your URS submission has been flagged for revisions, and is in need of changes."},
         timestamp: "Tue Oct 21 2014 23:22:54 GMT-0500 (CDT)",
-        group: 1
+        group: 1,
+        resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+        comments: []
     }, {
         title: "On the Migration of Majestic Space Whales",
         format: "Artist Statement",
@@ -243,16 +312,18 @@ Submission.find({}).remove(function(){
         copresenterTwoInfo: {first: "", last: "", email: ""},
         discipline: "Biology",
         sponsors: [], //Might need to worry about if this is static for the DB later.
-        adviserInfo: {first: "KK",last: "Lamberty", email: "lamberty@morris.umn.edu"},
-        featuredPresentation: true,
+        adviserInfo: {first: "Peter",last: "Hans", email: "hans4858@morris.umn.edu"},
+        featured: true,
         mediaServicesEquipment: "Microphone for my sick rhymes, 5 laser stage lights with automated gimbals.",
         specialRequirements: "A whale suit.",
         presenterTeeSize: "XL",
         otherInfo: "yes.",
         approval: false,
-        status: {strict: "Awaiting Adviser Approval", text: "Adviser has been notified"},
+        status: {strict: "Awaiting Adviser Approval", text: "Your adviser has yet to approve this submission."},
         timestamp: "Mon Sept 2 2014 1:48:54 GMT-0500 (CDT)",
-        group: 1
+        group: 1,
+        resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+        comments: []
     }, {
         title: "The Commemoration and Memorialization of the American Revolution",
         format: "Artist Statement",
@@ -265,21 +336,24 @@ Submission.find({}).remove(function(){
             "this research highlights the importance of the revolution in shaping the actions of the United States government.",
         presentationType: "Performance",
         formatChange: false,
-        presenterInfo: {first: "Benjamin", last: "Herman III", email: "herma137@morris.umn.edu"},
-        copresenterOneInfo: {first: "Jean", last: "Lee", email: "lee334@morris.umn.edu"},
+        presenterInfo: {first: "Mitchell", last: "Finzel", email: "finze008@morris.umn.edu"},
+        copresenterOneInfo: {first: "Brandon", last: "Moody", email: "moody107@morris.umn.edu"},
         copresenterTwoInfo: {first: "", last: "", email: ""},
         discipline: "History",
         sponsors: [], //Might need to worry about if this is static for the DB later.
-        adviserInfo: {first: "Jennifer", last: "Deane", email: "deanej@morris.umn.edu"},
-        featuredPresentation: true,
+        adviserInfo: {first: "Niccolas", last: "Ricci", email: "saxxx027@morris.umn.edu"},
+        //ricc0082@morris.umn.edu
+        featured: true,
         mediaServicesEquipment: "A way to show images, either a projector or a warning so I can print them.",
         specialRequirements: "",
         presenterTeeSize: "XL",
         otherInfo: "yes.",
         approval: true,
-        status: {strict: "Reviewing in Process", text: "Needs to be updated an iota"},
+        status: {strict: "Reviewing in Process", text: "Your URS submission has been approved by your adviser"},
         timestamp: "Mon Oct 20 2014 1:48:54 GMT-0500 (CDT)",
-        group: 3
+        group: 3,
+        resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+        comments: []
     }, {
         title: "Margaret C. Anderson’s Little Review",
         format: "Social Science",
@@ -291,21 +365,23 @@ Submission.find({}).remove(function(){
             "This case example shows how little magazine publishing is arguably a literary art.",
         presentationType: "Poster or Visual Display",
         formatChange: true,
-        presenterInfo: {first: "Sophia", last: "Estante", email: "casal033@morris.umn.edu"},
-        copresenterOneInfo: {first: "Lorrie", last: "Moore", email: "moore002@morris.umn.edu"},
+        presenterInfo: {first: "Savannah", last: "Farm", email: "farmx009@morris.umn.edu"},
+        copresenterOneInfo: {first: "", last: "", email: ""},
         copresenterTwoInfo: {first: "", last: "", email: ""},
         discipline: "English",
         sponsors: [], //Might need to worry about if this is static for the DB later.
-        adviserInfo: {first: "Brad", last: "Deane", email: "deanb@morris.umn.edu"},
-        featuredPresentation: true,
+        adviserInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
+        featured: true,
         mediaServicesEquipment: "",
         specialRequirements: "A small space to make the presentation personal.",
         presenterTeeSize: "S",
         otherInfo: "yes.",
         approval: true,
-        status: {strict: "Accepted", text: "Ready for launch"},
+        status: {strict: "Accepted", text: "Your URS submission has been approved, congratulations!"},
         timestamp: "Thur Oct 23 2014 1:48:54 GMT-0500 (CDT)",
-        group: 2
+        group: 2,
+        resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+        comments: []
     }, {
         title: "A Study of the Properties of a Paperclip in the Digestive System of a Sloth",
         format: "Artist Statement",
@@ -315,20 +391,22 @@ Submission.find({}).remove(function(){
             " which we use to prove that redundancy and replication can interfere to achieve this aim. ",
         presentationType: "Oral Presentation",
         formatChange: false,
-        presenterInfo: {first: "Sally", last: "Birch", email: "casal033@morris.umn.edu"},
-        copresenterOneInfo: {first: "Timmy", last: "Flabberghast III", email: "flabb137@morris.umn.edu"},
-        copresenterTwoInfo: {first: "Dill", last: "Pickle", email: "saxxx027@morris.umn.edu"},
+        presenterInfo: {first: "Hongya", last: "Zhou", email: "zhoux616@morris.umn.edu"},
+        copresenterOneInfo: {first: "Otto", last: "Marckel II", email: "marck018@morris.umn.edu"},
+        copresenterTwoInfo: {first: "Dalton", last: "Gusaas", email: "gusaa004@morris.umn.edu"},
         discipline: "Biology",
         sponsors: [], //Might need to worry about if this is static for the DB later.
-        adviserInfo: {first: "Margaret", last: "Kuchenreuther", email: "kuchenma@morris.umn.edu"},
-        featuredPresentation: false,
+        adviserInfo: {first: "Maggie", last: "Casale", email: "casal033@morris.umn.edu"},
+        featured: false,
         mediaServicesEquipment: "",
         specialRequirements: "a sloth",
         presenterTeeSize: "M",
         otherInfo: "Maybe",
         approval: false,
-        status: {strict: "Awaiting Adviser Approval", text: "Not all reviewers have had a chance to look at it yet"},
+        status: {strict: "Awaiting Adviser Approval", text: "Your adviser has yet to approve this submission."},
         timestamp: "Mon Oct 20 2014 1:48:54 GMT-0500 (CDT)",
-        group: 3
+        group: 3,
+        resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+        comments: []
     });
 });

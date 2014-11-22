@@ -1,11 +1,13 @@
 'use strict';
 
 angular.module('umm3601ursamajorApp')
-    .controller('AdminCtrl', function ($scope, $http, Auth, User, $location, socket) {
+    .controller('AdminCtrl', function ($scope, $http, Auth, User, $location, socket, $filter) {
 
         $scope.submissions = [];
         $scope.users = [];
         $scope.isAdmin = Auth.isAdmin;
+
+        //--------------------------- Getting Data from Mongo --------------------------
 
         $scope.getSubmissionData = function(){
             $http.get('/api/submissions').success(function(submissions){
@@ -20,6 +22,8 @@ angular.module('umm3601ursamajorApp')
             $scope.users = users;
         });
 
+        //-------------------------- Stats view functions -------------------------------
+
        $scope.totalSubmissions = function(){
            return $scope.submissions.length;
        };
@@ -28,11 +32,22 @@ angular.module('umm3601ursamajorApp')
            return $scope.users.length;
        };
 
+      $scope.resubmitFlags = function(){
+          return $filter('filter')($scope.submissions, function(sub){return sub.resubmissionData.resubmitFlag}).length
+      };
+
+      $scope.unapprovedResubmits = function(){
+          return $filter('filter')($scope.submissions, function(sub){return sub.resubmissionData.parentSubmission != ""}).length;
+      };
+
+      //---------------------------- Admin Nav Control ----------------------------------
+
         $scope.toggles = {
             subListToggle: false,
-            statsToggle: false,
+            statsToggle: true,
             subFormEditorToggle: false,
-            userEditToggle: false
+            userEditToggle: false,
+            statusEditToggle: false
         };
 
         $scope.resetToggles = function(){
@@ -61,6 +76,11 @@ angular.module('umm3601ursamajorApp')
         $scope.toggleUserEdit = function(){
             $scope.resetToggles();
             $scope.toggles.userEditToggle = true;
+        };
+
+        $scope.toggleStatusEdit = function(){
+            $scope.resetToggles();
+            $scope.toggles.statusEditToggle = true;
         };
 
     });

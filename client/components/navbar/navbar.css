@@ -1,47 +1,51 @@
 /*--------------------------------Code to overwrite the default grey navbar stuff------------------------------------*/
+/*Changed the background of the Navbar and contains general formatting.*/
 .navbarFormating {
     background-color: #ffcc33;
     color: #7a0019;
-    /*border-color: #ffcc33;*/
+    border-color: #ffcc33;
     border-width: 0px;
     font-weight: bold;
 }
 
-.navButton {
-    background-color: #ffcc33;
-    color: #7a0019;
-}
-
+/*Changes the color of the active Navbar item*/
 .navbar-default .navbar-nav .active a {
     color: #ffcc33;
     background-color: #7a0019;
     font-weight: bold;
 }
 
+/*Changes the color of the text of the Navbar items*/
 .navbar-default .navbar-nav li a {
     color: #7a0019;
     font-weight: bold;
 }
 
+/*Changes the color of the text of the Navbar "Hello Username" item*/
 .navbar-default .navbar-text {
     color: #7a0019;
 }
 
+/*Changes the color of the Navbar title.*/
+.navbar-default .navbar-brand{
+    color: #7a0019;
+}
+
+/*Changes the color of the Active Navbar items when you hover*/
 .navbar-default .navbar-nav .active a:hover {
     color: #ffcc33;
     background-color: #7a0019;
     font-weight: bold;
 }
 
-.navbar-default .navbar-brand{
-    color: #7a0019;
-}
-
+/*Changes the color of the Navbar items when you hover*/
 .navbar-default .navbar-nav li a:hover {
-    color: #7a0019;
+    color: #ffcc33;
     font-weight: bold;
+    background-color: #7a0019;
 }
 
+/*Changes the color of the Navbar title when you hover*/
 .navbar-default .navbar-brand:hover{
     color: #7a0019;
 }

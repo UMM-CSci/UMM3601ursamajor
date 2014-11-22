@@ -1,23 +1,29 @@
+
+/*Formats the grey subtext*/
 .subtext {
     color: darkgray;
     font-size: 12px;
 }
 
+/*Adds padding*/
 .padded {
    /*outline: dashed red 2px; */
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
+/*Formats a group of elements to line up*/
 .stacked {
     display: inline;
 }
 
+/*No discernible function*/
 .stacked:after {
     content: "\a";
     white-space: pre;
 }
 
+/*Adds margin and drop shadow*/
 .FormBox {
     -webkit-box-shadow: 0px 0px 5px 7px rgba(176,173,176,1);
     -moz-box-shadow: 0px 0px 5px 7px rgba(176,173,176,1);
@@ -26,35 +32,7 @@
     background-color: ghostwhite;
 }
 
-.FormButton {
-    background-color: maroon;
-    color: #f5f5f5;
-    border-radius: 5px;
-    border-width: 1px;
-}
-
-.SelectStyle {
-    width: 200px;
-    height: 30px;
-    overflow: hidden;
-    text-align: left;
-    color: #000000;
-    border-radius: 5px;
-}
-
-.SelectStyle select {
-    background: transparent;
-    width: 268px;
-    padding: 5px;
-    font-size: 16px;
-    line-height: 1;
-    border: 0;
-    border-radius: 0;
-    height: 34px;
-    -webkit-appearance: none;
-}
-
-
+/*Adjusts page elements for page size maybe.*/
 @media screen and (-webkit-min-device-pixel-ratio:0) {
     input.ng-invalid, textarea.ng-invalid {
         outline:solid 1px #FA787E;
@@ -71,6 +49,8 @@
 /*input.ng-valid.ng-dirty{*/
     /*outline: none;*/
 /*}*/
+
+/*Styles most parts of the form*/
 .preStyle {
     background-color: ghostwhite;
     border: 0px;
@@ -85,6 +65,7 @@
     padding: 0;
 }
 
+/*Style for headers*/
 .preStyleH1 {
     background-color: ghostwhite;
     border: 0px;
@@ -99,6 +80,7 @@
     padding: 0;
 }
 
+/*Styling field titles*/
 .preStyleH4 {
     background-color: ghostwhite;
     border: 0px;
@@ -113,6 +95,7 @@
     padding: 0;
 }
 
+/*Styles the single line text fields*/
 .preStyleSmall {
     background-color: ghostwhite;
     border: 0px;
@@ -127,3 +110,49 @@
     color: grey;
     padding: 0;
 }
+
+/*Changes the resubmission button color*/
+.ResubButton {
+    background-color: #7a0019;
+    color: #ffcc33;
+}
+
+/*Changes the resubmission button color on hover*/
+.ResubButton:hover {
+    background-color: #ffcc33;
+    color: #7a0019;
+}
+
+
+/*----------------------------------------------------------------------*/
+
+/*No discernible function*/
+/*.FormButton {*/
+/*background-color: maroon;*/
+/*color: #f5f5f5;*/
+/*border-radius: 5px;*/
+/*border-width: 1px;*/
+/*}*/
+
+/*No Function found*/
+/*.SelectStyle {*/
+/*width: 200px;*/
+/*height: 30px;*/
+/*overflow: hidden;*/
+/*text-align: left;*/
+/*color: #000000;*/
+/*border-radius: 5px;*/
+/*}*/
+
+/*No function found*/
+/*.SelectStyle select {*/
+/*background: transparent;*/
+/*width: 268px;*/
+/*padding: 5px;*/
+/*font-size: 16px;*/
+/*line-height: 1;*/
+/*border: 0;*/
+/*border-radius: 0;*/
+/*height: 34px;*/
+/*-webkit-appearance: none;*/
+/*}*/

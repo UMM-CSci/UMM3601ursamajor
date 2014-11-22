@@ -1,15 +1,15 @@
 
+/*Formats trash button (Not used as far as I can tell, leaving because of default)*/
+.trash {
+    color:rgb(209, 91, 71);
+}
 
-.trash { color:rgb(209, 91, 71); }
-
+/*Removes bullets from the list*/
 .removeBullets {
     list-style-type: none;
 }
-.button1 {
-    color: antiquewhite;
-    border-radius: 4px;
-    background: #ffcc33;
-}
+
+/*Formats menu button*/
 .buttonLrg{
     color: #7a0019;
     padding: 10px 16px;
@@ -22,6 +22,7 @@
     border-width: 0px;
 }
 
+/*Formats menu buttons on hover*/
 .buttonLrg:hover {
     color: #ffcc33;
     padding: 10px 16px;
@@ -34,6 +35,7 @@
     border-width: 0px;
 }
 
+/*Formats the active menu button*/
 .buttonLrg:active {
     color: #ffcc33;
     padding: 10px 16px;
@@ -46,13 +48,22 @@
     border-width: 0px;
 }
 
+/*Keeps the current menu item highlighted*/
 .btn-default:focus {
     background: #7a0019;
     color: #ffcc33;
 }
 
-
-
-#center {
-    text-align: center;
+/*Formats the system information title*/
+#title {
+    color: #7a0019;
+    font-size: 30px;
 }
+
+/*---------------------------------------------------------------------------------------*/
+
+/*.button1 {*/
+/*color: antiquewhite;*/
+/*border-radius: 4px;*/
+/*background: #ffcc33;*/
+/*}*/

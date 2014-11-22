@@ -1,0 +1,61 @@
+<div ng-controller="StatuseditorCtrl" ng-show="isAdmin() || isChair()" class="container-fluid">
+        <ul class="list-group">
+            <li class="list-group-item"><h1>Status Option Editor</h1></li>
+            <button class="btn btn-primary padded" ng-click="addStatus()">Add New Status</button>
+            <li class="list-group-item" ng-repeat="status in statusArray" ng-style="statusEditorColor(status)">
+                <div>
+                    <h2>{{status.strict}}</h2>
+                    <h3 ng-hide="requiredStatus(status)">Priority:
+                    <textarea  ng-model="status.priority"  cols="1" rows="1" name="priority"></textarea>
+                    </h3>
+                    <h3 ng-show="requiredStatus(status)">Required Status</h3>
+                        <button ng-hide="requiredStatus(status)" class="btn btn-md btn-danger" ng-click="deleteStatus(status)">
+                        <span class="glyphicon glyphicon-trash"></span></button><br>
+
+                    <label class="padded">
+                        Status Title:
+                        <br>
+                        <textarea ng-model="status.strict"  cols="30" rows="1" name="Strict"></textarea>
+                    </label>
+                    <br>
+
+                    <label class="padded">
+                        Email Subject:
+                        <br>
+                        <textarea ng-model="status.emailSubject"  cols="30" rows="1" name="EmailSubject"></textarea>
+                    </label>
+                    <br>
+
+                    <label class="padded">
+                        Email Body  (presenter's name will precede the text):
+                        <br>
+                        <textarea ng-model="status.emailBody"  cols="30" rows="5" name="Strict"></textarea>
+                    </label>
+                    <br>
+
+                    <label class="padded">
+                        Color:
+                        <br>
+                        Red<input type="range" ng-model="status.color.red" min="0" max="255">
+                        Green<input type="range" ng-model="status.color.green" min="0" max="255">
+                        Blue<input type="range" ng-model="status.color.blue" min="0" max="255">
+                        <!--Alpha<input type="range" ng-model="status.color.alpha" min="0" max="100">-->
+
+
+                        <br>
+                        <textarea ng-model="status.color.red"  cols="3" rows="1" name="ColorRed"></textarea>
+                        <textarea ng-model="status.color.green"  cols="3" rows="1" name="ColorGreen"></textarea>
+                        <textarea ng-model="status.color.blue"  cols="3" rows="1" name="ColorBlue"></textarea>
+                        <!--<textarea ng-model="status.color.alpha/100"  cols="3" rows="1" name="ColorAlpha"></textarea>-->
+                        <br>
+
+                        <button class="btn btn-primary padded" ng-click="submitChanges(status)">Submit Changes</button>
+                    </label>
+
+
+                    <br>
+                </div>
+            </li>
+        </ul>
+    </form>
+</div>

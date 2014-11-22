@@ -1,46 +1,49 @@
+
+/*Adds style to horizontal rows*/
 hr {
     border: 1px solid lightgray;
 }
 
+/*Keeps h2 aligned left when importing page.*/
+.row h2 {
+    text-align: left;
+}
+
+/*Adds word wrapping*/
 .breakLongWords {
     word-wrap: break-word;
 }
 
+/*Sets block display to various parts*/
 .block {
     display: block;
 }
 
+/*Adds Italics and Times font*/
 #text{
     font-style: oblique;
     font-family: "Times New Roman", Times, monospace;
 }
 
+/*Subtext styling*/
 .subtext {
     color: dimgray;
     font-size: 12px;
 }
 
+/*Removes the bevel on the top of the submission list*/
 .noTopBorder {
     border-top: none;
     border-top-left-radius: 0 !important;
     border-top-right-radius: 0 !important;
 }
 
+/*Float for formatting purposes*/
 .floatLeft {
     float: left;
 }
 
-.floatRightButton {
-    float: right;
-    display: block;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-top: 0;
-    height: 200px;
-    width: 50px;
-    background-color: maroon;
-}
-
+/*Formatting for details button*/
 .buttonL{
     float: right;
     color: #ffcc33;
@@ -52,5 +55,29 @@ hr {
     background: maroon;
     font-weight: bold;
     font-family: "Helvetica Neue Light", "Lucida Grande", "Calibri", "Arial", sans-serif;
-
 }
+
+/*Formats buttons related to resub Button*/
+.ReSubButton {
+    display: inline-block;
+    float: right;
+}
+
+/*Overflow sets the floating elements as objects (kinda)*/
+.overflowAuto {
+    overflow: auto;
+}
+
+/*----------------------------------------------------------------------------------------------*/
+
+
+/*.floatRightButton {*/
+/*float: right;*/
+/*display: block;*/
+/*margin-right: 0;*/
+/*margin-bottom: 0;*/
+/*margin-top: 0;*/
+/*height: 200px;*/
+/*width: 50px;*/
+/*background-color: maroon;*/
+/*}*/

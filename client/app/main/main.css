@@ -20,24 +20,18 @@ a:active {
     color: #000000;
 }
 
-
-.thing-form {
-    margin: 20px 0;
-}
-
-#banner {
-    border-bottom: none;
-    margin-top: -20px;
-}
-
+/*Controls banner text*/
 #banner h1 {
     font-size: 60px;
     line-height: 1;
     letter-spacing: -1px;
 }
 
+/*Controls the banner*/
 .hero-unit {
     position: relative;
+    margin-top: -20px;
+    border-bottom: none;
     padding: 30px 15px;
     color: #FFFFFF;
     text-align: center;
@@ -46,6 +40,7 @@ a:active {
     font-family: "Times New Roman", Times, monospace;
 }
 
+/*Controls the images on the main page*/
 .fitImage {
     width: 70%;
     display: block;
@@ -53,10 +48,12 @@ a:active {
     margin-right: auto;
 }
 
-.row h2 {
-    text-align: center;
-}
+/*.row h2 {*/
+    /*text-align: center;*/
+/*}*/
 
+
+/*Controls the footer*/
 .footer {
     text-align: center;
     padding: 30px 0;
@@ -64,20 +61,7 @@ a:active {
     border-top: 1px solid #E5E5E5;
 }
 
-/*.subButton {*/
-    /*background-color: royalblue;*/
-    /*border-radius: 10px;*/
-    /*margin-top: 15px;*/
-    /*margin-bottom: 15px;*/
-    /*margin-left: auto;*/
-    /*margin-right: auto;*/
-    /*padding: 15px;*/
-    /*width: 25%;*/
-    /*color: white;*/
-    /*display: block;*/
-
-/*}*/
-
+/*This controls the login/Create submission button*/
 .buttonMain{
     padding: 10px 16px;
     font-size: 30px;
@@ -92,3 +76,14 @@ a:active {
     display: block;
 }
 
+/*Everything under the line can be deleted*/
+/*----------------------------------------------------------------------------*/
+
+/*#banner {*/
+/*border-bottom: none;*/
+/*margin-top: -20px;*/
+/*}*/
+
+/*.thing-form {*/
+/*margin: 20px 0;*/
+/*}*/

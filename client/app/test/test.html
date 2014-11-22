@@ -4,66 +4,11 @@
 <head>
     <title>Untitled</title>
 
-    <script type="text/javascript">
-        function applyTag(obj, tag)
-        {
-            wrapText(obj, '<'+tag+'>', '</'+tag+'>');
-        };
-
-        function wrapText(obj, beginTag, endTag)
-        {
-            if(typeof obj.selectionStart == 'number')
-            {
-                // Mozilla, Opera, and other browsers
-                var start = obj.selectionStart;
-                var end   = obj.selectionEnd;
-
-                obj.value = obj.value.substring(0, start) + beginTag + obj.value.substring(start, end) + endTag + obj.value.substring(end, obj.value.length);
-            }
-            else if(document.selection)
-            {
-                // Internet Explorer
-
-                // make sure it's the textarea's selection
-                obj.focus();
-                var range = document.selection.createRange();
-                if(range.parentElement() != obj) return false;
-
-                if(typeof range.text == 'string')
-                    document.selection.createRange().text = beginTag + range.text + endTag;
-            }
-            else
-                obj.value += text;
-
-        };
-
-        function comment(){
-            var com = prompt("Enter comment", "");
-            if (com != null) {
-                document.getElementById("words").innerHTML =
-                        "This is the comment:"+ com;
-            }
-        }
-    </script>
-
 </head>
 
 <body>
-
-
-<p>Write your text below:</p>
-
-<textarea ng-model="textArea" id="ta" rows="10" cols="50"></textarea> <br /><br />
-
-<input type="button" value="Bold" onclick="applyTag(document.getElementById('ta'), 'b')" />
-<input type="button" value="Italics" onclick="applyTag(document.getElementById('ta'), 'i')" />
-<input type="button" value="Link" onclick="applyTag(document.getElementById('ta'), 'a') + comment()" />
-
-<p><button onclick="comment()">Comment</button></p>
-
-<p id="words"></p>
-
-<p ng-bind-html="textArea"></p>
+<p ng-bind-html="abstract"></p>
+<p><button ng-click="addComment()">Comment</button></p>
 </body>
 </html>
 

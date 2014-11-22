@@ -159,13 +159,19 @@ angular.module('umm3601ursamajorApp')
             return currentUser.role === 'reviewer';
         },
 
+        getReviewerGroup: function() {
+            if(currentUser.role === 'reviewer'){
+                return currentUser.group;
+            }
+        },
+
         /**
-         * Check if a user is a reviewer
+         * Check if a user is a chair
          *
          * @return {Boolean}
          */
-        isCoChair: function() {
-            return currentUser.role === 'co-chair';
+        isChair: function() {
+            return currentUser.role === 'chair';
         },
 
       /**

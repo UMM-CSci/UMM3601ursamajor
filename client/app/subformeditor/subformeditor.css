@@ -1,3 +1,4 @@
+/*Adds dropshadow and styles the form container*/
 .FormBox {
     -webkit-box-shadow: 0px 0px 5px 7px rgba(176,173,176,1);
     -moz-box-shadow: 0px 0px 5px 7px rgba(176,173,176,1);
@@ -6,6 +7,7 @@
     background-color: ghostwhite;
 }
 
+/*Adds padding*/
 .padded {
     /*outline: dashed red 2px; */
     margin-top: 10px;

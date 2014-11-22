@@ -1,0 +1,19 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<header class="hero-unit" id="banner">
+    <div class="container">
+        <h1>Account Information</h1>
+    </div>
+</header>
+
+<div class="FancyBox">
+    <div class="info" ng-show="isLoggedIn()">Hello {{getCurrentUser().name}}.</div>
+    <div class="info" ng-show="isLoggedIn()">You are signed in as {{getCurrentUser().email}}. </div>
+    <div class="info" ng-show="isLoggedIn() && !isAdmin() && !isReviewer()">You are signed in as a {{getCurrentUser().role}}.</div>
+    <div class="info" ng-show="isLoggedIn() && isAdmin()">You are signed in as an {{getCurrentUser().role}}.</div>
+    <div class="info" ng-show="isLoggedIn() && isReviewer()">You are signed in as a {{getCurrentUser().role}} in Reviewer Group {{getReviewerGroup()}}. </div>
+</div>
+
+<div class="FancyBox">
+    <div class="other">T-Shirt size:</div>
+</div>
