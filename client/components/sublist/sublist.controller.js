@@ -481,7 +481,7 @@ angular.module('umm3601ursamajorApp')
             console.log(submission.abstract.length);
             var commentObj = {};
             var comments = submission.comments;
-            var commenter = $scope.getCurrentUser;
+            var commenter = $scope.getCurrentUser().name;
             var selection = $window.getSelection();
             var commentText = prompt("Comment");
             if(selection.anchorOffset <= selection.focusOffset) {
@@ -504,10 +504,6 @@ angular.module('umm3601ursamajorApp')
                     console.log("successfully pushed comments to submission!");
                 });
             console.log(submission.comments);
-//            console.log(submission.comments);
-//            console.log(submission.abstract.length);
-//            console.log(comments.length);
-//            $scope.populateComments(submission);
         };
 
         $scope.populateComments = function (submissionCopy , index) {
@@ -518,16 +514,21 @@ angular.module('umm3601ursamajorApp')
             var end = comments[index].ender;
             abstract = abstract.substring(0, start) + '<b>' + abstract.substring(start, end) + '</b>' + abstract.substring(end, abstract.length);
             var newWindow = $window.open("", null, "height=300,width=600,status=yes,toolbar=no,menubar=no,location=no");
-            newWindow.document.write("<i>" + comments[index].commentText + "</i>");
+            newWindow.document.write("<b>"+"Comment made by " + comments[index].commenter + ": " +"</b>"+"<i>" + comments[index].commentText + "</i>");
             newWindow.document.write("<br></br>");
             newWindow.document.write(abstract);
         };
 
+        $scope.showResponses = false;
+
         $scope.addResponse = function (submission, index){
             var comments = submission.comments;
             var comment = comments[index];
+            var responseObj = {};
             var response = prompt("response");
-            comment.responses.push(response);
+            responseObj.response = response;
+            responseObj.responder = $scope.getCurrentUser().name;
+            comment.responses.push(responseObj);
             $http.patch('api/submissions/' + $scope.selection.item._id,
                 {comments: comments}
             ).success(function(){
@@ -540,6 +541,18 @@ angular.module('umm3601ursamajorApp')
             var comments = submission.comments;
             if (confirm("Do you wish to delete this comment and all of its responses?")) {
                 comments.splice(index, 1);
+                $http.patch('api/submissions/' + $scope.selection.item._id,
+                    {comments: comments}
+                ).success(function(){
+                        console.log("successfully pushed comments to submission!");
+                    });
+            }
+        };
+
+        $scope.deleteResponse = function (submission, parentIndex, childIndex){
+            var comments = submission.comments;
+            if (confirm("Do you wish to delete this response?")) {
+                comments[parentIndex].responses.splice(childIndex, 1);
                 $http.patch('api/submissions/' + $scope.selection.item._id,
                     {comments: comments}
                 ).success(function(){
