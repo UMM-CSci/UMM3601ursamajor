@@ -66,30 +66,30 @@
         <li class="list-group-item" ng-style="statusColorTab(selection.item.status.strict)">
 
             <div class="block alert" ng-style="statusColorBody(selection.item.status.strict)" ng-click="editStatus(selection.item)">
-                <!--<button ng-show="hasAdminPrivs()" class="btn btn-sm btn-warning close" ng-click="editStatus(selection.item)"><span class="glyphicon glyphicon-file"></span></button>-->
+                <button ng-show="hasAdminPrivs()" class="btn btn-sm btn-warning close"><span class="glyphicon glyphicon-file"></span></button>
                 <b>Status:</b> {{selection.item.status.strict}} <br>
                 <b>Comment:</b> {{selection.item.status.text}}</p>
-                <div ng-show="statusEdit.editing">
-                    <hr>
-                    <div class="container-fluid row">
-                        <div class="col-md-6">
-                            <label>
-                                Select Submission Status <br>
-                                <select ng-model="statusEdit.temp.strict">
-                                    <option ng-repeat="status in statusEdit.options" ng-value="{{'status'}}">{{status}}</option>
-                                </select>
-                            </label>
-                        </div>
-                        <div class="col-md-6">
-                            <label>
-                                Elaborate <br>
-                                <textarea cols="30" ng-model="statusEdit.temp.text"></textarea>
-                            </label>
-                        </div>
+            </div>
+            <div ng-show="statusEdit.editing" ng-style="statusColorBody(selection.item.status.strict)">
+                <hr>
+                <div class="container-fluid row">
+                    <div class="col-md-6">
+                        <label>
+                            Select Submission Status <br>
+                            <select ng-model="statusEdit.temp.strict">
+                                <option ng-repeat="status in statusEdit.options" ng-value="{{'status'}}">{{status}}</option>
+                            </select>
+                        </label>
                     </div>
-                    <button class="btn btn-default" ng-click="editStatus()">Cancel</button>
-                    <button class="btn btn-warning" ng-click="submitStatusEdit()">Submit</button>
+                    <div class="col-md-6">
+                        <label>
+                            Elaborate <br>
+                            <textarea cols="30" ng-model="statusEdit.temp.text"></textarea>
+                        </label>
+                    </div>
                 </div>
+                <button class="btn btn-default" ng-click="editStatus()">Cancel</button>
+                <button class="btn btn-warning" ng-click="submitStatusEdit()">Submit</button>
             </div>
             <h3 id="text">{{selection.item.title}}</h3>
             <strong>{{selection.item.presenterInfo.last}}, {{selection.item.presenterInfo.first}}</strong>
