@@ -44,7 +44,10 @@ angular.module('umm3601ursamajorApp')
 
 
         $scope.delete = function(user) {
-            if(confirm('Are you sure you want to delete this user?')) {
+            if (Auth.getCurrentUser().email === user.email){
+                alert('Cannot delete yourself.');
+            }
+            else if(confirm('Are you sure you want to delete this user?')) {
                 User.remove({ id: user._id });
                 angular.forEach($scope.users, function(u, i) {
                     if (u === user) {
@@ -56,20 +59,23 @@ angular.module('umm3601ursamajorApp')
 
         $scope.updateInfo = function(user) {
             console.log(user);
-            if(confirm('Are you sure you want to update this users role?')) {
+            if (Auth.getCurrentUser().email === user.email){
+                alert('Cannot change user role for yourself.');
+            }
+            else if(confirm('Are you sure you want to update this users role?')) {
                 if(user.role != 'reviewer') {
                     Auth.updateInfo(user.role, -1, user);
                 } else {
                     Auth.updateInfo(user.role, user.group, user);
                 }
-            };
+            }
         };
 
         $scope.changeGroup = function(user) {
             console.log(user.group, user.role);
             if(confirm('Are you sure you want to update this users group?')) {
                 Auth.changeGroup(user.group, user);
-            };
+            }
             console.log(user.group, user.role)
         };
     });
