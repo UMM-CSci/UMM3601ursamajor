@@ -116,7 +116,11 @@ angular.module('umm3601ursamajorApp')
         };
 
         // Takes a submission and returns true if the user provided by Auth has permission to see that submission.
-        // True
+        // True if user has admin permissions
+        // True if user is presenter or co-presenter of submission
+        // True if user is the adviser of the submission
+        // True if the user is in the review group that the submission is assigned to.
+        // False if the submission is null, or if one of the above conditions is not met.
         $scope.hasPermissions = function(submission) {
             if(submission == null) return false;
             if(!Auth.isLoggedIn){
@@ -134,6 +138,9 @@ angular.module('umm3601ursamajorApp')
             }
         };
 
+        // Takes a submission as an argument and returns a boolean based on which review group filter is applied.
+        // Always returns true if filter selection is "All"
+        // Otherwise returns true if the submission is assigned to the selected review group (0 - 4), false otherwise.
         $scope.reviewGroupFilter = function(submission) {
             if($scope.filterData.reviewGroupFilterSelection === "All"){
                 return true;
@@ -151,6 +158,7 @@ angular.module('umm3601ursamajorApp')
                 return false;
             }
         };
+
 
         $scope.searchFilter = function(submission){
             var searchText = $scope.filterData.searchText.toLowerCase();
