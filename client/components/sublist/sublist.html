@@ -60,14 +60,14 @@
             <button ng-show="isPresenter(selection.item) && (getResubmission(selection.item).length == 0)" class="btn btn-md btn-primary ReSubButton" ng-click="flagForResubmit()">Re-Submit this Submission</button>
             <button ng-show="isPresenter(selection.item) && (getResubmission(selection.item) == null)" class="btn btn-md btn-primary ReSubButton" ng-click="flagForResubmit()">Re-Submit this Submission</button>
             <br>
-            <button ng-show="(isAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-success btn-block ReSubButton " ng-click="approveSubmission(selection.item)">Do you want to approve this submission?</button>
+            <button ng-show="(isAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-success btn-block approveButton " ng-click="approveSubmission(selection.item)">Do you want to approve this submission?</button>
         </li>
         <li class="list-group-item" ng-style="statusColorTab(selection.item.status.strict)">
 
-            <div class="block alert" ng-style="statusColorBody(selection.item.status.strict)">
-                <button ng-show="hasAdminPrivs()" class="btn btn-sm btn-warning close" ng-click="editStatus(selection.item)"><span class="glyphicon glyphicon-file"></span></button>
+            <div class="block alert" ng-style="statusColorBody(selection.item.status.strict)" ng-click="editStatus(selection.item)">
+                <!--<button ng-show="hasAdminPrivs()" class="btn btn-sm btn-warning close" ng-click="editStatus(selection.item)"><span class="glyphicon glyphicon-file"></span></button>-->
                 <b>Status:</b> {{selection.item.status.strict}} <br>
-                <b>Comment:</b> {{selection.item.status.text}}</p>
+                <b>Comment:</b> {{selection.item.status.text}}
                 <div ng-show="statusEdit.editing">
                     <hr>
                     <div class="container-fluid row">
