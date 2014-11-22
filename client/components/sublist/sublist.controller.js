@@ -249,6 +249,7 @@ angular.module('umm3601ursamajorApp')
             color: [],
             subject: [],
             body: [],
+            priority: [],
             temp: {strict: "", text: ""}
         };
 
@@ -258,6 +259,7 @@ angular.module('umm3601ursamajorApp')
                 $scope.statusEdit.color.push($scope.status[x].color);
                 $scope.statusEdit.subject.push($scope.status[x].emailSubject);
                 $scope.statusEdit.body.push($scope.status[x].emailBody);
+                $scope.statusEdit.priority.push($scope.status[x].priority);
             }
         };
 
@@ -357,20 +359,24 @@ angular.module('umm3601ursamajorApp')
         $scope.approveSubmission = function(submission) {
             if($scope.isAdviser(submission) == true || $scope.hasAdminPrivs() == true){
                 var r = confirm("Are you sure you want to approve this submission?");
-                if(r == true){
-                    $http.patch('api/submissions/' + $scope.selection.item._id,
-                        {approval: true}
-                    ).success(function(){
-                            $scope.selection.item.approval = true;
-                            console.log("Successfully updated approval of submission (approved)");
-                        });
-                    $http.patch('api/submissions/' + $scope.selection.item._id,
-                        {status: {strict: "Reviewing in Process", text: "Your URS submission has been approved by your adviser"}}
-                    ).success(function(){
-                            $scope.selection.item.status.strict = "Reviewing in Process";
-                            $scope.selection.item.status.text = "Your URS submission has been approved by your adviser, awaiting revisions";
-                            console.log("Successfully changed status of submission");
-                        });
+
+                if(r){
+                    for(var i = 0; i < $scope.statusEdit.priority.length; i++){
+                        if($scope.statusEdit.priority[i] == 2){
+                            $scope.selection.item.status.strict = $scope.statusEdit.options[i];
+                            //$scope.selection.item.status.text = status[i].text;
+                            $http.patch('api/submissions/' + $scope.selection.item._id,
+                                {approval: true},
+                                {status: {strict: $scope.selection.item.status.strict, text: $scope.selection.item.status.text}}
+                            ).success(function(){
+                                    $scope.selection.item.approval = true;
+                                    console.log("Successfully updated approval of submission (approved)");
+                                });
+                        }
+                    }
+
+
+
                     sendGmail({
                         to: $scope.selection.item.presenterInfo.email +" "+ $scope.selection.item.copresenterOneInfo.email +" "+ $scope.selection.item.copresenterTwoInfo.email,
                         subject: $scope.statusEdit.subject,

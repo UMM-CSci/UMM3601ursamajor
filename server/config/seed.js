@@ -18,7 +18,7 @@ Status.find({}).remove(function() {
         color: {red: 0, green: 255, blue: 0, alpha: 1},
         emailSubject: "URS submission update",
         emailBody:  ", Your URS submission has been approved, congratulations!",
-        priority: 1
+        priority: 15
     },{
         strict: "Revisions Needed",
         color: {red: 0, green: 100, blue: 255, alpha: 1},
@@ -36,7 +36,7 @@ Status.find({}).remove(function() {
         color: {red: 255, green: 0, blue: 0, alpha: 1},
         emailSubject: "URS submission update",
         emailBody: ", Your URS submission is pending approval from your adviser.",
-        priority: 15
+        priority: -15
     });
 });
 
