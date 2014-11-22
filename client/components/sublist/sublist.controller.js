@@ -72,36 +72,51 @@ angular.module('umm3601ursamajorApp')
             return null;
         };
 
+        // Takes a String and sets the review group filter selection to that string.
+        // Used for changing which review group filter is applied.
         $scope.setReviewGroupSelection = function(str) {
             $scope.filterData.reviewGroupFilterSelection = str;
         };
 
+        // Takes no arguments and returns true if the user provided by Auth is an admin, or is in the admin group.
         $scope.hasAdminPrivs = function(){
             return (($scope.getCurrentUser.role != null && $scope.getCurrentUser.role == "Admin") || $scope.isAdmin() || $scope.isChair());
         };
 
+        // Takes a submission as an argument and returns true if the user provided by Auth is listed as the primary presenter on that submission.
+        // (based on email, not name)
+        // Returns false if the submission is null, or the user isn't listed as the primary presenter.
         $scope.isPresenter = function(submission) {
             if(submission == null) return false;
             return $scope.email === submission.presenterInfo.email;
         };
 
+        // Takes a submission as an argument and returns true if the user provided by Auth is listed as a co-presenter on that submission.
+        // (based on email, not name)
+        // Returns false if the submission is null, or if the user isn't listed as a co-presenter.
         $scope.isCoPresenter = function(submission) {
             if(submission == null) return false;
             return $scope.email === submission.copresenterOneInfo.email ||
                 $scope.email === submission.copresenterTwoInfo.email;
         };
 
+        // Takes a submission as an argument and returns true if the user provided by Auth is listed as the adviser on that submission.
+        // (based on email, not name)
+        // returns false if the submission is null, or if the user isn't listed as the adviser.
         $scope.isAdviser = function(submission) {
             if(submission == null) return false;
             return $scope.email === submission.adviserInfo.email;
         };
 
+        // Takes a submission as an argument and returns true if the user provided by Auth is in the review group that the submission is assigned to.
+        // returns false if the submission is null, or if the user isn't in the correct review group.
         $scope.isReviewerGroup = function(submission){
             if(submission == null) return false;
             return $scope.group === submission.group;
         };
 
-
+        // Takes a submission and returns true if the user provided by Auth has permission to see that submission.
+        // True
         $scope.hasPermissions = function(submission) {
             if(submission == null) return false;
             if(!Auth.isLoggedIn){
