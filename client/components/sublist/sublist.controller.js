@@ -541,7 +541,7 @@ angular.module('umm3601ursamajorApp')
             abstract = abstract.substring(0, start) + '<b>' + abstract.substring(start, end) + '</b>' + abstract.substring(end, abstract.length);
             var newWindow = $window.open("", null, "height=300,width=600,status=yes,toolbar=no,menubar=no,location=no");
             newWindow.document.write("<b>"+"Comment made by " + comments[index].commenter + ": " +"</b>"+"<i>" + comments[index].commentText + "</i>");
-            newWindow.document.write("<br></br>");
+            newWindow.document.write("<br>");
             newWindow.document.write(abstract);
         };
 
