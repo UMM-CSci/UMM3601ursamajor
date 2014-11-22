@@ -392,8 +392,10 @@ angular.module('umm3601ursamajorApp')
         $scope.resetTemps();
 
         $scope.editStatus = function(){
-            $scope.statusEdit.editing = !$scope.statusEdit.editing;
-            $scope.resetTemps();
+            if($scope.hasAdminPrivs()) {
+                $scope.statusEdit.editing = !$scope.statusEdit.editing;
+                $scope.resetTemps();
+            }
         };
 
         $scope.submitStatusEdit = function(){
