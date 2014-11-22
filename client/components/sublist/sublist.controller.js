@@ -159,7 +159,6 @@ angular.module('umm3601ursamajorApp')
             }
         };
 
-
         $scope.searchFilter = function(submission){
             var searchText = $scope.filterData.searchText.toLowerCase();
             return(
@@ -174,18 +173,22 @@ angular.module('umm3601ursamajorApp')
             )
         };
 
+        //Returns true if the current user is listed as a presenter on ANY submission, false otherwise.
         $scope.isPresenterOnAnything = function(){
            return ($filter('filter')($scope.submissions, $scope.isPresenter).length > 0)
         };
 
+        //Returns true if the current user is listed as a co-presenter on ANY submission, false otherwise.
         $scope.isCoPresenterOnAnything = function(){
             return ($filter('filter')($scope.submissions, $scope.isCoPresenter).length > 0)
         };
 
+        //Returns true if the current user is listed as an adviser on ANY submission, false otherwise.
         $scope.isAdviserOfAnything = function(){
             return ($filter('filter')($scope.submissions, $scope.isAdviser).length > 0)
         };
 
+        //Returns true if the current user's review group matches that of ANY submission, false otherwise.
         $scope.isReviewerOfAnything = function(){
             return ($filter('filter')($scope.submissions, $scope.isReviewerGroup).length > 0)
         };

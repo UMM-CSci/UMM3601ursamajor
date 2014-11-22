@@ -4,6 +4,7 @@ angular.module('umm3601ursamajorApp')
   .controller('LoginCtrl', function ($scope, Auth, $location, $window) {
 
     //TODO: this is really broken right now we have no idea why. We'll fix it later (tm) (11/22/14)
+    // But sometimes it works. Still don't know why.
     if((Auth.isLoggedIn())) {
         console.log("Made it in the if-statement" + Auth.isLoggedIn());
         $location.path('/');
