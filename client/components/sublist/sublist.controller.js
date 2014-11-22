@@ -442,7 +442,16 @@ angular.module('umm3601ursamajorApp')
                     console.log("Successfully flagged submission for resubmit");
                     $scope.selection.item.resubmissionData.resubmitFlag = true;
                     if(!$scope.hasAdminPrivs()){$location.path('/subform');}
-                });
+            });
+
+            //Playing with trying to use the Submission service instead of the above http request (as per the role change controller)
+//            Submission.update({id: $scope.selection.item._id},
+//                {resubmissionData: {comment: "flagged for resubmit", parentSubmission: $scope.selection.item.resubmissionData.parentSubmission, resubmitFlag: true}}
+//            ).success(function(){
+//                    console.log("successfully flagged submission for resubmit");
+//                    $scope.selection.item.resubmissionData.resubmitFlag = true;
+//                    if(!$scope.hasAdminPrivs()){$location.path('/subform');}
+//            });
         };
 
         $scope.unFlagForResubmission = function(submission){
