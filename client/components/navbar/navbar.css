@@ -4,7 +4,7 @@
     background-color: #ffcc33;
     color: #7a0019;
     border-color: #ffcc33;
-    border-width: 0px;
+    border-width: 0;
     font-weight: bold;
 }
 
@@ -47,6 +47,27 @@
 
 /*Changes the color of the Navbar title when you hover*/
 .navbar-default .navbar-brand:hover{
+    color: #7a0019;
+}
+
+/*Adds circle behind notification number on navbar.*/
+#circle {
+    /*circle styling*/
+    width: 30px;
+    height: 30px;
+    margin: 10px 10px 0 2px;
+    padding-top: 5px;
+    /*color styling*/
+    background: #7a0019;
+    color: #ffcc33;
+    border-color: black;
+    /*border styling*/
+    border-radius:25px;
+    border-style: solid;
+    border-width: 1px;
+}
+#circle:hover {
+    background: #ffcc33;
     color: #7a0019;
 }
 /*----------------------------------------------------------------------------------------*/
