@@ -44,12 +44,14 @@ angular.module('umm3601ursamajorApp')
 
 
         $scope.delete = function(user) {
-            User.remove({ id: user._id });
-            angular.forEach($scope.users, function(u, i) {
-                if (u === user) {
-                    $scope.users.splice(i, 1);
-                }
-            });
+            if(confirm('Are you sure you want to delete this user?')) {
+                User.remove({ id: user._id });
+                angular.forEach($scope.users, function(u, i) {
+                    if (u === user) {
+                        $scope.users.splice(i, 1);
+                    }
+                });
+            }
         };
 
         $scope.updateInfo = function(user) {
