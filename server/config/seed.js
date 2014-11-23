@@ -210,6 +210,7 @@ User.find({}).remove(function() {
             role: 'admin',
             name: 'Admin',
             email: 'admin@admin.com',
+            tShirtSize: "Medium",
             password: 'admin',
             group: -1
         }, {

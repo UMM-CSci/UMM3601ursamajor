@@ -13,5 +13,18 @@ angular.module('umm3601ursamajorApp')
         $scope.isAdmin = Auth.isAdmin;
         $scope.getReviewerGroup = Auth.getReviewerGroup;
 
-        $scope.isAdmin = Auth.isAdmin;
+        $scope.tShirtSizeOptions =
+            [   'Small',
+                'Medium',
+                'Large',
+                'XLarge',
+                'XXLarge',
+                'XXXLarge'
+            ];
+
+        $scope.updateTShirtSize = function(user){
+            Auth.updateTShirtSize(user.tShirtSize, user);
+            confirm("this worked");
+        };
+
     });
