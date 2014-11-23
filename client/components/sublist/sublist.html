@@ -124,13 +124,13 @@
                     <button ng-show="hasAdminPrivs()" class="btn xs" ng-click="deleteComment(selection.item , $index)">Delete Comment</button>
                     <br>
                     <p>{{comment.commentText | isntEmpty:"Comment:":"(No comment...)"}}</p>
-                    <p>Comment made by <i>{{comment.commenter}}</i></p>
+                    <p>Comment made by <i>{{comment.commenter}}</i> on {{comment.timestamp}}</p>
                     <button class="btn xs" ng-hide="showResponses" ng-click="showResponses = true">Show Responses</button>
                     <button class="btn xs" ng-show="showResponses" ng-click="showResponses = false">Hide Responses</button>
                     <div ng-show="showResponses" ng-repeat="response in comment.responses">
                         <p>{{response.response}}</p>
                         <button ng-show="hasAdminPrivs()" class="btn xs" ng-click="deleteResponse(selection.item , $parent.$index , $index)">Delete Response</button>
-                        <p>Response made by <i>{{response.responder}}</i></p>
+                        <p>Response made by <i>{{response.responder}}</i> on {{response.timestamp}}</p>
                     </div>
                 </li>
             </ul>
