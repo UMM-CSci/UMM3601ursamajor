@@ -70,8 +70,7 @@
                 <b>Status:</b> {{selection.item.status.strict}} <br>
                 <b>Comment:</b> {{selection.item.status.text}}</p>
             </div>
-            <div ng-show="statusEdit.editing" ng-style="statusColorBody(selection.item.status.strict)">
-                <hr>
+            <div class="block alert" ng-show="statusEdit.editing" ng-style="statusColorBody(selection.item.status.strict)">
                 <div class="container-fluid row">
                     <div class="col-md-6">
                         <label>
