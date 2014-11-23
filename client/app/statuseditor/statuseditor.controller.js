@@ -77,7 +77,7 @@ angular.module('umm3601ursamajorApp')
                         emailBody: "",
                         priority: $scope.findEmptyPriority($scope.statusArray)
                     }).success(function () {
-                        console.log("Succesfully added new status")
+                        console.log("Successfully added new status")
                         $scope.getStatuses();
                     });
             }
@@ -88,21 +88,75 @@ angular.module('umm3601ursamajorApp')
             return(status.priority == -15 || status.priority == 15);
         };
 
+//        $scope.submitChanges = function(status) {
+//            var r = confirm("Are you sure you want to edit this status?");
+//            var strict = "";
+//            var conflict = false;
+//            var priorityOne = false;
+//            var x = $scope.statusArray.indexOf(status);
+//            if (r) {
+//                for (var i = 0; i < $scope.statusArray.length; i++) {
+//                    if ($scope.statusArray[i].priority == status.priority) {
+//                        if ($scope.statusArray[i]._id != status._id) {
+//                            conflict = true;
+//                        }
+//
+//                    }
+//                    if (status.priority == 1) {
+//                        priorityOne = true;
+//                    }
+//                }
+//                if (!conflict && !priorityOne) {
+//                    $http.patch('/api/statuss/' + $scope.statusArray[x]._id,
+//                        {
+//                            strict: $scope.statusArray[x].strict,
+//                            color: $scope.statusArray[x].color,
+//                            emailSubject: $scope.statusArray[x].emailSubject,
+//                            emailBody: $scope.statusArray[x].emailBody,
+//                            priority: $scope.statusArray[x].priority
+//                        }
+//                    ).success(function () {
+//                            $location.path('/admin');
+//                            for (var j = 0; j < $scope.submissions.length; j++) {
+//                                if ($scope.submissions[j].status.strict == strict) {
+//                                    console.log("things were detected to be different");
+//                                    $scope.submissions[j].status.strict = $scope.statusArray[x].strict;
+//                                    $http.patch('/api/submissions/' + $scope.submissions[j]._id, {
+//                                        status: {strict: $scope.statusArray[x].strict, text: $scope.submissions[j].status.text}
+//                                    })
+//
+//
+//                                } else {
+//                                    alert("There already exists a status with this priority.")
+//                                }
+//                            }
+//                        })
+//                }
+//
+//            }
+//        }
         $scope.submitChanges = function(status) {
             var r = confirm("Are you sure you want to edit this status?");
+            var strict = "";
             var conflict = false;
-            var priorityOne = false
+            var priorityOne = false;
             var x = $scope.statusArray.indexOf(status);
-            if (r){
-                for(var i=0; i < $scope.statusArray.length; i++) {
-                    if($scope.statusArray[i].priority == status.priority){
-                        conflict = true;
+            if (r) {
+                for (var i = 0; i < $scope.statusArray.length; i++) {
+                    if ($scope.statusArray[i].priority == status.priority) {
+                        if ($scope.statusArray[i]._id != status._id) {
+                            conflict = true;
+                        }
+
                     }
-                    if(status.priority == 1){
+                    if (status.priority == 1) {
                         priorityOne = true;
                     }
                 }
-                    if(!conflict && !priorityOne) {
+                if (!conflict && !priorityOne) {
+                    $http.get('/api/statuss/' + $scope.statusArray[x]._id).success(function (oldStatus) {
+                        strict = oldStatus.strict;
+
                         $http.patch('/api/statuss/' + $scope.statusArray[x]._id,
                             {
                                 strict: $scope.statusArray[x].strict,
@@ -113,10 +167,24 @@ angular.module('umm3601ursamajorApp')
                             }
                         ).success(function () {
                                 $location.path('/admin');
+                                for (var j = 0; j < $scope.submissions.length; j++) {
+                                    if ($scope.submissions[j].status.strict == strict) {
+                                        console.log("things were detected to be different");
+                                        $scope.submissions[j].status.strict = $scope.statusArray[x].strict;
+                                        $http.patch('/api/submissions/' + $scope.submissions[j]._id, {
+                                            status: {strict: $scope.statusArray[x].strict, text: $scope.submissions[j].status.text}
+                                        })
+
+                                    }
+                                }
                             })
-                    } else {
-                        alert("There already exists a status with this priority.")
-                    }
+                    })
+
+
+                } else {
+                    alert("There already exists a status with this priority.")
                 }
-        };
+            }
+        }
+
     });
