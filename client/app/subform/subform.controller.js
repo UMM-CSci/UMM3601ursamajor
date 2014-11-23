@@ -75,6 +75,7 @@ angular.module('umm3601ursamajorApp')
         discipline: "",
         sponsors: [],
         sponsorsFinal: [],
+        status: {strict: "Revisions Needed", text: "Your URS submission has been flagged for revisions, and is in need of changes."},
         adviserInfo: {first: "", last: "", email: ""},
         featuredPresentation: Boolean,
         mediaServicesEquipment: "",
@@ -226,7 +227,7 @@ angular.module('umm3601ursamajorApp')
                     });
             };
 
-            if (r) {
+            if (r && !$scope.isResubmitting) {
                 alert("Please send the email that is about to be generated.");
                 sendGmail({
                     to: $scope.submissionData.adviserInfo.email,
