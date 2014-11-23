@@ -4,6 +4,7 @@ angular.module('umm3601ursamajorApp')
 
   .controller('SubformCtrl', function ($scope, $http, Auth, $location, socket, $filter, $window) {
 
+
     if(Auth.isLoggedIn() === false) {
         $location.path('/');
     }
@@ -220,7 +221,8 @@ angular.module('umm3601ursamajorApp')
                         status: {strict: "Awaiting Adviser Approval", text: "Adviser has not been notified"},
                         timestamp: $scope.timestamp,
                         group: 0,
-                        resubmissionData: {comment: $scope.submissionData.resubmitComment, parentSubmission: $scope.submissionData.resubmitParent, isPrimary: false, resubmitFlag: $scope.submissionData.resubmitFlag }
+                        resubmissionData: {comment: $scope.submissionData.resubmitComment, parentSubmission: $scope.submissionData.resubmitParent, isPrimary: false, resubmitFlag: $scope.submissionData.resubmitFlag },
+                        comments: []
                     });
             }
             ;
