@@ -487,9 +487,10 @@ angular.module('umm3601ursamajorApp')
             commentObj.selectionText = selection.toString();
             commentObj.indicator = 0;
             commentObj.responses = [];
+            commentObj.timestamp = Date();
             comments.push(commentObj);
             console.log(comments);
-            $http.patch('api/submissions/' + $scope.selection.item._id,
+            $http.patch('api/submissions/' + submission._id,
                 {comments: comments}
             ).success(function(){
                     console.log("successfully pushed comments to submission!");
@@ -519,6 +520,7 @@ angular.module('umm3601ursamajorApp')
             var response = prompt("response");
             responseObj.response = response;
             responseObj.responder = $scope.getCurrentUser().name;
+            responseObj.timestamp = Date();
             comment.responses.push(responseObj);
             $http.patch('api/submissions/' + $scope.selection.item._id,
                 {comments: comments}
