@@ -6,6 +6,8 @@
     </div>
 </header>
 
+<body>
+
 <div class="FancyBox">
     <div class="info" ng-show="isLoggedIn()">Hello {{getCurrentUser().name}}.</div>
     <div class="info" ng-show="isLoggedIn()">You are signed in as {{getCurrentUser().email}}. </div>
@@ -13,7 +15,23 @@
     <div class="info" ng-show="isLoggedIn() && isAdmin()">You are signed in as an {{getCurrentUser().role}}.</div>
     <div class="info" ng-show="isLoggedIn() && isReviewer()">You are signed in as a {{getCurrentUser().role}} in Reviewer Group {{getReviewerGroup()}}. </div>
 </div>
-
+<hr>
+<hr>
 <div class="FancyBox">
-    <div class="other">T-Shirt size:</div>
+    <div class="info">Please make sure your t-shirt size is up to date.</div>
+    <div class="other">T-Shirt size:
+        <div>
+        <!--Selector for user role-->
+        <select ng-model="getCurrentUser().tShirtSize"  placeholder="">
+            <option value="{{getCurrentUser().tShirtSize}}" disabled selected>{{getCurrentUser().tShirtSize}}</option>
+            <option ng-repeat="size in tShirtSizeOptions" value="{{size}}">{{size}}</option>
+        </select>
+        <button class="buttonRole" ng-click="updateTShirtSize(getCurrentUser())">Update T-Shirt Size</button>
+    </div></div>
 </div>
+
+
+
+
+
+</body>

@@ -8,6 +8,7 @@
                 <button type="button" class="btn btn-default buttonLrg" ng-click="toggleSubEditor()"> Edit the Submission Form</button>
                 <button type="button" class="btn btn-default buttonLrg" ng-click="toggleStatusEdit()">Edit Status Options</button>
                 <button type="button" class="btn btn-default buttonLrg" ng-click="toggleUserEdit()">Edit Users</button>
+                <button type="button" class="btn btn-default buttonLrg" ng-click="toggleAbstractBook()">View Abstract Book</button>
 
             </div>
         </div>
@@ -23,6 +24,10 @@
 
             <div ng-show="toggles.statusEditToggle">
                 <div ng-include="'app/statuseditor/statuseditor.html'"></div>
+            </div>
+
+            <div ng-show="toggles.abstractBookToggle">
+                <div ng-include="'app/abstractBook/abstractBook.html'"></div>
             </div>
 
             <div ng-show="toggles.statsToggle">
