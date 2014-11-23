@@ -13,6 +13,7 @@ angular.module('umm3601ursamajorApp')
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.timestamp = Date();
 
+    $scope.statusArray = [];
     $scope.submissions = [];
     $scope.flaggedSubmissions = [];
     $scope.resubmitParent = null;
@@ -25,6 +26,10 @@ angular.module('umm3601ursamajorApp')
         $scope.submissions = submissions;
         $scope.updateFlaggedSubmissions(submissions);
         socket.syncUpdates('submission', $scope.submissions);
+    });
+
+    $http.get('/api/statuss').success(function(statusArray) {
+        $scope.statusArray = statusArray;
     });
 
     $scope.hasResubmitFlags = function(){
@@ -191,6 +196,15 @@ angular.module('umm3601ursamajorApp')
         return presenterCheck && copresenterOneCheck && copresenterTwoCheck;
     };
 
+
+    $scope.startingStatus = function() {
+        for(var i = 0; i < $scope.statusArray.length; i++) {
+            if ($scope.statusArray[i].priority == -15) {
+                return $scope.statusArray[i].strict;
+            }
+        }
+    };
+
     $scope.submitSubmission = function(){
         if($scope.checkEmailsAreMorris() === true) {
             var r = confirm("Are you sure you want to submit?");
@@ -219,7 +233,7 @@ angular.module('umm3601ursamajorApp')
                         presenterTeeSize: $scope.submissionData.presenterTeeSize,
                         otherInfo: $scope.submissionData.otherInfo,
                         approval: false,
-                        status: {strict: "Awaiting Adviser Approval", text: "Adviser has not been notified"},
+                        status: {strict: $scope.startingStatus(), text: ""},
                         timestamp: $scope.timestamp,
                         group: 0,
                         resubmissionData: {comment: $scope.submissionData.resubmitComment, parentSubmission: $scope.submissionData.resubmitParent, isPrimary: !$scope.isResubmitting, resubmitFlag: $scope.submissionData.resubmitFlag },
