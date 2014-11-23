@@ -14,6 +14,7 @@ angular.module('umm3601ursamajorApp')
     $scope.timestamp = Date();
 
     $scope.statusArray = [];
+    $scope.startingStatus = "";
     $scope.submissions = [];
     $scope.flaggedSubmissions = [];
     $scope.resubmitParent = null;
@@ -30,6 +31,12 @@ angular.module('umm3601ursamajorApp')
 
     $http.get('/api/statuss').success(function(statusArray) {
         $scope.statusArray = statusArray;
+        for(var i = 0; i < $scope.statusArray.length; i++) {
+            if ($scope.statusArray[i].priority == -15) {
+                $scope.startingStatus = $scope.statusArray[i].strict;
+                $scope.submissionData.status = {strict: $scope.startingStatus, text: ""};
+            }
+        }
     });
 
     $scope.hasResubmitFlags = function(){
@@ -80,7 +87,6 @@ angular.module('umm3601ursamajorApp')
         discipline: "",
         sponsors: [],
         sponsorsFinal: [],
-        status: {strict: "Revisions Needed", text: "Your URS submission has been flagged for revisions, and is in need of changes."},
         adviserInfo: {first: "", last: "", email: ""},
         featuredPresentation: Boolean,
         mediaServicesEquipment: "",
@@ -89,7 +95,8 @@ angular.module('umm3601ursamajorApp')
         otherInfo: "",
         resubmitComment: "",
         resubmitParent: "",
-        resubmitFlag: false
+        resubmitFlag: false,
+        status: {strict: $scope.startingStatus, text: ""}
     };
 
     //Email for advisors
@@ -158,7 +165,8 @@ angular.module('umm3601ursamajorApp')
             otherInfo: submission.otherInfo,
             resubmitComment: "",
             resubmitParent: submission._id,
-            resubmitFlag: false
+            resubmitFlag: false,
+            status: submission.status
         };
 
         $scope.isResubmitting = true;
@@ -196,15 +204,6 @@ angular.module('umm3601ursamajorApp')
         return presenterCheck && copresenterOneCheck && copresenterTwoCheck;
     };
 
-
-    $scope.startingStatus = function() {
-        for(var i = 0; i < $scope.statusArray.length; i++) {
-            if ($scope.statusArray[i].priority == -15) {
-                return $scope.statusArray[i].strict;
-            }
-        }
-    };
-
     $scope.submitSubmission = function(){
         if($scope.checkEmailsAreMorris() === true) {
             var r = confirm("Are you sure you want to submit?");
@@ -213,6 +212,10 @@ angular.module('umm3601ursamajorApp')
                     if ($scope.submissionData.sponsors[i] != "" && $scope.submissionData.sponsors[i] != null) {
                         $scope.submissionData.sponsorsFinal.push($scope.submissionData.sponsors[i]);
                     }
+                }
+                if(!$scope.isResubmitting){
+                    $scope.submissionData.status = {strict: $scope.startingStatus, text: ""};
+                    //updating status to ensure that it works....?
                 }
                 console.log('posting Data!');
                 $http.post('/api/submissions/',
@@ -233,7 +236,7 @@ angular.module('umm3601ursamajorApp')
                         presenterTeeSize: $scope.submissionData.presenterTeeSize,
                         otherInfo: $scope.submissionData.otherInfo,
                         approval: false,
-                        status: {strict: $scope.startingStatus(), text: ""},
+                        status: $scope.submissionData.status,
                         timestamp: $scope.timestamp,
                         group: 0,
                         resubmissionData: {comment: $scope.submissionData.resubmitComment, parentSubmission: $scope.submissionData.resubmitParent, isPrimary: !$scope.isResubmitting, resubmitFlag: $scope.submissionData.resubmitFlag },
