@@ -24,7 +24,7 @@
             <p class="subtext">
                 {{sub.copresenterOneInfo.first | isntEmpty:"Co-Presenter(s):":""}} {{sub.copresenterOneInfo.last | isntEmpty:"":""}}{{sub.copresenterTwoInfo.first | isntEmpty:",":""}} {{sub.copresenterTwoInfo.last | isntEmpty:"":""}}
             </p>
-            <p class="subtext">
+            <p>
                 Adviser: {{sub.adviserInfo.first}} {{sub.adviserInfo.last}}
             </p>
             <p class="subtext">
@@ -53,46 +53,43 @@
 
     <ul class="list-group" ng-show="selection.selected">
         <li class="list-group-item overflowAuto">
-            <button class="btn btn-sm btn-block" ng-click="resetSelection()">Back to Submission List</button>
+            <button class="btn btn-sm btn-block" ng-click="resetSelection()">Back to submission list</button>
             <br>
             <button ng-show="isAdmin()" class="btn btn-md btn-danger" ng-click="deleteSubmissionConfirm(selection.item)"><span class="glyphicon glyphicon-trash"></span></button>
-
-            <button type="button" ng-show="hasAdminPrivs() && !isFlaggedForResubmit(selection.item)" class="btn btn-md btn-primary ReSubButton sideMargins" ng-click="flagForResubmit()">Flag for Resubmission</button>
-            <button type="button" ng-show="isPresenter(selection.item) && (getResubmission(selection.item).length == 0) && !isFlaggedForResubmit(selection.item)" class="btn btn-md btn-primary ReSubButton sideMargins" ng-click="flagForResubmit()">Resubmit this Submission</button>
-            <button type="button" ng-show="isPresenter(selection.item) && (getResubmission(selection.item) == null) && !isFlaggedForResubmit(selection.item)" class="btn btn-md btn-primary ReSubButton sideMargins" ng-click="flagForResubmit()">Resubmit this Submission</button>
-            <button type="button" ng-show="isFlaggedForResubmit(selection.item) && hasAdminPrivs()" class="btn btn-warning ReSubButton sideMargins" ng-click="unFlagForResubmission(selection.item)">Remove Resubmit Flag</button>
-            <button type="button" ng-show="(isAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-success ReSubButton sideMargins" ng-click="approveSubmission(selection.item)">Give Adviser Approval</button>
+            <button ng-show="hasAdminPrivs()" class="btn btn-md btn-primary ReSubButton" ng-click="flagForResubmit()">Flag for Re-Submission</button>
+            <button ng-show="isPresenter(selection.item) && (getResubmission(selection.item).length == 0)" class="btn btn-md btn-primary sideMargins ReSubButton" ng-click="flagForResubmit()">Re-Submit this Submission</button>
+            <button ng-show="isPresenter(selection.item) && (getResubmission(selection.item) == null)" class="btn btn-md btn-primary sideMargins ReSubButton" ng-click="flagForResubmit()">Re-Submit this Submission</button>
+            <button ng-show="(isAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-success sideMargins ReSubButton " ng-click="approveSubmission(selection.item)">Give advisor approval</button>
+            <br>
 
         </li>
         <li class="list-group-item" ng-style="statusColorTab(selection.item.status.strict)">
 
-            <div class="block alert" ng-style="statusColorBody(selection.item.status.strict)">
-                <button ng-show="hasAdminPrivs()" class="btn btn-sm btn-warning close" ng-click="editStatus(selection.item)"><span class="glyphicon glyphicon-file"></span></button>
+            <div class="block alert clickable" ng-style="statusColorBody(selection.item.status.strict)" ng-click="editStatus(selection.item)">
+                <button ng-show="hasAdminPrivs()" class="btn btn-sm btn-warning close"><span class="glyphicon glyphicon-file"></span></button>
                 <b>Status:</b> {{selection.item.status.strict}} <br>
                 <b>Comment:</b> {{selection.item.status.text}}</p>
-                <div ng-show="statusEdit.editing">
-                    <hr>
-                    <div class="container-fluid row">
-                        <div class="col-md-6">
-                            <label>
-                                Select Submission Status <br>
-                                <select ng-model="statusEdit.temp.strict">
-                                    <option ng-repeat="status in statusEdit.options" ng-value="{{'status'}}">{{status}}</option>
-                                </select>
-                            </label>
-                        </div>
-                        <div class="col-md-6">
-                            <label>
-                                Elaborate <br>
-                                <textarea cols="30" ng-model="statusEdit.temp.text"></textarea>
-                            </label>
-                        </div>
-                    </div>
-                    <button class="btn btn-default" ng-click="editStatus()">Cancel</button>
-                    <button class="btn btn-warning" ng-click="submitStatusEdit()">Submit</button>
-                </div>
             </div>
-
+            <div class="block alert" ng-show="statusEdit.editing" ng-style="statusColorBody(selection.item.status.strict)">
+                <div class="container-fluid row">
+                    <div class="col-md-6">
+                        <label>
+                            Select Submission Status <br>
+                            <select ng-model="statusEdit.temp.strict">
+                                <option ng-repeat="status in statusEdit.options" ng-value="{{'status'}}">{{status}}</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="col-md-6">
+                        <label>
+                            Elaborate <br>
+                            <textarea cols="30" ng-model="statusEdit.temp.text"></textarea>
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-default" ng-click="editStatus()">Cancel</button>
+                <button class="btn btn-warning" ng-click="submitStatusEdit()">Submit</button>
+            </div>
             <h3 id="text">{{selection.item.title}}</h3>
             <strong>{{selection.item.presenterInfo.last}}, {{selection.item.presenterInfo.first}}</strong>
             <hr>
@@ -122,8 +119,19 @@
                 </li>
                 <li class="list-group-item" ng-repeat="comment in selection.item.comments">
                     <b>{{comment.selectionText | isntEmpty:"Quoted Text:":"(No associated quotation)"}}</b>
+                    <button class="btn xs" ng-click="addResponse(selection.item , $index)">Respond to comment</button>
+                    <button class="btn xs" ng-click="populateComments(selection.item , $index)">Show comment in context!</button>
+                    <button ng-show="hasAdminPrivs()" class="btn xs" ng-click="deleteComment(selection.item , $index)">Delete Comment</button>
                     <br>
                     <p>{{comment.commentText | isntEmpty:"Comment:":"(No comment...)"}}</p>
+                    <p>Comment made by <i>{{comment.commenter}}</i></p>
+                    <button class="btn xs" ng-hide="showResponses" ng-click="showResponses = true">Show Responses</button>
+                    <button class="btn xs" ng-show="showResponses" ng-click="showResponses = false">Hide Responses</button>
+                    <div ng-show="showResponses" ng-repeat="response in comment.responses">
+                        <p>{{response.response}}</p>
+                        <button ng-show="hasAdminPrivs()" class="btn xs" ng-click="deleteResponse(selection.item , $parent.$index , $index)">Delete Response</button>
+                        <p>Response made by <i>{{response.responder}}</i></p>
+                    </div>
                 </li>
             </ul>
             <br>
@@ -136,6 +144,12 @@
             <p ng-show="isAdviser(selection.item)">adviser of this submission</p>
             <p ng-show="isReviewerGroup(selection.item)">reviewer in Reviewer Group {{selection.item.group}}</p>
         </li>
+        <li class="list-group-item">
+            <b>Currently Assigned Review Group:</b>
+            <select ng-change="setReviewGroup(selection.item)" ng-model="selection.reviewGroup">
+                <option ng-repeat="option in groupOptions" value={{option}}>{{option}}</option>
+            </select>
+        </li>
     </ul>
 
 <!-- Starts showing resubmissions in details view here. -->
@@ -145,6 +159,10 @@
                 <h1>Resubmission</h1>
                 <button type="button" class="btn btn-success resubbutton" ng-click="approveResubmit()">Approve Resubmission</button>
                 <button type="button" ng-show="isAdmin()" class="btn btn-danger" ng-click="deleteSubmissionConfirm(selection.resubmission)"><span class="glyphicon glyphicon-trash"></span></button>
+            </li>
+            <li class="list-group-item">
+                <h2>Resubmission Comment</h2>
+                <p>{{selection.resubmission.resubmissionData.comment}}</p>
             </li>
             <li class="list-group-item">
                 <h3 id="text">{{selection.resubmission.title}}</h3>

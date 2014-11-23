@@ -34,7 +34,7 @@ angular.module('umm3601ursamajorApp')
           this.logout();
           deferred.reject(err);
           return cb(err);
-        }.bind(this));$window.open
+        }.bind(this));
 
         return deferred.promise;
       },
@@ -103,6 +103,15 @@ angular.module('umm3601ursamajorApp')
             }, function(err) {
                 return cb(err);
             }).$promise;
+        },
+
+//TODO: MITCH: make this work
+        updateTShirtSize: function(size, user) {
+            console.log(size, user);
+            return User.updateTShirtSize(
+                {id: user._id},
+                {tShirtSize: size}
+            ).$promise;
         },
 
 

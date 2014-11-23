@@ -61,7 +61,7 @@ hr {
     font-size: 15px;
     line-height: 1.33;
     border-radius: 6px;
-    border-width: 0px;
+    border-width: 0;
     background: maroon;
     font-weight: bold;
     font-family: "Helvetica Neue Light", "Lucida Grande", "Calibri", "Arial", sans-serif;
@@ -72,12 +72,30 @@ hr {
     display: inline-block;
     float: right;
 }
+.approveButton {
+    display: inline-block;
+    float: right;
+    margin-top: 10px;
+    background-color: darkred;
+    border: none;
+}
+.approveButton:hover {
+    background-color: indianred;
+}
 
 /*Overflow sets the floating elements as objects (kinda)*/
 .overflowAuto {
     overflow: auto;
 }
 
+.clickable {
+    cursor: pointer;
+    cursor: hand;
+}
+
+/*
+block alert < --css Look this up for the transparent 'open status change button' size?
+*/
 /*----------------------------------------------------------------------------------------------*/
 
 

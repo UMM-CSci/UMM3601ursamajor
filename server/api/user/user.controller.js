@@ -86,11 +86,25 @@ exports.changePassword = function(req, res, next) {
 exports.updateInfo = function(req, res, next) {
     var userId = req.params.id;
     var newRole = String(req.body.role);
-    var newGroup = Number(req.body.group)
+    var newGroup = Number(req.body.group);
 
     User.findById(userId, function (err, user) {
         user.role = newRole;
         user.group = newGroup;
+        user.save(function(err) {
+            if (err) return validationError(res, err);
+            res.send(200);
+        });
+    });
+};
+
+//TODO: MITCH: make this work
+exports.updateTShirtSize = function(req, res, next) {
+    var userId = req.params.id;
+    var newSize = String(req.body.tShirtSize);
+
+    User.findById(userId, function (err, user) {
+        user.tShirtSize = newSize;
         user.save(function(err) {
             if (err) return validationError(res, err);
             res.send(200);

@@ -18,7 +18,7 @@ Status.find({}).remove(function() {
         color: {red: 0, green: 255, blue: 0, alpha: 1},
         emailSubject: "URS submission update",
         emailBody:  ", Your URS submission has been approved, congratulations!",
-        priority: 1
+        priority: 15
     },{
         strict: "Revisions Needed",
         color: {red: 0, green: 100, blue: 255, alpha: 1},
@@ -36,7 +36,7 @@ Status.find({}).remove(function() {
         color: {red: 255, green: 0, blue: 0, alpha: 1},
         emailSubject: "URS submission update",
         emailBody: ", Your URS submission is pending approval from your adviser.",
-        priority: 15
+        priority: -15
     });
 });
 
@@ -122,7 +122,7 @@ User.find({}).remove(function() {
             group: -1,
             role: "chair",
             __v: 0
-            }, {
+        }, {
             name: "Maggie Casale",
             email: "casal033@morris.umn.edu",
             provider: "google",
@@ -142,7 +142,7 @@ User.find({}).remove(function() {
             group: -1,
             role: "admin",
             __v: 0
-            }, {
+        }, {
             name: "Jacob Opdahl",
             email: "opdah023@morris.umn.edu",
             provider: "google",
@@ -160,7 +160,7 @@ User.find({}).remove(function() {
             group: -1,
             role: "admin",
             __v: 0
-            }, {
+        }, {
             name: "Joseph Thelen",
             email: "thele116@morris.umn.edu",
             provider: "google",
@@ -179,6 +179,26 @@ User.find({}).remove(function() {
             role: "admin",
             __v: 0
         }, {
+            name: "Kristin Lamberty",
+            email: "lamberty@morris.umn.edu",
+            provider: "google",
+            google: {
+                hd: "morris.umn.edu",
+                locale: "en",
+                gender: "female",
+                picture: "https://lh4.googleusercontent.com/-ITWyrX1vG2U/AAAAAAAAAAI/AAAAAAAAAC4/N3Iu5cfi5qo/photo.jpg",
+                link: "https://plus.google.com/106035767984054160101",
+                family_name: "Lamberty",
+                given_name: "Kristin",
+                name: "Kristin Lamberty",
+                verified_email: true,
+                email: "lamberty@morris.umn.edu",
+                id: "106035767984054160101"
+            },
+            group: -1,
+            role: "admin",
+            __v: 0
+        }, {
             provider: 'local',
             role: 'user',
             name: 'User',
@@ -190,6 +210,7 @@ User.find({}).remove(function() {
             role: 'admin',
             name: 'Admin',
             email: 'admin@admin.com',
+            tShirtSize: "Medium",
             password: 'admin',
             group: -1
         }, {
