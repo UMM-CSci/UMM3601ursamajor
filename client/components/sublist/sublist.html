@@ -146,6 +146,7 @@
             <p ng-show="isReviewerGroup(selection.item)">reviewer in Reviewer Group {{selection.item.group}}</p>
         </li>
         <li class="list-group-item">
+            <b>Currently Assigned Review Group:</b>
             <select ng-change="setReviewGroup(selection.item)" ng-model="selection.reviewGroup">
                 <option ng-repeat="option in groupOptions" value={{option}}>{{option}}</option>
             </select>

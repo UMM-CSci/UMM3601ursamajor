@@ -16,7 +16,7 @@ var UserSchema = new Schema({
       type: Number,
       default: -1
   },
- // tshirt:String,
+  tshirtSize: String,  //this was commented out, now it's not. The field name has also been changed from "tshirt". Don't know if it'll break things...
   hashedPassword: String,
   provider: String,
   salt: String,
