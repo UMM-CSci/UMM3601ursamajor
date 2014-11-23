@@ -235,11 +235,10 @@ angular.module('umm3601ursamajorApp')
                         status: {strict: $scope.startingStatus(), text: ""},
                         timestamp: $scope.timestamp,
                         group: 0,
-                        resubmissionData: {comment: $scope.submissionData.resubmitComment, parentSubmission: $scope.submissionData.resubmitParent, isPrimary: false, resubmitFlag: $scope.submissionData.resubmitFlag },
+                        resubmissionData: {comment: $scope.submissionData.resubmitComment, parentSubmission: $scope.submissionData.resubmitParent, isPrimary: !$scope.isResubmitting, resubmitFlag: $scope.submissionData.resubmitFlag },
                         comments: []
                     });
-            }
-            ;
+            };
 
             if (r) {
                 alert("Please send the email that is about to be generated.");
@@ -253,7 +252,7 @@ angular.module('umm3601ursamajorApp')
             if ($scope.isResubmitting && r) {
                 $http.patch('api/submissions/' + $scope.submissionData.resubmitParent,
                     // This is only setting false right now. comment and submission donot get stored.
-                    {resubmissionData: {comment: $scope.resubmitParent.resubmissionData.comment, parentSubmission: $scope.resubmitParent.resubmissionData.parentSubmission, resubmitFlag: false}}
+                    {resubmissionData: {comment: $scope.resubmitParent.resubmissionData.comment, parentSubmission: $scope.resubmitParent.resubmissionData.parentSubmission, resubmitFlag: false, isPrimary: true}}
                 ).success(function () {
                         console.log("Successfully unflagged the original submission for resbumission.");
                     });

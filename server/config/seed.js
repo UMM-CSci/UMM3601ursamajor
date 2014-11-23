@@ -310,8 +310,9 @@ Submission.find({}).remove(function(){
         timestamp: "Tue Oct 21 2014 23:22:54 GMT-0500 (CDT)",
         group: 1,
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
-        comments: []
-    }, {
+        comments:[]
+
+}, {
         title: "On the Migration of Majestic Space Whales",
         format: "Artist Statement",
         abstract: "They swim through the endless void, without care and knowing not the concept of time." +
