@@ -197,7 +197,7 @@ angular.module('umm3601ursamajorApp')
 
 
     $scope.startingStatus = function() {
-        for(var i = 0; i < $scope.statusEdit.priority.length; i++) {
+        for(var i = 0; i < $scope.statusArray.length; i++) {
             if ($scope.statusArray[i].priority == -15) {
                 return $scope.statusArray[i].strict;
             }
