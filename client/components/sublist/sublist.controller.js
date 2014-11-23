@@ -532,7 +532,7 @@ angular.module('umm3601ursamajorApp')
         $scope.flagForResubmit = function(){
             console.log("Attempting to flag for resubmission.");
             $http.patch('api/submissions/' + $scope.selection.item._id,
-                {resubmissionData: {comment: "flagged for resubmit", parentSubmission: "", resubmitFlag: true}}
+                {resubmissionData: {comment: $scope.selection.item.resubmissionData.comment, parentSubmission: $scope.selection.item.resubmissionData.parentSubmission, resubmitFlag: true, isPrimary: true}}
             ).success(function(){
                     console.log("Successfully flagged submission for resubmit");
                     if(!$scope.hasAdminPrivs()){$location.path('/subform');}

@@ -221,7 +221,7 @@ angular.module('umm3601ursamajorApp')
                         status: {strict: "Awaiting Adviser Approval", text: "Adviser has not been notified"},
                         timestamp: $scope.timestamp,
                         group: 0,
-                        resubmissionData: {comment: $scope.submissionData.resubmitComment, parentSubmission: $scope.submissionData.resubmitParent, isPrimary: false, resubmitFlag: $scope.submissionData.resubmitFlag },
+                        resubmissionData: {comment: $scope.submissionData.resubmitComment, parentSubmission: $scope.submissionData.resubmitParent, isPrimary: !$scope.isResubmitting, resubmitFlag: $scope.submissionData.resubmitFlag },
                         comments: []
                     });
             };
@@ -238,7 +238,7 @@ angular.module('umm3601ursamajorApp')
             if ($scope.isResubmitting && r) {
                 $http.patch('api/submissions/' + $scope.submissionData.resubmitParent,
                     // This is only setting false right now. comment and submission donot get stored.
-                    {resubmissionData: {comment: $scope.resubmitParent.resubmissionData.comment, parentSubmission: $scope.resubmitParent.resubmissionData.parentSubmission, resubmitFlag: false, isPrimary: $scope.resubmitParent.resubmissionData.isPrimary}}
+                    {resubmissionData: {comment: $scope.resubmitParent.resubmissionData.comment, parentSubmission: $scope.resubmitParent.resubmissionData.parentSubmission, resubmitFlag: false, isPrimary: true}}
                 ).success(function () {
                         console.log("Successfully unflagged the original submission for resbumission.");
                     });
