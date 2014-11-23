@@ -28,18 +28,39 @@ exports.create = function(req, res) {
   });
 };
 
+//// Updates an existing submission in the DB.
+//exports.update = function(req, res) {
+//  if(req.body._id) { delete req.body._id; }
+//  Submission.findById(req.params.id, function (err, submission) {
+//    if (err) { return handleError(res, err); }
+//    if(!submission) { return res.send(404); }
+//    var updated = _.merge(submission, req.body);
+//    updated.save(function (err) {
+//      if (err) { return handleError(res, err); }
+//      return res.json(200, submission);
+//    });
+//  });
+//};
+
+
 // Updates an existing submission in the DB.
 exports.update = function(req, res) {
-  if(req.body._id) { delete req.body._id; }
-  Submission.findById(req.params.id, function (err, submission) {
-    if (err) { return handleError(res, err); }
-    if(!submission) { return res.send(404); }
-    var updated = _.merge(submission, req.body);
-    updated.save(function (err) {
-      if (err) { return handleError(res, err); }
-      return res.json(200, submission);
+    if(req.body._id) { delete req.body._id; }
+    Submission.findById(req.params.id, function (err, submission) {
+        if (err) { return handleError(res, err); }
+        if(!submission) { return res.send(404); }
+        console.log(req.body)
+        var updated = _.merge(submission, req.body);
+        if(!(_.has(req.body, 'title') &&
+            _.has(req.body, 'comments'))){
+            updated.comments = req.body.comments;
+        }
+        updated.save(function (err, product, numberAffected) {
+            console.log(numberAffected)
+            if (err) { return handleError(res, err); }
+            return res.json(200, submission);
+        });
     });
-  });
 };
 
 // Deletes a submission from the DB.
