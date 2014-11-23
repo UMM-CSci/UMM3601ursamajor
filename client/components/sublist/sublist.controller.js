@@ -56,7 +56,7 @@ angular.module('umm3601ursamajorApp')
 
         // Returns true when the submission HAS a parent, and ISN'T the primary.
         $scope.isResubmission = function(submission){
-            return (submission.resubmissionData.parentSubmission != "" && !submission.resubmissionData.isPrimary);
+            return (!submission.resubmissionData.isPrimary);
         };
 
         //TODO: this method could easily be made more efficient? It currently checks for ANY resubmission the the entire database for EVERY submission in the database... Horrible... I'm so sorry...
@@ -544,11 +544,11 @@ angular.module('umm3601ursamajorApp')
         $scope.approveResubmit = function(){
             console.log("Attempting to approve resubmission.");
             $http.patch('api/submissions/' + $scope.selection.item._id,
-                {resubmissionData: {isPrimary: false}}
+                {resubmissionData: {isPrimary: false, comment: $scope.selection.item.resubmissionData.comment, parentSubmission:  $scope.selection.item.resubmissionData.parentSubmission, resubmitFlag: false}}
             ).success(function(){
                     console.log("old primary is no longer primary");
                     $http.patch('api/submissions/' + $scope.selection.resubmission._id,
-                        {resubmissionData: {isPrimary: true}}
+                        {resubmissionData: {isPrimary: true, comment: $scope.selection.resubmission.resubmissionData.comment, parentSubmission:  $scope.selection.resubmission.resubmissionData.parentSubmission, resubmitFlag: false}}
                     ).success(function(){
                         console.log("resubmission set as new primary")
                     });
