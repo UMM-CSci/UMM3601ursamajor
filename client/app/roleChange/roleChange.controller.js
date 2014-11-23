@@ -2,7 +2,7 @@
 'use strict';
 
 angular.module('umm3601ursamajorApp')
-    .controller('RoleChangeCtrl', function ($scope, $http, Auth, User, $location, $filter) {
+    .controller('RoleChangeCtrl', function ($scope, $http, Auth, User, $location, $filter, socket) {
         if(Auth.isAdmin() || Auth.isChair()) {
         } else{
             $location.path('/');

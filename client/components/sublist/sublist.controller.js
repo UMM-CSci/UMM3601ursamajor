@@ -276,7 +276,7 @@ angular.module('umm3601ursamajorApp')
 
         $http.get('/api/users').success(function(users) {
             $scope.users = users;
-            $scope.syncUpdates('users', $scope.users)
+            socket.syncUpdates('user', $scope.users)
         });
 
         //*******Needs to be updated with new status system******
@@ -365,15 +365,23 @@ angular.module('umm3601ursamajorApp')
         $scope.approveSubmission = function(submission) {
             if($scope.isAdviser(submission) == true || $scope.hasAdminPrivs() == true){
                 var r = confirm("Are you sure you want to approve this submission?");
+                console.log(submission);
 
                 if(r){
                     for(var i = 0; i < $scope.statusEdit.priority.length; i++){
                         if($scope.statusEdit.priority[i] == 2){
                             $scope.selection.item.status.strict = $scope.statusEdit.options[i];
+                            for(var j = 0; j < $scope.submissions.length; j++){
+                                if($scope.selection.item._id == $scope.submissions[j]._id){
+                                    console.log("Updates the strict of the current submission.");
+                                    $scope.submissions[j].strict = $scope.statusEdit.options[i];
+                                }
+                            }
+
                             //$scope.selection.item.status.text = status[i].text;
                             $http.patch('api/submissions/' + $scope.selection.item._id,
-                                {approval: true},
-                                {status: {strict: $scope.selection.item.status.strict, text: $scope.selection.item.status.text}}
+                                {approval: true,
+                                status: {strict: $scope.selection.item.status.strict, text: $scope.selection.item.status.text}}
                             ).success(function(){
                                     $scope.selection.item.approval = true;
                                     console.log("Successfully updated approval of submission (approved)");

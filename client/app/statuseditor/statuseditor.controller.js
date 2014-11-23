@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('umm3601ursamajorApp')
-  .controller('StatuseditorCtrl', function ($scope, $http, Auth, $location, User, Modal) {
+  .controller('StatuseditorCtrl', function ($scope, $http, Auth, $location, User, Modal, socket) {
         if(Auth.isAdmin() || Auth.isChair()) {
         } else {
             $location.path('/');
