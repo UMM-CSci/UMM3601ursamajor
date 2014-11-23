@@ -54,12 +54,12 @@
 #circle {
     width: 30px;
     height: 30px;
-    background: red;
+    background: #7a0019;
     border-radius: 25px;
     margin: 10px 10px 0 2px;
     text-align: center;
     padding-top: 5px;
-    color: white;
+    color: #ffcc33;
 }
 #circle:hover {
     background: maroon;
