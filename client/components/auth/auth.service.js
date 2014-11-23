@@ -105,6 +105,15 @@ angular.module('umm3601ursamajorApp')
             }).$promise;
         },
 
+//TODO: MITCH: make this work
+        updateTShirtSize: function(size, user) {
+            console.log(size, user);
+            return User.updateTShirtSize(
+                {id: user._id},
+                {tShirtSize: size}
+            ).$promise;
+        },
+
 
         /**
        * Gets all available info on authenticated user

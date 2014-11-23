@@ -47,7 +47,9 @@ angular.module('umm3601ursamajorApp')
             statsToggle: true,
             subFormEditorToggle: false,
             userEditToggle: false,
-            statusEditToggle: false
+            statusEditToggle: false,
+            abstractBookToggle: false
+
         };
 
         $scope.resetToggles = function(){
@@ -82,5 +84,11 @@ angular.module('umm3601ursamajorApp')
             $scope.resetToggles();
             $scope.toggles.statusEditToggle = true;
         };
+
+        $scope.toggleAbstractBook = function(){
+            $scope.resetToggles();
+            $scope.toggles.abstractBookToggle = true;
+        };
+
 
     });
