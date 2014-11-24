@@ -248,7 +248,7 @@ angular.module('umm3601ursamajorApp')
                         approval: false,
                         status: $scope.submissionData.status,
                         timestamp: $scope.timestamp,
-                        group: 0,
+                        group: $scope.submissionData.resubmitParent.group,
                         resubmissionData: {comment: $scope.submissionData.resubmitComment, parentSubmission: $scope.submissionData.resubmitParent, isPrimary: !$scope.isResubmitting, resubmitFlag: $scope.submissionData.resubmitFlag },
                         comments: $scope.submissionData.comments
                     });
