@@ -255,7 +255,6 @@ angular.module('umm3601ursamajorApp')
             };
 
             if (r && !$scope.isResubmitting) {
-                alert("Please send the email that is about to be generated.");
                 sendGmail({
                     to: $scope.submissionData.adviserInfo.email,
                     subject: 'URS Submission requires approval',

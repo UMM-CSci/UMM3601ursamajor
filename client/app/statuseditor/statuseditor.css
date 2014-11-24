@@ -1,3 +1,16 @@
 #statusEditorStyle{
 
 }
+
+/*Centers the title and the priority*/
+.center {
+    padding-left: 25%;
+    padding-right: 25%;
+
+}
+
+/*Moves the priority input to be inline with the Priority text*/
+.centerBox {
+    margin-bottom: -9px;
+    text-align: center;
+}

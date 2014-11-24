@@ -368,8 +368,15 @@ angular.module('umm3601ursamajorApp')
                 console.log(submission);
 
                 if(r){
+                    var newPriority = 15;
+                    for(var k = 0; k < $scope.statusEdit.priority.length; k++){
+                        if($scope.statusEdit.priority[k] < newPriority && $scope.statusEdit.priority[k] != -15){
+                            newPriority = $scope.statusEdit.priority[k]
+                        }
+                    }
                     for(var i = 0; i < $scope.statusEdit.priority.length; i++){
-                        if($scope.statusEdit.priority[i] == 2){
+
+                        if($scope.statusEdit.priority[i] == newPriority){
                             $scope.selection.item.status.strict = $scope.statusEdit.options[i];
                             for(var j = 0; j < $scope.submissions.length; j++){
                                 if($scope.selection.item._id == $scope.submissions[j]._id){
