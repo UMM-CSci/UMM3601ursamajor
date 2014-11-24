@@ -142,20 +142,24 @@ angular.module('umm3601ursamajorApp')
             var strict = "";
             var conflict = false;
             var priorityOne = false;
+            var problem = false;
             var x = $scope.statusArray.indexOf(status);
             if (r) {
                 for (var i = 0; i < $scope.statusArray.length; i++) {
                     if ($scope.statusArray[i].priority == status.priority) {
                         if ($scope.statusArray[i]._id != status._id) {
                             conflict = true;
+                            problem = true;
                         }
 
                     }
-                    if (status.priority == 1) {
+                    if (status.priority <= 1 || status.priority >= 15) {
                         priorityOne = true;
+                        problem = true;
                     }
+
                 }
-                if (!conflict && !priorityOne) {
+                if (!problem) {
                     $http.get('/api/statuss/' + $scope.statusArray[x]._id).success(function (oldStatus) {
                         strict = oldStatus.strict;
 
@@ -184,7 +188,8 @@ angular.module('umm3601ursamajorApp')
 
 
                 } else {
-                    alert("There already exists a status with this priority.")
+                    //alert("There already exists a status with this priority.")
+                    alert("There is a problem using this priority (status is less than 2, greater than 14, or shares a priority with another status). pick a new one")
                 }
             }
         }
