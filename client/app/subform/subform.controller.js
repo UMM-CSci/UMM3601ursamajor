@@ -96,7 +96,8 @@ angular.module('umm3601ursamajorApp')
         resubmitComment: "",
         resubmitParent: "",
         resubmitFlag: false,
-        status: {strict: $scope.startingStatus, text: ""}
+        status: {strict: $scope.startingStatus, text: ""},
+        comments: []
     };
 
     //Email for advisors
@@ -113,6 +114,8 @@ angular.module('umm3601ursamajorApp')
         var tempSponsors = [];
         var addedToggle = false;
 
+        console.log(submission.comments);
+
         //fixed now (probably)
         for(var x = 0; x <= $scope.fundingSources.length; x++){
             addedToggle = false;
@@ -122,7 +125,7 @@ angular.module('umm3601ursamajorApp')
             for(var y = 0; y < submission.sponsors.length; y++){
 //                console.log("final case? " + (x == $scope.fundingSources.length));
                 if(x == $scope.fundingSources.length){
-                    if(submission.sponsors[submission.sponsors.length - 1] != $scope.fundingSources[x -1]){
+                    if($scope.fundingSources.indexOf(submission.sponsors[submission.sponsors.length - 1]) == -1){
                         tempSponsors.push(submission.sponsors[submission.sponsors.length - 1]);
                     }
                     break;
@@ -166,7 +169,8 @@ angular.module('umm3601ursamajorApp')
             resubmitComment: "",
             resubmitParent: submission._id,
             resubmitFlag: false,
-            status: submission.status
+            status: submission.status,
+            comments: submission.comments
         };
 
         $scope.isResubmitting = true;
@@ -217,6 +221,12 @@ angular.module('umm3601ursamajorApp')
                     $scope.submissionData.status = {strict: $scope.startingStatus, text: ""};
                     //updating status to ensure that it works....?
                 }
+                if($scope.isResubmitting){
+                    console.log("saving comments from original submission");
+                    console.log("original comments: " + $scope.submissionData.resubmitParent.comments);
+                    $scope.submissionData.comments = $scope.submissionData.resubmitParent.comments;
+                    console.log($scope.submissionData.comments);
+                }
                 console.log('posting Data!');
                 $http.post('/api/submissions/',
                     {   title: $scope.submissionData.title,
@@ -240,12 +250,11 @@ angular.module('umm3601ursamajorApp')
                         timestamp: $scope.timestamp,
                         group: 0,
                         resubmissionData: {comment: $scope.submissionData.resubmitComment, parentSubmission: $scope.submissionData.resubmitParent, isPrimary: !$scope.isResubmitting, resubmitFlag: $scope.submissionData.resubmitFlag },
-                        comments: []
+                        comments: $scope.submissionData.comments
                     });
             };
 
             if (r && !$scope.isResubmitting) {
-                alert("Please send the email that is about to be generated.");
                 sendGmail({
                     to: $scope.submissionData.adviserInfo.email,
                     subject: 'URS Submission requires approval',
@@ -256,7 +265,10 @@ angular.module('umm3601ursamajorApp')
             if ($scope.isResubmitting && r) {
                 $http.patch('api/submissions/' + $scope.submissionData.resubmitParent,
                     // This is only setting false right now. comment and submission donot get stored.
-                    {resubmissionData: {comment: $scope.resubmitParent.resubmissionData.comment, parentSubmission: $scope.resubmitParent.resubmissionData.parentSubmission, resubmitFlag: false, isPrimary: true}}
+                    {
+                     resubmissionData: {comment: $scope.resubmitParent.resubmissionData.comment, parentSubmission: $scope.resubmitParent.resubmissionData.parentSubmission, resubmitFlag: false, isPrimary: true},
+                     comments: $scope.resubmitParent.comments
+                    }
                 ).success(function () {
                         console.log("Successfully unflagged the original submission for resbumission.");
                     });
