@@ -509,16 +509,6 @@ angular.module('umm3601ursamajorApp')
                 });
         };
 
-        $scope.flagForResubmit = function(){
-            $http.patch('api/submissions/' + $scope.selection.item._id,
-                {resubmissionData: {comment: "flagged for resubmit", parentSubmission: "", resubmitFlag: true}}
-            ).success(function(){
-                console.log("Successfully flagged submission for resubmit");
-                //Might want to change so that owner of the submission is redirected.
-                if(!$scope.hasAdminPrivs()){$location.path('/subform');}
-            });
-        };
-
         $scope.approvalWordChange = function(approval){
              if(approval){
                  return "Yes";
@@ -530,13 +520,17 @@ angular.module('umm3601ursamajorApp')
 
         //--------------------------------------------- Resubmission ---------------------------------------
         $scope.flagForResubmit = function(){
-            console.log("Attempting to flag for resubmission.");
-            $http.patch('api/submissions/' + $scope.selection.item._id,
-                {resubmissionData: {comment: $scope.selection.item.resubmissionData.comment, parentSubmission: $scope.selection.item.resubmissionData.parentSubmission, resubmitFlag: true, isPrimary: true}}
-            ).success(function(){
-                    console.log("Successfully flagged submission for resubmit");
-                    if(!$scope.hasAdminPrivs()){$location.path('/subform');}
-            });
+            var con = confirm('Are you sure you want to flag this submission for resubmission?');
+            if(con){
+                console.log("Attempting to flag for resubmission.");
+                $http.patch('api/submissions/' + $scope.selection.item._id,
+                    {resubmissionData: {comment: $scope.selection.item.resubmissionData.comment, parentSubmission: $scope.selection.item.resubmissionData.parentSubmission, resubmitFlag: true, isPrimary: true}}
+                ).success(function(){
+                        console.log("Successfully flagged submission for resubmit");
+                        if(!$scope.hasAdminPrivs()){$location.path('/subform');}
+                    });
+            }
+
 
             //Playing with trying to use the Submission service instead of the above http request (as per the role change controller)
 //            Submission.update({id: $scope.selection.item._id},
