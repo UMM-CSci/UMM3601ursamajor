@@ -87,7 +87,13 @@ angular.module('umm3601ursamajorApp')
 
 
         $scope.requiredStatus = function(status){
-            return(status.priority == -15 || status.priority == 15);
+            console.log(status.priority);
+            console.log($scope.statusArray.priority);
+            return((status.priority == -15) || (status.priority == 15));
+        };
+
+        $scope.statusPriority = function(status){
+            return status.priority;
         };
 
 //        $scope.submitChanges = function(status) {

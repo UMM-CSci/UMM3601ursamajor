@@ -5,8 +5,8 @@
         <li class="list-group-item" ng-repeat="status in statusArray" ng-style="statusEditorColor(status)">
             <div class="center">
                 <h2>{{status.strict}}</h2>
-                <h3 ng-hide="requiredStatus(status)">Priority:
-                    <input class="centerBox" type="number" ng-model="status.priority" min="2" max="14"name="priority" required>
+                <h3 ng-hide="requiredStatus(status)">Priority:{{requiredStatus(status)}}{{statusPriority(status)}}
+                    <input class="centerBox" type="number" ng-model="status.priority" name="priority" required>
                 </h3>
                 <h3 ng-show="requiredStatus(status)">Required Status</h3>
 
