@@ -133,7 +133,7 @@
                     <button ng-show="hasAdminPrivs()" class="btn btn-xs deleteButton" ng-click="deleteComment(selection.item , $index)">Delete Comment</button>
                     <div ng-show="showResponses" ng-repeat="response in comment.responses">
                         <p class="padded">{{response.response}}</p>
-                        <button ng-show="hasAdminPrivs()" class="btn xs" ng-click="deleteResponse(selection.item , $parent.$index , $index)">Delete Response</button>
+                        <button ng-show="hasAdminPrivs()" class="btn btn-xs" ng-click="deleteResponse(selection.item , $parent.$index , $index)">Delete Response</button>
                         <p>Response made by <i>{{response.responder}}</i> on {{response.timestamp}}</p>
                     </div>
                 </li>
