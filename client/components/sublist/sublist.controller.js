@@ -145,7 +145,7 @@ angular.module('umm3601ursamajorApp')
             if($scope.filterData.reviewGroupFilterSelection === "All"){
                 return true;
             } else if($scope.filterData.reviewGroupFilterSelection === "Unassigned"){
-                return submission.group == 0;
+                return submission.group == 0 || submission.group == -1;
             } else if($scope.filterData.reviewGroupFilterSelection === "Review Group 1"){
                 return submission.group == 1;
             } else if($scope.filterData.reviewGroupFilterSelection === "Review Group 2"){

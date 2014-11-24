@@ -281,7 +281,7 @@ Submission.find({}).remove(function(){
         approval: false,
         status:  {strict: "Awaiting Adviser Approval", text: "Your adviser has yet to approve this submission."},
         timestamp: "Sat Oct 18 2014 10:48:54 GMT-0500 (CDT)",
-        group: 1,
+        group: 0,
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
         comments: []
     }, {

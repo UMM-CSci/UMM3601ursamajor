@@ -97,7 +97,8 @@ angular.module('umm3601ursamajorApp')
         resubmitParent: "",
         resubmitFlag: false,
         status: {strict: $scope.startingStatus, text: ""},
-        comments: []
+        comments: [],
+        group: 0
     };
 
     //Email for advisors
@@ -170,7 +171,8 @@ angular.module('umm3601ursamajorApp')
             resubmitParent: submission._id,
             resubmitFlag: false,
             status: submission.status,
-            comments: submission.comments
+            comments: submission.comments,
+            group: submission.group
         };
 
         $scope.isResubmitting = true;
@@ -248,7 +250,7 @@ angular.module('umm3601ursamajorApp')
                         approval: false,
                         status: $scope.submissionData.status,
                         timestamp: $scope.timestamp,
-                        group: $scope.submissionData.resubmitParent.group,
+                        group: $scope.submissionData.group,
                         resubmissionData: {comment: $scope.submissionData.resubmitComment, parentSubmission: $scope.submissionData.resubmitParent, isPrimary: !$scope.isResubmitting, resubmitFlag: $scope.submissionData.resubmitFlag },
                         comments: $scope.submissionData.comments
                     });
