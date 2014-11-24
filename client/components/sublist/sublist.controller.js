@@ -588,14 +588,16 @@ angular.module('umm3601ursamajorApp')
             commentObj.indicator = 0;
             commentObj.responses = [];
             commentObj.timestamp = Date();
-            comments.push(commentObj);
-            console.log(comments);
-            $http.patch('api/submissions/' + submission._id,
-                {comments: comments}
-            ).success(function(){
-                    console.log("successfully pushed comments to submission!");
-                });
-            console.log(submission.comments);
+            if(commentText != null && commentText != "") {
+                comments.push(commentObj);
+                console.log(comments);
+                $http.patch('api/submissions/' + submission._id,
+                    {comments: comments}
+                ).success(function () {
+                        console.log("successfully pushed comments to submission!");
+                    });
+                console.log(submission.comments);
+            };
         };
 
         $scope.populateComments = function (submissionCopy , index) {
@@ -621,13 +623,15 @@ angular.module('umm3601ursamajorApp')
             responseObj.response = response;
             responseObj.responder = $scope.getCurrentUser().name;
             responseObj.timestamp = Date();
-            comment.responses.push(responseObj);
-            $http.patch('api/submissions/' + $scope.selection.item._id,
-                {comments: comments}
-            ).success(function(){
-                    console.log("successfully pushed comments to submission!");
-                });
-            console.log(comment.responses);
+            if(response != null && response != "") {
+                comment.responses.push(responseObj);
+                $http.patch('api/submissions/' + $scope.selection.item._id,
+                    {comments: comments}
+                ).success(function () {
+                        console.log("successfully pushed response to submission!");
+                    });
+                console.log(comment.responses);
+            };
         };
 
         $scope.deleteComment = function (submission, index){
@@ -637,7 +641,7 @@ angular.module('umm3601ursamajorApp')
                 $http.patch('api/submissions/' + $scope.selection.item._id,
                     {comments: comments}
                 ).success(function(){
-                        console.log("successfully pushed comments to submission!");
+                        console.log("successfully deleted comments from a submission!");
                     });
             }
         };
@@ -649,7 +653,7 @@ angular.module('umm3601ursamajorApp')
                 $http.patch('api/submissions/' + $scope.selection.item._id,
                     {comments: comments}
                 ).success(function(){
-                        console.log("successfully pushed comments to submission!");
+                        console.log("successfully deleted response from a comment to a submission!");
                     });
             }
         };

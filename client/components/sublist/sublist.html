@@ -120,7 +120,7 @@
                 <li class="list-group-item" ng-repeat="comment in selection.item.comments">
                     <b>{{comment.selectionText | isntEmpty:"Quoted Text:":"(No associated quotation)"}}</b>
                     <button class="btn xs" ng-click="addResponse(selection.item , $index)">Respond to comment</button>
-                    <button class="btn xs" ng-click="populateComments(selection.item , $index)">Show comment in context!</button>
+                    <button class="btn xs" ng-click="populateComments(selection.item , $index)">Show comment in context</button>
                     <button ng-show="hasAdminPrivs()" class="btn xs" ng-click="deleteComment(selection.item , $index)">Delete Comment</button>
                     <br>
                     <p>{{comment.commentText | isntEmpty:"Comment:":"(No comment...)"}}</p>
