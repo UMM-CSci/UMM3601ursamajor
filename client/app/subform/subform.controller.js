@@ -122,7 +122,7 @@ angular.module('umm3601ursamajorApp')
             for(var y = 0; y < submission.sponsors.length; y++){
 //                console.log("final case? " + (x == $scope.fundingSources.length));
                 if(x == $scope.fundingSources.length){
-                    if(submission.sponsors[submission.sponsors.length - 1] != $scope.fundingSources[x -1]){
+                    if($scope.fundingSources.indexOf(submission.sponsors[submission.sponsors.length - 1]) == -1){
                         tempSponsors.push(submission.sponsors[submission.sponsors.length - 1]);
                     }
                     break;
