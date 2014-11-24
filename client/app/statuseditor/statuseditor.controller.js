@@ -37,18 +37,20 @@ angular.module('umm3601ursamajorApp')
         $scope.deleteSubmissionConfirm = function(item){
             Modal.confirm.delete($scope.deleteSubmission)(item.strict, item);
         };
-
         $scope.deleteStatus = function(item){
             var r = confirm("Are you sure you want to delete this status? All statuses will with this status will need to be changed.")
+
             if(r == true) {
                 $http.delete('/api/statuss/' + item._id).success(function () {
                     $scope.statusArray.splice($scope.statusArray.indexOf(item), 1);
                 });
                 var threshold = item.priority;
-                for (var j = 0; j < status.length; j++) {
-                    if ($scope.statusArray[j].priority != 1 || $scope.statusArray[j].priority != 15) {
+                for (var j = 0; j < $scope.statusArray.length; j++) {
+                    if ($scope.statusArray[j].priority != 15 && $scope.statusArray[j].priority != -15) {
                         if ($scope.statusArray[j].priority > threshold) {
                             $scope.statusArray[j].priority--;
+                            $http.patch('/api/statuss/' + $scope.statusArray[j]._id,
+                            {priority: $scope.statusArray[j].priority})
                         }
                     }
                 }
