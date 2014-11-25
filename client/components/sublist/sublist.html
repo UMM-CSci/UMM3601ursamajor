@@ -159,7 +159,7 @@
         <ul class="list-group" ng-show="(selection.resubmission != null) && selection.selected">
             <li class="list-group-item">
                 <h1>Resubmission</h1>
-                <button type="button" class="btn btn-success resubbutton" ng-click="approveResubmit()">Approve Resubmission</button>
+                <button type="button" ng-show="hasAdminPrivs()" class="btn btn-success resubbutton" ng-click="approveResubmit()">Approve Resubmission</button>
                 <button type="button" ng-show="isAdmin()" class="btn btn-danger" ng-click="deleteSubmissionConfirm(selection.resubmission)"><span class="glyphicon glyphicon-trash"></span></button>
             </li>
             <li class="list-group-item">
