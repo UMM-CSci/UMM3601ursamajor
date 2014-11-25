@@ -122,11 +122,15 @@
                     <button class="btn xs" ng-click="addResponse(selection.item , $index)">Respond to comment</button>
                     <button class="btn xs" ng-click="populateComments(selection.item , $index)">Show comment in context</button>
                     <button ng-show="hasAdminPrivs()" class="btn xs" ng-click="deleteComment(selection.item , $index)">Delete Comment</button>
+
                     <br>
                     <p>{{comment.commentText | isntEmpty:"Comment:":"(No comment...)"}}</p>
                     <p>Comment made by <i>{{comment.commenter}}</i> on {{comment.timestamp}}</p>
-                    <button class="btn xs" ng-hide="showResponses" ng-click="showResponses = true">Show Responses</button>
-                    <button class="btn xs" ng-show="showResponses" ng-click="showResponses = false">Hide Responses</button>
+                    <button class="btn xs" ng-hide="showResponses" ng-click="showResponses = true">Show Responses <span class="glyphicon glyphicon-chevron-down"></span></button>
+                    <button class="btn xs" ng-show="showResponses" ng-click="showResponses = false">Hide Responses <span class="glyphicon glyphicon-chevron-up"></span></button>
+                    <button class="btn xs" ng-click="addResponse(selection.item , $index)">Respond to comment</button>
+                    <button class="btn xs" ng-click="populateComments(selection.item , $index)">Show comment in context!</button>
+                    <button ng-show="hasAdminPrivs()" class="btn xs" ng-click="deleteComment(selection.item , $index)">Delete Comment</button>
                     <div ng-show="showResponses" ng-repeat="response in comment.responses">
                         <p>{{response.response}}</p>
                         <button ng-show="hasAdminPrivs()" class="btn xs" ng-click="deleteResponse(selection.item , $parent.$index , $index)">Delete Response</button>
