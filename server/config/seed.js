@@ -158,7 +158,7 @@ User.find({}).remove(function() {
                 id: "111717955914079275928"
             },
             group: -1,
-            role: "admin",
+            role: "user",
             __v: 0
         }, {
             name: "Joseph Thelen",
