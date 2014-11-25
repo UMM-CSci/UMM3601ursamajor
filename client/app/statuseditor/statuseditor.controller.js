@@ -58,7 +58,7 @@ angular.module('umm3601ursamajorApp')
         };
 
         $scope.findEmptyPriority = function(status){
-            var count = 1;
+            var count = 2;
             for(var j = 0; j < status.length; j++) {
                 for (var i = 0; i < status.length; i++) {
                     if (status[i].priority == count) {
