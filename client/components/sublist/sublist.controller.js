@@ -145,7 +145,7 @@ angular.module('umm3601ursamajorApp')
             if($scope.filterData.reviewGroupFilterSelection === "All"){
                 return true;
             } else if($scope.filterData.reviewGroupFilterSelection === "Unassigned"){
-                return submission.group == 0;
+                return submission.group == 0 || submission.group == -1;
             } else if($scope.filterData.reviewGroupFilterSelection === "Review Group 1"){
                 return submission.group == 1;
             } else if($scope.filterData.reviewGroupFilterSelection === "Review Group 2"){
@@ -368,8 +368,15 @@ angular.module('umm3601ursamajorApp')
                 console.log(submission);
 
                 if(r){
+                    var newPriority = 15;
+                    for(var k = 0; k < $scope.statusEdit.priority.length; k++){
+                        if($scope.statusEdit.priority[k] < newPriority && $scope.statusEdit.priority[k] != -15){
+                            newPriority = $scope.statusEdit.priority[k]
+                        }
+                    }
                     for(var i = 0; i < $scope.statusEdit.priority.length; i++){
-                        if($scope.statusEdit.priority[i] == 2){
+
+                        if($scope.statusEdit.priority[i] == newPriority){
                             $scope.selection.item.status.strict = $scope.statusEdit.options[i];
                             for(var j = 0; j < $scope.submissions.length; j++){
                                 if($scope.selection.item._id == $scope.submissions[j]._id){
@@ -524,10 +531,14 @@ angular.module('umm3601ursamajorApp')
             if(con){
                 console.log("Attempting to flag for resubmission.");
                 $http.patch('api/submissions/' + $scope.selection.item._id,
-                    {resubmissionData: {comment: $scope.selection.item.resubmissionData.comment, parentSubmission: $scope.selection.item.resubmissionData.parentSubmission, resubmitFlag: true, isPrimary: true}}
+                    {
+                     resubmissionData: {comment: $scope.selection.item.resubmissionData.comment, parentSubmission: $scope.selection.item.resubmissionData.parentSubmission, resubmitFlag: true, isPrimary: true},
+                     comments: $scope.selection.item.comments
+                    }
                 ).success(function(){
                         console.log("Successfully flagged submission for resubmit");
-                        if(!$scope.hasAdminPrivs()){$location.path('/subform');}
+                        if (!$scope.hasAdminPrivs())
+                            {$location.path('/subform');}
                     });
             }
 
@@ -544,17 +555,20 @@ angular.module('umm3601ursamajorApp')
 
         //TODO: Right now anyone that can see a resubmission can approve a resubmission, so that needs to get fixed. Should wait to fix until the permissions system is sorted out.
         $scope.approveResubmit = function(){
-            console.log("Attempting to approve resubmission.");
-            $http.patch('api/submissions/' + $scope.selection.item._id,
-                {resubmissionData: {isPrimary: false, comment: $scope.selection.item.resubmissionData.comment, parentSubmission:  $scope.selection.item.resubmissionData.parentSubmission, resubmitFlag: false}}
-            ).success(function(){
-                    console.log("old primary is no longer primary");
-                    $http.patch('api/submissions/' + $scope.selection.resubmission._id,
-                        {resubmissionData: {isPrimary: true, comment: $scope.selection.resubmission.resubmissionData.comment, parentSubmission:  $scope.selection.resubmission.resubmissionData.parentSubmission, resubmitFlag: false}}
-                    ).success(function(){
-                        console.log("resubmission set as new primary")
+            var con = confirm('Are you sure you want to approve this resubmission?');
+            if (con) {
+                console.log("Attempting to approve resubmission.");
+                $http.patch('api/submissions/' + $scope.selection.item._id,
+                    {resubmissionData: {isPrimary: false, comment: $scope.selection.item.resubmissionData.comment, parentSubmission: $scope.selection.item.resubmissionData.parentSubmission, resubmitFlag: false}}
+                ).success(function () {
+                        console.log("old primary is no longer primary");
+                        $http.patch('api/submissions/' + $scope.selection.resubmission._id,
+                            {resubmissionData: {isPrimary: true, comment: $scope.selection.resubmission.resubmissionData.comment, parentSubmission: $scope.selection.resubmission.resubmissionData.parentSubmission, resubmitFlag: false}}
+                        ).success(function () {
+                                console.log("resubmission set as new primary")
+                            });
                     });
-            });
+            }
         };
 
 

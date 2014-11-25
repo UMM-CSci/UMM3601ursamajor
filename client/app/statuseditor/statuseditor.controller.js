@@ -87,8 +87,10 @@ angular.module('umm3601ursamajorApp')
 
 
         $scope.requiredStatus = function(status){
-            return(status.priority == -15 || status.priority == 15);
+            return((status.priority == -15) || (status.priority == 15));
         };
+
+
 
 //        $scope.submitChanges = function(status) {
 //            var r = confirm("Are you sure you want to edit this status?");
@@ -140,21 +142,17 @@ angular.module('umm3601ursamajorApp')
         $scope.submitChanges = function(status) {
             var r = confirm("Are you sure you want to edit this status?");
             var strict = "";
-            var conflict = false;
-            var priorityOne = false;
             var problem = false;
             var x = $scope.statusArray.indexOf(status);
             if (r) {
                 for (var i = 0; i < $scope.statusArray.length; i++) {
                     if ($scope.statusArray[i].priority == status.priority) {
                         if ($scope.statusArray[i]._id != status._id) {
-                            conflict = true;
                             problem = true;
                         }
 
                     }
                     if (status.priority <= 1 || status.priority >= 15) {
-                        priorityOne = true;
                         problem = true;
                     }
 

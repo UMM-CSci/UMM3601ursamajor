@@ -1,17 +1,19 @@
 <div ng-controller="StatuseditorCtrl" ng-show="isAdmin() || isChair()" class="container-fluid">
-        <ul class="list-group">
-            <li class="list-group-item"><h1>Status Option Editor</h1></li>
-            <button class="btn btn-primary padded" ng-click="addStatus()">Add New Status</button>
-            <li class="list-group-item" ng-repeat="status in statusArray" ng-style="statusEditorColor(status)">
-                <div class="row">
-                    <div class="col-lg-5">
-                    <h2>{{status.strict}}</h2>
-                    <h3 ng-hide="requiredStatus(status)">Priority:
-                    <textarea  ng-model="status.priority"  cols="1" rows="1" name="priority"></textarea>
-                    </h3>
-                        <h3 ng-show="requiredStatus(status)">Required Status</h3>
+    <ul class="list-group">
+        <li class="list-group-item"><h1>Status Option Editor</h1></li>
+        <button class="btn btn-primary padded" ng-click="addStatus()">Add New Status</button>
+        <li class="list-group-item" ng-repeat="status in statusArray" ng-style="statusEditorColor(status)">
+            <div class="center">
+                <h2>{{status.strict}}</h2>
+                <h3 ng-hide="requiredStatus(status)">Priority:
+                    <input class="centerBox" type="number" ng-model="status.priority" name="priority" required>
+                </h3>
+                <h3 ng-show="requiredStatus(status)">Required Status</h3>
 
-                        <br>
+                <br>
+            </div>
+            <div class="row">
+                <div class="col-lg-5">
 
                     <label class="padded">
                         Status Title:
@@ -33,9 +35,9 @@
                         <textarea ng-model="status.emailBody"  cols="30" rows="5" name="Strict"></textarea>
                     </label>
                     <br>
-                    </div>
+                </div>
 
-                    <div class="col-lg-3">
+                <div class="col-lg-3">
                     <label class="padded">
                         Color:
                         <br>
@@ -56,13 +58,13 @@
 
                     </label>
 
-                        <button ng-hide="requiredStatus(status)" class="btn btn-md btn-danger" ng-click="deleteStatus(status)">
+                    <button ng-hide="requiredStatus(status)" class="btn btn-md btn-danger" ng-click="deleteStatus(status)">
                         <span class="glyphicon glyphicon-trash"></span></button>
                     <br>
 
-                    </div>
                 </div>
-            </li>
-        </ul>
+            </div>
+        </li>
+    </ul>
     </form>
 </div>
