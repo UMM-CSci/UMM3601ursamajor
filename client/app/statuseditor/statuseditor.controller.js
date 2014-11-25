@@ -38,7 +38,7 @@ angular.module('umm3601ursamajorApp')
             Modal.confirm.delete($scope.deleteSubmission)(item.strict, item);
         };
         $scope.deleteStatus = function(item){
-            var r = confirm("Are you sure you want to delete this status? All statuses will with this status will need to be changed.")
+            var r = confirm("Are you sure you want to delete this status? All statuses with this status will need to be changed.")
 
             if(r == true) {
                 $http.delete('/api/statuss/' + item._id).success(function () {
