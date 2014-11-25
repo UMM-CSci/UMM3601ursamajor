@@ -77,7 +77,8 @@ angular.module('umm3601ursamajorApp')
                         color: {red: 0, green: 0, blue: 0, alpha: 1},
                         emailSubject: "",
                         emailBody: "",
-                        priority: $scope.findEmptyPriority($scope.statusArray)
+                        priority: $scope.findEmptyPriority($scope.statusArray),
+                        required: false
                     }).success(function () {
                         console.log("Successfully added new status")
                         $scope.getStatuses();
@@ -152,9 +153,10 @@ angular.module('umm3601ursamajorApp')
                         }
 
                     }
-                    if (status.priority <= 1 || status.priority >= 15) {
+                    if ((status.priority <= 1 || status.priority >= 15) && (status.required == false)) {
                         problem = true;
                     }
+
 
                 }
                 if (!problem) {

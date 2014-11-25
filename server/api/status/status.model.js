@@ -8,7 +8,8 @@ var StatusSchema = new Schema({
     color: {red: Number, green: Number, blue: Number, alpha: Number},
     emailSubject: String,
     emailBody: String,
-    priority: Number
+    priority: Number,
+    required: Boolean
 });
 
 module.exports = mongoose.model('Status', StatusSchema);

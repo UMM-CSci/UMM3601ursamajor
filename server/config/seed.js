@@ -18,25 +18,29 @@ Status.find({}).remove(function() {
         color: {red: 0, green: 255, blue: 0, alpha: 1},
         emailSubject: "URS submission update",
         emailBody:  ", Your URS submission has been approved, congratulations!",
-        priority: 15
+        priority: 15,
+        required: true
     },{
         strict: "Revisions Needed",
         color: {red: 0, green: 100, blue: 255, alpha: 1},
         emailSubject: "URS submission update",
         emailBody: ", Your URS submission has been flagged for revisions, and is in need of changes.",
-        priority: 3
+        priority: 3,
+        required: false
     },{
         strict: "Reviewing in Process",
         color: {red: 255, green: 220, blue: 10, alpha: 1},
         emailSubject: "URS submission update",
         emailBody: ", Your URS submission has been approved by your adviser.",
-        priority: 2
+        priority: 2,
+        required: false
     },{
         strict: "Awaiting Adviser Approval",
         color: {red: 255, green: 0, blue: 0, alpha: 1},
         emailSubject: "URS submission update",
         emailBody: ", Your URS submission is pending approval from your adviser.",
-        priority: -15
+        priority: -15,
+        required: true
     });
 });
 
@@ -158,7 +162,7 @@ User.find({}).remove(function() {
                 id: "111717955914079275928"
             },
             group: -1,
-            role: "user",ew
+            role: "user",
             __v: 0
         }, {
             name: "Joseph Thelen",
