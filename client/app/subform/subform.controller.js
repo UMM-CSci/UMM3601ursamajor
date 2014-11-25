@@ -266,7 +266,6 @@ angular.module('umm3601ursamajorApp')
             }
             if ($scope.isResubmitting && r) {
                 $http.patch('api/submissions/' + $scope.submissionData.resubmitParent,
-                    // This is only setting false right now. comment and submission donot get stored.
                     {
                      resubmissionData: {comment: $scope.resubmitParent.resubmissionData.comment, parentSubmission: $scope.resubmitParent.resubmissionData.parentSubmission, resubmitFlag: false, isPrimary: true},
                      comments: $scope.resubmitParent.comments

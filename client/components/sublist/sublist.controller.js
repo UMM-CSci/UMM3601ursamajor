@@ -506,6 +506,7 @@ angular.module('umm3601ursamajorApp')
             $scope.resetTemps();
             $scope.editStatus();
         };
+
         //TODO: broken, fix pls
         $scope.advisorApprover = function(){
             $http.patch('api/submissions/' + $scope.selection.item._id,
@@ -559,11 +560,17 @@ angular.module('umm3601ursamajorApp')
             if (con) {
                 console.log("Attempting to approve resubmission.");
                 $http.patch('api/submissions/' + $scope.selection.item._id,
-                    {resubmissionData: {isPrimary: false, comment: $scope.selection.item.resubmissionData.comment, parentSubmission: $scope.selection.item.resubmissionData.parentSubmission, resubmitFlag: false}}
+                    {
+                        resubmissionData: {isPrimary: false, comment: $scope.selection.item.resubmissionData.comment, parentSubmission: $scope.selection.item.resubmissionData.parentSubmission, resubmitFlag: false},
+                        comments: $scope.selection.item.comments
+                    }
                 ).success(function () {
                         console.log("old primary is no longer primary");
                         $http.patch('api/submissions/' + $scope.selection.resubmission._id,
-                            {resubmissionData: {isPrimary: true, comment: $scope.selection.resubmission.resubmissionData.comment, parentSubmission: $scope.selection.resubmission.resubmissionData.parentSubmission, resubmitFlag: false}}
+                            {
+                                resubmissionData: {isPrimary: true, comment: $scope.selection.resubmission.resubmissionData.comment, parentSubmission: $scope.selection.resubmission.resubmissionData.parentSubmission, resubmitFlag: false},
+                                comments: $scope.selection.resubmission.comments
+                            }
                         ).success(function () {
                                 console.log("resubmission set as new primary")
                             });
