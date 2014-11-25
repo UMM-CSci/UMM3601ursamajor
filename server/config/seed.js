@@ -158,7 +158,7 @@ User.find({}).remove(function() {
                 id: "111717955914079275928"
             },
             group: -1,
-            role: "user",
+            role: "user",ew
             __v: 0
         }, {
             name: "Joseph Thelen",
@@ -299,7 +299,7 @@ Submission.find({}).remove(function(){
         copresenterTwoInfo: {first: "Maggie", last: "Casale", email: "casal033@morris.umn.edu"},
         discipline: "Art History",
         sponsors: [],
-        adviserInfo: {first: "Jacob", last: "Opdahl", email: "opdah023@morris.umn.edu"},
+        adviserInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
         featured: true,
         mediaServicesEquipment: "",
         specialRequirements: "A space to perform with three people.",
