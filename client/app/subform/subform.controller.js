@@ -91,7 +91,7 @@ angular.module('umm3601ursamajorApp')
         featuredPresentation: Boolean,
         mediaServicesEquipment: "",
         specialRequirements: "",
-        presenterTeeSize: "",
+        //presenterTeeSize: "",
         otherInfo: "",
         resubmitComment: "",
         resubmitParent: "",
@@ -165,7 +165,7 @@ angular.module('umm3601ursamajorApp')
             featuredPresentation: submission.featured,
             mediaServicesEquipment: submission.mediaServicesEquipment,
             specialRequirements: submission.specialRequirements,
-            presenterTeeSize: submission.presenterTeeSize,
+            //presenterTeeSize: submission.presenterTeeSize,
             otherInfo: submission.otherInfo,
             resubmitComment: "",
             resubmitParent: submission._id,
@@ -174,6 +174,10 @@ angular.module('umm3601ursamajorApp')
             comments: submission.comments,
             group: submission.group
         };
+
+        console.log("submissionData: ");
+        console.log($scope.submissionData);
+        console.log(submission.comments);
 
         $scope.isResubmitting = true;
         $scope.resubmitParent = submission;
@@ -225,8 +229,8 @@ angular.module('umm3601ursamajorApp')
                 }
                 if($scope.isResubmitting){
                     console.log("saving comments from original submission");
-                    console.log("original comments: " + $scope.submissionData.resubmitParent.comments);
-                    $scope.submissionData.comments = $scope.submissionData.resubmitParent.comments;
+                    console.log("original comments: " + $scope.resubmitParent.comments);
+                    $scope.submissionData.comments = $scope.resubmitParent.comments;
                     console.log($scope.submissionData.comments);
                 }
                 console.log('posting Data!');
@@ -245,7 +249,7 @@ angular.module('umm3601ursamajorApp')
                         featured: $scope.submissionData.featuredPresentation,
                         mediaServicesEquipment: $scope.submissionData.mediaServicesEquipment,
                         specialRequirements: $scope.submissionData.specialRequirements,
-                        presenterTeeSize: $scope.submissionData.presenterTeeSize,
+                        //presenterTeeSize: $scope.submissionData.presenterTeeSize,
                         otherInfo: $scope.submissionData.otherInfo,
                         approval: false,
                         status: $scope.submissionData.status,
