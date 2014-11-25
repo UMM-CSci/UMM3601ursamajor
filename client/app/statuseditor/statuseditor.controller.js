@@ -187,7 +187,7 @@ angular.module('umm3601ursamajorApp')
 
                 } else {
                     //alert("There already exists a status with this priority.")
-                    alert("There is a problem using this priority (status is less than 2, greater than 14, or shares a priority with another status). pick a new one")
+                    alert("There is a problem using this priority (priority is less than 2, greater than 14, or shares a priority with another status). Please, pick a new one.")
                 }
             }
         }
