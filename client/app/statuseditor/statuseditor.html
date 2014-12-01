@@ -6,7 +6,7 @@
             <div class="center">
                 <h2>{{status.strict}}</h2>
                 <h3 ng-hide="requiredStatus(status)">Priority:
-                    <input class="centerBox" type="number" ng-model="status.priority" name="priority" required>
+                    <input class="centerBox" type="number" ng-model="status.priority" max="14" min="2" name="priority" required>
                 </h3>
                 <h3 ng-show="requiredStatus(status)">Required Status</h3>
 
