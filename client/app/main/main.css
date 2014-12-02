@@ -1,3 +1,4 @@
+html { overflow-y: scroll; }
 /* unvisited link */
 a:link {
     color: #7a0019;

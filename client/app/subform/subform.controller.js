@@ -260,7 +260,9 @@ angular.module('umm3601ursamajorApp')
 
     $scope.submitSubmission = function(){
             var r = confirm("Are you sure you want to submit?");
-            alert("If you do not send the email that will be automatically generated, your adviser will not receive a notification to approve your submission.");
+            if(!$scope.isResubmitting){
+                alert("If you do not send the email that will be automatically generated, your adviser will not receive a notification to approve your submission.");
+            }
             if (r) {
                 for (var i = 0; i < $scope.submissionData.sponsors.length; i++) {
                     if ($scope.submissionData.sponsors[i] != "" && $scope.submissionData.sponsors[i] != null) {

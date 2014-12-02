@@ -68,7 +68,7 @@ hr {
 }
 
 /*Formats buttons related to resub Button*/
-.ReSubButton {
+.moveRight {
     display: inline-block;
     float: right;
 }
