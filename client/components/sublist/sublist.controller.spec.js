@@ -33,6 +33,7 @@ describe('filter', function() {
 // TODO: this test isn't finished, just a template as of now. FINISH IT AND WRITE MORE TESTS!!!
 describe('Functions used for filtering', function() {
     beforeEach(module('umm3601ursamajorApp'));
+    beforeEach(module('socketMock'));
 
     var SublistCtrl, scope;
 
@@ -43,12 +44,12 @@ describe('Functions used for filtering', function() {
         });
     }));
 
-    it('should ...', function () {
+    it('1 should equal 1...', function () {
         expect(1).toEqual(1);
     });
 
-    //this is broken. it's all broken. Apparently it cannot find "io"....
-    it('Should be a resubmission... ', function($scope) {
+  //  this is broken. it's all broken. Apparently it cannot find "io"....
+    it('Should be a resubmission... ', function() {
         var testSubmission =
         {
             title: "A Study of the Properties of a Paperclip in the Digestive System of a Sloth",
@@ -78,6 +79,6 @@ describe('Functions used for filtering', function() {
             comments: []
         };
 
-        expect($scope.isResubmission(testSubmission)).toEqual(true);
+        expect(scope.isResubmission(testSubmission)).toEqual(true);
     });
 });
