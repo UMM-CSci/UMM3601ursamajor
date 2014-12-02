@@ -49,8 +49,8 @@
             <button ng-show="isPresenter(selection.item) && (getResubmission(selection.item) == null)" class="btn btn-md btn-primary sideMargins moveRight" ng-click="flagForResubmit()">Re-Submit this Submission</button>
 
             <div class="btn-group sideMargins moveRight">
-                <button ng-show="(isAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-success sideMargins  " ng-click="approveSubmission(selection.item)">Give adviser approval</button>
-                <button ng-show="(isAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-danger sideMargins  " ng-click="rejectSubmission(selection.item)">Reject Submission</button>
+                <button ng-show="(isAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-success  " ng-click="approveSubmission(selection.item)">Give adviser approval</button>
+                <button ng-show="(isAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-danger " ng-click="rejectSubmission(selection.item)">Reject Submission</button>
             </div>
 
             <br>

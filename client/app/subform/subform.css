@@ -118,7 +118,7 @@
 }
 
 /*Changes the resubmission button color on hover*/
-.moveRight:hover {
+.ResubButton:hover {
     background-color: #ffcc33;
     color: #7a0019;
 }
