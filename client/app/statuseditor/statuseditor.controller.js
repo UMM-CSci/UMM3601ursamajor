@@ -15,6 +15,7 @@ angular.module('umm3601ursamajorApp')
 
         $http.get('/api/statuss').success(function(statusArray) {
             $scope.statusArray = statusArray;
+            $scope.statusArray.sort(function(a, b){return b.priority- a.priority});
         });
 
         $http.get('/api/submissions').success(function(submissions) {
@@ -25,6 +26,7 @@ angular.module('umm3601ursamajorApp')
         $scope.getStatuses = function(){
             $http.get('/api/statuss').success(function(statusArray) {
                 $scope.statusArray = statusArray;
+                $scope.statusArray.sort(function(a, b){return b.priority- a.priority});
             });
         };
 
@@ -38,7 +40,7 @@ angular.module('umm3601ursamajorApp')
             Modal.confirm.delete($scope.deleteSubmission)(item.strict, item);
         };
         $scope.deleteStatus = function(item){
-            var r = confirm("Are you sure you want to delete this status? All statuses will with this status will need to be changed.")
+            var r = confirm("Are you sure you want to delete this status? All statuses with this status will need to be changed.")
 
             if(r == true) {
                 $http.delete('/api/statuss/' + item._id).success(function () {
@@ -58,7 +60,7 @@ angular.module('umm3601ursamajorApp')
         };
 
         $scope.findEmptyPriority = function(status){
-            var count = 1;
+            var count = 2;
             for(var j = 0; j < status.length; j++) {
                 for (var i = 0; i < status.length; i++) {
                     if (status[i].priority == count) {
@@ -77,7 +79,8 @@ angular.module('umm3601ursamajorApp')
                         color: {red: 0, green: 0, blue: 0, alpha: 1},
                         emailSubject: "",
                         emailBody: "",
-                        priority: $scope.findEmptyPriority($scope.statusArray)
+                        priority: $scope.findEmptyPriority($scope.statusArray),
+                        required: false
                     }).success(function () {
                         console.log("Successfully added new status")
                         $scope.getStatuses();
@@ -87,7 +90,7 @@ angular.module('umm3601ursamajorApp')
 
 
         $scope.requiredStatus = function(status){
-            return((status.priority == -15) || (status.priority == 15));
+            return(status.required);
         };
 
 
@@ -152,9 +155,10 @@ angular.module('umm3601ursamajorApp')
                         }
 
                     }
-                    if (status.priority <= 1 || status.priority >= 15) {
+                    if ((status.priority <= 1 || status.priority >= 15) && (status.required == false)) {
                         problem = true;
                     }
+
 
                 }
                 if (!problem) {
@@ -187,7 +191,7 @@ angular.module('umm3601ursamajorApp')
 
                 } else {
                     //alert("There already exists a status with this priority.")
-                    alert("There is a problem using this priority (status is less than 2, greater than 14, or shares a priority with another status). pick a new one")
+                    alert("There is a problem using this priority (priority is less than 2, greater than 14, or shares a priority with another status). Please, pick a new one.")
                 }
             }
         }

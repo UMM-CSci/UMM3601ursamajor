@@ -6,7 +6,7 @@
             <div class="center">
                 <h2>{{status.strict}}</h2>
                 <h3 ng-hide="requiredStatus(status)">Priority:
-                    <input class="centerBox" type="number" ng-model="status.priority" name="priority" required>
+                    <input class="centerBox" type="number" ng-model="status.priority" max="14" min="2" name="priority" required>
                 </h3>
                 <h3 ng-show="requiredStatus(status)">Required Status</h3>
 
@@ -16,7 +16,6 @@
                 <div class="col-lg-5">
 
                     <label class="padded">
-                        Status Title:
                         <br>
                         <textarea ng-model="status.strict"  cols="30" rows="1" name="Strict"></textarea>
                     </label>
@@ -30,7 +29,9 @@
                     <br>
 
                     <label class="padded">
-                        Email Body  (presenter's name will precede the text):
+                        Email Body:
+                        <br>
+                        (presenter's name will precede the text):
                         <br>
                         <textarea ng-model="status.emailBody"  cols="30" rows="5" name="Strict"></textarea>
                     </label>

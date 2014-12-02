@@ -62,7 +62,8 @@
             <button ng-show="hasAdminPrivs()" class="btn btn-md btn-primary ReSubButton" ng-click="flagForResubmit()">Flag for Re-Submission</button>
             <button ng-show="isPresenter(selection.item) && (getResubmission(selection.item).length == 0)" class="btn btn-md btn-primary sideMargins ReSubButton" ng-click="flagForResubmit()">Re-Submit this Submission</button>
             <button ng-show="isPresenter(selection.item) && (getResubmission(selection.item) == null)" class="btn btn-md btn-primary sideMargins ReSubButton" ng-click="flagForResubmit()">Re-Submit this Submission</button>
-            <button ng-show="(isAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-success sideMargins ReSubButton " ng-click="approveSubmission(selection.item)">Give advisor approval</button>
+            <button ng-show="(isAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-success sideMargins ReSubButton " ng-click="approveSubmission(selection.item)">Give adviser approval</button>
+            <button ng-show="(isAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-danger sideMargins ReSubButton " ng-click="rejectSubmission(selection.item)">Reject Submission</button>
             <br>
 
         </li>
@@ -159,7 +160,7 @@
         <ul class="list-group" ng-show="(selection.resubmission != null) && selection.selected">
             <li class="list-group-item">
                 <h1>Resubmission</h1>
-                <button type="button" class="btn btn-success resubbutton" ng-click="approveResubmit()">Approve Resubmission</button>
+                <button type="button" ng-show="hasAdminPrivs()" class="btn btn-success resubbutton" ng-click="approveResubmit()">Approve Resubmission</button>
                 <button type="button" ng-show="isAdmin()" class="btn btn-danger" ng-click="deleteSubmissionConfirm(selection.resubmission)"><span class="glyphicon glyphicon-trash"></span></button>
             </li>
             <li class="list-group-item">
