@@ -364,7 +364,8 @@ angular.module('umm3601ursamajorApp')
 
         $scope.approveSubmission = function(submission) {
             if($scope.isAdviser(submission) == true || $scope.hasAdminPrivs() == true){
-                var r = confirm("Are you sure you want to approve this submission?");
+                var r = confirm("As an adviser, I authorize the student(s) to submit this abstract for consideration for the URS (not approve the final abstract). " +
+                    "Are you sure you want to approve this submission?");
                 console.log(submission);
 
                 if(r){
@@ -405,6 +406,31 @@ angular.module('umm3601ursamajorApp')
                     });
                 }
             }
+        };
+//TODO: finish this function, add in the changing of status to a rejection status, add in chairs emails to the sendGmails
+        $scope.rejectSubmission = function(submission) {
+            if($window.confirm("As adviser of this submission, I am rejecting this submission; clarifying that this abstract should not be sent to the URS committee for review." +
+                "Are you sure you want to reject this submission?")){
+                if($window.confirm('Would you like to send an email to the presenter(s) of this submission clarifying why you have rejected the submission? You will be prompted to send' +
+                    'an email to the admin and chairs either way.')){
+                    sendGmail({
+                        to: $scope.selection.item.presenterInfo.email +" "+ $scope.selection.item.copresenterOneInfo.email +" "+ $scope.selection.item.copresenterTwoInfo.email,
+                        subject: "["+ $scope.selection.item.title + "] " + "URS submission has been rejected",
+                        message: $scope.selection.item.presenterInfo.first + ", unfortunately, your URS submission has been rejected."
+                    });
+                    sendGmail({
+                        to: "admin@admin.com", //add in chairs' emails
+                        subject: "["+ $scope.selection.item.title + "] " + "URS submission has been rejected",
+                        message: $scope.selection.item.presenterInfo.first + " submitted an abstract for consideration to the URS. Unfortunately, I have rejected this submission."
+                    });
+                } else {
+                    sendGmail({
+                        to: "admin@admin.com", //add in chairs' emails
+                        subject: "["+ $scope.selection.item.title + "] " + "URS submission has been rejected",
+                        message: $scope.selection.item.presenterInfo.first + " submitted an abstract for consideration to the URS. Unfortunately, I have rejected this submission."
+                    });
+                }
+            };
         };
 
         // -------------------------- Editing of status ----------------------------------------------
@@ -509,7 +535,7 @@ angular.module('umm3601ursamajorApp')
 
         //TODO: broken, fix pls
         $scope.advisorApprover = function(){
-            $http.patch('api/submissions/' + $scope.selection.item._id,
+            $http.patch('api/advisorApprover/' + $scope.selection.item._id,
                 {approval: true}
             ).success(function(){
                     $scope.selection.item.approval = true;

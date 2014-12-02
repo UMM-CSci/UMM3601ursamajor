@@ -41,6 +41,13 @@ Status.find({}).remove(function() {
         emailBody: ", Your URS submission is pending approval from your adviser.",
         priority: -15,
         required: true
+//    },{
+//        strict: "Rejected by Adviser",
+//            color: {red: 255, green: 220, blue: 10, alpha: 1},
+//        emailSubject: "URS submission update",
+//            emailBody: ", Your URS submission has been rejected by your adviser.",
+//        priority: 4,
+//        required: true
     });
 });
 
