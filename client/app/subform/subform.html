@@ -44,7 +44,7 @@
 
     <hr>
 
-    <form  ng-submit="submitSubmission()" id="form1">
+    <form  ng-submit="preSubmitChecks()" id="form1">
         <label class="padded">
             <pre class="preStyle">{{submissionText.submissionTitle}}</pre>
             <textarea ng-model="submissionData.title" cols="50" name="Presentation Title" maxlength="350" required></textarea>

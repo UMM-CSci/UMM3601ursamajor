@@ -192,31 +192,71 @@ angular.module('umm3601ursamajorApp')
         $scope.submissionText = $scope.submissionTextArray[0];
     });
 
-    $scope.checkEmailsAreMorris = function (){
+    $scope.checkEmailsAreUofM = function (){
         var presenterEmail = $scope.submissionData.presenterInfo.email;
         var copresenterOneEmail = $scope.submissionData.copresenterOne.email;
         var copresenterTwoEmail = $scope.submissionData.copresenterTwo.email;
+        var adviserOneEmail = $scope.submissionData.adviserInfo.email;
 
-        var presenterCheck = (presenterEmail.indexOf("morris.umn.edu") != -1);
+        var presenterCheck = (presenterEmail.indexOf("umn.edu") != -1);
 
         if(copresenterOneEmail != ""){
-            var copresenterOneCheck = (copresenterOneEmail.indexOf("morris.umn.edu") != -1);
+            var copresenterOneCheck = (copresenterOneEmail.indexOf("umn.edu") != -1);
         } else{
             var copresenterOneCheck = true;
         }
 
         if(copresenterTwoEmail != ""){
-            var copresenterTwoCheck = (copresenterTwoEmail.indexOf("morris.umn.edu") != -1);
+            var copresenterTwoCheck = (copresenterTwoEmail.indexOf("umn.edu") != -1);
         } else{
             var copresenterTwoCheck = true;
         }
 
-        return presenterCheck && copresenterOneCheck && copresenterTwoCheck;
+        var adviserOneEmailCheck = (adviserOneEmail.indexOf("umn.edu") != -1);
+
+        return presenterCheck && copresenterOneCheck && copresenterTwoCheck && adviserOneEmailCheck;
     };
 
+        $scope.checkEmailsAreMorris = function (){
+            var presenterEmail = $scope.submissionData.presenterInfo.email;
+            var copresenterOneEmail = $scope.submissionData.copresenterOne.email;
+            var copresenterTwoEmail = $scope.submissionData.copresenterTwo.email;
+            var adviserOneEmail = $scope.submissionData.adviserInfo.email;
+
+            var presenterCheck = (presenterEmail.indexOf("morris.umn.edu") != -1);
+
+            if(copresenterOneEmail != ""){
+                var copresenterOneCheck = (copresenterOneEmail.indexOf("morris.umn.edu") != -1);
+            } else{
+                var copresenterOneCheck = true;
+            }
+
+            if(copresenterTwoEmail != ""){
+                var copresenterTwoCheck = (copresenterTwoEmail.indexOf("morris.umn.edu") != -1);
+            } else{
+                var copresenterTwoCheck = true;
+            }
+
+            var adviserOneEmailCheck = (adviserOneEmail.indexOf("morris.umn.edu") != -1);
+
+            return presenterCheck && copresenterOneCheck && copresenterTwoCheck && adviserOneEmailCheck;
+        };
+
+        $scope.preSubmitChecks = function(){
+            if ($scope.checkEmailsAreUofM() === true && $scope.checkEmailsAreMorris() === false){
+                var confirm = $window.confirm("At least one of the emails you entered is not a Morris email address. Would you like to continue?");
+            } else if($scope.checkEmailsAreUofM() === false){
+                $window.alert("One of the emails you entered is not a University of Minnesota email.");
+            }
+
+            if(confirm || $scope.checkEmailsAreMorris() === true){
+                $scope.submitSubmission();
+            }
+        };
+
     $scope.submitSubmission = function(){
-        if($scope.checkEmailsAreMorris() === true) {
             var r = confirm("Are you sure you want to submit?");
+            alert("If you do not send the email that will be automatically generated, your adviser will not receive a notification to approve your submission.");
             if (r) {
                 for (var i = 0; i < $scope.submissionData.sponsors.length; i++) {
                     if ($scope.submissionData.sponsors[i] != "" && $scope.submissionData.sponsors[i] != null) {
@@ -282,9 +322,6 @@ angular.module('umm3601ursamajorApp')
                 $scope.resetData();
                 $location.path('/submissionpage');
             }
-        } else{
-            $window.alert("One of the emails you entered is not a UMN Morris email.");
-        }
     };
 
     $scope.charsRemaining = function() {
