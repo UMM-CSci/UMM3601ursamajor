@@ -243,6 +243,7 @@ User.find({}).remove(function() {
         }, {
             name: 'Dalton Gusaas',
             email: 'gusaa004@morris.umn.edu',
+            tShirtSize: "Medium",
             provider: 'google',
             google: {
                 hd: 'morris.umn.edu',
