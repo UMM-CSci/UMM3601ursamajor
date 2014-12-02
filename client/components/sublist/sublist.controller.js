@@ -572,8 +572,12 @@ angular.module('umm3601ursamajorApp')
                                 comments: $scope.selection.resubmission.comments
                             }
                         ).success(function () {
+                                $scope.selection.item.resubmissionData.isPrimary = false;
+                                $scope.selection.resubmission.resubmissionData.isPrimary = true;
+                                $scope.selection.item = $scope.selection.resubmission;
+                                $scope.selection.resubmission = null;
                                 console.log("resubmission set as new primary")
-                            });
+                        });
                     });
             }
         };
