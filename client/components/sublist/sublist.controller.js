@@ -559,8 +559,7 @@ angular.module('umm3601ursamajorApp')
                 console.log("Attempting to flag for resubmission.");
                 $http.patch('api/submissions/' + $scope.selection.item._id,
                     {
-                     resubmissionData: {comment: $scope.selection.item.resubmissionData.comment, parentSubmission: $scope.selection.item.resubmissionData.parentSubmission, resubmitFlag: true, isPrimary: true},
-                     comments: $scope.selection.item.comments
+                     resubmissionData: {comment: $scope.selection.item.resubmissionData.comment, parentSubmission: $scope.selection.item.resubmissionData.parentSubmission, resubmitFlag: true, isPrimary: true}
                     }
                 ).success(function(){
                         console.log("Successfully flagged submission for resubmit");
@@ -647,9 +646,10 @@ angular.module('umm3601ursamajorApp')
             var comments = submission.comments;
             var start = comments[index].beginner;
             var end = comments[index].ender;
-            abstract = abstract.substring(0, start) + '<b>' + abstract.substring(start, end) + '</b>' + abstract.substring(end, abstract.length);
+            var comment = comments[index].commentText;
+            abstract = abstract.substring(0, start) + '<a tooltip="{{comments[index}.commentText}}">' + abstract.substring(start, end) + '</a>' + abstract.substring(end, abstract.length);
             var newWindow = $window.open("", null, "height=300,width=600,status=yes,toolbar=no,menubar=no,location=no");
-            newWindow.document.write("<b>"+"Comment made by " + comments[index].commenter + ": " +"</b>"+"<i>" + comments[index].commentText + "</i>");
+            newWindow.document.write("<b>" +"Comment made by " + comments[index].commenter + ": " +"</b>"+"<i>" + comments[index].commentText + "</i>");
             newWindow.document.write("<br>");
             newWindow.document.write(abstract);
         };
