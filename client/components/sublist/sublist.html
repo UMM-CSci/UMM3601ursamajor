@@ -119,7 +119,7 @@
                     <button class="btn btn-xs responseButton" ng-hide="showResponses" ng-click="showResponses = true">Show Responses <span class="glyphicon glyphicon-chevron-down"></span></button>
                     <button class="btn btn-xs responseButton" ng-show="showResponses" ng-click="showResponses = false">Hide Responses <span class="glyphicon glyphicon-chevron-up"></span></button>
                     <button class="btn btn-xs" ng-click="addResponse(selection.item , $index)">Respond to Comment</button>
-                    <button class="btn btn-xs" ng-click="populateComments(selection.item , $index)">Show Comment in Context</button>
+                    <button class="btn btn-xs" ng-click="getOriginAbstract(selection.item , $index)">Show Comment in Context</button>
                     <button ng-show="hasAdminPrivs()" class="btn btn-xs deleteButton" ng-click="deleteComment(selection.item , $index)">Delete Comment</button>
                     <div ng-show="showResponses" ng-repeat="response in comment.responses">
                         <p class="padded">{{response.response}}</p>

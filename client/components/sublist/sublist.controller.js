@@ -632,6 +632,8 @@ angular.module('umm3601ursamajorApp')
             commentObj.indicator = 0;
             commentObj.responses = [];
             commentObj.timestamp = Date();
+            commentObj.origin = submission._id;
+            console.log(commentObj.origin);
             if(commentText != null && commentText != "") {
                 comments.push(commentObj);
                 console.log(comments);
@@ -644,19 +646,31 @@ angular.module('umm3601ursamajorApp')
             };
         };
 
-        $scope.populateComments = function (submissionCopy , index) {
-            var submission = submissionCopy;
-            var abstract = submission.abstract;
+        $scope.getOriginAbstract = function (submission , index) {
             var comments = submission.comments;
+            var abstract = submission.abstract;
+            console.log(submission._id);
+            if (submission._id != comments[index].origin) {
+                    $http.get('/api/submissions/' + comments[index].origin).success(function(submission) {
+                    abstract = submission.abstract;
+                    $scope.populateComments(abstract, index , comments);
+                });
+            } else {
+                $scope.populateComments(abstract, index, comments);
+            }
+        };
+
+        $scope.populateComments = function(abstract, index , comments){
+            var abstract = abstract;
             var start = comments[index].beginner;
             var end = comments[index].ender;
             var comment = comments[index].commentText;
-            abstract = abstract.substring(0, start) + '<a tooltip="{{comments[index}.commentText}}">' + abstract.substring(start, end) + '</a>' + abstract.substring(end, abstract.length);
+            abstract = abstract.substring(0, start) + '<b>' + abstract.substring(start, end) + '</b>' + abstract.substring(end, abstract.length);
             var newWindow = $window.open("", null, "height=300,width=600,status=yes,toolbar=no,menubar=no,location=no");
             newWindow.document.write("<b>" +"Comment made by " + comments[index].commenter + ": " +"</b>"+"<i>" + comments[index].commentText + "</i>");
             newWindow.document.write("<br>");
             newWindow.document.write(abstract);
-        };
+        }
 
         $scope.showResponses = false;
 
