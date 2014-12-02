@@ -42,6 +42,13 @@
                     <label class="padded">
                         Color:
                         <br>
+                        <table cellpadding="0" cellspacing="1" border="0" bgcolor="#000000">
+                            <tbody>
+                            <tr ng-repeat="color in colors">
+                                <td height="11" width="11" bgcolor="rgba(color.red, color.green, color.blue, color.alpha)"></td>
+                            </tr>
+                            </tbody>
+                        </table>
                         Red<input type="range" ng-model="status.color.red" min="0" max="255">
                         Green<input type="range" ng-model="status.color.green" min="0" max="255">
                         Blue<input type="range" ng-model="status.color.blue" min="0" max="255">
