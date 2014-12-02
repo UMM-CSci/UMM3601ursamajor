@@ -305,7 +305,10 @@ angular.module('umm3601ursamajorApp')
                     to: $scope.submissionData.adviserInfo.email,
                     subject: 'URS Submission requires approval',
                     message: $scope.submissionData.presenterInfo.first + " " + $scope.submissionData.presenterInfo.last +
-                        ' has submitted a URS submission that requires your approval. Please go to https://ursa-major.herokuapp.com/ to log in and approve the submission.'
+                        ' has submitted a URS submission that requires your approval. ' +
+                        'By approving the submission, you are authorizing the student(s) to submit this abstract for consideration for the URS, ' +
+                        'not approving the final abstract; the student(s) will have the opportunity to further revise, improve, and finalize their submission. '+
+                        'Please go to https://ursa-major.herokuapp.com/ to log in and approve (or reject) the submission.'
                 });
             }
             if ($scope.isResubmitting && r) {
