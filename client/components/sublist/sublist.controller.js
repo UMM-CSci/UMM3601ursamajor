@@ -656,17 +656,22 @@ angular.module('umm3601ursamajorApp')
                     $scope.populateComments(abstract, index , comments);
                 });
             } else {
-                $scope.populateComments(abstract, index, comments);
+                $scope.populateComments(abstract, index, comments, submission._id );
             }
         };
 
-        $scope.populateComments = function(abstract, index , comments){
+        $scope.populateComments = function(abstract, index , comments, id){
             var abstract = abstract;
             var start = comments[index].beginner;
             var end = comments[index].ender;
             var comment = comments[index].commentText;
             abstract = abstract.substring(0, start) + '<b>' + abstract.substring(start, end) + '</b>' + abstract.substring(end, abstract.length);
             var newWindow = $window.open("", null, "height=300,width=600,status=yes,toolbar=no,menubar=no,location=no");
+            if(comments[index].origin != id){
+                console.log("Yup");
+                newWindow.document.write("<b>" + "This comment was made on a prior version of this submission" + "</b>");
+                newWindow.document.write("<br>");
+            }
             newWindow.document.write("<b>" +"Comment made by " + comments[index].commenter + ": " +"</b>"+"<i>" + comments[index].commentText + "</i>");
             newWindow.document.write("<br>");
             newWindow.document.write(abstract);
