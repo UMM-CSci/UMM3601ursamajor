@@ -586,15 +586,13 @@ angular.module('umm3601ursamajorApp')
                 console.log("Attempting to approve resubmission.");
                 $http.patch('api/submissions/' + $scope.selection.item._id,
                     {
-                        resubmissionData: {isPrimary: false, comment: $scope.selection.item.resubmissionData.comment, parentSubmission: $scope.selection.item.resubmissionData.parentSubmission, resubmitFlag: false},
-                        comments: $scope.selection.item.comments
+                        resubmissionData: {isPrimary: false, comment: $scope.selection.item.resubmissionData.comment, parentSubmission: $scope.selection.item.resubmissionData.parentSubmission, resubmitFlag: false}
                     }
                 ).success(function () {
                         console.log("old primary is no longer primary");
                         $http.patch('api/submissions/' + $scope.selection.resubmission._id,
                             {
-                                resubmissionData: {isPrimary: true, comment: $scope.selection.resubmission.resubmissionData.comment, parentSubmission: $scope.selection.resubmission.resubmissionData.parentSubmission, resubmitFlag: false},
-                                comments: $scope.selection.resubmission.comments
+                                resubmissionData: {isPrimary: true, comment: $scope.selection.resubmission.resubmissionData.comment, parentSubmission: $scope.selection.resubmission.resubmissionData.parentSubmission, resubmitFlag: false}
                             }
                         ).success(function () {
                                 $scope.selection.item.resubmissionData.isPrimary = false;
@@ -660,8 +658,10 @@ angular.module('umm3601ursamajorApp')
             }
         };
 
+
+        // Warning: You will get an error about the document not being found
+        // if pop-ups are blocked
         $scope.populateComments = function(abstract, index , comments, id){
-            var abstract = abstract;
             var start = comments[index].beginner;
             var end = comments[index].ender;
             var comment = comments[index].commentText;
@@ -675,7 +675,7 @@ angular.module('umm3601ursamajorApp')
             newWindow.document.write("<b>" +"Comment made by " + comments[index].commenter + ": " +"</b>"+"<i>" + comments[index].commentText + "</i>");
             newWindow.document.write("<br>");
             newWindow.document.write(abstract);
-        }
+        };
 
         $scope.showResponses = false;
 

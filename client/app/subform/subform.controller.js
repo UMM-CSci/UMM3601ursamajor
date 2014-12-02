@@ -318,8 +318,7 @@ angular.module('umm3601ursamajorApp')
             if ($scope.isResubmitting && r) {
                 $http.patch('api/submissions/' + $scope.submissionData.resubmitParent,
                     {
-                     resubmissionData: {comment: $scope.resubmitParent.resubmissionData.comment, parentSubmission: $scope.resubmitParent.resubmissionData.parentSubmission, resubmitFlag: false, isPrimary: true},
-                     comments: $scope.resubmitParent.comments
+                     resubmissionData: {comment: $scope.resubmitParent.resubmissionData.comment, parentSubmission: $scope.resubmitParent.resubmissionData.parentSubmission, resubmitFlag: false, isPrimary: true}
                     }
                 ).success(function () {
                         console.log("Successfully unflagged the original submission for resbumission.");
