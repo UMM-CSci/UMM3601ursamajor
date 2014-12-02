@@ -44,11 +44,15 @@
             <button class="btn btn-sm btn-block" ng-click="resetSelection()"><span class="glyphicon glyphicon-chevron-left"></span> Back to Submission List</button>
             <br>
             <button ng-show="isAdmin()" class="btn btn-md btn-danger" ng-click="deleteSubmissionConfirm(selection.item)"><span class="glyphicon glyphicon-trash"></span></button>
-            <button ng-show="hasAdminPrivs()" class="btn btn-md btn-primary ReSubButton" ng-click="flagForResubmit()">Flag for Re-Submission</button>
-            <button ng-show="isPresenter(selection.item) && (getResubmission(selection.item).length == 0)" class="btn btn-md btn-primary sideMargins ReSubButton" ng-click="flagForResubmit()">Re-Submit this Submission</button>
-            <button ng-show="isPresenter(selection.item) && (getResubmission(selection.item) == null)" class="btn btn-md btn-primary sideMargins ReSubButton" ng-click="flagForResubmit()">Re-Submit this Submission</button>
-            <button ng-show="(isAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-success sideMargins ReSubButton " ng-click="approveSubmission(selection.item)">Give adviser approval</button>
-            <button ng-show="(isAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-danger sideMargins ReSubButton " ng-click="rejectSubmission(selection.item)">Reject Submission</button>
+            <button ng-show="hasAdminPrivs()" class="btn btn-md btn-primary moveRight" ng-click="flagForResubmit()">Flag for Re-Submission</button>
+            <button ng-show="isPresenter(selection.item) && (getResubmission(selection.item).length == 0)" class="btn btn-md btn-primary sideMargins moveRight" ng-click="flagForResubmit()">Re-Submit this Submission</button>
+            <button ng-show="isPresenter(selection.item) && (getResubmission(selection.item) == null)" class="btn btn-md btn-primary sideMargins moveRight" ng-click="flagForResubmit()">Re-Submit this Submission</button>
+
+            <div class="btn-group sideMargins moveRight">
+                <button ng-show="(isAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-success  " ng-click="approveSubmission(selection.item)">Give adviser approval</button>
+                <button ng-show="(isAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-danger " ng-click="rejectSubmission(selection.item)">Reject Submission</button>
+            </div>
+
             <br>
 
         </li>
@@ -104,7 +108,7 @@
                 <li class="list-group-item"><p ng-bind-html="selection.item.abstract"></p></li>
                 <li class="list-group-item overflowAuto">
                     <h3>Comments </h3> (To add a comment, highlight the text you wish to comment upon and hit "Add Comment")
-                    <button class="btn btn-md btn-primary ReSubButton inlineBlock" ng-click="addComment(selection.item)">Add Comment</button>
+                    <button class="btn btn-md btn-primary moveRight inlineBlock" ng-click="addComment(selection.item)">Add Comment</button>
                 </li>
                 <li class="list-group-item" ng-repeat="comment in selection.item.comments">
                     <b>{{comment.selectionText | isntEmpty:"Quoted Text:":"(No associated quotation)"}}</b>

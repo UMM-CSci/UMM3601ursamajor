@@ -14,20 +14,20 @@
     <div class="info" ng-show="isLoggedIn() && !isAdmin() && !isReviewer()">You are signed in as a {{getCurrentUser().role}}.</div>
     <div class="info" ng-show="isLoggedIn() && isAdmin()">You are signed in as an {{getCurrentUser().role}}.</div>
     <div class="info" ng-show="isLoggedIn() && isReviewer()">You are signed in as a {{getCurrentUser().role}} in Reviewer Group {{getReviewerGroup()}}. </div>
+    <div class="info" ng-show="isLoggedIn()">T-shirt size is {{getCurrentUser().tShirtSize}}</div>
 </div>
 
 <!--TODO: Changes it locally, needs to be fixed in order to update the database.-->
-<!--<div class="FancyBox">-->
-    <!--<div class="info">Please make sure your t-shirt size is up to date.</div>-->
-    <!--<div class="other">T-Shirt size:-->
-        <!--<div>-->
-        <!--<select ng-model="getCurrentUser().tShirtSize"  placeholder="">-->
-            <!--<option value="{{getCurrentUser().tShirtSize}}" disabled selected>{{getCurrentUser().tShirtSize}}</option>-->
-            <!--<option ng-repeat="size in tShirtSizeOptions" value="{{size}}">{{size}}</option>-->
-        <!--</select>-->
-        <!--<button class="buttonRole" ng-click="updateTShirtSize(getCurrentUser())">Update T-Shirt Size</button>-->
-    <!--</div></div>-->
-<!--</div>-->
+<div class="FancyBox">
+    <div class="info">Please make sure your t-shirt size is up to date.</div>
+    <div class="other">T-Shirt size:
+        <div>
+        <select ng-model="getCurrentUser().tShirtSize"  placeholder="">
+            <option value="{{getCurrentUser().tShirtSize}}" disabled selected>{{getCurrentUser().tShirtSize}}</option>
+            <option ng-repeat="size in tShirtSizeOptions" value="{{size}}">{{size}}</option>
+        </select>
+        <button class="buttonRole" ng-click="updateTShirtSize(getCurrentUser())">Update T-Shirt Size</button>
+</div>
 
 
 

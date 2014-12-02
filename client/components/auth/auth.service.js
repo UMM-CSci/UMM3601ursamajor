@@ -95,8 +95,9 @@ angular.module('umm3601ursamajorApp')
         updateInfo: function(role, group, user, callback) {
             var cb = callback || angular.noop;
 
-            return User.updateInfo({ id: user._id }, {
-                role: role,
+            return User.updateInfo(
+                { id: user._id },
+            {    role: role,
                 group: group
             }, function(user) {
                 return cb(user);
@@ -105,13 +106,28 @@ angular.module('umm3601ursamajorApp')
             }).$promise;
         },
 
-//TODO: MITCH: make this work
-        updateTShirtSize: function(size, user) {
+//TODO: make this work
+        updateTShirtSize: function(size, user, callback) {
+           //var cb = callback || angular.noop;
+
             console.log(size, user);
             return User.updateTShirtSize(
                 {id: user._id},
                 {tShirtSize: size}
+//                ,
+//                function(user) {
+//                    return cb(user);
+//                }, function(err) {
+//                    return cb(err);
+//                }
             ).$promise;
+//            $http.patch('/api/users' + user.email,
+//                {
+//                    tShirtSize: size
+//                }).success(function(){
+//                    console.log('patch successful!');
+//                    //$scope.gettshirtsize();
+//                });
         },
 
 
