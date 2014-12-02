@@ -1,7 +1,4 @@
 <div class="container-fluid breakLongWords" ng-controller="SublistCtrl">
-
-    <!-- LIST VIEW -->
-
     <tabset ng-hide="selection.selected">
         <tab heading="All Submissions" ng-click="showAllSubmissions()"></tab>
         <tab ng-show="isPresenterOnAnything()" heading="Presenter Submissions" ng-click="showMySubmissions()"></tab>
@@ -41,6 +38,7 @@
     </ul>
 
     <!-- HTML for details view starts here. -->
+
     <ul class="list-group" ng-show="selection.selected">
         <li class="list-group-item overflowAuto">
             <button class="btn btn-sm btn-block" ng-click="resetSelection()"><span class="glyphicon glyphicon-chevron-left"></span> Back to Submission List</button>
@@ -49,7 +47,8 @@
             <button ng-show="hasAdminPrivs()" class="btn btn-md btn-primary ReSubButton" ng-click="flagForResubmit()">Flag for Re-Submission</button>
             <button ng-show="isPresenter(selection.item) && (getResubmission(selection.item).length == 0)" class="btn btn-md btn-primary sideMargins ReSubButton" ng-click="flagForResubmit()">Re-Submit this Submission</button>
             <button ng-show="isPresenter(selection.item) && (getResubmission(selection.item) == null)" class="btn btn-md btn-primary sideMargins ReSubButton" ng-click="flagForResubmit()">Re-Submit this Submission</button>
-            <button ng-show="(isAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-success sideMargins ReSubButton " ng-click="approveSubmission(selection.item)">Give Adviser Approval</button>
+            <button ng-show="(isAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-success sideMargins ReSubButton " ng-click="approveSubmission(selection.item)">Give adviser approval</button>
+            <button ng-show="(isAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-danger sideMargins ReSubButton " ng-click="rejectSubmission(selection.item)">Reject Submission</button>
             <br>
 
         </li>
@@ -141,57 +140,54 @@
         </li>
     </ul>
 
-    <!-- Starts showing resubmissions in details view here. -->
+<!-- Starts showing resubmissions in details view here. -->
 
-    <ul class="list-group" ng-show="(selection.resubmission != null) && selection.selected">
-        <li class="list-group-item">
-            <h1>Resubmission</h1>
-            <button type="button" ng-show="hasAdminPrivs()" class="btn btn-success resubbutton" ng-click="approveResubmit()">Approve Resubmission</button>
-            <button type="button" ng-show="isAdmin()" class="btn btn-danger" ng-click="deleteSubmissionConfirm(selection.resubmission)"><span class="glyphicon glyphicon-trash"></span></button>
-        </li>
-        <li class="list-group-item">
-            <h2>Resubmission Comment</h2>
-            <p>{{selection.resubmission.resubmissionData.comment}}</p>
-        </li>
-        <li class="list-group-item">
-            <h3 id="text">{{selection.resubmission.title}}</h3>
-            <strong>{{selection.resubmission.presenterInfo.last}}, {{selection.resubmission.presenterInfo.first}}</strong>
-            <hr>
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <p>{{selection.resubmission.copresenterOneInfo.first | isntEmpty:"Co-Presenter(s):":""}} {{selection.resubmission.copresenterOneInfo.last | isntEmpty:"":""}}{{selection.resubmission.copresenterTwoInfo.first | isntEmpty:",":""}} {{selection.item.copresenterTwoInfo.last | isntEmpty:"":""}}
-                    </p>
-                    <p>Discipline: {{selection.resubmission.discipline}}</p>
-                    <p>Format:  {{selection.resubmission.format}}</p>
-                    <p>Type: {{selection.resubmission.presentationType}}</p>
-                    <p>Adviser: {{selection.resubmission.adviserInfo.last}}, {{selection.resubmission.adviserInfo.first}} email: {{selection.resubmission.adviserInfo.email}}</p>
-                    <p>Adviser Approved: {{approvalWordChange(selection.item.approval)}}</p>
-                    <p>{{selection.resubmission.sponsors | isntEmpty:"Sponsors:":""}}</p>
-                    <p>{{selection.resubmission.mediaServicesEquipment | isntEmpty:"Media Services Equipment:":""}}</p>
-                    <p>{{selection.resubmission.specialRequirements | isntEmpty:"Special Requirements:":""}}</p>
-                    <p>Date of submission: {{selection.resubmission.timestamp}}</p>
-                </li>
-            </ul>
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <h3>Abstract</h3>
-                </li>
-                <li class="list-group-item"><p>{{selection.resubmission.abstract}}</p></li>
-            </ul>
-            <br>
-            <p ng-show="isAdmin()">You are seeing this submission because you are an:</p>
-            <p ng-show="isAdmin()">admin</p>
-            <p ng-show="!isAdmin()">You are seeing this submission because you are a:</p>
-            <p ng-show="isChair()">chair</p>
-            <p ng-show="isPresenter(selection.resubmission)">presenter of this submission</p>
-            <p ng-show="isCoPresenter(selection.resubmission)">co-presenter of this submission</p>
-            <p ng-show="isAdviser(selection.resubmission)">adviser of this submission</p>
-            <p ng-show="isReviewerGroup(selection.resubmission)">reviewer in Reviewer Group {{selection.resubmission.group}}</p>
-        </li>
-    </ul>
-
-
-
-
+        <ul class="list-group" ng-show="(selection.resubmission != null) && selection.selected">
+            <li class="list-group-item">
+                <h1>Resubmission</h1>
+                <button type="button" ng-show="hasAdminPrivs()" class="btn btn-success resubbutton" ng-click="approveResubmit()">Approve Resubmission</button>
+                <button type="button" ng-show="isAdmin()" class="btn btn-danger" ng-click="deleteSubmissionConfirm(selection.resubmission)"><span class="glyphicon glyphicon-trash"></span></button>
+            </li>
+            <li class="list-group-item">
+                <h2>Resubmission Comment</h2>
+                <p>{{selection.resubmission.resubmissionData.comment}}</p>
+            </li>
+            <li class="list-group-item">
+                <h3 id="text">{{selection.resubmission.title}}</h3>
+                <strong>{{selection.resubmission.presenterInfo.last}}, {{selection.resubmission.presenterInfo.first}}</strong>
+                <hr>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <p>{{selection.resubmission.copresenterOneInfo.first | isntEmpty:"Co-Presenter(s):":""}} {{selection.resubmission.copresenterOneInfo.last | isntEmpty:"":""}}{{selection.resubmission.copresenterTwoInfo.first | isntEmpty:",":""}} {{selection.item.copresenterTwoInfo.last | isntEmpty:"":""}}
+                        </p>
+                        <p>Discipline: {{selection.resubmission.discipline}}</p>
+                        <p>Format:  {{selection.resubmission.format}}</p>
+                        <p>Type: {{selection.resubmission.presentationType}}</p>
+                        <p>Adviser: {{selection.resubmission.adviserInfo.last}}, {{selection.resubmission.adviserInfo.first}} email: {{selection.resubmission.adviserInfo.email}}</p>
+                        <p>Adviser Approved: {{approvalWordChange(selection.item.approval)}}</p>
+                        <p>{{selection.resubmission.sponsors | isntEmpty:"Sponsors:":""}}</p>
+                        <p>{{selection.resubmission.mediaServicesEquipment | isntEmpty:"Media Services Equipment:":""}}</p>
+                        <p>{{selection.resubmission.specialRequirements | isntEmpty:"Special Requirements:":""}}</p>
+                        <p>Date of submission: {{selection.resubmission.timestamp}}</p>
+                    </li>
+                </ul>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <h3>Abstract</h3>
+                    </li>
+                    <li class="list-group-item"><p>{{selection.resubmission.abstract}}</p></li>
+                </ul>
+                <br>
+                <p ng-show="isAdmin()">You are seeing this submission because you are an:</p>
+                <p ng-show="isAdmin()">admin</p>
+                <p ng-show="!isAdmin()">You are seeing this submission because you are a:</p>
+                <p ng-show="isChair()">chair</p>
+                <p ng-show="isPresenter(selection.resubmission)">presenter of this submission</p>
+                <p ng-show="isCoPresenter(selection.resubmission)">co-presenter of this submission</p>
+                <p ng-show="isAdviser(selection.resubmission)">adviser of this submission</p>
+                <p ng-show="isReviewerGroup(selection.resubmission)">reviewer in Reviewer Group {{selection.resubmission.group}}</p>
+            </li>
+        </ul>
+    </div>
 
 </div>
