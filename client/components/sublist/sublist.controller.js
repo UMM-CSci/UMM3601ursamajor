@@ -364,7 +364,8 @@ angular.module('umm3601ursamajorApp')
 
         $scope.approveSubmission = function(submission) {
             if($scope.isAdviser(submission) == true || $scope.hasAdminPrivs() == true){
-                var r = confirm("Are you sure you want to approve this submission?");
+                var r = confirm("As an adviser, I authorize the student to submit this abstract for consideration for the URS. " +
+                    "Are you sure you want to approve this submission?");
                 console.log(submission);
 
                 if(r){
@@ -405,6 +406,11 @@ angular.module('umm3601ursamajorApp')
                     });
                 }
             }
+        };
+//TODO: finish this function
+        $scope.rejectSubmission = function(submission) {
+            $window.alert("this worked");
+            //haven't figured out what we want to happen when person rejects a submission
         };
 
         // -------------------------- Editing of status ----------------------------------------------
