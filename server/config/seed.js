@@ -144,7 +144,7 @@ User.find({}).remove(function() {
                 id: "116234824364241021424"
             },
             group: -1,
-            role: "admin",
+            role: "user",
             __v: 0
         }, {
             name: "Jacob Opdahl",
@@ -429,6 +429,7 @@ Submission.find({}).remove(function(){
         presenterTeeSize: "M",
         otherInfo: "Maybe",
         approval: false,
+        cc: true,
         status: {strict: "Awaiting Adviser Approval", text: "Your adviser has yet to approve this submission."},
         timestamp: "Mon Oct 20 2014 1:48:54 GMT-0500 (CDT)",
         group: 3,
