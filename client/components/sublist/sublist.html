@@ -33,21 +33,6 @@
             <p class="subtext">
             Date of Submission: {{sub.timestamp}}
             </p>
-
-            <!--<hr>-->
-            <!--&lt;!&ndash;<ul class="list-group">&ndash;&gt;-->
-                <!--&lt;!&ndash;<li class="list-group-item">&ndash;&gt;-->
-                    <!--<p>Submitter's Email: {{sub.presenterInfo.email}}</p>-->
-                    <!--<p>{{sub.copresenterOneInfo.first | isntEmpty:"Co-Presenter #1 Name:":""}}{{sub.copresenterOneInfo.last | isntEmpty:"":""}}</p>-->
-                    <!--<p>{{sub.copresenterTwoInfo.first | isntEmpty:"Co-Presenter #2 Name:":""}}{{sub.copresenterTwoInfo.last | isntEmpty:"":""}}</p>-->
-                    <!--<p>Adviser: {{sub.adviserInfo.first}} {{sub.adviserInfo.last}}</p>-->
-                    <!--<p>Discipline: {{sub.discipline}}</p>-->
-                    <!--<p>Format:  {{sub.format}}</p>-->
-                    <!--<p>Abstract: <br> {{sub.abstract | fancyLimitTo: 300}}</p>-->
-                    <!--<strong><p ng-show="isReviewerGroup(sub)"> This submission is in your review group</p></strong>-->
-                    <!--<p>Date of submission: {{sub.timestamp}}</p>-->
-                <!--&lt;!&ndash;</li>&ndash;&gt;-->
-            <!--&lt;!&ndash;</ul>&ndash;&gt;-->
             <br>
           </li>
     </ul>
@@ -56,7 +41,7 @@
 
     <ul class="list-group" ng-show="selection.selected">
         <li class="list-group-item overflowAuto">
-            <button class="btn btn-sm btn-block" ng-click="resetSelection()">Back to submission list</button>
+            <button class="btn btn-sm btn-block" ng-click="resetSelection()"><span class="glyphicon glyphicon-chevron-left"></span> Back to Submission List</button>
             <br>
             <button ng-show="isAdmin()" class="btn btn-md btn-danger" ng-click="deleteSubmissionConfirm(selection.item)"><span class="glyphicon glyphicon-trash"></span></button>
             <button ng-show="hasAdminPrivs()" class="btn btn-md btn-primary ReSubButton" ng-click="flagForResubmit()">Flag for Re-Submission</button>

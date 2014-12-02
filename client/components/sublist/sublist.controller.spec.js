@@ -30,7 +30,9 @@ describe('filter', function() {
     });
 });
 
-// TODO: this test isn't finished, just a template as of now. FINISH IT AND WRITE MORE TESTS!!!
+//TODO: Test functions that use Auth service to check user information.
+//Many of the functions used for filtering user the Auth service to compare properties of submissions to the currently logged in user's information, in order to
+//test these we need to mock the Auth service or re-write the functions to take a user as an argument.
 describe('Functions used for filtering...', function() {
     beforeEach(module('umm3601ursamajorApp'));
     beforeEach(module('socketMock'));
