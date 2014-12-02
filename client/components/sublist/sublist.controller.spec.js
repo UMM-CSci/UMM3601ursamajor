@@ -31,7 +31,7 @@ describe('filter', function() {
 });
 
 // TODO: this test isn't finished, just a template as of now. FINISH IT AND WRITE MORE TESTS!!!
-describe('Functions used for filtering', function() {
+describe('Functions used for filtering...', function() {
     beforeEach(module('umm3601ursamajorApp'));
     beforeEach(module('socketMock'));
 
@@ -41,16 +41,12 @@ describe('Functions used for filtering', function() {
         scope = $rootScope.$new();
         SublistCtrl = $controller('SublistCtrl', {
             $scope: scope
+
         });
     }));
 
-    it('1 should equal 1...', function () {
-        expect(1).toEqual(1);
-    });
-
-  //  this is broken. it's all broken. Apparently it cannot find "io"....
-    it('Should be a resubmission... ', function() {
-        var testSubmission =
+    beforeEach(function(){
+       scope.submissionList = [
         {
             title: "A Study of the Properties of a Paperclip in the Digestive System of a Sloth",
             format: "Artist Statement",
@@ -77,8 +73,38 @@ describe('Functions used for filtering', function() {
             group: 3,
             resubmissionData: {comment: "Initial Submission", parentSubmission: "testIdForTesting", isPrimary: false, resubmitFlag: false},
             comments: []
-        };
+        }
+       ]
+    });
 
-        expect(scope.isResubmission(testSubmission)).toEqual(true);
+    it('1 should equal 1...', function () {
+        expect(1).toEqual(1);
+    });
+
+    // Injecting the whole filter service here might be bad practice? IDK, but it works.
+    it('Default review group filter should show ALL submissions...', inject(['$filter', function($filter) {
+        expect($filter('filter')(scope.submissionList, scope.reviewGroupFilter).length == scope.submissionList.length).toEqual(true);
+    }]));
+
+    describe('Functions controlling filter tabs...', function() {
+        it('No filtered tabs should be selected by default...', function() {
+            for(var key in scope.filterData.tabFilter){
+                if(scope.filterData.tabFilter.hasOwnProperty(key)){
+                    expect(scope.filterData.tabFilter[key]).toEqual(false);
+                }
+            }
+        });
+
+        it('showMySubmissions should set the isPresenter tab to true', function() {
+           scope.showMySubmissions();
+           expect(scope.filterData.tabFilter.isPresenter).toEqual(true);
+        });
+
+        //TODO: more of these need to be written? Functions might need to be refactored to be more testable...
+
+    });
+
+    it('Should be a resubmission... ', function() {
+        expect(scope.isResubmission(scope.submissionList[0])).toEqual(true);
     });
 });
