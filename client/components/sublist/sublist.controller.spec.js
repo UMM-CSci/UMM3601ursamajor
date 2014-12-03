@@ -33,9 +33,10 @@ describe('filter', function() {
 //TODO: Test functions that use Auth service to check user information.
 //Many of the functions used for filtering user the Auth service to compare properties of submissions to the currently logged in user's information, in order to
 //test these we need to mock the Auth service or re-write the functions to take a user as an argument.
-describe('Functions used for filtering...', function() {
+describe('Functions dealing with submissions...', function() {
     beforeEach(module('umm3601ursamajorApp'));
     beforeEach(module('socketMock'));
+    beforeEach(module('authMock'));
 
     var SublistCtrl, scope;
 
@@ -43,7 +44,6 @@ describe('Functions used for filtering...', function() {
         scope = $rootScope.$new();
         SublistCtrl = $controller('SublistCtrl', {
             $scope: scope
-
         });
     }));
 
@@ -112,35 +112,75 @@ describe('Functions used for filtering...', function() {
         expect(1).toEqual(1);
     });
 
-    // Injecting the whole filter service here might be bad practice? IDK, but it works.
-    it('Default review group filter should show ALL submissions...', inject(['$filter', function($filter) {
-        expect($filter('filter')(scope.submissions, scope.reviewGroupFilter).length == scope.submissions.length).toEqual(true);
-    }]));
+    describe('Functions controlling filtering...', function(){
+        // Injecting the whole filter service here might be bad practice? IDK, but it works.
+        it('Default review group filter should show ALL submissions...', inject(['$filter', function($filter) {
+            expect($filter('filter')(scope.submissions, scope.reviewGroupFilter).length == scope.submissions.length).toEqual(true);
+        }]));
 
-    describe('Functions controlling filter tabs...', function() {
-        it('No filtered tabs should be selected by default...', function() {
-            for(var key in scope.filterData.tabFilter){
-                if(scope.filterData.tabFilter.hasOwnProperty(key)){
-                    expect(scope.filterData.tabFilter[key]).toEqual(false);
+        it('User with admin role should have admin privs.', inject(function(Auth){Auth.setCurrentUser("admin@admin.com", "admin", 1)}), function() {
+            expect(scope.hasAdminPrivs()).toEqual(true);
+        });
+
+        it("Submission's assigned review group members should be in same review group", inject(function(Auth){Auth.setCurrentUser("admin@admin.com", "admin", 3)}), function() {
+            expect(scope.isReviewerGroup(scope.submissions[0])).toEqual(true);
+        });
+
+        it("Submission not in user's review group shouldn't be in user's review group", inject(function(Auth){Auth.setCurrentUser("admin@admin.com", "admin", 1)}), function(){
+            expect(scope.isReviewerGroup(scope.submissions[0])).toEqual(false);
+        });
+
+        describe('Functions controlling filter tabs...', function() {
+            it('No filtered tabs should be selected by default...', function() {
+                for(var key in scope.filterData.tabFilter){
+                    if(scope.filterData.tabFilter.hasOwnProperty(key)){
+                        expect(scope.filterData.tabFilter[key]).toEqual(false);
+                    }
                 }
-            }
+            });
+
+            it('showMySubmissions should set the isPresenter tab to true', function() {
+                scope.showMySubmissions();
+                expect(scope.filterData.tabFilter.isPresenter).toEqual(true);
+            });
+
+            //TODO: more of these need to be written? Functions might need to be refactored to be more testable...
         });
 
-        it('showMySubmissions should set the isPresenter tab to true', function() {
-           scope.showMySubmissions();
-           expect(scope.filterData.tabFilter.isPresenter).toEqual(true);
-        });
-
-        //TODO: more of these need to be written? Functions might need to be refactored to be more testable...
 
     });
 
-    it('Should be a resubmission... ', function() {
-        expect(scope.isResubmission(scope.submissions[0])).toEqual(true);
+    describe("Functions controlling the selecting...", function() {
+        it("No submission should be selected by default", function() {
+            expect(scope.selection.selected).toEqual(false);
+            expect(scope.selection.selected.item).toEqual(null);
+            expect(scope.selection.selected.resubmission).toEqual(null);
+        });
+
+        it("selectItem() should set submission as selected", inject(function(Auth){Auth.setCurrentUser("admin@admin.com", "admin", 1)}), function() {
+            scope.selectItem(1);
+            expect(scope.selection.selected).toEqual(true);
+            expect(scope.selection.item != null).toEqual(true);
+            expect(scope.selection.item._id).toBe("testIdForTesting");
+        });
+
+        it("selectItem() should find resubmission of selected submission", inject(function(Auth){Auth.setCurrentUser("admin@admin.com", "admin", 1)}), function() {
+            scope.selectItem(1);
+            expect(scope.selection.resubmission != null).toEqual(true);
+            expect(scope.selection.resubmission._id).toBe("uniqueIdString");
+        })
+
     });
 
-    it('Should find the resubmission of a submission', function() {
-        expect(scope.getResubmission(scope.submissions[1]) != null).toEqual(true);
-        expect(scope.getResubmission(scope.submissions[1])._id).toBe("uniqueIdString");
-    })
+    describe('Functions handling resubmissions...', function() {
+        it('Should be a resubmission... ', function() {
+            expect(scope.isResubmission(scope.submissions[0])).toEqual(true);
+        });
+
+        it('Should find the resubmission of a submission', function() {
+            expect(scope.getResubmission(scope.submissions[1]) != null).toEqual(true);
+            expect(scope.getResubmission(scope.submissions[1])._id).toBe("uniqueIdString");
+        })
+    });
+
 });
