@@ -13,25 +13,18 @@ angular.module('umm3601ursamajorApp')
         $scope.submissions = [];
         $scope.statusColors = [
             {red: 255, green: 255, blue: 255, alpha: 0},
+            {red: 194, green: 194, blue: 194, alpha: 1},
+            {red: 120, green: 120, blue: 120, alpha: 1},
             {red: 255, green: 0, blue: 0, alpha: 0},
             {red: 255, green: 128, blue: 0, alpha: 1},
             {red: 255, green: 255, blue: 0, alpha: 1},
-            {red: 0, green: 0, blue: 0, alpha: 1},
+            {red: 202, green: 255, blue: 37, alpha: 1},
+            {red: 0, green: 255, blue: 0, alpha: 1},
             {red: 0, green: 255, blue: 255, alpha: 1},
-            {red: 255, green: 0, blue: 255, alpha: 1},
+            {red: 47, green: 118, blue: 255, alpha: 1},
             {red: 128, green: 0, blue: 255, alpha: 1},
-            {red: 194, green: 194, blue: 194, alpha: 1},
-            {red: 102, green: 204, blue: 204, alpha: 1},
-            {red: 138, green: 46, blue: 46, alpha: 1},
-            {red: 0, green: 255, blue: 0, alpha: 1},
-            {red: 0, green: 255, blue: 0, alpha: 1},
-            {red: 0, green: 255, blue: 0, alpha: 1},
-            {red: 0, green: 255, blue: 0, alpha: 1},
-            {red: 0, green: 255, blue: 0, alpha: 1},
-            {red: 0, green: 255, blue: 0, alpha: 1},
-            {red: 0, green: 255, blue: 0, alpha: 1},
-            {red: 0, green: 255, blue: 0, alpha: 1},
-            {red: 0, green: 0, blue: 0, alpha: 1}
+            {red: 255, green: 0, blue: 255, alpha: 1}
+
         ]
 
 
