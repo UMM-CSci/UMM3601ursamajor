@@ -38,7 +38,7 @@
                     <br>
                 </div>
 
-                <div class="col-lg-3">
+                <div class="col-lg-1">
                     <label class="padded">
                         Color:
                         <br>
@@ -49,6 +49,9 @@
                             </tr>
                             </tbody>
                         </table>
+                </div>
+
+                <div class="col-lg-3">
                         Red<input type="range" ng-model="status.color.red" min="0" max="255">
                         Green<input type="range" ng-model="status.color.green" min="0" max="255">
                         Blue<input type="range" ng-model="status.color.blue" min="0" max="255">
@@ -63,7 +66,7 @@
                         <br>
 
                         <button class="btn btn-primary padded" ng-click="submitChanges(status)">Submit Changes</button>
-
+                </div>
                     </label>
 
                     <button ng-hide="requiredStatus(status)" class="btn btn-md btn-danger" ng-click="deleteStatus(status)">
