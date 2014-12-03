@@ -131,9 +131,24 @@
         <div class="padded">
             <b><pre class="preStyle">{{submissionText.submissionAdviser}}</pre></b>
             <pre class="preStyleSmall">{{submissionText.submissionAdviserNotes}}</pre>
-            <input type="text" required placeholder="First" ng-model="submissionData.adviserInfo.first">
-            <input type="text" required placeholder="Last" ng-model="submissionData.adviserInfo.last"><br>
-            <input type="email" required placeholder="Full email address" ng-model="submissionData.adviserInfo.email">
+            <input type="text" required placeholder="first name" ng-model="submissionData.adviserInfo.first">
+            <input type="text" required placeholder="last name" ng-model="submissionData.adviserInfo.last"><br>
+            <input type="email" required placeholder="full email address" ng-model="submissionData.adviserInfo.email">
+        </div>
+
+        <div class="padded">
+        <!--<b><pre class="preStyle">{{submissionText.submissionAdviser}}</pre></b>-->
+            <b><pre class="preStyle">{{submissionText.submissionCoadviserOne}}</pre></b>
+            <input type="text"  placeholder="first name" ng-model="submissionData.coadviserOneInfo.first">
+            <input type="text"  placeholder="last name" ng-model="submissionData.coadviserOneInfo.last"><br>
+            <input type="email"  placeholder="full email address" ng-model="submissionData.coadviserOneInfo.email">
+        </div>
+
+        <div class="padded">
+            <b><pre class="preStyle">{{submissionText.submissionCoadviserTwo}}</pre></b>
+            <input type="text"  placeholder="first name" ng-model="submissionData.coadviserTwoInfo.first">
+            <input type="text"  placeholder="last name" ng-model="submissionData.coadviserTwoInfo.last"><br>
+            <input type="email"  placeholder="full email address" ng-model="submissionData.coadviserTwoInfo.email">
         </div>
 
         <div class="padded">
