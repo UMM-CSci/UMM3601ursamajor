@@ -46,6 +46,12 @@ describe('Controller: SubformCtrl', function () {
     expect(scope.convertSponsorArray(testSponsors_2)).toEqual(["", "MAP", "MMP", ""]);
     expect(scope.convertSponsorArray(testSponsors_3)).toEqual(["", "", "", "", "Kittens"]);
     expect(scope.convertSponsorArray(testSponsors_4)).toEqual(["UROP", "MAP", "MMP", "LSAMP", "Kittens"]);
+  });
 
-  })
+  it('Initial submission should have false resubmit flag', function() {
+      expect(scope.submissionData.resubmitFlag).toEqual(false);
+  });
+
+
+
 });
