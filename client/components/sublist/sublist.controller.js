@@ -54,6 +54,10 @@ angular.module('umm3601ursamajorApp')
             tabFilter: {isPresenter:false, isCoPresenter:false, isReviewer:false, isAdviser:false}
         };
 
+        $scope.getChairsEmails = function(){
+
+        };
+
         // Returns true when the submission HAS a parent, and ISN'T the primary.
         $scope.isResubmission = function(submission){
             return (!submission.resubmissionData.isPrimary);
@@ -384,7 +388,6 @@ angular.module('umm3601ursamajorApp')
                 var r = confirm("As an adviser, I authorize the student(s) to submit this abstract for consideration for the URS (not approve the final abstract). " +
                     "Are you sure you want to approve this submission?");
                 console.log(submission);
-//
 //                var dlg = null;
 //                dlg = $dialogs.confirm('Confirm','Would you like to be included in future emails notifying the status change of this submission?');
 //                dlg.result.then(function(btn){
@@ -392,7 +395,6 @@ angular.module('umm3601ursamajorApp')
 //                },function(btn){
 //                    $scope.confirmed = 'Shame on you for not thinking this is awesome!';
 //                });
-
                 if(r){
                     var newPriority = 15;
                     for(var k = 0; k < $scope.statusEdit.priority.length; k++){
@@ -401,7 +403,6 @@ angular.module('umm3601ursamajorApp')
                         }
                     }
                     for(var i = 0; i < $scope.statusEdit.priority.length; i++){
-
                         if($scope.statusEdit.priority[i] == newPriority){
                             $scope.selection.item.status.strict = $scope.statusEdit.options[i];
                             for(var j = 0; j < $scope.submissions.length; j++){
@@ -410,10 +411,10 @@ angular.module('umm3601ursamajorApp')
                                     $scope.submissions[j].strict = $scope.statusEdit.options[i];
                                 }
                             }
-
                             //$scope.selection.item.status.text = status[i].text;
                             $http.patch('api/submissions/' + $scope.selection.item._id,
                                 {approval: true,
+                                 rejection: false,
                                 status: {strict: $scope.selection.item.status.strict, text: $scope.selection.item.status.text}}
                             ).success(function(){
                                     $scope.selection.item.approval = true;
@@ -421,9 +422,6 @@ angular.module('umm3601ursamajorApp')
                                 });
                         }
                     }
-
-
-
                     sendGmail({
                         to: $scope.selection.item.presenterInfo.email +" "+ $scope.selection.item.copresenterOneInfo.email +" "+ $scope.selection.item.copresenterTwoInfo.email,
                         subject: "[" + $scope.selection.item.title + "] " + $scope.statusEdit.subject[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)],
@@ -432,7 +430,8 @@ angular.module('umm3601ursamajorApp')
                 }
             }
         };
-//TODO: finish this function, add in the changing of status to a rejection status, add in chairs emails to the sendGmails
+//TODO: finish this function, add in the changing of status to a rejection status
+        //CANNOT ADD IN CHAIRS' EMAILS TO SENDGMAILS BECAUSE OF THE SECURITY PRIVILEGES, SO FOR NOW WE'LL JUST SEND TO ADMIN
         $scope.rejectSubmission = function(submission) {
             if($window.confirm("As adviser of this submission, I am rejecting this submission; clarifying that this abstract should not be sent to the URS committee for review." +
                 "Are you sure you want to reject this submission?")){
@@ -444,18 +443,30 @@ angular.module('umm3601ursamajorApp')
                         message: $scope.selection.item.presenterInfo.first + ", unfortunately, your URS submission has been rejected."
                     });
                     sendGmail({
-                        to: "admin@admin.com", //add in chairs' emails
+                        to: "admin@admin.com",
                         subject: "["+ $scope.selection.item.title + "] " + "URS submission has been rejected",
-                        message: $scope.selection.item.presenterInfo.first + " submitted an abstract for consideration to the URS. Unfortunately, I have rejected this submission."
+                        message: $scope.selection.item.presenterInfo.first + " submitted an abstract for consideration to the URS. Unfortunately, I, as the adviser, have rejected this submission."
                     });
                 } else {
                     sendGmail({
-                        to: "admin@admin.com", //add in chairs' emails
+                        to: "admin@admin.com",
                         subject: "["+ $scope.selection.item.title + "] " + "URS submission has been rejected",
-                        message: $scope.selection.item.presenterInfo.first + " submitted an abstract for consideration to the URS. Unfortunately, I have rejected this submission."
+                        message: $scope.selection.item.presenterInfo.first + " submitted an abstract for consideration to the URS. Unfortunately, I, as the adviser, have rejected this submission."
                     });
                 }
-            };
+            $http.patch('api/submissions/' + $scope.selection.item._id,
+            {rejection: true,
+                //currently everything is hardcoded for time. To fix later.
+                status: {strict: "Withdrawn", text: "The submission has been rejected by an adviser."}}
+            ).success(function(){
+                    $scope.selection.item.rejection = true;
+                    //currently everything is hardcoded for time. To fix later.
+                    $scope.selection.item.status.strict = "Withdrawn";
+                    $scope.selection.item.status.text = "The submission has been rejected by an adviser.";
+                    console.log("Successfully rejected a submission");
+                });
+            }
+
         };
 
         // -------------------------- Editing of status ----------------------------------------------
@@ -524,7 +535,6 @@ angular.module('umm3601ursamajorApp')
             ).success(function(){
                     console.log("Successfully updated status of submission");
             });
-
 
             //TODO: needs to be updated to work with the current status system
             if($scope.selection.item.approval && $scope.statusEdit.temp.strict === "Awaiting Adviser Approval"){

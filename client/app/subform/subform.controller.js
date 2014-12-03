@@ -298,6 +298,7 @@ angular.module('umm3601ursamajorApp')
                         //presenterTeeSize: $scope.submissionData.presenterTeeSize,
                         otherInfo: $scope.submissionData.otherInfo,
                         approval: false,
+                        rejection: false,
                         status: $scope.submissionData.status,
                         timestamp: $scope.timestamp,
                         group: $scope.submissionData.group,
