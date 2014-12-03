@@ -43,7 +43,7 @@ Status.find({}).remove(function() {
         required: true
     },{
         strict: "Withdrawn",
-            color: {red: 160, green: 160, blue: 160, alpha: 1},
+            color: {red: 70, green: 70, blue: 70, alpha: 1},
         emailSubject: "URS submission update",
             emailBody: ", Your URS submission has either been rejected by your adviser or been withdrawn.",
         priority: 14,
