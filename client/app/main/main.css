@@ -77,6 +77,10 @@ a:active {
     display: block;
 }
 
+.centerText {
+    text-align: center;
+}
+
 /*Everything under the line can be deleted*/
 /*----------------------------------------------------------------------------*/
 
