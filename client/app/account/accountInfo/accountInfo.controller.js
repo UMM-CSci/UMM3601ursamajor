@@ -22,6 +22,7 @@ angular.module('umm3601ursamajorApp')
                 'XXXLarge'
             ];
 
+        // Changes the tShirtSize designated to a user.
         $scope.updateTShirtSize = function(user){
             Auth.updateTShirtSize(user.tShirtSize, user);
 //            console.log(user.tShirtSize);
