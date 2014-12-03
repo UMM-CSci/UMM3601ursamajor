@@ -42,10 +42,10 @@
                     <label class="padded">
                         Color:
                         <br>
-                        <table cellpadding="0" cellspacing="1" border="0" bgcolor="#000000">
+                        <table cellpadding="0" cellspacing="1" border="1" bgcolor="#000000">
                             <tbody>
-                            <tr ng-repeat="color in colors">
-                                <td height="11" width="11" bgcolor="rgba(color.red, color.green, color.blue, color.alpha)"></td>
+                            <tr ng-repeat="coloring in statusColors">
+                                <td height="30" width="30" ng-click="colorClick(status, coloring)" ng-style="statusBoxColor(coloring)"></td>
                             </tr>
                             </tbody>
                         </table>
