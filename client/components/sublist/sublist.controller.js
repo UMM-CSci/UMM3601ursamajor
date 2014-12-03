@@ -606,8 +606,6 @@ angular.module('umm3601ursamajorApp')
         };
 
 
-
-
         //--------------------------------------------- Comments ---------------------------------------
 
         $scope.addComment = function (submission) {
