@@ -12,12 +12,6 @@ angular.module('umm3601ursamajorApp')
         $scope.users = User.query();
         $scope.isAdmin = Auth.isAdmin;
         $scope.isChair = Auth.isChair();
-//
-//    $scope.submissions = [];
-//
-//    $http.get('/api/submissions').success(function(submissions) {
-//        $scope.submissions = submissions;
-//    });
 
         $http.get('/api/submissions').success(function(submissions) {
             $scope.submissions = submissions;
@@ -37,6 +31,7 @@ angular.module('umm3601ursamajorApp')
                 4
             ];
 
+        // Functions return true if current user is of a specific type, false otherwise.
         $scope.userIsAdmin = function(user){
             return user.role === "admin";
         };
@@ -48,6 +43,7 @@ angular.module('umm3601ursamajorApp')
         };
 
 
+        // Deletes a user.
         $scope.deleteUser = function(user) {
             if (Auth.getCurrentUser().email === user.email){
                 alert('Cannot delete yourself.');
@@ -62,6 +58,8 @@ angular.module('umm3601ursamajorApp')
             }
         };
 
+        // Checks if there is a conflict between the user and the group they are being assigned to.
+          // Currently not working, have too many stories to worry about this right now.
         $scope.checkForConflict = function(user) {
             if (
                 $filter('filter')($scope.submissions,
@@ -75,9 +73,10 @@ angular.module('umm3601ursamajorApp')
             }
         };
 
+        // Updates a users role as long as the user being changed isn't the one doing the changing.
         $scope.updateInfo = function(user) {
             console.log(user);
-            $scope.checkForConflict(user);
+            //$scope.checkForConflict(user);
             if (Auth.getCurrentUser().email === user.email){
                 alert('Cannot change user role for yourself.');
             }
