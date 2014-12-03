@@ -381,8 +381,7 @@ angular.module('umm3601ursamajorApp')
 
         $scope.approveSubmission = function(submission) {
             if($scope.isAdviser(submission) == true || $scope.hasAdminPrivs() == true){
-                var r = confirm("As an adviser, I authorize the student(s) to submit this abstract for consideration for the URS (not approve the final abstract). " +
-                    "Are you sure you want to approve this submission?");
+                var r = confirm("Are you sure you want to approve this submission?");
                 console.log(submission);
 //
 //                var dlg = null;
@@ -569,7 +568,7 @@ angular.module('umm3601ursamajorApp')
 
         //TODO: broken, fix pls
         $scope.advisorApprover = function(){
-            $http.patch('api/advisorApprover/' + $scope.selection.item._id,
+            $http.patch('api/submissions/' + $scope.selection.item._id,
                 {approval: true}
             ).success(function(){
                     $scope.selection.item.approval = true;
@@ -593,7 +592,8 @@ angular.module('umm3601ursamajorApp')
                 console.log("Attempting to flag for resubmission.");
                 $http.patch('api/submissions/' + $scope.selection.item._id,
                     {
-                     resubmissionData: {comment: $scope.selection.item.resubmissionData.comment, parentSubmission: $scope.selection.item.resubmissionData.parentSubmission, resubmitFlag: true, isPrimary: true}
+                     resubmissionData: {comment: $scope.selection.item.resubmissionData.comment, parentSubmission: $scope.selection.item.resubmissionData.parentSubmission, resubmitFlag: true, isPrimary: true},
+                     comments: $scope.selection.item.comments
                     }
                 ).success(function(){
                         console.log("Successfully flagged submission for resubmit");
@@ -620,21 +620,19 @@ angular.module('umm3601ursamajorApp')
                 console.log("Attempting to approve resubmission.");
                 $http.patch('api/submissions/' + $scope.selection.item._id,
                     {
-                        resubmissionData: {isPrimary: false, comment: $scope.selection.item.resubmissionData.comment, parentSubmission: $scope.selection.item.resubmissionData.parentSubmission, resubmitFlag: false}
+                        resubmissionData: {isPrimary: false, comment: $scope.selection.item.resubmissionData.comment, parentSubmission: $scope.selection.item.resubmissionData.parentSubmission, resubmitFlag: false},
+                        comments: $scope.selection.item.comments
                     }
                 ).success(function () {
                         console.log("old primary is no longer primary");
                         $http.patch('api/submissions/' + $scope.selection.resubmission._id,
                             {
-                                resubmissionData: {isPrimary: true, comment: $scope.selection.resubmission.resubmissionData.comment, parentSubmission: $scope.selection.resubmission.resubmissionData.parentSubmission, resubmitFlag: false}
+                                resubmissionData: {isPrimary: true, comment: $scope.selection.resubmission.resubmissionData.comment, parentSubmission: $scope.selection.resubmission.resubmissionData.parentSubmission, resubmitFlag: false},
+                                comments: $scope.selection.resubmission.comments
                             }
                         ).success(function () {
-                                $scope.selection.item.resubmissionData.isPrimary = false;
-                                $scope.selection.resubmission.resubmissionData.isPrimary = true;
-                                $scope.selection.item = $scope.selection.resubmission;
-                                $scope.selection.resubmission = null;
                                 console.log("resubmission set as new primary")
-                        });
+                            });
                     });
             }
         };
@@ -664,8 +662,6 @@ angular.module('umm3601ursamajorApp')
             commentObj.indicator = 0;
             commentObj.responses = [];
             commentObj.timestamp = Date();
-            commentObj.origin = submission._id;
-            console.log(commentObj.origin);
             if(commentText != null && commentText != "") {
                 comments.push(commentObj);
                 console.log(comments);
@@ -678,35 +674,15 @@ angular.module('umm3601ursamajorApp')
             };
         };
 
-        $scope.getOriginAbstract = function (submission , index) {
-            var comments = submission.comments;
+        $scope.populateComments = function (submissionCopy , index) {
+            var submission = submissionCopy;
             var abstract = submission.abstract;
-            console.log(submission._id);
-            if (submission._id != comments[index].origin) {
-                    $http.get('/api/submissions/' + comments[index].origin).success(function(submission) {
-                    abstract = submission.abstract;
-                    $scope.populateComments(abstract, index , comments);
-                });
-            } else {
-                $scope.populateComments(abstract, index, comments, submission._id );
-            }
-        };
-
-
-        // Warning: You will get an error about the document not being found
-        // if pop-ups are blocked
-        $scope.populateComments = function(abstract, index , comments, id){
+            var comments = submission.comments;
             var start = comments[index].beginner;
             var end = comments[index].ender;
-            var comment = comments[index].commentText;
             abstract = abstract.substring(0, start) + '<b>' + abstract.substring(start, end) + '</b>' + abstract.substring(end, abstract.length);
             var newWindow = $window.open("", null, "height=300,width=600,status=yes,toolbar=no,menubar=no,location=no");
-            if(comments[index].origin != id){
-                console.log("Yup");
-                newWindow.document.write("<b>" + "This comment was made on a prior version of this submission" + "</b>");
-                newWindow.document.write("<br>");
-            }
-            newWindow.document.write("<b>" +"Comment made by " + comments[index].commenter + ": " +"</b>"+"<i>" + comments[index].commentText + "</i>");
+            newWindow.document.write("<b>"+"Comment made by " + comments[index].commenter + ": " +"</b>"+"<i>" + comments[index].commentText + "</i>");
             newWindow.document.write("<br>");
             newWindow.document.write(abstract);
         };
