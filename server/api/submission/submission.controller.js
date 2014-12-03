@@ -51,9 +51,12 @@ exports.update = function(req, res) {
         if(!submission) { return res.send(404); }
         console.log(req.body)
         var updated = _.merge(submission, req.body);
-        if(!(_.has(req.body, 'title') &&
-            _.has(req.body, 'comments'))){
+        if(
+            _.has(req.body, 'comments')){
             updated.comments = req.body.comments;
+        } else if (!(_.has(req.body, 'comments'))){
+            updated.comments = submission.comments;
+            console.log(submission.comments);
         }
         updated.save(function (err, product, numberAffected) {
             console.log(numberAffected)

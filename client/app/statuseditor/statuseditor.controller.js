@@ -15,6 +15,7 @@ angular.module('umm3601ursamajorApp')
 
         $http.get('/api/statuss').success(function(statusArray) {
             $scope.statusArray = statusArray;
+            $scope.statusArray.sort(function(a, b){return b.priority- a.priority});
         });
 
         $http.get('/api/submissions').success(function(submissions) {
@@ -25,6 +26,7 @@ angular.module('umm3601ursamajorApp')
         $scope.getStatuses = function(){
             $http.get('/api/statuss').success(function(statusArray) {
                 $scope.statusArray = statusArray;
+                $scope.statusArray.sort(function(a, b){return b.priority- a.priority});
             });
         };
 

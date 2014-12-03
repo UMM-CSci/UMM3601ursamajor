@@ -41,6 +41,13 @@ Status.find({}).remove(function() {
         emailBody: ", Your URS submission is pending approval from your adviser.",
         priority: -15,
         required: true
+//    },{
+//        strict: "Rejected by Adviser",
+//            color: {red: 255, green: 220, blue: 10, alpha: 1},
+//        emailSubject: "URS submission update",
+//            emailBody: ", Your URS submission has been rejected by your adviser.",
+//        priority: 4,
+//        required: true
     });
 });
 
@@ -162,7 +169,7 @@ User.find({}).remove(function() {
                 id: "111717955914079275928"
             },
             group: -1,
-            role: "user",
+            role: "admin",
             __v: 0
         }, {
             name: "Joseph Thelen",
@@ -236,6 +243,7 @@ User.find({}).remove(function() {
         }, {
             name: 'Dalton Gusaas',
             email: 'gusaa004@morris.umn.edu',
+            tShirtSize: "Medium",
             provider: 'google',
             google: {
                 hd: 'morris.umn.edu',

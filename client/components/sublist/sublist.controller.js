@@ -157,6 +157,13 @@ angular.module('umm3601ursamajorApp')
             } else {
                 return false;
             }
+//                var dlg = null;
+//                dlg = $dialogs.confirm('Confirm','Would you like to be included in future emails notifying the status change of this submission?');
+//                dlg.result.then(function(btn){
+//                    $scope.confirmed = 'You thought this quite awesome!';
+//                },function(btn){
+//                    $scope.confirmed = 'Shame on you for not thinking this is awesome!';
+//                });
         };
 
         $scope.searchFilter = function(submission){
@@ -374,9 +381,8 @@ angular.module('umm3601ursamajorApp')
 
         $scope.approveSubmission = function(submission) {
             if($scope.isAdviser(submission) == true || $scope.hasAdminPrivs() == true){
-
-                var r = confirm("Are you sure you want to approve this submission?");
-
+                var r = confirm("As an adviser, I authorize the student(s) to submit this abstract for consideration for the URS (not approve the final abstract). " +
+                    "Are you sure you want to approve this submission?");
                 console.log(submission);
 //
 //                var dlg = null;
@@ -415,6 +421,9 @@ angular.module('umm3601ursamajorApp')
                                 });
                         }
                     }
+
+
+
                     sendGmail({
                         to: $scope.selection.item.presenterInfo.email +" "+ $scope.selection.item.copresenterOneInfo.email +" "+ $scope.selection.item.copresenterTwoInfo.email,
                         subject: "[" + $scope.selection.item.title + "] " + $scope.statusEdit.subject[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)],
@@ -422,6 +431,31 @@ angular.module('umm3601ursamajorApp')
                     });
                 }
             }
+        };
+//TODO: finish this function, add in the changing of status to a rejection status, add in chairs emails to the sendGmails
+        $scope.rejectSubmission = function(submission) {
+            if($window.confirm("As adviser of this submission, I am rejecting this submission; clarifying that this abstract should not be sent to the URS committee for review." +
+                "Are you sure you want to reject this submission?")){
+                if($window.confirm('Would you like to send an email to the presenter(s) of this submission clarifying why you have rejected the submission? You will be prompted to send' +
+                    'an email to the admin and chairs either way.')){
+                    sendGmail({
+                        to: $scope.selection.item.presenterInfo.email +" "+ $scope.selection.item.copresenterOneInfo.email +" "+ $scope.selection.item.copresenterTwoInfo.email,
+                        subject: "["+ $scope.selection.item.title + "] " + "URS submission has been rejected",
+                        message: $scope.selection.item.presenterInfo.first + ", unfortunately, your URS submission has been rejected."
+                    });
+                    sendGmail({
+                        to: "admin@admin.com", //add in chairs' emails
+                        subject: "["+ $scope.selection.item.title + "] " + "URS submission has been rejected",
+                        message: $scope.selection.item.presenterInfo.first + " submitted an abstract for consideration to the URS. Unfortunately, I have rejected this submission."
+                    });
+                } else {
+                    sendGmail({
+                        to: "admin@admin.com", //add in chairs' emails
+                        subject: "["+ $scope.selection.item.title + "] " + "URS submission has been rejected",
+                        message: $scope.selection.item.presenterInfo.first + " submitted an abstract for consideration to the URS. Unfortunately, I have rejected this submission."
+                    });
+                }
+            };
         };
 
         // -------------------------- Editing of status ----------------------------------------------
@@ -535,7 +569,7 @@ angular.module('umm3601ursamajorApp')
 
         //TODO: broken, fix pls
         $scope.advisorApprover = function(){
-            $http.patch('api/submissions/' + $scope.selection.item._id,
+            $http.patch('api/advisorApprover/' + $scope.selection.item._id,
                 {approval: true}
             ).success(function(){
                     $scope.selection.item.approval = true;
@@ -559,8 +593,7 @@ angular.module('umm3601ursamajorApp')
                 console.log("Attempting to flag for resubmission.");
                 $http.patch('api/submissions/' + $scope.selection.item._id,
                     {
-                     resubmissionData: {comment: $scope.selection.item.resubmissionData.comment, parentSubmission: $scope.selection.item.resubmissionData.parentSubmission, resubmitFlag: true, isPrimary: true},
-                     comments: $scope.selection.item.comments
+                     resubmissionData: {comment: $scope.selection.item.resubmissionData.comment, parentSubmission: $scope.selection.item.resubmissionData.parentSubmission, resubmitFlag: true, isPrimary: true}
                     }
                 ).success(function(){
                         console.log("Successfully flagged submission for resubmit");
@@ -587,19 +620,21 @@ angular.module('umm3601ursamajorApp')
                 console.log("Attempting to approve resubmission.");
                 $http.patch('api/submissions/' + $scope.selection.item._id,
                     {
-                        resubmissionData: {isPrimary: false, comment: $scope.selection.item.resubmissionData.comment, parentSubmission: $scope.selection.item.resubmissionData.parentSubmission, resubmitFlag: false},
-                        comments: $scope.selection.item.comments
+                        resubmissionData: {isPrimary: false, comment: $scope.selection.item.resubmissionData.comment, parentSubmission: $scope.selection.item.resubmissionData.parentSubmission, resubmitFlag: false}
                     }
                 ).success(function () {
                         console.log("old primary is no longer primary");
                         $http.patch('api/submissions/' + $scope.selection.resubmission._id,
                             {
-                                resubmissionData: {isPrimary: true, comment: $scope.selection.resubmission.resubmissionData.comment, parentSubmission: $scope.selection.resubmission.resubmissionData.parentSubmission, resubmitFlag: false},
-                                comments: $scope.selection.resubmission.comments
+                                resubmissionData: {isPrimary: true, comment: $scope.selection.resubmission.resubmissionData.comment, parentSubmission: $scope.selection.resubmission.resubmissionData.parentSubmission, resubmitFlag: false}
                             }
                         ).success(function () {
+                                $scope.selection.item.resubmissionData.isPrimary = false;
+                                $scope.selection.resubmission.resubmissionData.isPrimary = true;
+                                $scope.selection.item = $scope.selection.resubmission;
+                                $scope.selection.resubmission = null;
                                 console.log("resubmission set as new primary")
-                            });
+                        });
                     });
             }
         };
@@ -629,6 +664,8 @@ angular.module('umm3601ursamajorApp')
             commentObj.indicator = 0;
             commentObj.responses = [];
             commentObj.timestamp = Date();
+            commentObj.origin = submission._id;
+            console.log(commentObj.origin);
             if(commentText != null && commentText != "") {
                 comments.push(commentObj);
                 console.log(comments);
@@ -641,15 +678,35 @@ angular.module('umm3601ursamajorApp')
             };
         };
 
-        $scope.populateComments = function (submissionCopy , index) {
-            var submission = submissionCopy;
-            var abstract = submission.abstract;
+        $scope.getOriginAbstract = function (submission , index) {
             var comments = submission.comments;
+            var abstract = submission.abstract;
+            console.log(submission._id);
+            if (submission._id != comments[index].origin) {
+                    $http.get('/api/submissions/' + comments[index].origin).success(function(submission) {
+                    abstract = submission.abstract;
+                    $scope.populateComments(abstract, index , comments);
+                });
+            } else {
+                $scope.populateComments(abstract, index, comments, submission._id );
+            }
+        };
+
+
+        // Warning: You will get an error about the document not being found
+        // if pop-ups are blocked
+        $scope.populateComments = function(abstract, index , comments, id){
             var start = comments[index].beginner;
             var end = comments[index].ender;
+            var comment = comments[index].commentText;
             abstract = abstract.substring(0, start) + '<b>' + abstract.substring(start, end) + '</b>' + abstract.substring(end, abstract.length);
             var newWindow = $window.open("", null, "height=300,width=600,status=yes,toolbar=no,menubar=no,location=no");
-            newWindow.document.write("<b>"+"Comment made by " + comments[index].commenter + ": " +"</b>"+"<i>" + comments[index].commentText + "</i>");
+            if(comments[index].origin != id){
+                console.log("Yup");
+                newWindow.document.write("<b>" + "This comment was made on a prior version of this submission" + "</b>");
+                newWindow.document.write("<br>");
+            }
+            newWindow.document.write("<b>" +"Comment made by " + comments[index].commenter + ": " +"</b>"+"<i>" + comments[index].commentText + "</i>");
             newWindow.document.write("<br>");
             newWindow.document.write(abstract);
         };

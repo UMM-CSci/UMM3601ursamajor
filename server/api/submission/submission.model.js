@@ -35,7 +35,8 @@ var SubmissionSchema = new Schema({
             indicator: Number,
             beginner: Number,
             ender: Number,
-            timestamp: String
+            timestamp: String,
+            origin: String
         }
     ]
 

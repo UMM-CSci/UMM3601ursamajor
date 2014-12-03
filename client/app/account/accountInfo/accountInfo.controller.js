@@ -24,7 +24,8 @@ angular.module('umm3601ursamajorApp')
 
         $scope.updateTShirtSize = function(user){
             Auth.updateTShirtSize(user.tShirtSize, user);
-            confirm("this worked");
+//            console.log(user.tShirtSize);
+//            console.log(user);
         };
 
     });

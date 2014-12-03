@@ -111,11 +111,9 @@ angular.module('umm3601ursamajorApp')
         $window.open(str);
     };
 
-    $scope.getResubmitData = function(submission){
+    $scope.convertSponsorArray = function(arry) {
         var tempSponsors = [];
         var addedToggle = false;
-
-        console.log(submission.comments);
 
         //fixed now (probably)
         for(var x = 0; x <= $scope.fundingSources.length; x++){
@@ -123,15 +121,15 @@ angular.module('umm3601ursamajorApp')
 //            console.log("Main for loop, sponsor: " + $scope.fundingSources[x]);
 //            console.log("Length of sponsors from submission: " + submission.sponsors.length);
 //            console.log("X: " + x);
-            for(var y = 0; y < submission.sponsors.length; y++){
+            for(var y = 0; y < arry.length; y++){
 //                console.log("final case? " + (x == $scope.fundingSources.length));
                 if(x == $scope.fundingSources.length){
-                    if($scope.fundingSources.indexOf(submission.sponsors[submission.sponsors.length - 1]) == -1){
-                        tempSponsors.push(submission.sponsors[submission.sponsors.length - 1]);
+                    if($scope.fundingSources.indexOf(arry[arry.length - 1]) == -1){
+                        tempSponsors.push(arry[arry.length - 1]);
                     }
                     break;
-                } else if(submission.sponsors[y] === $scope.fundingSources[x]){
-                    tempSponsors.push(submission.sponsors[y]);
+                } else if(arry[y] === $scope.fundingSources[x]){
+                    tempSponsors.push(arry[y]);
                     addedToggle = true;
                 }
             }
@@ -148,6 +146,12 @@ angular.module('umm3601ursamajorApp')
         }
         console.log("~~~~~~~~~~~~~~sponsors from parent submission~~~~~~~~~~~~~~~~~~");
         console.log(tempSponsors);
+        return tempSponsors;
+    };
+
+    $scope.getResubmitData = function(submission){
+
+
 
         $scope.submissionData = {
             title: submission.title,
@@ -159,7 +163,7 @@ angular.module('umm3601ursamajorApp')
             copresenterOne: {first: submission.copresenterOneInfo.first, last: submission.copresenterOneInfo.last, email: submission.copresenterOneInfo.email},
             copresenterTwo: {first: submission.copresenterTwoInfo.first, last: submission.copresenterTwoInfo.last, email: submission.copresenterTwoInfo.email},
             discipline: submission.discipline,
-            sponsors: tempSponsors,
+            sponsors: $scope.convertSponsorArray(submission.sponsors),
             sponsorsFinal: [],
             adviserInfo: {first: submission.adviserInfo.first, last: submission.adviserInfo.last, email: submission.adviserInfo.email},
             featuredPresentation: submission.featured,
@@ -192,31 +196,73 @@ angular.module('umm3601ursamajorApp')
         $scope.submissionText = $scope.submissionTextArray[0];
     });
 
-    $scope.checkEmailsAreMorris = function (){
+    $scope.checkEmailsAreUofM = function (){
         var presenterEmail = $scope.submissionData.presenterInfo.email;
         var copresenterOneEmail = $scope.submissionData.copresenterOne.email;
         var copresenterTwoEmail = $scope.submissionData.copresenterTwo.email;
+        var adviserOneEmail = $scope.submissionData.adviserInfo.email;
 
-        var presenterCheck = (presenterEmail.indexOf("morris.umn.edu") != -1);
+        var presenterCheck = (presenterEmail.indexOf("umn.edu") != -1);
 
         if(copresenterOneEmail != ""){
-            var copresenterOneCheck = (copresenterOneEmail.indexOf("morris.umn.edu") != -1);
+            var copresenterOneCheck = (copresenterOneEmail.indexOf("umn.edu") != -1);
         } else{
             var copresenterOneCheck = true;
         }
 
         if(copresenterTwoEmail != ""){
-            var copresenterTwoCheck = (copresenterTwoEmail.indexOf("morris.umn.edu") != -1);
+            var copresenterTwoCheck = (copresenterTwoEmail.indexOf("umn.edu") != -1);
         } else{
             var copresenterTwoCheck = true;
         }
 
-        return presenterCheck && copresenterOneCheck && copresenterTwoCheck;
+        var adviserOneEmailCheck = (adviserOneEmail.indexOf("umn.edu") != -1);
+
+        return presenterCheck && copresenterOneCheck && copresenterTwoCheck && adviserOneEmailCheck;
     };
 
+        $scope.checkEmailsAreMorris = function (){
+            var presenterEmail = $scope.submissionData.presenterInfo.email;
+            var copresenterOneEmail = $scope.submissionData.copresenterOne.email;
+            var copresenterTwoEmail = $scope.submissionData.copresenterTwo.email;
+            var adviserOneEmail = $scope.submissionData.adviserInfo.email;
+
+            var presenterCheck = (presenterEmail.indexOf("morris.umn.edu") != -1);
+
+            if(copresenterOneEmail != ""){
+                var copresenterOneCheck = (copresenterOneEmail.indexOf("morris.umn.edu") != -1);
+            } else{
+                var copresenterOneCheck = true;
+            }
+
+            if(copresenterTwoEmail != ""){
+                var copresenterTwoCheck = (copresenterTwoEmail.indexOf("morris.umn.edu") != -1);
+            } else{
+                var copresenterTwoCheck = true;
+            }
+
+            var adviserOneEmailCheck = (adviserOneEmail.indexOf("morris.umn.edu") != -1);
+
+            return presenterCheck && copresenterOneCheck && copresenterTwoCheck && adviserOneEmailCheck;
+        };
+
+        $scope.preSubmitChecks = function(){
+            if ($scope.checkEmailsAreUofM() === true && $scope.checkEmailsAreMorris() === false){
+                var confirm = $window.confirm("At least one of the emails you entered is not a Morris email address. Would you like to continue?");
+            } else if($scope.checkEmailsAreUofM() === false){
+                $window.alert("One of the emails you entered is not a University of Minnesota email.");
+            }
+
+            if(confirm || $scope.checkEmailsAreMorris() === true){
+                $scope.submitSubmission();
+            }
+        };
+
     $scope.submitSubmission = function(){
-        if($scope.checkEmailsAreMorris() === true) {
             var r = confirm("Are you sure you want to submit?");
+            if(!$scope.isResubmitting){
+                alert("If you do not send the email that will be automatically generated, your adviser will not receive a notification to approve your submission.");
+            }
             if (r) {
                 for (var i = 0; i < $scope.submissionData.sponsors.length; i++) {
                     if ($scope.submissionData.sponsors[i] != "" && $scope.submissionData.sponsors[i] != null) {
@@ -265,14 +311,16 @@ angular.module('umm3601ursamajorApp')
                     to: $scope.submissionData.adviserInfo.email,
                     subject: 'URS Submission requires approval',
                     message: $scope.submissionData.presenterInfo.first + " " + $scope.submissionData.presenterInfo.last +
-                        ' has submitted a URS submission that requires your approval. Please go to https://ursa-major.herokuapp.com/ to log in and approve the submission.'
+                        ' has submitted a URS submission that requires your approval. ' +
+                        'By approving the submission, you are authorizing the student(s) to submit this abstract for consideration for the URS, ' +
+                        'not approving the final abstract; the student(s) will have the opportunity to further revise, improve, and finalize their submission. '+
+                        'Please go to https://ursa-major.herokuapp.com/ to log in and approve (or reject) the submission.'
                 });
             }
             if ($scope.isResubmitting && r) {
                 $http.patch('api/submissions/' + $scope.submissionData.resubmitParent,
                     {
-                     resubmissionData: {comment: $scope.resubmitParent.resubmissionData.comment, parentSubmission: $scope.resubmitParent.resubmissionData.parentSubmission, resubmitFlag: false, isPrimary: true},
-                     comments: $scope.resubmitParent.comments
+                     resubmissionData: {comment: $scope.resubmitParent.resubmissionData.comment, parentSubmission: $scope.resubmitParent.resubmissionData.parentSubmission, resubmitFlag: false, isPrimary: true}
                     }
                 ).success(function () {
                         console.log("Successfully unflagged the original submission for resbumission.");
@@ -282,9 +330,6 @@ angular.module('umm3601ursamajorApp')
                 $scope.resetData();
                 $location.path('/submissionpage');
             }
-        } else{
-            $window.alert("One of the emails you entered is not a UMN Morris email.");
-        }
     };
 
     $scope.charsRemaining = function() {
