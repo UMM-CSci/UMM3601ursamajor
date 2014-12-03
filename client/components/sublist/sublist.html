@@ -108,7 +108,7 @@
                 <li class="list-group-item"><p ng-bind-html="selection.item.abstract"></p></li>
                 <li class="list-group-item overflowAuto">
                     <h3>Comments </h3> (To add a comment, highlight the text you wish to comment upon and hit "Add Comment")
-                    <button class="btn btn-md btn-primary moveRight inlineBlock" ng-click="addComment(selection.item)">Add Comment  <span class="glyphicon glyphicon-pencil"></span></button>
+                    <button class="btn btn-md btn-primary moveRight inlineBlock" ng-click="addComment(selection.item)">Add Comment</button>
                 </li>
                 <li class="list-group-item" ng-repeat="comment in selection.item.comments">
                     <b>{{comment.selectionText | isntEmpty:"Quoted Text:":"(No associated quotation)"}}</b>

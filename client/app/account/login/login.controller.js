@@ -10,6 +10,7 @@ angular.module('umm3601ursamajorApp')
         $location.path('/');
     }
 
+    // Form validation.
     $scope.login = function(form) {
       $scope.submitted = true;
 
