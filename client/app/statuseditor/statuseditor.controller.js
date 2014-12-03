@@ -182,7 +182,7 @@ angular.module('umm3601ursamajorApp')
                         }
 
                     }
-                    if ((status.priority <= 1 || status.priority >= 15) && (status.required == false)) {
+                    if ((status.priority <= 1 || status.priority >= 14) && (status.required == false)) {
                         problem = true;
                     }
 
