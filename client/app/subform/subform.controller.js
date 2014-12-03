@@ -88,6 +88,8 @@ angular.module('umm3601ursamajorApp')
         sponsors: [],
         sponsorsFinal: [],
         adviserInfo: {first: "", last: "", email: ""},
+        coadviserOneInfo: {first: "", last: "", email: ""},
+        coadviserTwoInfo: {first: "", last: "", email: ""},
         featuredPresentation: Boolean,
         mediaServicesEquipment: "",
         specialRequirements: "",
@@ -101,7 +103,7 @@ angular.module('umm3601ursamajorApp')
         group: 0
     };
 
-    //Email for advisors
+    //Email for advisers
     var sendGmail = function(opts){
         var str = 'http://mail.google.com/mail/?view=cm&fs=1'+
             '&to=' + opts.to +
@@ -144,15 +146,12 @@ angular.module('umm3601ursamajorApp')
             }
 //            console.log(tempSponsors);
         }
-        console.log("~~~~~~~~~~~~~~sponsors from parent submission~~~~~~~~~~~~~~~~~~");
-        console.log(tempSponsors);
+//        console.log("~~~~~~~~~~~~~~sponsors from parent submission~~~~~~~~~~~~~~~~~~");
+//        console.log(tempSponsors);
         return tempSponsors;
     };
 
     $scope.getResubmitData = function(submission){
-
-
-
         $scope.submissionData = {
             title: submission.title,
             format: submission.format,
@@ -166,6 +165,8 @@ angular.module('umm3601ursamajorApp')
             sponsors: $scope.convertSponsorArray(submission.sponsors),
             sponsorsFinal: [],
             adviserInfo: {first: submission.adviserInfo.first, last: submission.adviserInfo.last, email: submission.adviserInfo.email},
+            coadviserOneInfo: {first: $scope.submissionData.coadviserOneInfo.first, last: $scope.submissionData.coadviserOneInfo.last, email: $scope.submissionData.coadviserOneInfo.email},
+            coadviserTwoInfo: {first: $scope.submissionData.coadviserTwoInfo.first, last: $scope.submissionData.coadviserTwoInfo.last, email: $scope.submissionData.coadviserTwoInfo.email},
             featuredPresentation: submission.featured,
             mediaServicesEquipment: submission.mediaServicesEquipment,
             specialRequirements: submission.specialRequirements,
@@ -200,7 +201,9 @@ angular.module('umm3601ursamajorApp')
         var presenterEmail = $scope.submissionData.presenterInfo.email;
         var copresenterOneEmail = $scope.submissionData.copresenterOne.email;
         var copresenterTwoEmail = $scope.submissionData.copresenterTwo.email;
-        var adviserOneEmail = $scope.submissionData.adviserInfo.email;
+        var adviserEmail = $scope.submissionData.adviserInfo.email;
+        var coadviserOneEmail = $scope.submissionData.coadviserOneInfo.email;
+        var coadviserTwoEmail = $scope.submissionData.coadviserTwoInfo.email;
 
         var presenterCheck = (presenterEmail.indexOf("umn.edu") != -1);
 
@@ -216,16 +219,32 @@ angular.module('umm3601ursamajorApp')
             var copresenterTwoCheck = true;
         }
 
-        var adviserOneEmailCheck = (adviserOneEmail.indexOf("umn.edu") != -1);
+        var adviserEmailCheck = (adviserEmail.indexOf("umn.edu") != -1);
 
-        return presenterCheck && copresenterOneCheck && copresenterTwoCheck && adviserOneEmailCheck;
+        if(coadviserOneEmail != ""){
+            var coadviserOneCheck = (coadviserOneEmail.indexOf("umn.edu") != -1);
+        } else{
+            var coadviserOneCheck = true;
+        }
+
+        if(coadviserTwoEmail != ""){
+            var coadviserTwoCheck = (coadviserTwoEmail.indexOf("umn.edu") != -1);
+        } else{
+            var coadviserTwoCheck = true;
+        }
+
+        return presenterCheck && copresenterOneCheck &&
+            copresenterTwoCheck && adviserEmailCheck
+            && coadviserOneCheck && coadviserTwoCheck;
     };
 
         $scope.checkEmailsAreMorris = function (){
             var presenterEmail = $scope.submissionData.presenterInfo.email;
             var copresenterOneEmail = $scope.submissionData.copresenterOne.email;
             var copresenterTwoEmail = $scope.submissionData.copresenterTwo.email;
-            var adviserOneEmail = $scope.submissionData.adviserInfo.email;
+            var adviserEmail = $scope.submissionData.adviserInfo.email;
+            var coadviserOneEmail = $scope.submissionData.coadviserOneInfo.email;
+            var coadviserTwoEmail = $scope.submissionData.coadviserTwoInfo.email;
 
             var presenterCheck = (presenterEmail.indexOf("morris.umn.edu") != -1);
 
@@ -241,9 +260,23 @@ angular.module('umm3601ursamajorApp')
                 var copresenterTwoCheck = true;
             }
 
-            var adviserOneEmailCheck = (adviserOneEmail.indexOf("morris.umn.edu") != -1);
+            var adviserEmailCheck = (adviserEmail.indexOf("morris.umn.edu") != -1);
 
-            return presenterCheck && copresenterOneCheck && copresenterTwoCheck && adviserOneEmailCheck;
+            if(coadviserOneEmail != ""){
+                var coadviserOneCheck = (coadviserOneEmail.indexOf("morris.umn.edu") != -1);
+            } else{
+                var coadviserOneCheck = true;
+            }
+
+            if(coadviserTwoEmail != ""){
+                var coadviserTwoCheck = (coadviserTwoEmail.indexOf("morris.umn.edu") != -1);
+            } else{
+                var coadviserTwoCheck = true;
+            }
+
+            return presenterCheck && copresenterOneCheck &&
+                copresenterTwoCheck && adviserEmailCheck
+                && coadviserOneCheck && coadviserTwoCheck;
         };
 
         $scope.preSubmitChecks = function(){
@@ -292,6 +325,8 @@ angular.module('umm3601ursamajorApp')
                         discipline: $scope.submissionData.discipline,
                         sponsors: $scope.submissionData.sponsorsFinal,
                         adviserInfo: {first: $scope.submissionData.adviserInfo.first, last: $scope.submissionData.adviserInfo.last, email: $scope.submissionData.adviserInfo.email},
+                        coadviserOneInfo: {first: $scope.submissionData.coadviserOneInfo.first, last: $scope.submissionData.coadviserOneInfo.last, email: $scope.submissionData.coadviserOneInfo.email},
+                        coadviserTwoInfo: {first: $scope.submissionData.coadviserTwoInfo.first, last: $scope.submissionData.coadviserTwoInfo.last, email: $scope.submissionData.coadviserTwoInfo.email},
                         featured: $scope.submissionData.featuredPresentation,
                         mediaServicesEquipment: $scope.submissionData.mediaServicesEquipment,
                         specialRequirements: $scope.submissionData.specialRequirements,
@@ -309,7 +344,7 @@ angular.module('umm3601ursamajorApp')
 
             if (r && !$scope.isResubmitting) {
                 sendGmail({
-                    to: $scope.submissionData.adviserInfo.email,
+                    to: [$scope.submissionData.adviserInfo.email, $scope.submissionData.coadviserOneInfo.email, $scope.submissionData.coadviserTwoInfo.email],
                     subject: 'URS Submission requires approval',
                     message: $scope.submissionData.presenterInfo.first + " " + $scope.submissionData.presenterInfo.last +
                         ' has submitted a URS submission that requires your approval. ' +
@@ -350,6 +385,8 @@ angular.module('umm3601ursamajorApp')
             discipline: "",
             sponsors: ["","","","",""], //Might need to worry about if this is static for the DB later.
             adviserInfo: {first: "", last: "", email: ""},
+            coadviserOneInfo: {first: "", last: "", email: ""},
+            coadviserTwoInfo: {first: "", last: "", email: ""},
             featuredPresentation: Boolean,
             mediaServicesEquipment: "",
             specialRequirements: "",

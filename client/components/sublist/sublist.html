@@ -2,7 +2,7 @@
     <tabset ng-hide="selection.selected">
         <tab heading="All Submissions" ng-click="showAllSubmissions()"></tab>
         <tab ng-show="isPresenterOnAnything()" heading="Presenter Submissions" ng-click="showMySubmissions()"></tab>
-        <tab ng-show="isCoPresenterOnAnything()" heading="Copresenter Submissions" ng-click="showMyCoSubmissions()"></tab>
+        <tab ng-show="isCoPresenterOnAnything()" heading="CoPresenter Submissions" ng-click="showMyCoSubmissions()"></tab>
         <tab ng-show="isAdviserOfAnything()" heading="Adviser Submissions" ng-click="showMyAdviserSubmissions()"></tab>
         <tab ng-show="isReviewerOfAnything()" heading="Reviewer Submissions" ng-click="showMyReviewerSubmissions()"></tab>
     </tabset>
@@ -25,10 +25,13 @@
             <button class="buttonL" ng-click="selectItem($index)">Details</button>
             <strong>Presenter: {{sub.presenterInfo.first}} {{sub.presenterInfo.last}}</strong>
             <p class="subtext">
-                {{sub.copresenterOneInfo.first | isntEmpty:"Co-Presenter(s):":""}} {{sub.copresenterOneInfo.last | isntEmpty:"":""}}{{sub.copresenterTwoInfo.first | isntEmpty:",":""}} {{sub.copresenterTwoInfo.last | isntEmpty:"":""}}
+                {{sub.copresenterOneInfo.first | isntEmpty:"CoPresenter(s):":""}} {{sub.copresenterOneInfo.last | isntEmpty:"":""}}{{sub.copresenterTwoInfo.first | isntEmpty:",":""}} {{sub.copresenterTwoInfo.last | isntEmpty:"":""}}
             </p>
             <p>
                 Adviser: {{sub.adviserInfo.first}} {{sub.adviserInfo.last}}
+            </p>
+            <p class="subtext">
+                {{sub.coadviserOneInfo.first | isntEmpty:"CoAdviser(s):":""}} {{sub.coadviserOneInfo.last | isntEmpty:"":""}}{{sub.coadviserTwoInfo.first | isntEmpty:",":""}} {{sub.coadviserTwoInfo.last | isntEmpty:"":""}}
             </p>
             <p class="subtext">
             Date of Submission: {{sub.timestamp}}
@@ -49,8 +52,8 @@
             <button ng-show="isPresenter(selection.item) && (getResubmission(selection.item) == null)" class="btn btn-md btn-primary sideMargins moveRight" ng-click="flagForResubmit()">Re-Submit this Submission</button>
 
             <div class="btn-group sideMargins moveRight">
-                <button ng-show="(isAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-success  " ng-click="approveSubmission(selection.item)">Adviser Approval</button>
-                <button ng-show="(isAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-danger " ng-click="rejectSubmission(selection.item)">Adviser Rejection</button>
+                <button ng-show="(isPrimaryAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-success  " ng-click="approveSubmission(selection.item)">Adviser Approval</button>
+                <button ng-show="(isPrimaryAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-danger " ng-click="rejectSubmission(selection.item)">Adviser Rejection</button>
             </div>
 
             <br>
@@ -88,12 +91,14 @@
             <hr>
             <ul class="list-group">
                 <li class="list-group-item">
-                    <p>{{selection.item.copresenterOneInfo.first | isntEmpty:"Co-Presenter(s):":""}} {{selection.item.copresenterOneInfo.last | isntEmpty:"":""}}{{selection.item.copresenterTwoInfo.first | isntEmpty:",":""}} {{selection.item.copresenterTwoInfo.last | isntEmpty:"":""}}
+                    <p>{{selection.item.copresenterOneInfo.first | isntEmpty:"CoPresenter(s):":""}} {{selection.item.copresenterOneInfo.last | isntEmpty:"":""}}{{selection.item.copresenterTwoInfo.first | isntEmpty:",":""}} {{selection.item.copresenterTwoInfo.last | isntEmpty:"":""}}
                     </p>
                     <p>Discipline: {{selection.item.discipline}}</p>
                     <p>Format:  {{selection.item.format}}</p>
                     <p>Type: {{selection.item.presentationType}}</p>
                     <p>Adviser: {{selection.item.adviserInfo.last}}, {{selection.item.adviserInfo.first}} email: {{selection.item.adviserInfo.email}}</p>
+                    <p>{{selection.item.coadviserOneInfo.first | isntEmpty:"CoAdviser(s):":""}}{{selection.item.coadviserOneInfo.last | isntEmpty:"":""}}{{selection.item.coadviserTwoInfo.first | isntEmpty:",":""}} {{selection.item.coadviserTwoInfo.last | isntEmpty:"":""}}
+                    </p>
                     <p>Adviser Approved: {{approvalWordChange(selection.item.approval)}}</p>
                     <p>{{selection.item.sponsors | isntEmpty:"Sponsors:":""}}</p>
                     <p>{{selection.item.mediaServicesEquipment | isntEmpty:"Media Services Equipment:":""}}</p>
