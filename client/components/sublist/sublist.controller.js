@@ -364,6 +364,8 @@ angular.module('umm3601ursamajorApp')
 
             $scope.selection.selected = true;
             $scope.selection.item = filteredSubmissions[itemIndex];
+            console.log("submissions");
+            console.log(filteredSubmissions);
             $scope.selection.resubmission = $scope.getResubmission($scope.selection.item);
             $scope.selection.reviewGroup = $scope.selection.item.group;
 

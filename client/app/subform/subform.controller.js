@@ -146,8 +146,8 @@ angular.module('umm3601ursamajorApp')
             }
 //            console.log(tempSponsors);
         }
-        console.log("~~~~~~~~~~~~~~sponsors from parent submission~~~~~~~~~~~~~~~~~~");
-        console.log(tempSponsors);
+//        console.log("~~~~~~~~~~~~~~sponsors from parent submission~~~~~~~~~~~~~~~~~~");
+//        console.log(tempSponsors);
         return tempSponsors;
     };
 
