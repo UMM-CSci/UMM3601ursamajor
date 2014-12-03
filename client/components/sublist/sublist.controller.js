@@ -157,6 +157,13 @@ angular.module('umm3601ursamajorApp')
             } else {
                 return false;
             }
+//                var dlg = null;
+//                dlg = $dialogs.confirm('Confirm','Would you like to be included in future emails notifying the status change of this submission?');
+//                dlg.result.then(function(btn){
+//                    $scope.confirmed = 'You thought this quite awesome!';
+//                },function(btn){
+//                    $scope.confirmed = 'Shame on you for not thinking this is awesome!';
+//                });
         };
 
         $scope.searchFilter = function(submission){
@@ -289,6 +296,16 @@ angular.module('umm3601ursamajorApp')
             $window.open(str);
         };
 
+        var sendGmailWithCC = function(opts){
+            var str = 'http://mail.google.com/mail/?view=cm&fs=1'+
+                '&to=' + opts.to +
+                '&cc=' + opts.cc +
+                '&su=' + opts.subject +
+                '&body=' + opts.message +
+                '&ui=1';
+            $window.open(str);
+        };
+
         //----------------------------- Color Coding of submission list -----------------------------
 
         $scope.statusColorTab = function(strict) {
@@ -367,6 +384,14 @@ angular.module('umm3601ursamajorApp')
                 var r = confirm("As an adviser, I authorize the student(s) to submit this abstract for consideration for the URS (not approve the final abstract). " +
                     "Are you sure you want to approve this submission?");
                 console.log(submission);
+//
+//                var dlg = null;
+//                dlg = $dialogs.confirm('Confirm','Would you like to be included in future emails notifying the status change of this submission?');
+//                dlg.result.then(function(btn){
+//                    $scope.confirmed = 'You thought this quite awesome!';
+//                },function(btn){
+//                    $scope.confirmed = 'Shame on you for not thinking this is awesome!';
+//                });
 
                 if(r){
                     var newPriority = 15;
@@ -401,7 +426,7 @@ angular.module('umm3601ursamajorApp')
 
                     sendGmail({
                         to: $scope.selection.item.presenterInfo.email +" "+ $scope.selection.item.copresenterOneInfo.email +" "+ $scope.selection.item.copresenterTwoInfo.email,
-                        subject: "["+ $scope.selection.item.title + "] " + $scope.statusEdit.subject,
+                        subject: "[" + $scope.selection.item.title + "] " + $scope.statusEdit.subject[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)],
                         message: $scope.selection.item.presenterInfo.first + ", your URS abstract has been approved by your adviser. Please await reviewer comments."
                     });
                 }
@@ -522,13 +547,22 @@ angular.module('umm3601ursamajorApp')
             $scope.selection.item.status.text = $scope.statusEdit.temp.text;
 
         //--------------------------------------------- Gmail Things ---------------------------------------
-
-            sendGmail({
-                to: $scope.selection.item.presenterInfo.email +" "+ $scope.selection.item.copresenterOneInfo.email +" "+ $scope.selection.item.copresenterTwoInfo.email,
-                subject: "["+ $scope.selection.item.title + "] " + $scope.statusEdit.subject[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)],
-                message: $scope.selection.item.presenterInfo.first +
-                    $scope.statusEdit.body[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)]
-            });
+            if($scope.selection.item.cc){
+                sendGmailWithCC({
+                    to: $scope.selection.item.presenterInfo.email + " " + $scope.selection.item.copresenterOneInfo.email + " " + $scope.selection.item.copresenterTwoInfo.email,
+                    cc: $scope.selection.item.adviserInfo.email,
+                    subject: "[" + $scope.selection.item.title + "] " + $scope.statusEdit.subject[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)],
+                    message: $scope.selection.item.presenterInfo.first +
+                        $scope.statusEdit.body[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)]
+                });
+            }else {
+                sendGmail({
+                    to: $scope.selection.item.presenterInfo.email + " " + $scope.selection.item.copresenterOneInfo.email + " " + $scope.selection.item.copresenterTwoInfo.email,
+                    subject: "[" + $scope.selection.item.title + "] " + $scope.statusEdit.subject[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)],
+                    message: $scope.selection.item.presenterInfo.first +
+                        $scope.statusEdit.body[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)]
+                });
+            }
             $scope.resetTemps();
             $scope.editStatus();
         };
