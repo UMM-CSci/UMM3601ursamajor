@@ -54,10 +54,6 @@ angular.module('umm3601ursamajorApp')
             tabFilter: {isPresenter:false, isCoPresenter:false, isReviewer:false, isAdviser:false}
         };
 
-        $scope.getChairsEmails = function(){
-
-        };
-
         // Returns true when the submission HAS a parent, and ISN'T the primary.
         $scope.isResubmission = function(submission){
             return (!submission.resubmissionData.isPrimary);
@@ -108,6 +104,17 @@ angular.module('umm3601ursamajorApp')
         // (based on email, not name)
         // returns false if the submission is null, or if the user isn't listed as the adviser.
         $scope.isAdviser = function(submission) {
+            if(submission == null) return false;
+            if($scope.email === submission.adviserInfo.email ||
+               $scope.email === submission.coadviserOneInfo.email ||
+               $scope.email === submission.coadviserTwoInfo.email){
+                return true;
+            } else {
+                return false;
+            }
+        };
+
+        $scope.isPrimaryAdviser = function(submission) {
             if(submission == null) return false;
             return $scope.email === submission.adviserInfo.email;
         };
