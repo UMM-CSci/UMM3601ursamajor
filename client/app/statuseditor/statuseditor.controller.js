@@ -65,7 +65,7 @@ angular.module('umm3601ursamajorApp')
         };
 
         $scope.colorClick = function(item, color) {
-            $scope.statusArray.indexOf(item).color = color;
+            item.color = color;
         }
 
         $scope.deleteSubmissionConfirm = function(item){
