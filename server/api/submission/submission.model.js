@@ -21,6 +21,7 @@ var SubmissionSchema = new Schema({
     presenterTeeSize: String,
     otherInfo: String,
     approval: Boolean,
+    cc: Boolean,
     status: {strict: String, text: String},
     timestamp: String,
     group: Number,
@@ -34,7 +35,8 @@ var SubmissionSchema = new Schema({
             indicator: Number,
             beginner: Number,
             ender: Number,
-            timestamp: String
+            timestamp: String,
+            origin: String
         }
     ]
 

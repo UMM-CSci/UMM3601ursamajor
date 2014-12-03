@@ -157,6 +157,13 @@ angular.module('umm3601ursamajorApp')
             } else {
                 return false;
             }
+//                var dlg = null;
+//                dlg = $dialogs.confirm('Confirm','Would you like to be included in future emails notifying the status change of this submission?');
+//                dlg.result.then(function(btn){
+//                    $scope.confirmed = 'You thought this quite awesome!';
+//                },function(btn){
+//                    $scope.confirmed = 'Shame on you for not thinking this is awesome!';
+//                });
         };
 
         $scope.searchFilter = function(submission){
@@ -289,6 +296,16 @@ angular.module('umm3601ursamajorApp')
             $window.open(str);
         };
 
+        var sendGmailWithCC = function(opts){
+            var str = 'http://mail.google.com/mail/?view=cm&fs=1'+
+                '&to=' + opts.to +
+                '&cc=' + opts.cc +
+                '&su=' + opts.subject +
+                '&body=' + opts.message +
+                '&ui=1';
+            $window.open(str);
+        };
+
         //----------------------------- Color Coding of submission list -----------------------------
 
         $scope.statusColorTab = function(strict) {
@@ -367,6 +384,14 @@ angular.module('umm3601ursamajorApp')
                 var r = confirm("As an adviser, I authorize the student(s) to submit this abstract for consideration for the URS (not approve the final abstract). " +
                     "Are you sure you want to approve this submission?");
                 console.log(submission);
+//
+//                var dlg = null;
+//                dlg = $dialogs.confirm('Confirm','Would you like to be included in future emails notifying the status change of this submission?');
+//                dlg.result.then(function(btn){
+//                    $scope.confirmed = 'You thought this quite awesome!';
+//                },function(btn){
+//                    $scope.confirmed = 'Shame on you for not thinking this is awesome!';
+//                });
 
                 if(r){
                     var newPriority = 15;
@@ -401,7 +426,7 @@ angular.module('umm3601ursamajorApp')
 
                     sendGmail({
                         to: $scope.selection.item.presenterInfo.email +" "+ $scope.selection.item.copresenterOneInfo.email +" "+ $scope.selection.item.copresenterTwoInfo.email,
-                        subject: "["+ $scope.selection.item.title + "] " + $scope.statusEdit.subject,
+                        subject: "[" + $scope.selection.item.title + "] " + $scope.statusEdit.subject[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)],
                         message: $scope.selection.item.presenterInfo.first + ", your URS abstract has been approved by your adviser. Please await reviewer comments."
                     });
                 }
@@ -522,13 +547,22 @@ angular.module('umm3601ursamajorApp')
             $scope.selection.item.status.text = $scope.statusEdit.temp.text;
 
         //--------------------------------------------- Gmail Things ---------------------------------------
-
-            sendGmail({
-                to: $scope.selection.item.presenterInfo.email +" "+ $scope.selection.item.copresenterOneInfo.email +" "+ $scope.selection.item.copresenterTwoInfo.email,
-                subject: "["+ $scope.selection.item.title + "] " + $scope.statusEdit.subject[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)],
-                message: $scope.selection.item.presenterInfo.first +
-                    $scope.statusEdit.body[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)]
-            });
+            if($scope.selection.item.cc){
+                sendGmailWithCC({
+                    to: $scope.selection.item.presenterInfo.email + " " + $scope.selection.item.copresenterOneInfo.email + " " + $scope.selection.item.copresenterTwoInfo.email,
+                    cc: $scope.selection.item.adviserInfo.email,
+                    subject: "[" + $scope.selection.item.title + "] " + $scope.statusEdit.subject[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)],
+                    message: $scope.selection.item.presenterInfo.first +
+                        $scope.statusEdit.body[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)]
+                });
+            }else {
+                sendGmail({
+                    to: $scope.selection.item.presenterInfo.email + " " + $scope.selection.item.copresenterOneInfo.email + " " + $scope.selection.item.copresenterTwoInfo.email,
+                    subject: "[" + $scope.selection.item.title + "] " + $scope.statusEdit.subject[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)],
+                    message: $scope.selection.item.presenterInfo.first +
+                        $scope.statusEdit.body[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)]
+                });
+            }
             $scope.resetTemps();
             $scope.editStatus();
         };
@@ -586,24 +620,24 @@ angular.module('umm3601ursamajorApp')
                 console.log("Attempting to approve resubmission.");
                 $http.patch('api/submissions/' + $scope.selection.item._id,
                     {
-                        resubmissionData: {isPrimary: false, comment: $scope.selection.item.resubmissionData.comment, parentSubmission: $scope.selection.item.resubmissionData.parentSubmission, resubmitFlag: false},
-                        comments: $scope.selection.item.comments
+                        resubmissionData: {isPrimary: false, comment: $scope.selection.item.resubmissionData.comment, parentSubmission: $scope.selection.item.resubmissionData.parentSubmission, resubmitFlag: false}
                     }
                 ).success(function () {
                         console.log("old primary is no longer primary");
                         $http.patch('api/submissions/' + $scope.selection.resubmission._id,
                             {
-                                resubmissionData: {isPrimary: true, comment: $scope.selection.resubmission.resubmissionData.comment, parentSubmission: $scope.selection.resubmission.resubmissionData.parentSubmission, resubmitFlag: false},
-                                comments: $scope.selection.resubmission.comments
+                                resubmissionData: {isPrimary: true, comment: $scope.selection.resubmission.resubmissionData.comment, parentSubmission: $scope.selection.resubmission.resubmissionData.parentSubmission, resubmitFlag: false}
                             }
                         ).success(function () {
+                                $scope.selection.item.resubmissionData.isPrimary = false;
+                                $scope.selection.resubmission.resubmissionData.isPrimary = true;
+                                $scope.selection.item = $scope.selection.resubmission;
+                                $scope.selection.resubmission = null;
                                 console.log("resubmission set as new primary")
-                            });
+                        });
                     });
             }
         };
-
-
 
 
         //--------------------------------------------- Comments ---------------------------------------
@@ -628,6 +662,8 @@ angular.module('umm3601ursamajorApp')
             commentObj.indicator = 0;
             commentObj.responses = [];
             commentObj.timestamp = Date();
+            commentObj.origin = submission._id;
+            console.log(commentObj.origin);
             if(commentText != null && commentText != "") {
                 comments.push(commentObj);
                 console.log(comments);
@@ -640,15 +676,34 @@ angular.module('umm3601ursamajorApp')
             };
         };
 
-        $scope.populateComments = function (submissionCopy , index) {
-            var submission = submissionCopy;
-            var abstract = submission.abstract;
+        $scope.getOriginAbstract = function (submission , index) {
             var comments = submission.comments;
+            var abstract = submission.abstract;
+            console.log(submission._id);
+            if (submission._id != comments[index].origin) {
+                    $http.get('/api/submissions/' + comments[index].origin).success(function(submission) {
+                    abstract = submission.abstract;
+                    $scope.populateComments(abstract, index , comments);
+                });
+            } else {
+                $scope.populateComments(abstract, index, comments, submission._id );
+            }
+        };
+
+
+        // Warning: You will get an error about the document not being found
+        // if pop-ups are blocked
+        $scope.populateComments = function(abstract, index , comments, id){
             var start = comments[index].beginner;
             var end = comments[index].ender;
             var comment = comments[index].commentText;
-            abstract = abstract.substring(0, start) + '<a tooltip="{{comments[index}.commentText}}">' + abstract.substring(start, end) + '</a>' + abstract.substring(end, abstract.length);
+            abstract = abstract.substring(0, start) + '<b>' + abstract.substring(start, end) + '</b>' + abstract.substring(end, abstract.length);
             var newWindow = $window.open("", null, "height=300,width=600,status=yes,toolbar=no,menubar=no,location=no");
+            if(comments[index].origin != id){
+                console.log("Yup");
+                newWindow.document.write("<b>" + "This comment was made on a prior version of this submission" + "</b>");
+                newWindow.document.write("<br>");
+            }
             newWindow.document.write("<b>" +"Comment made by " + comments[index].commenter + ": " +"</b>"+"<i>" + comments[index].commentText + "</i>");
             newWindow.document.write("<br>");
             newWindow.document.write(abstract);

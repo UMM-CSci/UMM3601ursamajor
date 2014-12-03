@@ -30,7 +30,9 @@ describe('filter', function() {
     });
 });
 
-// TODO: this test isn't finished, just a template as of now. FINISH IT AND WRITE MORE TESTS!!!
+//TODO: Test functions that use Auth service to check user information.
+//Many of the functions used for filtering user the Auth service to compare properties of submissions to the currently logged in user's information, in order to
+//test these we need to mock the Auth service or re-write the functions to take a user as an argument.
 describe('Functions used for filtering...', function() {
     beforeEach(module('umm3601ursamajorApp'));
     beforeEach(module('socketMock'));
@@ -46,8 +48,9 @@ describe('Functions used for filtering...', function() {
     }));
 
     beforeEach(function(){
-       scope.submissionList = [
+       scope.submissions = [
         {
+            _id: "uniqueIdString",
             title: "A Study of the Properties of a Paperclip in the Digestive System of a Sloth",
             format: "Artist Statement",
             abstract: "Many physicists would agree that, had it not been for scatter/gather I/O, the study of link-level acknowledgements might never have occurred. " +
@@ -73,6 +76,34 @@ describe('Functions used for filtering...', function() {
             group: 3,
             resubmissionData: {comment: "Initial Submission", parentSubmission: "testIdForTesting", isPrimary: false, resubmitFlag: false},
             comments: []
+        }, {
+           _id: "testIdForTesting",
+           title: "Blind Construction: Mixed Media",
+           format: "Artist Statement",
+           abstract: "The basis of this project was to create a garment using mixed media in order to mimic the human body. " +
+               "The materials we used to create this piece include: buckram, copper wire, spray paint, fabric paint, a variety of novelty fabrics, and chains.  " +
+               "The techniques we created in order to manipulate the piece include: fabric branding and burning, grid painting, sewing, draping, molding buckram, and coiling.  " +
+               "Our overall approach was to create a theatrical wearable art piece. " +
+               "Upon completion of the assignment we found the piece aesthetically pleasing because of the way it molds to the human body, but can be a piece all on its own.",
+           presentationType: "Performance",
+           formatChange: false,
+           presenterInfo: {first: "Jacob", last: "Opdahl", email: "opdah023@morris.umn.edu"},
+           copresenterOneInfo: {first: "Savannah", last: "Farm", email: "farmx009@morris.umn.edu"},
+           copresenterTwoInfo: {first: "Maggie", last: "Casale", email: "casal033@morris.umn.edu"},
+           discipline: "Art History",
+           sponsors: [],
+           adviserInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
+           featured: true,
+           mediaServicesEquipment: "",
+           specialRequirements: "A space to perform with three people.",
+           presenterTeeSize: "M",
+           otherInfo: "",
+           approval: true,
+           status: {strict: "Revisions Needed", text: "Your URS submission has been flagged for revisions, and is in need of changes."},
+           timestamp: "Tue Oct 21 2014 23:22:54 GMT-0500 (CDT)",
+           group: 1,
+           resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+           comments:[]
         }
        ]
     });
@@ -83,7 +114,7 @@ describe('Functions used for filtering...', function() {
 
     // Injecting the whole filter service here might be bad practice? IDK, but it works.
     it('Default review group filter should show ALL submissions...', inject(['$filter', function($filter) {
-        expect($filter('filter')(scope.submissionList, scope.reviewGroupFilter).length == scope.submissionList.length).toEqual(true);
+        expect($filter('filter')(scope.submissions, scope.reviewGroupFilter).length == scope.submissions.length).toEqual(true);
     }]));
 
     describe('Functions controlling filter tabs...', function() {
@@ -105,6 +136,11 @@ describe('Functions used for filtering...', function() {
     });
 
     it('Should be a resubmission... ', function() {
-        expect(scope.isResubmission(scope.submissionList[0])).toEqual(true);
+        expect(scope.isResubmission(scope.submissions[0])).toEqual(true);
     });
+
+    it('Should find the resubmission of a submission', function() {
+        expect(scope.getResubmission(scope.submissions[1]) != null).toEqual(true);
+        expect(scope.getResubmission(scope.submissions[1])._id).toBe("uniqueIdString");
+    })
 });

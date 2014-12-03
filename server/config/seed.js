@@ -151,7 +151,7 @@ User.find({}).remove(function() {
                 id: "116234824364241021424"
             },
             group: -1,
-            role: "admin",
+            role: "user",
             __v: 0
         }, {
             name: "Jacob Opdahl",
@@ -169,7 +169,7 @@ User.find({}).remove(function() {
                 id: "111717955914079275928"
             },
             group: -1,
-            role: "user",
+            role: "admin",
             __v: 0
         }, {
             name: "Joseph Thelen",
@@ -243,6 +243,7 @@ User.find({}).remove(function() {
         }, {
             name: 'Dalton Gusaas',
             email: 'gusaa004@morris.umn.edu',
+            tShirtSize: "Medium",
             provider: 'google',
             google: {
                 hd: 'morris.umn.edu',
@@ -436,6 +437,7 @@ Submission.find({}).remove(function(){
         presenterTeeSize: "M",
         otherInfo: "Maybe",
         approval: false,
+        cc: true,
         status: {strict: "Awaiting Adviser Approval", text: "Your adviser has yet to approve this submission."},
         timestamp: "Mon Oct 20 2014 1:48:54 GMT-0500 (CDT)",
         group: 3,
