@@ -36,7 +36,6 @@ angular.module('umm3601ursamajorApp')
         $scope.isReviewer = Auth.isReviewer;
         $scope.isAdmin = Auth.isAdmin;
         $scope.isChair = Auth.isChair;
-        $scope.votingStatus = [0, 0, 0, 0];
 
         //--------------------- Filter Functions -----------------------
 

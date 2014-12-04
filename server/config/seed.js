@@ -300,7 +300,15 @@ Submission.find({}).remove(function(){
         timestamp: "Sat Oct 18 2014 10:48:54 GMT-0500 (CDT)",
         group: 0,
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
-        comments: []
+        comments: [],
+        reviewVotes: {
+            Accepted: [],
+            Minor: [],
+            Major: ["reviewer@reviewer.com"],
+            TotalRewrite: []
+        }
+
+
     }, {
         title: "Blind Construction: Mixed Media",
         format: "Artist Statement",
@@ -330,7 +338,13 @@ Submission.find({}).remove(function(){
         timestamp: "Tue Oct 21 2014 23:22:54 GMT-0500 (CDT)",
         group: 1,
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
-        comments:[]
+        comments:[],
+        reviewVotes: {
+            Accepted: ["reviewer@reviewer.com"],
+            Minor: [],
+            Major: [],
+            TotalRewrite: []
+        }
 
     }, {
         title: "On the Migration of Majestic Space Whales",
@@ -368,7 +382,13 @@ Submission.find({}).remove(function(){
         timestamp: "Mon Sept 2 2014 1:48:54 GMT-0500 (CDT)",
         group: 1,
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
-        comments: []
+        comments: [],
+        reviewVotes: {
+            Accepted: [],
+            Minor: ["reviewer@reviewer.com"],
+            Major: [],
+            TotalRewrite: []
+        }
     }, {
         title: "The Commemoration and Memorialization of the American Revolution",
         format: "Artist Statement",
@@ -400,7 +420,13 @@ Submission.find({}).remove(function(){
         timestamp: "Mon Oct 20 2014 1:48:54 GMT-0500 (CDT)",
         group: 3,
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
-        comments: []
+        comments: [],
+        reviewVotes: {
+            Accepted: [],
+            Minor: [],
+            Major: ["reviewer@reviewer.com"],
+            TotalRewrite: []
+        }
     }, {
         title: "Margaret C. Anderson’s Little Review",
         format: "Social Science",
@@ -431,7 +457,13 @@ Submission.find({}).remove(function(){
         timestamp: "Thur Oct 23 2014 1:48:54 GMT-0500 (CDT)",
         group: 2,
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
-        comments: []
+        comments: [],
+        reviewVotes: {
+            Accepted: [],
+            Minor: [],
+            Major: [],
+            TotalRewrite: ["reviewer@reviewer.com"]
+        }
     }, {
         title: "A Study of the Properties of a Paperclip in the Digestive System of a Sloth",
         format: "Artist Statement",
@@ -461,6 +493,12 @@ Submission.find({}).remove(function(){
         timestamp: "Mon Oct 20 2014 1:48:54 GMT-0500 (CDT)",
         group: 3,
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
-        comments: []
+        comments: [],
+        reviewVotes: {
+            Accepted: [],
+            Minor: [],
+            Major: [],
+            TotalRewrite: ["reviewer@reviewer.com"]
+        }
     });
 });
