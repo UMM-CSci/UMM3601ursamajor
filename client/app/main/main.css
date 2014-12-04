@@ -1,3 +1,4 @@
+/*forces scrollbar on all the time so the navbar doesn't move when changing pages*/
 html { overflow-y: scroll; }
 /* unvisited link */
 a:link {

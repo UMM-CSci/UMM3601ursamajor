@@ -142,8 +142,8 @@
             <p ng-show="isCoPresenter(selection.item)">co-presenter of this submission</p>
             <p ng-show="isAdviser(selection.item)">adviser of this submission</p>
             <p ng-show="isReviewerGroup(selection.item)">reviewer in Reviewer Group {{selection.item.group}}</p>
-            <b>Currently Assigned Review Group:</b>
-            <select ng-change="setReviewGroup(selection.item)" ng-model="selection.reviewGroup">
+            <b ng-show="isAdmin()">Currently Assigned Review Group:</b>
+            <select ng-show="isAdmin()" ng-change="setReviewGroup(selection.item)" ng-model="selection.reviewGroup">
                 <option ng-repeat="option in groupOptions" value={{option}}>{{option}}</option>
             </select>
         </li>

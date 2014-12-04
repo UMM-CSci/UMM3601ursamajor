@@ -65,6 +65,8 @@ describe('Functions dealing with submissions...', function() {
             discipline: "Biology",
             sponsors: [], //Might need to worry about if this is static for the DB later.
             adviserInfo: {first: "Maggie", last: "Casale", email: "casal033@morris.umn.edu"},
+            coadviserOneInfo: {first: "Dalton", last: "Gusaas", email: "gusaa004@morris.umn.edu"},
+            coadviserTwoInfo: {},
             featured: false,
             mediaServicesEquipment: "",
             specialRequirements: "a sloth",
@@ -98,7 +100,8 @@ describe('Functions dealing with submissions...', function() {
            specialRequirements: "A space to perform with three people.",
            presenterTeeSize: "M",
            otherInfo: "",
-           approval: true,
+           approval: false,
+           rejection: false,
            status: {strict: "Revisions Needed", text: "Your URS submission has been flagged for revisions, and is in need of changes."},
            timestamp: "Tue Oct 21 2014 23:22:54 GMT-0500 (CDT)",
            group: 1,
@@ -182,5 +185,30 @@ describe('Functions dealing with submissions...', function() {
             expect(scope.getResubmission(scope.submissions[1])._id).toBe("uniqueIdString");
         })
     });
+
+    describe('Functions handling approve/reject button...', function() {
+//        it('should be a approval...', function () {
+//            expect();
+//        });
+
+        it('rejection should be false...', function (){
+            expect(scope.submissions[1].rejection).toEqual(false);
+        });
+
+
+
+//        it('should be a rejection...', function (){
+//           scope.rejectSubmission(scope.submissions[1]);
+//           expect(scope.submissions[1].rejection).toEqual(true);
+//        });
+
+    });
+
+//    describe('Testing the that the additional advisers are indeed in a submission...', function {
+//       it('coadviserOneInfo for submission 1 [1] should be Dalton Gusaas...', function() {
+//
+//       });
+//    });
+
 
 });
