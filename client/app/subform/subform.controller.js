@@ -9,20 +9,29 @@ angular.module('umm3601ursamajorApp')
         $location.path('/');
     }
 
+    // Authentication Stuff
     $scope.isAdmin = Auth.isAdmin;
     $scope.isLoggedIn = Auth.isLoggedIn;
-    $scope.timestamp = Date();
 
+    // Status Stuff
     $scope.statusArray = [];
     $scope.startingStatus = "";
+
+    // Text Content for the Form
+    $scope.submissionTextArray = [];
+    $scope.submissionText = {};
+
+    // Resubmission Stuff
     $scope.submissions = [];
     $scope.flaggedSubmissions = [];
     $scope.resubmitParent = null;
+    $scope.isResubmitting = false;
 
-    $scope.updateFlaggedSubmissions = function(subs){
-        $scope.flaggedSubmissions = $filter('filter')(subs, function(sub){return (sub.resubmissionData.resubmitFlag && (Auth.getCurrentUser().email === sub.presenterInfo.email))});
-    };
+    // Misc. Stuff
+    $scope.timestamp = Date();
 
+
+    // ---------------------------------------- General HTTP requests ----------------------------------------
     $http.get('/api/submissions').success(function(submissions) {
         $scope.submissions = submissions;
         $scope.updateFlaggedSubmissions(submissions);
@@ -39,11 +48,24 @@ angular.module('umm3601ursamajorApp')
         }
     });
 
+    $http.get('/api/subformtexts').success(function(submissionTextArray) {
+        $scope.submissionTextArray = submissionTextArray;
+        $scope.submissionText = $scope.submissionTextArray[0];
+    });
+
+    // --------------------------------------- Data maintenance functions ------------------------------------
+
+    // Updates the local array with flagged submissions owned by the current user.
+    $scope.updateFlaggedSubmissions = function(subs){
+        $scope.flaggedSubmissions = $filter('filter')(subs, function(sub){return (sub.resubmissionData.resubmitFlag && (Auth.getCurrentUser().email === sub.presenterInfo.email))});
+    };
+
+    // Returns true if the user has flagged submissions, false otherwise.
     $scope.hasResubmitFlags = function(){
         return $scope.flaggedSubmissions.length > 0;
     };
 
-    $scope.isResubmitting = false;
+    // --------------------------------------- Default data for View ------------------------------------------
 
     $scope.formatOptions =
         ['Artist Statement',
@@ -103,7 +125,9 @@ angular.module('umm3601ursamajorApp')
         group: 0
     };
 
-    // Email for advisers
+    // ----------------------------- Misc Helper Functions --------------------------------------
+
+    //Email for advisers
     var sendGmail = function(opts){
         var str = 'http://mail.google.com/mail/?view=cm&fs=1'+
             '&to=' + opts.to +
@@ -113,10 +137,40 @@ angular.module('umm3601ursamajorApp')
         $window.open(str);
     };
 
+    $scope.charsRemaining = function() {
+        return 1000 - $scope.submissionData.abstract.length;
+    };
+
+    $scope.resetData = function(){
+        $scope.submissionData = {
+            title: "",
+            format: "",
+            abstract: "",
+            presentationType: "",
+            formatChange: Boolean,
+            presenterInfo: {first: "", last: "", email: ""},
+            copresenterOne: {first: "", last: "", email: ""},
+            copresenterTwo: {first: "", last: "", email: ""},
+            discipline: "",
+            sponsors: ["","","","",""], //Might need to worry about if this is static for the DB later.
+            adviserInfo: {first: "", last: "", email: ""},
+            coadviserOneInfo: {first: "", last: "", email: ""},
+            coadviserTwoInfo: {first: "", last: "", email: ""},
+            featuredPresentation: Boolean,
+            mediaServicesEquipment: "",
+            specialRequirements: "",
+            presenterTeeSize: "",
+            otherInfo: ""
+        };
+    };
+
+    //----------------------------------- Resubmission Functions --------------------------------------
+
     $scope.convertSponsorArray = function(arry) {
         var tempSponsors = [];
         var addedToggle = false;
 
+        //fixed now (probably)
         for(var x = 0; x <= $scope.fundingSources.length; x++){
             addedToggle = false;
 //            console.log("Main for loop, sponsor: " + $scope.fundingSources[x]);
@@ -164,8 +218,8 @@ angular.module('umm3601ursamajorApp')
             sponsors: $scope.convertSponsorArray(submission.sponsors),
             sponsorsFinal: [],
             adviserInfo: {first: submission.adviserInfo.first, last: submission.adviserInfo.last, email: submission.adviserInfo.email},
-            coadviserOneInfo: {first: $scope.submissionData.coadviserOneInfo.first, last: $scope.submissionData.coadviserOneInfo.last, email: $scope.submissionData.coadviserOneInfo.email},
-            coadviserTwoInfo: {first: $scope.submissionData.coadviserTwoInfo.first, last: $scope.submissionData.coadviserTwoInfo.last, email: $scope.submissionData.coadviserTwoInfo.email},
+            coadviserOneInfo: {first: submission.coadviserOneInfo.first, last: submission.coadviserOneInfo.last, email: submission.coadviserOneInfo.email},
+            coadviserTwoInfo: {first: submission.coadviserTwoInfo.first, last: submission.coadviserTwoInfo.last, email: submission.coadviserTwoInfo.email},
             featuredPresentation: submission.featured,
             mediaServicesEquipment: submission.mediaServicesEquipment,
             specialRequirements: submission.specialRequirements,
@@ -187,16 +241,8 @@ angular.module('umm3601ursamajorApp')
         $scope.resubmitParent = submission;
     };
 
-    $scope.submissionTextArray = [];
+    //--------------------------- Email Validation -------------------------------
 
-    $scope.submissionText = {};
-
-    $http.get('/api/subformtexts').success(function(submissionTextArray) {
-        $scope.submissionTextArray = submissionTextArray;
-        $scope.submissionText = $scope.submissionTextArray[0];
-    });
-
-    // Checks to make sure that the emails for the presenter,
     $scope.checkEmailsAreUofM = function (){
         var presenterEmail = $scope.submissionData.presenterInfo.email;
         var copresenterOneEmail = $scope.submissionData.copresenterOne.email;
@@ -362,31 +408,7 @@ angular.module('umm3601ursamajorApp')
             }
     };
 
-    $scope.charsRemaining = function() {
-        return 1000 - $scope.submissionData.abstract.length;
-    };
 
-    $scope.resetData = function(){
-        $scope.submissionData = {
-            title: "",
-            format: "",
-            abstract: "",
-            presentationType: "",
-            formatChange: Boolean,
-            presenterInfo: {first: "", last: "", email: ""},
-            copresenterOne: {first: "", last: "", email: ""},
-            copresenterTwo: {first: "", last: "", email: ""},
-            discipline: "",
-            sponsors: ["","","","",""], //Might need to worry about if this is static for the DB later.
-            adviserInfo: {first: "", last: "", email: ""},
-            coadviserOneInfo: {first: "", last: "", email: ""},
-            coadviserTwoInfo: {first: "", last: "", email: ""},
-            featuredPresentation: Boolean,
-            mediaServicesEquipment: "",
-            specialRequirements: "",
-            presenterTeeSize: "",
-            otherInfo: ""
-        };
-    };
+
 
   });
