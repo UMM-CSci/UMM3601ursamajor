@@ -30,9 +30,6 @@ describe('filter', function() {
     });
 });
 
-//TODO: Test functions that use Auth service to check user information.
-//Many of the functions used for filtering user the Auth service to compare properties of submissions to the currently logged in user's information, in order to
-//test these we need to mock the Auth service or re-write the functions to take a user as an argument.
 describe('Functions dealing with submissions...', function() {
     beforeEach(module('umm3601ursamajorApp'));
     beforeEach(module('socketMock'));
@@ -168,7 +165,22 @@ describe('Functions dealing with submissions...', function() {
             scope.selectItem(1);
             expect(scope.selection.resubmission != null).toEqual(true);
             expect(scope.selection.resubmission._id).toBe("uniqueIdString");
-        })
+        });
+
+        it("Selecting when filters are applied should select the correct submission (review group filter)", inject(function(Auth){Auth.setCurrentUser("admin@admin.com", "admin", 1)}), function() {
+           expect(scope.selection.item).toEqual(null);
+           scope.filterData.reviewGroupFilterSelection = "Review Group 1";
+           scope.selectItem(0);
+           expect(scope.selection.item.title).toBe("Blind Construction: Mixed Media");
+        });
+
+        it("Selecting when filters are applied should select correct submission (tab filters)", inject(function(Auth){Auth.setCurrentUser("opdah023@morris.umn.edu", "admin", 1)}), function() {
+           expect(scope.selection.item).toEqual(null);
+           scope.filterData.tabFilter.isPresenter = true;
+           scope.selectItem(0);
+           expect(scope.selection.item.title).toBe("Blind Construction: Mixed Media");
+        });
+
 
     });
 
