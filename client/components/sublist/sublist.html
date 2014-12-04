@@ -10,14 +10,20 @@
         <li class="list-group-item noTopBorder" id="text">
             <h2>Submissions </h2>
             <br>
-            <input type="text" ng-model="filterData.searchText" placeholder="Search">
+            <input type="text" ng-model="filterData.searchText" placeholder="Search by name">
+            <br>
+            <p>Search by review group:</p>
             <select ng-show="isAdmin() || isChair()" ng-model="filterData.reviewGroupFilterSelection">
                 <option ng-repeat="option in filterData.reviewGroupFilterOptions" ng-value="'{{option}}'">{{option}}</option>
+            </select>
+            <p>Search by feature presentation:</p>
+            <select ng-show="isAdmin() || isChair()" ng-model="filterData.featurePresentationFilterSelection">
+                <option ng-repeat="option in filterData.featurePresentationFilterOptions" ng-value="'{{option}}'">{{option}}</option>
             </select>
             <!--<button type="button" class="btn btn-default" ng-click="filterData.orderByPredicate='timestamp'">Order by timestamp</button>-->
         </li>
 
-        <li class="list-group-item" ng-style="statusColorTab(sub.status.strict)" ng-repeat="sub in submissions | filter:hasPermissions | filter:tabFilters | filter:reviewGroupFilter | filter:searchFilter" ng-hide="isResubmission(sub)">
+        <li class="list-group-item" ng-style="statusColorTab(sub.status.strict)" ng-repeat="sub in submissions | filter:hasPermissions | filter:tabFilters | filter:reviewGroupFilter | filter:featurePresentationFilter | filter:searchFilter" ng-hide="isResubmission(sub)">
             <h3 id="text">{{sub.title}}
                 <span ng-show="getResubmission(sub) != null" title="Submission has an unapproved resubmission" style="color: red" class="glyphicon glyphicon-warning-sign"></span>
                 <span ng-show="sub.resubmissionData.resubmitFlag" title="Submission is flagged for resubmission" style="color: darkgoldenrod" class="glyphicon glyphicon-flag"></span>
@@ -103,6 +109,7 @@
                     <p>{{selection.item.sponsors | isntEmpty:"Sponsors:":""}}</p>
                     <p>{{selection.item.mediaServicesEquipment | isntEmpty:"Media Services Equipment:":""}}</p>
                     <p>{{selection.item.specialRequirements | isntEmpty:"Special Requirements:":""}}</p>
+                    <p>Willing to be Feature Presentation: {{approvalWordChange(selection.item.featured)}}</p>
                     <p>Date of submission: {{selection.item.timestamp}}</p>
                 </li>
             </ul>

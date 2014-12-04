@@ -28,6 +28,8 @@ describe('filter', function() {
                 expect(fancyLimitToFilter("", 5)).toBe("[...]");
             }));
     });
+
+
 });
 
 //TODO: Test functions that use Auth service to check user information.
@@ -114,6 +116,14 @@ describe('Functions dealing with submissions...', function() {
     it('1 should equal 1...', function () {
         expect(1).toEqual(1);
     });
+
+//    describe('featurePresentation', function(){
+//        it('Should return true if featured is true, return false is featured is false',
+//            inject(function(featurePresentationFilter){
+//                expect(featurePresentationFilter(scope.submissions[0])).toEqual(false);
+//                expect(featurePresentationFilter(scope.submissions[1])).toEqual(true);
+//            }))
+//    });
 
     describe('Functions controlling filtering...', function(){
         // Injecting the whole filter service here might be bad practice? IDK, but it works.
@@ -206,9 +216,10 @@ describe('Functions dealing with submissions...', function() {
 
 //    describe('Testing the that the additional advisers are indeed in a submission...', function {
 //       it('coadviserOneInfo for submission 1 [1] should be Dalton Gusaas...', function() {
-//
+//            expect(scope.submissions[0].coadviserOneInfo).toEqual("")
 //       });
 //    });
+
 
 
 });

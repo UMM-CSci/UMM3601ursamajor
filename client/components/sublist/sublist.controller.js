@@ -51,7 +51,13 @@ angular.module('umm3601ursamajorApp')
                 "Review Group 3",
                 "Review Group 4"
             ],
-            tabFilter: {isPresenter:false, isCoPresenter:false, isReviewer:false, isAdviser:false}
+            tabFilter: {isPresenter:false, isCoPresenter:false, isReviewer:false, isAdviser:false},
+            featurePresentationFilterSelection: "All",
+            featurePresentationFilterOptions: [
+                "All",
+                "Interested in being feature presentation",
+                "Not interested in being feature presentation"
+            ]
         };
 
         // Returns true when the submission HAS a parent, and ISN'T the primary.
@@ -77,6 +83,13 @@ angular.module('umm3601ursamajorApp')
         $scope.setReviewGroupSelection = function(str) {
             $scope.filterData.reviewGroupFilterSelection = str;
         };
+
+        // Takes a String and sets the feature presentation filter selection to that string.
+        // Used for changing which feature presentation search is applied.
+        $scope.setFeaturePresentationFilterSelection = function(str) {
+            $scope.filterData.featurePresentationFilterSelection = str;
+        };
+
 
         // Takes no arguments and returns true if the user provided by Auth is an admin, or is in the admin group.
         $scope.hasAdminPrivs = function(){
@@ -177,6 +190,25 @@ angular.module('umm3601ursamajorApp')
 //                });
         };
 
+        $scope.featurePresentationFilter = function(submission) {
+            if($scope.filterData.featurePresentationFilterSelection === "All"){
+                return true;
+            } else if($scope.filterData.featurePresentationFilterSelection === "Interested in being feature presentation"){
+                return submission.featured === true;
+            } else if($scope.filterData.featurePresentationFilterSelection === "Not interested in being feature presentation"){
+                return submission.featured === false;
+            } else {
+                return false;
+            }
+//                var dlg = null;
+//                dlg = $dialogs.confirm('Confirm','Would you like to be included in future emails notifying the status change of this submission?');
+//                dlg.result.then(function(btn){
+//                    $scope.confirmed = 'You thought this quite awesome!';
+//                },function(btn){
+//                    $scope.confirmed = 'Shame on you for not thinking this is awesome!';
+//                });
+        };
+
         $scope.searchFilter = function(submission){
             var searchText = $scope.filterData.searchText.toLowerCase();
             return(
@@ -187,7 +219,11 @@ angular.module('umm3601ursamajorApp')
                 (submission.copresenterTwoInfo.first.toLowerCase().indexOf(searchText) != -1) ||
                 (submission.copresenterTwoInfo.last.toLowerCase().indexOf(searchText) != -1) ||
                 (submission.adviserInfo.first.toLowerCase().indexOf(searchText) != -1) ||
-                (submission.adviserInfo.last.toLowerCase().indexOf(searchText) != -1)
+                (submission.adviserInfo.last.toLowerCase().indexOf(searchText) != -1) ||
+                (submission.coadviserOneInfo.first.toLowerCase().indexOf(searchText) != -1) ||
+                (submission.coadviserOneInfo.last.toLowerCase().indexOf(searchText) != -1) ||
+                (submission.coadviserTwoInfo.first.toLowerCase().indexOf(searchText) != -1)||
+                (submission.coadviserTwoInfo.last.toLowerCase().indexOf(searchText) != -1)
             )
         };
 
@@ -352,12 +388,15 @@ angular.module('umm3601ursamajorApp')
                     $filter('filter')(
                         $filter('filter')(
                             $filter('filter')(
-                                $scope.submissions,
-                                $scope.hasPermissions
+                                $filter('filter')(
+                                    $scope.submissions,
+                                    $scope.hasPermissions
+                                ),
+                                $scope.tabFilters
                             ),
-                            $scope.tabFilters
+                            $scope.reviewGroupFilter
                         ),
-                        $scope.reviewGroupFilter
+                        $scope.featurePresentationFilter
                     ),
                     $scope.searchFilter
                 );
