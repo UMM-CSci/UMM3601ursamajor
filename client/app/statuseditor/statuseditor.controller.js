@@ -27,6 +27,7 @@ angular.module('umm3601ursamajorApp')
 
         ]
 
+        $scope.showColorSlider = false;
 
         $http.get('/api/statuss').success(function(statusArray) {
             $scope.statusArray = statusArray;
