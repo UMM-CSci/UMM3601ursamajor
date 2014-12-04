@@ -101,7 +101,7 @@ exports.updateInfo = function(req, res, next) {
 //TODO: make this work
 exports.updateTShirtSize = function(req, res, next) {
     console.log("anything");
-    var userId = req.params.id;
+    var userId = req.user._id;
     var newSize = String(req.body.tShirtSize);
 
     User.findById(userId, function (err, user) {

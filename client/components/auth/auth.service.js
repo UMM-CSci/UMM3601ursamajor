@@ -107,19 +107,20 @@ angular.module('umm3601ursamajorApp')
         },
 
 //TODO: make this work
-        updateTShirtSize: function(size, user, callback) {
-           //var cb = callback || angular.noop;
-
-            console.log(size, user);
+        updateTShirtSize: function(size, callback) {
+           var cb = callback || angular.noop;
+            console.log(size);
+            console.log("cool");
             return User.updateTShirtSize(
-                {id: user._id},
-                {tShirtSize: size}
-//                ,
-//                function(user) {
-//                    return cb(user);
-//                }, function(err) {
-//                    return cb(err);
-//                }
+                {id: currentUser._id},
+                {
+                    tShirtSize: size
+                },
+                function(user) {
+                    return cb(user);
+                }, function(err) {
+                    return cb(err);
+                }
             ).$promise;
 //            $http.patch('/api/users' + user.email,
 //                {
