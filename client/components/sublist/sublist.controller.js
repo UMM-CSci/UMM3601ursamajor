@@ -26,7 +26,7 @@ angular.module('umm3601ursamajorApp')
         }
     })
 
-    .controller('SublistCtrl', function ($scope, $http, socket, $modal, Modal, Auth, $window, $filter, $location) {
+    .controller('SublistCtrl', function($scope, $http, socket, $modal, Modal, Auth, $window, $filter, $location) {
         $scope.submissions = [];
         $scope.status = [];
 
@@ -660,6 +660,45 @@ angular.module('umm3601ursamajorApp')
 
 
         //--------------------------------------------- Comments ---------------------------------------
+
+        $scope.selectedCommentIndex = 10000;
+        $scope.currentCommentPage = 1;
+
+        $scope.menuToggle = false;
+
+        $scope.toggleCommentDropdown = function(){
+            $scope.menuToggle = !$scope.menuToggle;
+        };
+
+        $scope.selectComment = function(index) {
+            console.log("setting selected comment: " + index);
+            if(index == $scope.selectedCommentIndex){
+                console.log("case 1 ");
+            } else {
+                console.log("case 2 ");
+                $scope.selectedCommentIndex = index;
+            }
+        };
+
+        $scope.isSelectedComment = function(index){
+            return index == $scope.selectedCommentIndex;
+        };
+
+        $scope.displayedComments = function() {
+            if($scope.selection.item == null) return [];
+
+            if($scope.selection.item.comments.length == 0) {
+                return [];
+            } else if ($scope.selection.item.comments.length < 11) {
+                return $scope.selection.item.comments;
+            } else {
+                return $scope.selection.item.comments.slice(($scope.currentCommentPage - 1) * 10, $scope.currentCommentPage * 10)
+            }
+        };
+
+        $scope.transformCommentIndex = function(index){
+            return ((10*($scope.currentCommentPage - 1)) + index);
+        };
 
         $scope.addComment = function (submission) {
             console.log(submission.abstract.length);
