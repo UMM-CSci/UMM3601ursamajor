@@ -49,11 +49,6 @@ a:active {
     margin-right: auto;
 }
 
-/*.row h2 {*/
-    /*text-align: center;*/
-/*}*/
-
-
 /*Controls the footer*/
 .footer {
     text-align: center;
@@ -76,15 +71,3 @@ a:active {
     margin-right: auto;
     display: block;
 }
-
-/*Everything under the line can be deleted*/
-/*----------------------------------------------------------------------------*/
-
-/*#banner {*/
-/*border-bottom: none;*/
-/*margin-top: -20px;*/
-/*}*/
-
-/*.thing-form {*/
-/*margin: 20px 0;*/
-/*}*/

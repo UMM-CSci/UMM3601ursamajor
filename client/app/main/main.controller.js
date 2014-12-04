@@ -8,13 +8,4 @@ angular.module('umm3601ursamajorApp')
     $scope.getCurrentUser = Auth.getCurrentUser;
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.getCurrentEmail = Auth.email;
-
-
-//    $scope.loggedIn = function() {
-//        if($scope.getCurrentEmail.indexOf("@morris") >= 0){
-//            return true;
-//        }
-//        return false;
-//    };
-
   });

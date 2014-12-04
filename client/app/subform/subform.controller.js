@@ -197,6 +197,7 @@ angular.module('umm3601ursamajorApp')
                     addedToggle = !addedToggle;
                 }
             }
+//            console.log(tempSponsors);
         }
 //        console.log("~~~~~~~~~~~~~~sponsors from parent submission~~~~~~~~~~~~~~~~~~");
 //        console.log(tempSponsors);
@@ -204,7 +205,6 @@ angular.module('umm3601ursamajorApp')
     };
 
     $scope.getResubmitData = function(submission){
-
         $scope.submissionData = {
             title: submission.title,
             format: submission.format,
@@ -218,9 +218,8 @@ angular.module('umm3601ursamajorApp')
             sponsors: $scope.convertSponsorArray(submission.sponsors),
             sponsorsFinal: [],
             adviserInfo: {first: submission.adviserInfo.first, last: submission.adviserInfo.last, email: submission.adviserInfo.email},
-            //TODO: COADVISOR STUFF NOT WORKING HERE PLZ FIX EMMA.
-            coadviserOneInfo: {first: $scope.submissionData.coadviserOneInfo.first, last: $scope.submissionData.coadviserOneInfo.last, email: $scope.submissionData.coadviserOneInfo.email},
-            coadviserTwoInfo: {first: $scope.submissionData.coadviserTwoInfo.first, last: $scope.submissionData.coadviserTwoInfo.last, email: $scope.submissionData.coadviserTwoInfo.email},
+            coadviserOneInfo: {first: submission.coadviserOneInfo.first, last: submission.coadviserOneInfo.last, email: submission.coadviserOneInfo.email},
+            coadviserTwoInfo: {first: submission.coadviserTwoInfo.first, last: submission.coadviserTwoInfo.last, email: submission.coadviserTwoInfo.email},
             featuredPresentation: submission.featured,
             mediaServicesEquipment: submission.mediaServicesEquipment,
             specialRequirements: submission.specialRequirements,
@@ -252,32 +251,29 @@ angular.module('umm3601ursamajorApp')
         var coadviserOneEmail = $scope.submissionData.coadviserOneInfo.email;
         var coadviserTwoEmail = $scope.submissionData.coadviserTwoInfo.email;
 
+        var copresenterOneCheck = true;
+        var copresenterTwoCheck = true;
+        var coadviserOneCheck = true;
+        var coadviserTwoCheck = true;
+
         var presenterCheck = (presenterEmail.indexOf("umn.edu") != -1);
 
         if(copresenterOneEmail != ""){
-            var copresenterOneCheck = (copresenterOneEmail.indexOf("umn.edu") != -1);
-        } else{
-            var copresenterOneCheck = true;
+            copresenterOneCheck = (copresenterOneEmail.indexOf("umn.edu") != -1);
         }
 
         if(copresenterTwoEmail != ""){
-            var copresenterTwoCheck = (copresenterTwoEmail.indexOf("umn.edu") != -1);
-        } else{
-            var copresenterTwoCheck = true;
+            copresenterTwoCheck = (copresenterTwoEmail.indexOf("umn.edu") != -1);
         }
 
         var adviserEmailCheck = (adviserEmail.indexOf("umn.edu") != -1);
 
         if(coadviserOneEmail != ""){
-            var coadviserOneCheck = (coadviserOneEmail.indexOf("umn.edu") != -1);
-        } else{
-            var coadviserOneCheck = true;
+            coadviserOneCheck = (coadviserOneEmail.indexOf("umn.edu") != -1);
         }
 
         if(coadviserTwoEmail != ""){
-            var coadviserTwoCheck = (coadviserTwoEmail.indexOf("umn.edu") != -1);
-        } else{
-            var coadviserTwoCheck = true;
+            coadviserTwoCheck = (coadviserTwoEmail.indexOf("umn.edu") != -1);
         }
 
         return presenterCheck && copresenterOneCheck &&
@@ -293,32 +289,29 @@ angular.module('umm3601ursamajorApp')
             var coadviserOneEmail = $scope.submissionData.coadviserOneInfo.email;
             var coadviserTwoEmail = $scope.submissionData.coadviserTwoInfo.email;
 
+            var copresenterOneCheck = true;
+            var copresenterTwoCheck = true;
+            var coadviserOneCheck = true;
+            var coadviserTwoCheck = true;
+
             var presenterCheck = (presenterEmail.indexOf("morris.umn.edu") != -1);
 
             if(copresenterOneEmail != ""){
-                var copresenterOneCheck = (copresenterOneEmail.indexOf("morris.umn.edu") != -1);
-            } else{
-                var copresenterOneCheck = true;
+                copresenterOneCheck = (copresenterOneEmail.indexOf("morris.umn.edu") != -1);
             }
 
             if(copresenterTwoEmail != ""){
-                var copresenterTwoCheck = (copresenterTwoEmail.indexOf("morris.umn.edu") != -1);
-            } else{
-                var copresenterTwoCheck = true;
+                copresenterTwoCheck = (copresenterTwoEmail.indexOf("morris.umn.edu") != -1);
             }
 
             var adviserEmailCheck = (adviserEmail.indexOf("morris.umn.edu") != -1);
 
             if(coadviserOneEmail != ""){
-                var coadviserOneCheck = (coadviserOneEmail.indexOf("morris.umn.edu") != -1);
-            } else{
-                var coadviserOneCheck = true;
+                coadviserOneCheck = (coadviserOneEmail.indexOf("morris.umn.edu") != -1);
             }
 
             if(coadviserTwoEmail != ""){
-                var coadviserTwoCheck = (coadviserTwoEmail.indexOf("morris.umn.edu") != -1);
-            } else{
-                var coadviserTwoCheck = true;
+                coadviserTwoCheck = (coadviserTwoEmail.indexOf("morris.umn.edu") != -1);
             }
 
             return presenterCheck && copresenterOneCheck &&
@@ -337,8 +330,6 @@ angular.module('umm3601ursamajorApp')
                 $scope.submitSubmission();
             }
         };
-
-    //-------------------------------------- Submitting Of Submission(s) ---------------------------------------
 
     $scope.submitSubmission = function(){
             var r = confirm("Are you sure you want to submit?");
@@ -416,6 +407,7 @@ angular.module('umm3601ursamajorApp')
                 $location.path('/submissionpage');
             }
     };
+
 
 
 
