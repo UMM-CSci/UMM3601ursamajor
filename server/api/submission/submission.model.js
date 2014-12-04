@@ -41,7 +41,13 @@ var SubmissionSchema = new Schema({
             timestamp: String,
             origin: String
         }
-    ]
+    ],
+    reviewVotes: {
+        Accepted: [String],
+        Minor: [String],
+        Major: [String],
+        TotalRewrite: [String]
+    }
 
 });
 

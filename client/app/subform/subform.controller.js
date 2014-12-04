@@ -122,7 +122,13 @@ angular.module('umm3601ursamajorApp')
         resubmitFlag: false,
         status: {strict: $scope.startingStatus, text: ""},
         comments: [],
-        group: 0
+        group: 0,
+        reviewVotes: {
+            Accepted: [],
+            Minor: [],
+            Major: [],
+            TotalRewrite: []
+        }
     };
 
     // ----------------------------- Misc Helper Functions --------------------------------------
@@ -230,9 +236,14 @@ angular.module('umm3601ursamajorApp')
             resubmitFlag: false,
             status: submission.status,
             comments: submission.comments,
-            group: submission.group
+            group: submission.group,
+            reviewVotes: {
+                Accepted: submission.reviewVotes.Accepted,
+                Minor: submission.reviewVotes.Minor,
+                Major: submission.reviewVotes.Major,
+                TotalRewrite: submission.reviewVotes.TotalRewrite
+            }
         };
-
         console.log("submissionData: ");
         console.log($scope.submissionData);
         console.log(submission.comments);
@@ -378,7 +389,13 @@ angular.module('umm3601ursamajorApp')
                         timestamp: $scope.timestamp,
                         group: $scope.submissionData.group,
                         resubmissionData: {comment: $scope.submissionData.resubmitComment, parentSubmission: $scope.submissionData.resubmitParent, isPrimary: !$scope.isResubmitting, resubmitFlag: $scope.submissionData.resubmitFlag },
-                        comments: $scope.submissionData.comments
+                        comments: $scope.submissionData.comments,
+                        reviewVotes: {
+                            Accepted: $scope.submissionData.reviewVotes.Accepted,
+                            Minor: $scope.submissionData.reviewVotes.Minor,
+                            Major: $scope.submissionData.reviewVotes.Major,
+                            TotalRewrite: $scope.submissionData.reviewVotes.TotalRewrite
+                        }
                     });
             };
 
