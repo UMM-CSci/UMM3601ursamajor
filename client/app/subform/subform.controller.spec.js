@@ -53,5 +53,92 @@ describe('Controller: SubformCtrl', function () {
   });
 
 
+  it('Should return true since all emails are U of M emails.', function() {
+      scope.submissionData.presenterInfo.email = "billy557@morris.umn.edu";
+      scope.submissionData.copresenterOne.email = "george@umn.edu";
+      scope.submissionData.copresenterTwo.email = "franklin17@rochester.umn.edu";
+      scope.submissionData.adviserInfo.email = "jane875@umn.edu";
+      scope.submissionData.coadviserOneInfo.email = "johnx117@umn.edu";
+      scope.submissionData.coadviserTwoInfo.email = "svenx994@morris.umn.edu";
+
+      expect(scope.checkEmailsAreUofM()).toEqual(true);
+  });
+
+    it('Should return false since there is a non-umn email', function() {
+        scope.submissionData.presenterInfo.email = "billy557@morris.umn.edu";
+        scope.submissionData.copresenterOne.email = "george@umn.edu";
+        scope.submissionData.copresenterTwo.email = "franklin17@rochester.umn.edu";
+        scope.submissionData.adviserInfo.email = "jane875@live.com";
+        scope.submissionData.coadviserOneInfo.email = "johnx117@umn.edu";
+        scope.submissionData.coadviserTwoInfo.email = "svenx994@morris.umn.edu";
+
+        expect(scope.checkEmailsAreUofM()).toEqual(false);
+    });
+
+    it('Should return false since there are multiple non-umn emails. Tests with gmail emails and other edu emails.', function() {
+        scope.submissionData.presenterInfo.email = "billy557@morris.umn.edu";
+        scope.submissionData.copresenterOne.email = "george@wisconsin.edu";
+        scope.submissionData.copresenterTwo.email = "franklin17@rochester.umn.edu";
+        scope.submissionData.adviserInfo.email = "jane875@live.com";
+        scope.submissionData.coadviserOneInfo.email = "johnx117@army.gov";
+        scope.submissionData.coadviserTwoInfo.email = "svenx994@gmail.com";
+
+        expect(scope.checkEmailsAreUofM()).toEqual(false);
+    });
+
+    it('Should return true since all emails are morris emails', function() {
+        scope.submissionData.presenterInfo.email = "billy557@morris.umn.edu";
+        scope.submissionData.copresenterOne.email = "george@morris.umn.edu";
+        scope.submissionData.copresenterTwo.email = "franklin17@morris.umn.edu";
+        scope.submissionData.adviserInfo.email = "jane875@morris.umn.edu";
+        scope.submissionData.coadviserOneInfo.email = "johnx117@morris.umn.edu";
+        scope.submissionData.coadviserTwoInfo.email = "svenx994@morris.umn.edu";
+
+        expect(scope.checkEmailsAreMorris()).toEqual(true);
+    });
+
+    it('Should return false since there is a TC email.', function() {
+        scope.submissionData.presenterInfo.email = "billy557@umn.edu";
+        scope.submissionData.copresenterOne.email = "george@morris.umn.edu";
+        scope.submissionData.copresenterTwo.email = "franklin17@morris.umn.edu";
+        scope.submissionData.adviserInfo.email = "jane875@morris.umn.edu";
+        scope.submissionData.coadviserOneInfo.email = "johnx117@morris.umn.edu";
+        scope.submissionData.coadviserTwoInfo.email = "svenx994@morris.umn.edu";
+
+        expect(scope.checkEmailsAreMorris()).toEqual(false);
+    });
+
+    it('Should return false since there is a gmail email.', function() {
+        scope.submissionData.presenterInfo.email = "billy557@gmail.com";
+        scope.submissionData.copresenterOne.email = "george@morris.umn.edu";
+        scope.submissionData.copresenterTwo.email = "franklin17@morris.umn.edu";
+        scope.submissionData.adviserInfo.email = "jane875@morris.umn.edu";
+        scope.submissionData.coadviserOneInfo.email = "johnx117@morris.umn.edu";
+        scope.submissionData.coadviserTwoInfo.email = "svenx994@morris.umn.edu";
+
+        expect(scope.checkEmailsAreMorris()).toEqual(false);
+    });
+
+    it('Should return false since there is a different edu email.', function() {
+        scope.submissionData.presenterInfo.email = "billy557@wisconsin.edu";
+        scope.submissionData.copresenterOne.email = "george@morris.umn.edu";
+        scope.submissionData.copresenterTwo.email = "franklin17@morris.umn.edu";
+        scope.submissionData.adviserInfo.email = "jane875@morris.umn.edu";
+        scope.submissionData.coadviserOneInfo.email = "johnx117@morris.umn.edu";
+        scope.submissionData.coadviserTwoInfo.email = "svenx994@morris.umn.edu";
+
+        expect(scope.checkEmailsAreMorris()).toEqual(false);
+    });
+
+    it('Should return false since there is a different gov email.', function() {
+        scope.submissionData.presenterInfo.email = "billy557@morris.umn.edu";
+        scope.submissionData.copresenterOne.email = "george@morris.umn.edu";
+        scope.submissionData.copresenterTwo.email = "franklin17@morris.umn.edu";
+        scope.submissionData.adviserInfo.email = "jane875@morris.umn.edu";
+        scope.submissionData.coadviserOneInfo.email = "johnx117@army.gov";
+        scope.submissionData.coadviserTwoInfo.email = "svenx994@morris.umn.edu";
+
+        expect(scope.checkEmailsAreMorris()).toEqual(false);
+    });
 
 });

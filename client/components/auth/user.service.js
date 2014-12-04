@@ -17,6 +17,11 @@ angular.module('umm3601ursamajorApp')
             params: {
             }
         },
+        updateTShirtSize: {
+            method: 'PUT',
+                params: {
+            }
+        },
       get: {
         method: 'GET',
         params: {

@@ -12,14 +12,20 @@
         <li class="list-group-item noTopBorder" id="text">
             <h2>Submissions </h2>
             <br>
-            <input type="text" ng-model="filterData.searchText" placeholder="Search">
+            <input type="text" ng-model="filterData.searchText" placeholder="Search by name">
+            <br>
+            <p>Search by review group:</p>
             <select ng-show="isAdmin() || isChair()" ng-model="filterData.reviewGroupFilterSelection">
                 <option ng-repeat="option in filterData.reviewGroupFilterOptions" ng-value="'{{option}}'">{{option}}</option>
+            </select>
+            <p>Search by feature presentation:</p>
+            <select ng-show="isAdmin() || isChair()" ng-model="filterData.featurePresentationFilterSelection">
+                <option ng-repeat="option in filterData.featurePresentationFilterOptions" ng-value="'{{option}}'">{{option}}</option>
             </select>
             <!--<button type="button" class="btn btn-default" ng-click="filterData.orderByPredicate='timestamp'">Order by timestamp</button>-->
         </li>
 
-        <li class="list-group-item" ng-style="statusColorTab(sub.status.strict)" ng-repeat="sub in submissions | filter:hasPermissions | filter:tabFilters | filter:reviewGroupFilter | filter:searchFilter" ng-hide="isResubmission(sub)">
+        <li class="list-group-item" ng-style="statusColorTab(sub.status.strict)" ng-repeat="sub in submissions | filter:hasPermissions | filter:tabFilters | filter:reviewGroupFilter | filter:featurePresentationFilter | filter:searchFilter" ng-hide="isResubmission(sub)">
             <h3 id="text">{{sub.title}}
                 <span ng-show="getResubmission(sub) != null" title="Submission has an unapproved resubmission" style="color: red" class="glyphicon glyphicon-warning-sign"></span>
                 <span ng-show="sub.resubmissionData.resubmitFlag" title="Submission is flagged for resubmission" style="color: darkgoldenrod" class="glyphicon glyphicon-flag"></span>
@@ -162,6 +168,21 @@
                     </div>
                 </li>
             </ul>
+            <br>
+            <p ng-show="isAdmin()">You are seeing this submission because you are an:</p>
+            <p ng-show="isAdmin()">admin</p>
+            <p ng-show="!isAdmin()">You are seeing this submission because you are a:</p>
+            <p ng-show="isChair()">chair</p>
+            <p ng-show="isPresenter(selection.item)">presenter of this submission</p>
+            <p ng-show="isCoPresenter(selection.item)">co-presenter of this submission</p>
+            <p ng-show="isAdviser(selection.item)">adviser of this submission</p>
+            <p ng-show="isReviewerGroup(selection.item)">reviewer in Reviewer Group {{selection.item.group}}</p>
+            <b>Currently Assigned Review Group:</b>
+            <select ng-change="setReviewGroup(selection.item)" ng-model="selection.reviewGroup">
+                <option ng-repeat="option in groupOptions" value={{option}}>{{option}}</option>
+            </select>
+        </li>
+    </ul>
 
             <pagination ng-show="selection.item.comments.length > 10" class="pagination-sm" total-items="selection.item.comments.length" ng-model="currentCommentPage"></pagination>
         </div>
