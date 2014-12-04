@@ -424,13 +424,14 @@ angular.module('umm3601ursamajorApp')
                             $http.patch('api/submissions/' + $scope.selection.item._id,
                                 {approval: true,
                                  rejection: false,
-                                status: {strict: $scope.selection.item.status.strict, text: $scope.selection.item.status.text}}
+                                status: {strict: $scope.selection.item.status.strict, text: "This URS submission has been approved by an adviser."}}
                             ).success(function(){
                                     $scope.selection.item.approval = true;
                                     console.log("Successfully updated approval of submission (approved)");
                                 });
                         }
                     }
+                    $scope.selection.item.status.text = "This URS Submission has been approved by an adviser.";
                     sendGmail({
                         to: $scope.selection.item.presenterInfo.email +" "+ $scope.selection.item.copresenterOneInfo.email +" "+ $scope.selection.item.copresenterTwoInfo.email,
                         subject: "[" + $scope.selection.item.title + "] " + $scope.statusEdit.subject[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)],
