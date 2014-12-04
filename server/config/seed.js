@@ -43,9 +43,9 @@ Status.find({}).remove(function() {
         required: true
     },{
         strict: "Withdrawn",
-            color: {red: 70, green: 70, blue: 70, alpha: 1},
+        color: {red: 70, green: 70, blue: 70, alpha: 1},
         emailSubject: "URS submission update",
-            emailBody: ", Your URS submission has either been rejected by your adviser or been withdrawn.",
+        emailBody: ", Your URS submission has either been rejected by your adviser or been withdrawn.",
         priority: 14,
         required: true
     });
@@ -332,7 +332,7 @@ Submission.find({}).remove(function(){
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
         comments:[]
 
-}, {
+    }, {
         title: "On the Migration of Majestic Space Whales",
         format: "Artist Statement",
         abstract: "They swim through the endless void, without care and knowing not the concept of time." +
