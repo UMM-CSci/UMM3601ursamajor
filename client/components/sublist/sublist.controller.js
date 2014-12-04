@@ -424,13 +424,14 @@ angular.module('umm3601ursamajorApp')
                             $http.patch('api/submissions/' + $scope.selection.item._id,
                                 {approval: true,
                                  rejection: false,
-                                status: {strict: $scope.selection.item.status.strict, text: $scope.selection.item.status.text}}
+                                status: {strict: $scope.selection.item.status.strict, text: "This URS submission has been approved by an adviser."}}
                             ).success(function(){
                                     $scope.selection.item.approval = true;
                                     console.log("Successfully updated approval of submission (approved)");
                                 });
                         }
                     }
+                    $scope.selection.item.status.text = "This URS Submission has been approved by an adviser.";
                     sendGmail({
                         to: $scope.selection.item.presenterInfo.email +" "+ $scope.selection.item.copresenterOneInfo.email +" "+ $scope.selection.item.copresenterTwoInfo.email,
                         subject: "[" + $scope.selection.item.title + "] " + $scope.statusEdit.subject[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)],
@@ -439,7 +440,7 @@ angular.module('umm3601ursamajorApp')
                 }
             }
         };
-//TODO: finish this function, add in the changing of status to a rejection status
+//TODO: currently have admin@admin.com hard-coded in, don't have a solidified admin account and cannot access user roles to get admin emails
         //CANNOT ADD IN CHAIRS' EMAILS TO SENDGMAILS BECAUSE OF THE SECURITY PRIVILEGES, SO FOR NOW WE'LL JUST SEND TO ADMIN
         $scope.rejectSubmission = function(submission) {
             if($window.confirm("As adviser of this submission, I am rejecting this submission; clarifying that this abstract should not be sent to the URS committee for review." +
