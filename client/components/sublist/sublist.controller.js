@@ -443,9 +443,9 @@ angular.module('umm3601ursamajorApp')
         //CANNOT ADD IN CHAIRS' EMAILS TO SENDGMAILS BECAUSE OF THE SECURITY PRIVILEGES, SO FOR NOW WE'LL JUST SEND TO ADMIN
         $scope.rejectSubmission = function(submission) {
             if($window.confirm("As adviser of this submission, I am rejecting this submission; clarifying that this abstract should not be sent to the URS committee for review." +
-                "Are you sure you want to reject this submission?")){
+                " Are you sure you want to reject this submission?")){
                 if($window.confirm('Would you like to send an email to the presenter(s) of this submission clarifying why you have rejected the submission? You will be prompted to send' +
-                    'an email to the admin and chairs either way.')){
+                    ' a email to the admin and chairs either way.')){
                     sendGmail({
                         to: $scope.selection.item.presenterInfo.email +" "+ $scope.selection.item.copresenterOneInfo.email +" "+ $scope.selection.item.copresenterTwoInfo.email,
                         subject: "["+ $scope.selection.item.title + "] " + "URS submission has been rejected",

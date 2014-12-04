@@ -153,7 +153,7 @@ User.find({}).remove(function() {
                 id: "116234824364241021424"
             },
             group: -1,
-            role: "user",
+            role: "admin",
             __v: 0
         }, {
             name: "Jacob Opdahl",
@@ -236,7 +236,7 @@ User.find({}).remove(function() {
         }, {
             provider: 'local',
             role: 'reviewer',
-            name: 'Reviewer3',
+            name: 'Reviewer',
             email: 'reviewer@reviewer.com',
             password: 'reviewer',
             group: 3
