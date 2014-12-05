@@ -167,11 +167,11 @@
                         </div>
                     </div>
                     <div ng-show="showResponses">
-                        <hr>
-                        <div style="margin-left: 3px; padding-left: 10px; border-left: 2px solid #d3d3d3" ng-repeat="response in comment.responses">
+                        <hr class="lineColor">
+                        <div style="margin-left: 3px; padding-left: 10px; border-left: 2px solid steelblue" ng-repeat="response in comment.responses">
                             <p class="padded">{{response.response}}</p>
                             <p><i>- {{response.responder}}</i></p>
-                            <button ng-show="hasAdminPrivs()" class="btn btn-xs" ng-click="deleteResponse(selection.item , transformCommentIndex($parent.$index) , $index)">Delete Response</button>
+                            <button ng-show="hasAdminPrivs()" class="btn btn-xs deleteButton" ng-click="deleteResponse(selection.item , transformCommentIndex($parent.$index) , $index)">Delete Response</button>
                         </div>
                     </div>
                 </li>

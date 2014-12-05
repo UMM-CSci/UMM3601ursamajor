@@ -112,6 +112,7 @@ UserSchema
       next();
   });
 
+
 /**
  * Methods
  */
