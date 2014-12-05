@@ -25,7 +25,7 @@ angular.module('umm3601ursamajorApp')
             {red: 128, green: 0, blue: 255, alpha: 1},
             {red: 255, green: 0, blue: 255, alpha: 1}
 
-        ]
+        ];
 
         $scope.showColorSlider = false;
 
@@ -111,10 +111,10 @@ angular.module('umm3601ursamajorApp')
 
         $scope.testYes = function(){
             console.log("yes");
-        }
+        };
         $scope.testNo = function(){
             console.log("No");
-        }
+        };
 
 
         $scope.testConfirm = function(){
@@ -135,7 +135,7 @@ angular.module('umm3601ursamajorApp')
                     priority: $scope.findEmptyPriority($scope.statusArray),
                     required: false
                 }).success(function () {
-                    console.log("Successfully added new status")
+                    console.log("Successfully added new status");
                     $scope.getStatuses();
                 });
         };
