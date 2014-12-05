@@ -433,8 +433,7 @@ angular.module('umm3601ursamajorApp')
 
         $scope.approveSubmission = function(submission) {
             if($scope.isAdviser(submission) == true || $scope.hasAdminPrivs() == true){
-                var r = confirm("As an adviser, I authorize the student(s) to submit this abstract for consideration for the URS (not approve the final abstract). " +
-                    "Are you sure you want to approve this submission?");
+                var r = confirm("Are you sure you want to approve this submission?");
                 console.log(submission);
 //                var dlg = null;
 //                dlg = $dialogs.confirm('Confirm','Would you like to be included in future emails notifying the status change of this submission?');
@@ -628,7 +627,7 @@ angular.module('umm3601ursamajorApp')
 
         //TODO: broken, fix pls
         $scope.advisorApprover = function(){
-            $http.patch('api/advisorApprover/' + $scope.selection.item._id,
+            $http.patch('api/submissions/' + $scope.selection.item._id,
                 {approval: true}
             ).success(function(){
                     $scope.selection.item.approval = true;
