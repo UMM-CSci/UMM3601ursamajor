@@ -14,12 +14,6 @@ angular.module('umm3601ursamajorApp')
         $scope.submissionTextArray = [];
         $scope.submissionText = {};
 
-//        $scope.hasAdminPrivs = function(){
-//            return (($scope.getCurrentUser.role != null && $scope.getCurrentUser.role == "Admin") || $scope.isAdmin());
-//        };
-//
-//        console.log("has admin privs (sub editor js): " + $scope.hasAdminPrivs());
-
         // Need to get what should be the only seed subformtext from the database.
         // that will be the one that is updated each time the editor is used.
         $http.get('/api/subformtexts').success(function(submissionTextArray) {

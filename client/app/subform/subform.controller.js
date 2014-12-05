@@ -368,7 +368,7 @@ angular.module('umm3601ursamajorApp')
                 $scope.submissionData.comments = $scope.resubmitParent.comments;
                 console.log($scope.submissionData.comments);
             }
-            console.log('posting Data!');
+//            console.log('posting Data!');
             $http.post('/api/submissions/',
                 {   title: $scope.submissionData.title,
                     format: $scope.submissionData.format,
