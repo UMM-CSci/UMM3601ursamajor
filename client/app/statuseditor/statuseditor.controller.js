@@ -12,10 +12,10 @@ angular.module('umm3601ursamajorApp')
         $scope.statusArray = [];
         $scope.submissions = [];
         $scope.statusColors = [
-            {red: 255, green: 255, blue: 255, alpha: 0},
+            {red: 255, green: 255, blue: 255, alpha: 1},
             {red: 194, green: 194, blue: 194, alpha: 1},
             {red: 120, green: 120, blue: 120, alpha: 1},
-            {red: 255, green: 0, blue: 0, alpha: 0},
+            {red: 255, green: 0, blue: 0, alpha: 1},
             {red: 255, green: 128, blue: 0, alpha: 1},
             {red: 255, green: 255, blue: 0, alpha: 1},
             {red: 202, green: 255, blue: 37, alpha: 1},
@@ -60,6 +60,19 @@ angular.module('umm3601ursamajorApp')
 
         $scope.colorClick = function(item, color) {
             item.color = color;
+        };
+
+        $scope.selectedColor = function(item, color){
+            var check = true;
+            for(var key in item.color){
+                if(item.color.hasOwnProperty(key)){
+                    if(item.color[key] != color[key]){
+                        check = false;
+                        break;
+                    }
+                }
+            }
+            return check;
         };
 
         $scope.deleteStatusConfirm = function(item){
