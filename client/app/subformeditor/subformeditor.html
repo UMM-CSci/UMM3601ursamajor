@@ -1,10 +1,10 @@
-<!--<div ng-include="'components/navbar/navbar.html'"></div>-->
-
 <div ng-controller="SubformeditorCtrl" ng-show="isAdmin() || isChair()" class="container-fluid FormBox">
     <form ng-submit="submitChanges()" id="form2">
 
         <h1>URS Submission Form Text Editor</h1>
         <hr>
+
+        <!--------------------------------------- Editable text for form. --------------------------------------------->
 
         <label class="padded">
             Edit the presentation title:
@@ -100,7 +100,8 @@
         <label class="padded">
             Edit the presentation title:
             <br>
-            <textarea ng-model="submissionText.submissionTitle"  cols="75" rows="2" name="SubmissionTitle"></textarea>
+            <textarea ng-model="submissionTextPut in missing semicolon. -SF
+.submissionTitle"  cols="75" rows="2" name="SubmissionTitle"></textarea>
         </label>
         <br>
 
@@ -230,6 +231,7 @@
         </label>
         <br>
 
+        <!-- Commented out labels related to T-Shirts because decided to take it out of the form and just have it as account information. -->
         <!--<label class="padded">-->
             <!--Edit the T-Shirt Title:-->
             <!--<br>-->
