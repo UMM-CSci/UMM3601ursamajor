@@ -358,6 +358,7 @@ angular.module('umm3601ursamajorApp')
                     $scope.submissionData.sponsorsFinal.push($scope.submissionData.sponsors[i]);
                 }
             }
+
             if(!$scope.isResubmitting){
                 $scope.submissionData.status = {strict: $scope.startingStatus, text: ""};
                 //updating status to ensure that it works....?
@@ -368,7 +369,7 @@ angular.module('umm3601ursamajorApp')
                 $scope.submissionData.comments = $scope.resubmitParent.comments;
                 console.log($scope.submissionData.comments);
             }
-            console.log('posting Data!');
+//            console.log('posting Data!');
             $http.post('/api/submissions/',
                 {   title: $scope.submissionData.title,
                     format: $scope.submissionData.format,
