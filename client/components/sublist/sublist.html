@@ -138,13 +138,13 @@
                 </li>
             </ul>
         </div>
-        <div ng-show="selection.selected" class="col-md-3">
+        <div ng-show="selection.selected" class="col-md-3 ">
             <button class="btn btn-primary btn-block" ng-click="addComment(selection.item)">New Comment <span class="glyphicon glyphicon-pencil"></span></button>
 
-            <ul class="plainList">
-                <li ng-repeat="comment in displayedComments()" ng-click="selectComment($index)" class="clickable alert alert-warning block">
+            <ul class="plainList ">
+                <li ng-repeat="comment in displayedComments()" ng-click="selectComment($index)" class="clickable alert alert-warning block commentStyle">
                     <p>{{comment.commentText | isntEmpty:"Comment:":"(No comment...)"}}</p>
-                    <p class="subText"><i>- {{comment.commenter}}</i></p>
+                    <p class="subText "><i>- {{comment.commenter}}</i></p>
                     <div ng-show="isSelectedComment($index)">
                         <button class="btn btn-xs responseButton" ng-hide="showResponses" ng-click="showResponses = true" title="show responses"><span class="glyphicon glyphicon-chevron-down"></span></button>
                         <button class="btn btn-xs responseButton" ng-show="showResponses" ng-click="showResponses = false" title="hide responses"><span class="glyphicon glyphicon-chevron-up"></span></button>
