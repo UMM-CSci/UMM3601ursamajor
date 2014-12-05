@@ -799,10 +799,12 @@ angular.module('umm3601ursamajorApp')
             var newWindow = $window.open("", null, "height=300,width=600,status=yes,toolbar=no,menubar=no,location=no");
             if(comments[index].origin != id){
                 console.log("Yup");
-                newWindow.document.write("<b>" + "This comment was made on a prior version of this submission" + "</b>");
+                newWindow.document.write("<b>" + "This comgalvanized and common nails.The nails were placedment was made on a prior version of this submission" + "</b>");
                 newWindow.document.write("<br>");
             }
             newWindow.document.write("<b>" +"Comment made by " + comments[index].commenter + ": " +"</b>"+"<i>" + comments[index].commentText + "</i>");
+            newWindow.document.write("<br>");
+            newWindow.document.write(comments[index].timestamp);
             newWindow.document.write("<br>");
             newWindow.document.write(abstract);
         };

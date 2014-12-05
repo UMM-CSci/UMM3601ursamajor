@@ -153,7 +153,7 @@
                             <button class="btn btn-xs btn-primary" ng-click="addResponse(selection.item, transformCommentIndex($index))">Respond</button>
                             <button type="button" class="btn btn-xs btn-primary" dropdown-toggle><span class="glyphicon glyphicon-list"></span></button>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a ng-click="getOriginAbstract(selection.item , transformCommentIndex($index))">Show in Context</a></li>
+                                <li><a ng-click="getOriginAbstract(selection.item , transformCommentIndex($index))">Details</a></li>
                                 <li ng-show="hasAdminPrivs()"><a ng-click="deleteComment(selection.item , transformCommentIndex($index))">Delete Comment</a></li>
                             </ul>
                         </div>
