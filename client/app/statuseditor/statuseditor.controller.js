@@ -11,7 +11,23 @@ angular.module('umm3601ursamajorApp')
         $scope.isChair = Auth.isChair;
         $scope.statusArray = [];
         $scope.submissions = [];
+        $scope.statusColors = [
+            {red: 255, green: 255, blue: 255, alpha: 0},
+            {red: 194, green: 194, blue: 194, alpha: 1},
+            {red: 120, green: 120, blue: 120, alpha: 1},
+            {red: 255, green: 0, blue: 0, alpha: 0},
+            {red: 255, green: 128, blue: 0, alpha: 1},
+            {red: 255, green: 255, blue: 0, alpha: 1},
+            {red: 202, green: 255, blue: 37, alpha: 1},
+            {red: 0, green: 255, blue: 0, alpha: 1},
+            {red: 0, green: 255, blue: 255, alpha: 1},
+            {red: 47, green: 118, blue: 255, alpha: 1},
+            {red: 128, green: 0, blue: 255, alpha: 1},
+            {red: 255, green: 0, blue: 255, alpha: 1}
 
+        ]
+
+        $scope.showColorSlider = false;
 
         $http.get('/api/statuss').success(function(statusArray) {
             $scope.statusArray = statusArray;
@@ -36,6 +52,16 @@ angular.module('umm3601ursamajorApp')
                                                     + status.color.blue  + ')'};
         };
 
+        $scope.statusBoxColor = function(color){
+            return {'background-color': 'rgb(' + color.red   + ','
+                + color.green + ','
+                + color.blue  + ')'};
+        };
+
+        $scope.colorClick = function(item, color) {
+            item.color = color;
+        }
+
         $scope.deleteSubmissionConfirm = function(item){
             Modal.confirm.delete($scope.deleteSubmission)(item.strict, item);
         };
@@ -58,6 +84,8 @@ angular.module('umm3601ursamajorApp')
                 }
             }
         };
+
+
 
         $scope.findEmptyPriority = function(status){
             var count = 2;
@@ -106,10 +134,13 @@ angular.module('umm3601ursamajorApp')
                         }
 
                     }
-                    if ((status.priority <= 1 || status.priority >= 15) && (status.required == false)) {
+                    if ((status.priority <= 1 || status.priority >= 14)) {
                         problem = true;
-                    }
 
+                    }
+                    if(status.required) {
+                        problem = false;
+                    }
 
                 }
                 if (!problem) {

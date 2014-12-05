@@ -15,12 +15,15 @@ var SubmissionSchema = new Schema({
     discipline: String,
     sponsors: [String],
     adviserInfo: {first: String, last: String, email: String},
+    coadviserOneInfo: {first: String, last: String, email: String},
+    coadviserTwoInfo: {first: String, last: String, email: String},
     featured: Boolean,
     mediaServicesEquipment: String,
     specialRequirements: String,
-    presenterTeeSize: String,
+    //presenterTeeSize: String,
     otherInfo: String,
     approval: Boolean,
+    rejection: Boolean,
     cc: Boolean,
     status: {strict: String, text: String},
     timestamp: String,
@@ -38,7 +41,13 @@ var SubmissionSchema = new Schema({
             timestamp: String,
             origin: String
         }
-    ]
+    ],
+    reviewVotes: {
+        Accepted: [String],
+        Minor: [String],
+        Major: [String],
+        TotalRewrite: [String]
+    }
 
 });
 

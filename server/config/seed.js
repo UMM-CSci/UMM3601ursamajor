@@ -41,13 +41,13 @@ Status.find({}).remove(function() {
         emailBody: ", Your URS submission is pending approval from your adviser.",
         priority: -15,
         required: true
-//    },{
-//        strict: "Rejected by Adviser",
-//            color: {red: 255, green: 220, blue: 10, alpha: 1},
-//        emailSubject: "URS submission update",
-//            emailBody: ", Your URS submission has been rejected by your adviser.",
-//        priority: 4,
-//        required: true
+    },{
+        strict: "Withdrawn",
+        color: {red: 70, green: 70, blue: 70, alpha: 1},
+        emailSubject: "URS submission update",
+        emailBody: ", Your URS submission has either been rejected by your adviser or been withdrawn.",
+        priority: 14,
+        required: true
     });
 });
 
@@ -101,8 +101,10 @@ Subformtext.find({}).remove(function() {
         submissionCopresenterTwo: "Secondary Presenter #2:",
         submissionSponsors: "Sponsoring Organization or Fund",
         submissionSponsorsNotes: "Choose any applicable. If funded by faculty grant, specify under 'other' ",
-        submissionAdviser: "Faculty Sponsor / Project Adviser Information",
-        submissionAdviserNotes: "Every submitted project is required to have a faculty sponsor or project adviser identified.",
+        submissionAdviser: "Primary Faculty Sponsor / Project Adviser Information",
+        submissionAdviserNotes: "Every submitted project is required to have at least one faculty sponsor or project adviser identified.",
+        submissionCoadviserOne: "Secondary Adviser #1:",
+        submissionCoadviserTwo: "Secondary Adviser #2:",
         submissionFeatured: "The URS features one presentation in the opening ceremony. This presentation should have broader appeal with interdisciplinary components, and may easily accommodate a performance component. The featured presenter will have more time, as well as a bigger room than regular presentations. Would you be interested in having your presentation featured during the opening ceremony? ",
         submissionMediaServices: "Each presentation room will have available an overhead projector and a Macintosh or PC computer with video projection capabilities. Do you anticipate needing any additional Media Services equipment? Please explain in detail: ",
         submissionSpecialRequirements: "Do you anticipate any special room location, non-media services equipment (i.e., recital hall, piano, etc.), or scheduling requirements (i.e., several groups holding a forum that would require more than the allotted 15 minutes)? Please explain in detail: ",
@@ -285,17 +287,28 @@ Submission.find({}).remove(function(){
         discipline: "Chemistry",
         sponsors: [], //Might need to worry about if this is static for the DB later.
         adviserInfo: {first: "Joseph", last: "Thelen", email: "thele116@morris.umn.edu"},
+        coadviserOneInfo: {first: "Dalton", last: "Gusaas", email: "gusaa004@morris.umn.edu"},
+        coadviserTwoInfo: {first: "Hongya", last: "Zhou", email: "zhou616@morris.umn.edu"},
         featured: false,
         mediaServicesEquipment: "",
         specialRequirements: "",
         presenterTeeSize: "L",
         otherInfo: "",
         approval: false,
+        rejection: false,
         status:  {strict: "Awaiting Adviser Approval", text: "Your adviser has yet to approve this submission."},
         timestamp: "Sat Oct 18 2014 10:48:54 GMT-0500 (CDT)",
         group: 0,
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
-        comments: []
+        comments: [],
+        reviewVotes: {
+            Accepted: [],
+            Minor: [],
+            Major: ["reviewer@reviewer.com"],
+            TotalRewrite: []
+        }
+
+
     }, {
         title: "Blind Construction: Mixed Media",
         format: "Artist Statement",
@@ -312,19 +325,28 @@ Submission.find({}).remove(function(){
         discipline: "Art History",
         sponsors: [],
         adviserInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
+        coadviserOneInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
+        coadviserTwoInfo: {first: "Aaron", last: "Lemmon", email: "lemmo031@morris.umn.edu"},
         featured: true,
         mediaServicesEquipment: "",
         specialRequirements: "A space to perform with three people.",
         presenterTeeSize: "M",
         otherInfo: "",
         approval: true,
+        rejection: false,
         status: {strict: "Revisions Needed", text: "Your URS submission has been flagged for revisions, and is in need of changes."},
         timestamp: "Tue Oct 21 2014 23:22:54 GMT-0500 (CDT)",
         group: 1,
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
-        comments:[]
+        comments:[],
+        reviewVotes: {
+            Accepted: ["reviewer@reviewer.com"],
+            Minor: [],
+            Major: [],
+            TotalRewrite: []
+        }
 
-}, {
+    }, {
         title: "On the Migration of Majestic Space Whales",
         format: "Artist Statement",
         abstract: "They swim through the endless void, without care and knowing not the concept of time." +
@@ -347,17 +369,26 @@ Submission.find({}).remove(function(){
         discipline: "Biology",
         sponsors: [], //Might need to worry about if this is static for the DB later.
         adviserInfo: {first: "Peter",last: "Hans", email: "hans4858@morris.umn.edu"},
+        coadviserOneInfo: {first: "Otto", last: "Marckell", email: "marck018@morris.umn.edu"},
+        coadviserTwoInfo: {first: "Aaron", last: "Lemmon", email: "lemmo031@morris.umn.edu"},
         featured: true,
         mediaServicesEquipment: "Microphone for my sick rhymes, 5 laser stage lights with automated gimbals.",
         specialRequirements: "A whale suit.",
         presenterTeeSize: "XL",
         otherInfo: "yes.",
         approval: false,
+        rejection: false,
         status: {strict: "Awaiting Adviser Approval", text: "Your adviser has yet to approve this submission."},
         timestamp: "Mon Sept 2 2014 1:48:54 GMT-0500 (CDT)",
         group: 1,
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
-        comments: []
+        comments: [],
+        reviewVotes: {
+            Accepted: [],
+            Minor: ["reviewer@reviewer.com"],
+            Major: [],
+            TotalRewrite: []
+        }
     }, {
         title: "The Commemoration and Memorialization of the American Revolution",
         format: "Artist Statement",
@@ -376,18 +407,26 @@ Submission.find({}).remove(function(){
         discipline: "History",
         sponsors: [], //Might need to worry about if this is static for the DB later.
         adviserInfo: {first: "Niccolas", last: "Ricci", email: "saxxx027@morris.umn.edu"},
-        //ricc0082@morris.umn.edu
+        coadviserOneInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
+        coadviserTwoInfo: {first: "Nic", last: "Ricci", email: "ricc0082@morris.umn.edu"},
         featured: true,
         mediaServicesEquipment: "A way to show images, either a projector or a warning so I can print them.",
         specialRequirements: "",
         presenterTeeSize: "XL",
         otherInfo: "yes.",
         approval: true,
+        rejection: false,
         status: {strict: "Reviewing in Process", text: "Your URS submission has been approved by your adviser"},
         timestamp: "Mon Oct 20 2014 1:48:54 GMT-0500 (CDT)",
         group: 3,
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
-        comments: []
+        comments: [],
+        reviewVotes: {
+            Accepted: [],
+            Minor: [],
+            Major: ["reviewer@reviewer.com"],
+            TotalRewrite: []
+        }
     }, {
         title: "Margaret C. Anderson’s Little Review",
         format: "Social Science",
@@ -405,17 +444,26 @@ Submission.find({}).remove(function(){
         discipline: "English",
         sponsors: [], //Might need to worry about if this is static for the DB later.
         adviserInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
+        coadviserOneInfo: {first: "", last: "", email: ""},
+        coadviserTwoInfo: {first: "", last: "", email: ""},
         featured: true,
         mediaServicesEquipment: "",
         specialRequirements: "A small space to make the presentation personal.",
         presenterTeeSize: "S",
         otherInfo: "yes.",
         approval: true,
+        rejection: false,
         status: {strict: "Accepted", text: "Your URS submission has been approved, congratulations!"},
         timestamp: "Thur Oct 23 2014 1:48:54 GMT-0500 (CDT)",
         group: 2,
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
-        comments: []
+        comments: [],
+        reviewVotes: {
+            Accepted: [],
+            Minor: [],
+            Major: [],
+            TotalRewrite: ["reviewer@reviewer.com"]
+        }
     }, {
         title: "A Study of the Properties of a Paperclip in the Digestive System of a Sloth",
         format: "Artist Statement",
@@ -431,17 +479,26 @@ Submission.find({}).remove(function(){
         discipline: "Biology",
         sponsors: [], //Might need to worry about if this is static for the DB later.
         adviserInfo: {first: "Maggie", last: "Casale", email: "casal033@morris.umn.edu"},
+        coadviserOneInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
+        coadviserTwoInfo: {first: "", last: "", email: ""},
         featured: false,
         mediaServicesEquipment: "",
         specialRequirements: "a sloth",
         presenterTeeSize: "M",
         otherInfo: "Maybe",
         approval: false,
+        rejection: false,
         cc: true,
         status: {strict: "Awaiting Adviser Approval", text: "Your adviser has yet to approve this submission."},
         timestamp: "Mon Oct 20 2014 1:48:54 GMT-0500 (CDT)",
         group: 3,
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
-        comments: []
+        comments: [],
+        reviewVotes: {
+            Accepted: [],
+            Minor: [],
+            Major: [],
+            TotalRewrite: ["reviewer@reviewer.com"]
+        }
     });
 });

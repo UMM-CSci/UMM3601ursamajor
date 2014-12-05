@@ -28,14 +28,14 @@ describe('filter', function() {
                 expect(fancyLimitToFilter("", 5)).toBe("[...]");
             }));
     });
+
+
 });
 
-//TODO: Test functions that use Auth service to check user information.
-//Many of the functions used for filtering user the Auth service to compare properties of submissions to the currently logged in user's information, in order to
-//test these we need to mock the Auth service or re-write the functions to take a user as an argument.
-describe('Functions used for filtering...', function() {
+describe('Functions dealing with submissions...', function() {
     beforeEach(module('umm3601ursamajorApp'));
     beforeEach(module('socketMock'));
+    beforeEach(module('authMock'));
 
     var SublistCtrl, scope;
 
@@ -43,13 +43,13 @@ describe('Functions used for filtering...', function() {
         scope = $rootScope.$new();
         SublistCtrl = $controller('SublistCtrl', {
             $scope: scope
-
         });
     }));
 
     beforeEach(function(){
-       scope.submissionList = [
+       scope.submissions = [
         {
+            _id: "uniqueIdString",
             title: "A Study of the Properties of a Paperclip in the Digestive System of a Sloth",
             format: "Artist Statement",
             abstract: "Many physicists would agree that, had it not been for scatter/gather I/O, the study of link-level acknowledgements might never have occurred. " +
@@ -64,6 +64,8 @@ describe('Functions used for filtering...', function() {
             discipline: "Biology",
             sponsors: [], //Might need to worry about if this is static for the DB later.
             adviserInfo: {first: "Maggie", last: "Casale", email: "casal033@morris.umn.edu"},
+            coadviserOneInfo: {first: "Dalton", last: "Gusaas", email: "gusaa004@morris.umn.edu"},
+            coadviserTwoInfo: {},
             featured: false,
             mediaServicesEquipment: "",
             specialRequirements: "a sloth",
@@ -75,6 +77,35 @@ describe('Functions used for filtering...', function() {
             group: 3,
             resubmissionData: {comment: "Initial Submission", parentSubmission: "testIdForTesting", isPrimary: false, resubmitFlag: false},
             comments: []
+        }, {
+           _id: "testIdForTesting",
+           title: "Blind Construction: Mixed Media",
+           format: "Artist Statement",
+           abstract: "The basis of this project was to create a garment using mixed media in order to mimic the human body. " +
+               "The materials we used to create this piece include: buckram, copper wire, spray paint, fabric paint, a variety of novelty fabrics, and chains.  " +
+               "The techniques we created in order to manipulate the piece include: fabric branding and burning, grid painting, sewing, draping, molding buckram, and coiling.  " +
+               "Our overall approach was to create a theatrical wearable art piece. " +
+               "Upon completion of the assignment we found the piece aesthetically pleasing because of the way it molds to the human body, but can be a piece all on its own.",
+           presentationType: "Performance",
+           formatChange: false,
+           presenterInfo: {first: "Jacob", last: "Opdahl", email: "opdah023@morris.umn.edu"},
+           copresenterOneInfo: {first: "Savannah", last: "Farm", email: "farmx009@morris.umn.edu"},
+           copresenterTwoInfo: {first: "Maggie", last: "Casale", email: "casal033@morris.umn.edu"},
+           discipline: "Art History",
+           sponsors: [],
+           adviserInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
+           featured: true,
+           mediaServicesEquipment: "",
+           specialRequirements: "A space to perform with three people.",
+           presenterTeeSize: "M",
+           otherInfo: "",
+           approval: false,
+           rejection: false,
+           status: {strict: "Revisions Needed", text: "Your URS submission has been flagged for revisions, and is in need of changes."},
+           timestamp: "Tue Oct 21 2014 23:22:54 GMT-0500 (CDT)",
+           group: 1,
+           resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+           comments:[]
         }
        ]
     });
@@ -83,30 +114,124 @@ describe('Functions used for filtering...', function() {
         expect(1).toEqual(1);
     });
 
-    // Injecting the whole filter service here might be bad practice? IDK, but it works.
-    it('Default review group filter should show ALL submissions...', inject(['$filter', function($filter) {
-        expect($filter('filter')(scope.submissionList, scope.reviewGroupFilter).length == scope.submissionList.length).toEqual(true);
-    }]));
+//    describe('featurePresentation', function(){
+//        it('Should return true if featured is true, return false is featured is false',
+//            inject(function(featurePresentationFilter){
+//                expect(featurePresentationFilter(scope.submissions[0])).toEqual(false);
+//                expect(featurePresentationFilter(scope.submissions[1])).toEqual(true);
+//            }))
+//    });
 
-    describe('Functions controlling filter tabs...', function() {
-        it('No filtered tabs should be selected by default...', function() {
-            for(var key in scope.filterData.tabFilter){
-                if(scope.filterData.tabFilter.hasOwnProperty(key)){
-                    expect(scope.filterData.tabFilter[key]).toEqual(false);
+    describe('Functions controlling filtering...', function(){
+        // Injecting the whole filter service here might be bad practice? IDK, but it works.
+        it('Default review group filter should show ALL submissions...', inject(['$filter', function($filter) {
+            expect($filter('filter')(scope.submissions, scope.reviewGroupFilter).length == scope.submissions.length).toEqual(true);
+        }]));
+
+        it('User with admin role should have admin privs.', inject(function(Auth){Auth.setCurrentUser("admin@admin.com", "admin", 1)}), function() {
+            expect(scope.hasAdminPrivs()).toEqual(true);
+        });
+
+        it("Submission's assigned review group members should be in same review group", inject(function(Auth){Auth.setCurrentUser("admin@admin.com", "admin", 3)}), function() {
+            expect(scope.isReviewerGroup(scope.submissions[0])).toEqual(true);
+        });
+
+        it("Submission not in user's review group shouldn't be in user's review group", inject(function(Auth){Auth.setCurrentUser("admin@admin.com", "admin", 1)}), function(){
+            expect(scope.isReviewerGroup(scope.submissions[0])).toEqual(false);
+        });
+
+        describe('Functions controlling filter tabs...', function() {
+            it('No filtered tabs should be selected by default...', function() {
+                for(var key in scope.filterData.tabFilter){
+                    if(scope.filterData.tabFilter.hasOwnProperty(key)){
+                        expect(scope.filterData.tabFilter[key]).toEqual(false);
+                    }
                 }
-            }
+            });
+
+            it('showMySubmissions should set the isPresenter tab to true', function() {
+                scope.showMySubmissions();
+                expect(scope.filterData.tabFilter.isPresenter).toEqual(true);
+            });
+
+            //TODO: more of these need to be written? Functions might need to be refactored to be more testable...
         });
 
-        it('showMySubmissions should set the isPresenter tab to true', function() {
-           scope.showMySubmissions();
-           expect(scope.filterData.tabFilter.isPresenter).toEqual(true);
-        });
-
-        //TODO: more of these need to be written? Functions might need to be refactored to be more testable...
 
     });
 
-    it('Should be a resubmission... ', function() {
-        expect(scope.isResubmission(scope.submissionList[0])).toEqual(true);
+    describe("Functions controlling the selecting...", function() {
+        it("No submission should be selected by default", function() {
+            expect(scope.selection.selected).toEqual(false);
+            expect(scope.selection.selected.item).toEqual(null);
+            expect(scope.selection.selected.resubmission).toEqual(null);
+        });
+
+        it("selectItem() should set submission as selected", inject(function(Auth){Auth.setCurrentUser("admin@admin.com", "admin", 1)}), function() {
+            scope.selectItem(1);
+            expect(scope.selection.selected).toEqual(true);
+            expect(scope.selection.item != null).toEqual(true);
+            expect(scope.selection.item._id).toBe("testIdForTesting");
+        });
+
+        it("selectItem() should find resubmission of selected submission", inject(function(Auth){Auth.setCurrentUser("admin@admin.com", "admin", 1)}), function() {
+            scope.selectItem(1);
+            expect(scope.selection.resubmission != null).toEqual(true);
+            expect(scope.selection.resubmission._id).toBe("uniqueIdString");
+        });
+
+        it("Selecting when filters are applied should select the correct submission (review group filter)", inject(function(Auth){Auth.setCurrentUser("admin@admin.com", "admin", 1)}), function() {
+           expect(scope.selection.item).toEqual(null);
+           scope.filterData.reviewGroupFilterSelection = "Review Group 1";
+           scope.selectItem(0);
+           expect(scope.selection.item.title).toBe("Blind Construction: Mixed Media");
+        });
+
+        it("Selecting when filters are applied should select correct submission (tab filters)", inject(function(Auth){Auth.setCurrentUser("opdah023@morris.umn.edu", "admin", 1)}), function() {
+           expect(scope.selection.item).toEqual(null);
+           scope.filterData.tabFilter.isPresenter = true;
+           scope.selectItem(0);
+           expect(scope.selection.item.title).toBe("Blind Construction: Mixed Media");
+        });
+
+
     });
+
+    describe('Functions handling resubmissions...', function() {
+        it('Should be a resubmission... ', function() {
+            expect(scope.isResubmission(scope.submissions[0])).toEqual(true);
+        });
+
+        it('Should find the resubmission of a submission', function() {
+            expect(scope.getResubmission(scope.submissions[1]) != null).toEqual(true);
+            expect(scope.getResubmission(scope.submissions[1])._id).toBe("uniqueIdString");
+        })
+    });
+
+    describe('Functions handling approve/reject button...', function() {
+//        it('should be a approval...', function () {
+//            expect();
+//        });
+
+        it('rejection should be false...', function (){
+            expect(scope.submissions[1].rejection).toEqual(false);
+        });
+
+
+
+//        it('should be a rejection...', function (){
+//           scope.rejectSubmission(scope.submissions[1]);
+//           expect(scope.submissions[1].rejection).toEqual(true);
+//        });
+
+    });
+
+//    describe('Testing the that the additional advisers are indeed in a submission...', function {
+//       it('coadviserOneInfo for submission 1 [1] should be Dalton Gusaas...', function() {
+//            expect(scope.submissions[0].coadviserOneInfo).toEqual("")
+//       });
+//    });
+
+
+
 });

@@ -28,7 +28,7 @@ angular.module('umm3601ursamajorApp')
         }
     })
 
-    .controller('SublistCtrl', function ($scope, $http, socket, $modal, Modal, Auth, $window, $filter, $location) {
+    .controller('SublistCtrl', function($scope, $http, socket, $modal, Modal, Auth, $window, $filter, $location) {
         $scope.submissions = [];
         $scope.status = [];
 
@@ -54,7 +54,13 @@ angular.module('umm3601ursamajorApp')
                 "Review Group 3",
                 "Review Group 4"
             ],
-            tabFilter: {isPresenter:false, isCoPresenter:false, isReviewer:false, isAdviser:false}
+            tabFilter: {isPresenter:false, isCoPresenter:false, isReviewer:false, isAdviser:false},
+            featurePresentationFilterSelection: "All",
+            featurePresentationFilterOptions: [
+                "All",
+                "Interested in being feature presentation",
+                "Not interested in being feature presentation"
+            ]
         };
 
         // Returns true when the submission HAS a parent, and ISN'T the primary.
@@ -80,6 +86,13 @@ angular.module('umm3601ursamajorApp')
         $scope.setReviewGroupSelection = function(str) {
             $scope.filterData.reviewGroupFilterSelection = str;
         };
+
+        // Takes a String and sets the feature presentation filter selection to that string.
+        // Used for changing which feature presentation search is applied.
+        $scope.setFeaturePresentationFilterSelection = function(str) {
+            $scope.filterData.featurePresentationFilterSelection = str;
+        };
+
 
         // Takes no arguments and returns true if the user provided by Auth is an admin, or is in the admin group.
         $scope.hasAdminPrivs = function(){
@@ -107,6 +120,17 @@ angular.module('umm3601ursamajorApp')
         // (based on email, not name)
         // returns false if the submission is null, or if the user isn't listed as the adviser.
         $scope.isAdviser = function(submission) {
+            if(submission == null) return false;
+            if($scope.email === submission.adviserInfo.email ||
+               $scope.email === submission.coadviserOneInfo.email ||
+               $scope.email === submission.coadviserTwoInfo.email){
+                return true;
+            } else {
+                return false;
+            }
+        };
+
+        $scope.isPrimaryAdviser = function(submission) {
             if(submission == null) return false;
             return $scope.email === submission.adviserInfo.email;
         };
@@ -169,6 +193,25 @@ angular.module('umm3601ursamajorApp')
 //                });
         };
 
+        $scope.featurePresentationFilter = function(submission) {
+            if($scope.filterData.featurePresentationFilterSelection === "All"){
+                return true;
+            } else if($scope.filterData.featurePresentationFilterSelection === "Interested in being feature presentation"){
+                return submission.featured === true;
+            } else if($scope.filterData.featurePresentationFilterSelection === "Not interested in being feature presentation"){
+                return submission.featured === false;
+            } else {
+                return false;
+            }
+//                var dlg = null;
+//                dlg = $dialogs.confirm('Confirm','Would you like to be included in future emails notifying the status change of this submission?');
+//                dlg.result.then(function(btn){
+//                    $scope.confirmed = 'You thought this quite awesome!';
+//                },function(btn){
+//                    $scope.confirmed = 'Shame on you for not thinking this is awesome!';
+//                });
+        };
+
         $scope.searchFilter = function(submission){
             var searchText = $scope.filterData.searchText.toLowerCase();
             return(
@@ -179,7 +222,11 @@ angular.module('umm3601ursamajorApp')
                 (submission.copresenterTwoInfo.first.toLowerCase().indexOf(searchText) != -1) ||
                 (submission.copresenterTwoInfo.last.toLowerCase().indexOf(searchText) != -1) ||
                 (submission.adviserInfo.first.toLowerCase().indexOf(searchText) != -1) ||
-                (submission.adviserInfo.last.toLowerCase().indexOf(searchText) != -1)
+                (submission.adviserInfo.last.toLowerCase().indexOf(searchText) != -1) ||
+                (submission.coadviserOneInfo.first.toLowerCase().indexOf(searchText) != -1) ||
+                (submission.coadviserOneInfo.last.toLowerCase().indexOf(searchText) != -1) ||
+                (submission.coadviserTwoInfo.first.toLowerCase().indexOf(searchText) != -1)||
+                (submission.coadviserTwoInfo.last.toLowerCase().indexOf(searchText) != -1)
             )
         };
 
@@ -344,18 +391,23 @@ angular.module('umm3601ursamajorApp')
                     $filter('filter')(
                         $filter('filter')(
                             $filter('filter')(
-                                $scope.submissions,
-                                $scope.hasPermissions
+                                $filter('filter')(
+                                    $scope.submissions,
+                                    $scope.hasPermissions
+                                ),
+                                $scope.tabFilters
                             ),
-                            $scope.tabFilters
+                            $scope.reviewGroupFilter
                         ),
-                        $scope.reviewGroupFilter
+                        $scope.featurePresentationFilter
                     ),
                     $scope.searchFilter
                 );
 
             $scope.selection.selected = true;
             $scope.selection.item = filteredSubmissions[itemIndex];
+            console.log("submissions");
+            console.log(filteredSubmissions);
             $scope.selection.resubmission = $scope.getResubmission($scope.selection.item);
             $scope.selection.reviewGroup = $scope.selection.item.group;
 
@@ -386,7 +438,6 @@ angular.module('umm3601ursamajorApp')
             if($scope.isAdviser(submission) == true || $scope.hasAdminPrivs() == true){
                 var r = confirm("Are you sure you want to approve this submission?");
                 console.log(submission);
-//
 //                var dlg = null;
 //                dlg = $dialogs.confirm('Confirm','Would you like to be included in future emails notifying the status change of this submission?');
 //                dlg.result.then(function(btn){
@@ -394,7 +445,6 @@ angular.module('umm3601ursamajorApp')
 //                },function(btn){
 //                    $scope.confirmed = 'Shame on you for not thinking this is awesome!';
 //                });
-
                 if(r){
                     var newPriority = 15;
                     for(var k = 0; k < $scope.statusEdit.priority.length; k++){
@@ -403,7 +453,6 @@ angular.module('umm3601ursamajorApp')
                         }
                     }
                     for(var i = 0; i < $scope.statusEdit.priority.length; i++){
-
                         if($scope.statusEdit.priority[i] == newPriority){
                             $scope.selection.item.status.strict = $scope.statusEdit.options[i];
                             for(var j = 0; j < $scope.submissions.length; j++){
@@ -412,20 +461,18 @@ angular.module('umm3601ursamajorApp')
                                     $scope.submissions[j].strict = $scope.statusEdit.options[i];
                                 }
                             }
-
                             //$scope.selection.item.status.text = status[i].text;
                             $http.patch('api/submissions/' + $scope.selection.item._id,
                                 {approval: true,
-                                status: {strict: $scope.selection.item.status.strict, text: $scope.selection.item.status.text}}
+                                 rejection: false,
+                                status: {strict: $scope.selection.item.status.strict, text: "This URS submission has been approved by an adviser."}}
                             ).success(function(){
                                     $scope.selection.item.approval = true;
                                     console.log("Successfully updated approval of submission (approved)");
                                 });
                         }
                     }
-
-
-
+                    $scope.selection.item.status.text = "This URS Submission has been approved by an adviser.";
                     sendGmail({
                         to: $scope.selection.item.presenterInfo.email +" "+ $scope.selection.item.copresenterOneInfo.email +" "+ $scope.selection.item.copresenterTwoInfo.email,
                         subject: "[" + $scope.selection.item.title + "] " + $scope.statusEdit.subject[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)],
@@ -434,7 +481,8 @@ angular.module('umm3601ursamajorApp')
                 }
             }
         };
-//TODO: finish this function, add in the changing of status to a rejection status, add in chairs emails to the sendGmails
+//TODO: currently have admin@admin.com hard-coded in, don't have a solidified admin account and cannot access user roles to get admin emails
+        //CANNOT ADD IN CHAIRS' EMAILS TO SENDGMAILS BECAUSE OF THE SECURITY PRIVILEGES, SO FOR NOW WE'LL JUST SEND TO ADMIN
         $scope.rejectSubmission = function(submission) {
             if($window.confirm("As adviser of this submission, I am rejecting this submission; clarifying that this abstract should not be sent to the URS committee for review." +
                 "Are you sure you want to reject this submission?")){
@@ -446,18 +494,30 @@ angular.module('umm3601ursamajorApp')
                         message: $scope.selection.item.presenterInfo.first + ", unfortunately, your URS submission has been rejected."
                     });
                     sendGmail({
-                        to: "admin@admin.com", //add in chairs' emails
+                        to: "admin@admin.com",
                         subject: "["+ $scope.selection.item.title + "] " + "URS submission has been rejected",
-                        message: $scope.selection.item.presenterInfo.first + " submitted an abstract for consideration to the URS. Unfortunately, I have rejected this submission."
+                        message: $scope.selection.item.presenterInfo.first + " submitted an abstract for consideration to the URS. Unfortunately, I, as the adviser, have rejected this submission."
                     });
                 } else {
                     sendGmail({
-                        to: "admin@admin.com", //add in chairs' emails
+                        to: "admin@admin.com",
                         subject: "["+ $scope.selection.item.title + "] " + "URS submission has been rejected",
-                        message: $scope.selection.item.presenterInfo.first + " submitted an abstract for consideration to the URS. Unfortunately, I have rejected this submission."
+                        message: $scope.selection.item.presenterInfo.first + " submitted an abstract for consideration to the URS. Unfortunately, I, as the adviser, have rejected this submission."
                     });
                 }
-            };
+            $http.patch('api/submissions/' + $scope.selection.item._id,
+            {rejection: true,
+                //currently everything is hardcoded for time. To fix later.
+                status: {strict: "Withdrawn", text: "The submission has been rejected by an adviser."}}
+            ).success(function(){
+                    $scope.selection.item.rejection = true;
+                    //currently everything is hardcoded for time. To fix later.
+                    $scope.selection.item.status.strict = "Withdrawn";
+                    $scope.selection.item.status.text = "The submission has been rejected by an adviser.";
+                    console.log("Successfully rejected a submission");
+                });
+            }
+
         };
 
         // -------------------------- Editing of status ----------------------------------------------
@@ -526,7 +586,6 @@ angular.module('umm3601ursamajorApp')
             ).success(function(){
                     console.log("Successfully updated status of submission");
             });
-
 
             //TODO: needs to be updated to work with the current status system
             if($scope.selection.item.approval && $scope.statusEdit.temp.strict === "Awaiting Adviser Approval"){
@@ -641,9 +700,46 @@ angular.module('umm3601ursamajorApp')
         };
 
 
-
-
         //--------------------------------------------- Comments ---------------------------------------
+
+        $scope.selectedCommentIndex = 10000;
+        $scope.currentCommentPage = 1;
+
+        $scope.menuToggle = false;
+
+        $scope.toggleCommentDropdown = function(){
+            $scope.menuToggle = !$scope.menuToggle;
+        };
+
+        $scope.selectComment = function(index) {
+            console.log("setting selected comment: " + index);
+            if(index == $scope.selectedCommentIndex){
+                console.log("case 1 ");
+            } else {
+                console.log("case 2 ");
+                $scope.selectedCommentIndex = index;
+            }
+        };
+
+        $scope.isSelectedComment = function(index){
+            return index == $scope.selectedCommentIndex;
+        };
+
+        $scope.displayedComments = function() {
+            if($scope.selection.item == null) return [];
+
+            if($scope.selection.item.comments.length == 0) {
+                return [];
+            } else if ($scope.selection.item.comments.length < 11) {
+                return $scope.selection.item.comments;
+            } else {
+                return $scope.selection.item.comments.slice(($scope.currentCommentPage - 1) * 10, $scope.currentCommentPage * 10)
+            }
+        };
+
+        $scope.transformCommentIndex = function(index){
+            return ((10*($scope.currentCommentPage - 1)) + index);
+        };
 
         $scope.addComment = function (submission) {
             console.log(submission.abstract.length);

@@ -30,6 +30,8 @@ var SubformtextSchema = new Schema({
   submissionSponsors: String,
   submissionSponsorsNotes: String,
   submissionAdviser: String,
+  submissionCoadviserOne: String,
+  submissionCoadviserTwo: String,
   submissionAdviserNotes: String,
   submissionFeatured: String,
   submissionMediaServices: String,

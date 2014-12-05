@@ -1,7 +1,7 @@
 <div ng-controller="StatuseditorCtrl" ng-show="isAdmin() || isChair()" class="container-fluid">
     <ul class="list-group">
         <li class="list-group-item"><h1>Status Option Editor</h1></li>
-        <button class="btn btn-primary padded" ng-click="addStatus()">Add New Status</button>
+        <button class="btn btn-primary padded" ng-click="addStatus()">Add New Status  <span class="glyphicon glyphicon-plus"></span></button>
         <li class="list-group-item" ng-repeat="status in statusArray" ng-style="statusEditorColor(status)">
             <div class="center">
                 <h2>{{status.strict}}</h2>
@@ -38,10 +38,26 @@
                     <br>
                 </div>
 
-                <div class="col-lg-3">
+                <div class="col-lg-1">
                     <label class="padded">
                         Color:
                         <br>
+                        <table cellpadding="0" cellspacing="1" border="1" bgcolor="#000000">
+                            <tbody>
+                            <tr ng-repeat="coloring in statusColors">
+                                <td height="22" width="22" ng-click="colorClick(status, coloring)" ng-style="statusBoxColor(coloring)"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </label>
+                </div>
+
+                <div class="col-lg-3">
+
+                    <button class="btn btn-xs" ng-hide="showColorSlider" ng-click="showColorSlider = true">Show Color Sliders <span class="glyphicon glyphicon-chevron-down"></span></button>
+                    <button class="btn btn-xs" ng-show="showColorSlider" ng-click="showColorSlider = false">Hide Color Sliders <span class="glyphicon glyphicon-chevron-up"></span></button>
+
+                    <div ng-show="showColorSlider">
                         Red<input type="range" ng-model="status.color.red" min="0" max="255">
                         Green<input type="range" ng-model="status.color.green" min="0" max="255">
                         Blue<input type="range" ng-model="status.color.blue" min="0" max="255">
@@ -54,18 +70,15 @@
                         <textarea ng-model="status.color.blue"  cols="3" rows="1" name="ColorBlue"></textarea>
                         <!--<textarea ng-model="status.color.alpha/100"  cols="3" rows="1" name="ColorAlpha"></textarea>-->
                         <br>
-
+                    </div>
                         <button class="btn btn-primary padded" ng-click="submitChanges(status)">Submit Changes</button>
-
-                    </label>
+                </div>
 
                     <button ng-hide="requiredStatus(status)" class="btn btn-md btn-danger" ng-click="deleteStatus(status)">
                         <span class="glyphicon glyphicon-trash"></span></button>
                     <br>
 
                 </div>
-            </div>
-        </li>
-    </ul>
-    </form>
-</div>
+            </li>
+        </ul>
+    </div>
