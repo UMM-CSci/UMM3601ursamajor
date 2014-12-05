@@ -57,6 +57,12 @@ angular.module('umm3601ursamajorApp')
                 "All",
                 "Interested in being feature presentation",
                 "Not interested in being feature presentation"
+            ],
+            flaggedForResubmitFilterSelection: "All",
+            flaggedForResubmitFilterOptions: [
+                "All",
+                "Flagged",
+                "Not Flagged"
             ]
         };
 
@@ -88,6 +94,12 @@ angular.module('umm3601ursamajorApp')
         // Used for changing which feature presentation search is applied.
         $scope.setFeaturePresentationFilterSelection = function(str) {
             $scope.filterData.featurePresentationFilterSelection = str;
+        };
+
+        // Takes a String and sets the flag for resubmit filter selection to that string.
+        // Used for changing which flag for resubmit search is applied.
+        $scope.setFlaggedForResubmitFilterSelection = function(str) {
+            $scope.filterData.flaggedForResubmitFilterSelection = str;
         };
 
 
@@ -200,13 +212,18 @@ angular.module('umm3601ursamajorApp')
             } else {
                 return false;
             }
-//                var dlg = null;
-//                dlg = $dialogs.confirm('Confirm','Would you like to be included in future emails notifying the status change of this submission?');
-//                dlg.result.then(function(btn){
-//                    $scope.confirmed = 'You thought this quite awesome!';
-//                },function(btn){
-//                    $scope.confirmed = 'Shame on you for not thinking this is awesome!';
-//                });
+        };
+
+        $scope.flaggedForResubmitFilter = function(submission) {
+            if($scope.filterData.flaggedForResubmitFilterSelection === "All"){
+                return true;
+            } else if($scope.filterData.flaggedForResubmitFilterSelection === "Flagged"){
+                return submission.resubmissionData.resubmitFlag === true;
+            } else if($scope.filterData.flaggedForResubmitFilterSelection === "Not Flagged"){
+                return submission.resubmissionData.resubmitFlag === false;
+            } else {
+                return false;
+            }
         };
 
         $scope.searchFilter = function(submission){
@@ -389,14 +406,17 @@ angular.module('umm3601ursamajorApp')
                         $filter('filter')(
                             $filter('filter')(
                                 $filter('filter')(
-                                    $scope.submissions,
-                                    $scope.hasPermissions
+                                    $filter('filter')(
+                                        $scope.submissions,
+                                        $scope.hasPermissions
+                                    ),
+                                    $scope.tabFilters
                                 ),
-                                $scope.tabFilters
+                                $scope.reviewGroupFilter
                             ),
-                            $scope.reviewGroupFilter
+                            $scope.featurePresentationFilter
                         ),
-                        $scope.featurePresentationFilter
+                        $scope.flaggedForResubmitFilter
                     ),
                     $scope.searchFilter
                 );
@@ -435,13 +455,7 @@ angular.module('umm3601ursamajorApp')
             if($scope.isAdviser(submission) == true || $scope.hasAdminPrivs() == true){
                 var r = confirm("Are you sure you want to approve this submission?");
                 console.log(submission);
-//                var dlg = null;
-//                dlg = $dialogs.confirm('Confirm','Would you like to be included in future emails notifying the status change of this submission?');
-//                dlg.result.then(function(btn){
-//                    $scope.confirmed = 'You thought this quite awesome!';
-//                },function(btn){
-//                    $scope.confirmed = 'Shame on you for not thinking this is awesome!';
-//                });
+
                 if(r){
                     var newPriority = 15;
                     for(var k = 0; k < $scope.statusEdit.priority.length; k++){
@@ -482,9 +496,9 @@ angular.module('umm3601ursamajorApp')
         //CANNOT ADD IN CHAIRS' EMAILS TO SENDGMAILS BECAUSE OF THE SECURITY PRIVILEGES, SO FOR NOW WE'LL JUST SEND TO ADMIN
         $scope.rejectSubmission = function(submission) {
             if($window.confirm("As adviser of this submission, I am rejecting this submission; clarifying that this abstract should not be sent to the URS committee for review." +
-                "Are you sure you want to reject this submission?")){
+                " Are you sure you want to reject this submission?")){
                 if($window.confirm('Would you like to send an email to the presenter(s) of this submission clarifying why you have rejected the submission? You will be prompted to send' +
-                    'an email to the admin and chairs either way.')){
+                    ' a email to the admin and chairs either way.')){
                     sendGmail({
                         to: $scope.selection.item.presenterInfo.email +" "+ $scope.selection.item.copresenterOneInfo.email +" "+ $scope.selection.item.copresenterTwoInfo.email,
                         subject: "["+ $scope.selection.item.title + "] " + "URS submission has been rejected",
