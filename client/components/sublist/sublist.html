@@ -56,6 +56,13 @@
                 <li class="list-group-item overflowAuto">
                     <button class="btn btn-sm btn-block" ng-click="resetSelection()"><span class="glyphicon glyphicon-chevron-left"></span> Back to Submission List</button>
                     <br>
+                    <div>
+                        <select ng-model="reviewVoting">
+                            <option ng-repeat="vote in reviewOptions" ng-value="'{{vote}}'">
+                                {{vote}}
+                            </option>
+                        </select>
+                    </div>
                     <button ng-show="isAdmin()" class="btn btn-md btn-danger" ng-click="deleteSubmissionConfirm(selection.item)"><span class="glyphicon glyphicon-trash"></span></button>
                     <button ng-show="hasAdminPrivs()" class="btn btn-md btn-primary moveRight" ng-click="flagForResubmitConfirm()">Flag for Re-Submission  <span class="glyphicon glyphicon-flag"></span></button>
                     <button ng-show="isPresenter(selection.item) && (getResubmission(selection.item).length == 0)" class="btn btn-md btn-primary sideMargins moveRight" ng-click="flagForResubmitConfirm()">Re-Submit this Submission</button>
@@ -138,6 +145,7 @@
                 </li>
             </ul>
         </div>
+
         <div ng-show="selection.selected" class="col-md-3">
             <button class="btn btn-primary btn-block" ng-click="addComment(selection.item)">New Comment <span class="glyphicon glyphicon-pencil"></span></button>
 

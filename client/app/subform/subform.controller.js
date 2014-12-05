@@ -97,6 +97,8 @@ angular.module('umm3601ursamajorApp')
             'XXXL'
         ];
 
+
+
         $scope.submissionData = {
             title: "",
             format: "",

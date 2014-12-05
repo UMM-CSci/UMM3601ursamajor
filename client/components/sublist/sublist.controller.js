@@ -37,6 +37,8 @@ angular.module('umm3601ursamajorApp')
         $scope.isAdmin = Auth.isAdmin;
         $scope.isChair = Auth.isChair;
 
+
+
         //--------------------- Filter Functions -----------------------
 
         $scope.filterData = {
@@ -525,6 +527,30 @@ angular.module('umm3601ursamajorApp')
                 3,
                 4
             ];
+
+        $scope.reviewOptions = [
+            'Accepted without changes',
+            'Minor revisions',
+            'Major revisions',
+            'Total rewrite'
+        ];
+
+        $scope.updateReviewVoting = function(){
+            var alreadyVoted = false;
+            if($scope.selection.reviewVotes.Accepted.indexOf(getCurrentUser().email) != -1){
+                $scope.selection.reviewVotes.Accepted.splice($scope.selection.reviewVotes.Accepted.indexOf(getCurrentUser().email), 1);
+            }
+            if($scope.selection.reviewVotes.Minor.indexOf(getCurrentUser().email) != -1){
+                $scope.selection.reviewVotes.Minor.splice($scope.selection.reviewVotes.Minor.indexOf(getCurrentUser().email), 1);
+            }
+            if($scope.selection.reviewVotes.Major.indexOf(getCurrentUser().email) != -1){
+                $scope.selection.reviewVotes.Major.splice($scope.selection.reviewVotes.Major.indexOf(getCurrentUser().email), 1);
+            }
+            if($scope.selection.reviewVotes.TotalRewrite.indexOf(getCurrentUser().email) != -1){
+                $scope.selection.reviewVotes.TotalRewrite.splice($scope.selection.reviewVotes.TotalRewrite.indexOf(getCurrentUser().email), 1);
+            }
+
+        };
 
         $scope.getReviewGroupMembers = function(group) {
             return $filter('filter')($scope.users,
