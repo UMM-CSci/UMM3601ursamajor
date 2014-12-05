@@ -236,7 +236,7 @@ User.find({}).remove(function() {
         }, {
             provider: 'local',
             role: 'reviewer',
-            name: 'Reviewer3',
+            name: 'Reviewer',
             email: 'reviewer@reviewer.com',
             password: 'reviewer',
             group: 3
