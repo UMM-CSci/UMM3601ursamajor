@@ -397,13 +397,7 @@ angular.module('umm3601ursamajorApp')
                 var r = confirm("As an adviser, I authorize the student(s) to submit this abstract for consideration for the URS (not approve the final abstract). " +
                     "Are you sure you want to approve this submission?");
                 console.log(submission);
-//                var dlg = null;
-//                dlg = $dialogs.confirm('Confirm','Would you like to be included in future emails notifying the status change of this submission?');
-//                dlg.result.then(function(btn){
-//                    $scope.confirmed = 'You thought this quite awesome!';
-//                },function(btn){
-//                    $scope.confirmed = 'Shame on you for not thinking this is awesome!';
-//                });
+
                 if(r){
                     var newPriority = 15;
                     for(var k = 0; k < $scope.statusEdit.priority.length; k++){

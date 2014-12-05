@@ -71,47 +71,7 @@ angular.module('umm3601ursamajorApp')
               del.apply(event, args);
             });
           };
-        },
-          cc: function(del) {
-              del = del || angular.noop;
-
-              return function() {
-                  var args = Array.prototype.slice.call(arguments),
-                    //  name = args.shift(),
-                      ccModal;
-
-                  ccModal = openModal({
-                      modal: {
-                          dismissable: true,
-                          title: 'Confirm CC',
-                          html: '<p>Would you like to receive email updates about this submission?</p>',
-                          buttons: [{
-                              classes: 'btn-success',
-                              text: 'Yes',
-                              click: function(e) {
-                                  ccModal.close(e);
-                              }
-                          }, {
-                              classes: 'btn-warning',
-                              text: 'No',
-                              click: function(e) {
-                                  ccModal.dismiss(e);
-                              }
-                          }, {
-                              classes: 'btn-primary',
-                              text: 'Cancel',
-                              click: function(e) {
-                                 ccModal.dismiss(e);
-                              }
-                          }]
-                      }
-                  }, 'modal-danger');
-
-                  ccModal.result.then(function(event) {
-                      del.apply(event, args);
-                  });
-              };
-          }
+        }
       }
     };
   });
