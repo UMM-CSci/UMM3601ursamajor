@@ -57,9 +57,8 @@
                     <button class="btn btn-sm btn-block" ng-click="resetSelection()"><span class="glyphicon glyphicon-chevron-left"></span> Back to Submission List</button>
                     <br>
                     <button ng-show="isAdmin()" class="btn btn-md btn-danger" ng-click="deleteSubmissionConfirm(selection.item)"><span class="glyphicon glyphicon-trash"></span></button>
-                    <button ng-show="hasAdminPrivs()" class="btn btn-md btn-primary moveRight" ng-click="flagForResubmitConfirm()">Flag for Re-Submission  <span class="glyphicon glyphicon-flag"></span></button>
-                    <button ng-show="isPresenter(selection.item) && (getResubmission(selection.item).length == 0)" class="btn btn-md btn-primary sideMargins moveRight" ng-click="flagForResubmitConfirm()">Re-Submit this Submission</button>
-                    <button ng-show="isPresenter(selection.item) && (getResubmission(selection.item) == null)" class="btn btn-md btn-primary sideMargins moveRight" ng-click="flagForResubmitConfirm()">Re-Submit this Submission</button>
+
+                    <button ng-show="showResubmitButton().show" class="btn btn-md btn-primary sideMargins moveRight" ng-click="flagForResubmitConfirm()">{{showResubmitButton().text}}</button>
 
                     <div class="btn-group sideMargins moveRight">
                         <button ng-show="(isAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-success  " ng-click="approveSubmission(selection.item)">  Give adviser approval  <span class="glyphicon glyphicon-thumbs-up"></span></button>

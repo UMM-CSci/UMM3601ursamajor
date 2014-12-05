@@ -645,12 +645,37 @@ angular.module('umm3601ursamajorApp')
              };
 
         //--------------------------------------------- Resubmission ---------------------------------------
+        $scope.showResubmitButton = function(){
+            if($scope.selection.item == null){
+                return {
+                    show: false,
+                    text: "Null"
+                }
+            }
+
+            if($scope.hasAdminPrivs()){
+                return {
+                    show: true,
+                    text: "Flag for Re-Submission"
+                };
+            } else if($scope.getResubmission($scope.selection.item) == null || $scope.getResubmission($scope.selection.item).length == 0){
+                return {
+                    show: $scope.isPresenter($scope.selection.item),
+                    text: "Re-Submit this Submission"
+                }
+            } else {
+                return {
+                    show: false,
+                    text: "Error!?!"
+                }
+            }
+        };
+
         $scope.flagForResubmitConfirm = function(){
           Modal.confirm.info($scope.flagForResubmit)('Are you sure you want to flag this submission for resubmission?');
         };
 
         $scope.flagForResubmit = function(){
-
             console.log("Attempting to flag for resubmission.");
             $http.patch('api/submissions/' + $scope.selection.item._id,
                 {

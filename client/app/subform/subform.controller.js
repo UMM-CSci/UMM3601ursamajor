@@ -358,6 +358,7 @@ angular.module('umm3601ursamajorApp')
                     $scope.submissionData.sponsorsFinal.push($scope.submissionData.sponsors[i]);
                 }
             }
+
             if(!$scope.isResubmitting){
                 $scope.submissionData.status = {strict: $scope.startingStatus, text: ""};
                 //updating status to ensure that it works....?
