@@ -193,13 +193,6 @@ angular.module('umm3601ursamajorApp')
             } else {
                 return false;
             }
-//                var dlg = null;
-//                dlg = $dialogs.confirm('Confirm','Would you like to be included in future emails notifying the status change of this submission?');
-//                dlg.result.then(function(btn){
-//                    $scope.confirmed = 'You thought this quite awesome!';
-//                },function(btn){
-//                    $scope.confirmed = 'Shame on you for not thinking this is awesome!';
-//                });
         };
 
         $scope.featurePresentationFilter = function(submission) {
