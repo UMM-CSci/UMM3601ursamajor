@@ -478,7 +478,7 @@ angular.module('umm3601ursamajorApp')
                 }
             }
         };
-//TODO: currently have admin@admin.com hard-coded in, don't have a solidified admin account and cannot access user roles to get admin emails
+    //TODO: currently have admin@admin.com hard-coded in, don't have a solidified admin account and cannot access user roles to get admin emails
         //CANNOT ADD IN CHAIRS' EMAILS TO SENDGMAILS BECAUSE OF THE SECURITY PRIVILEGES, SO FOR NOW WE'LL JUST SEND TO ADMIN
         $scope.rejectSubmission = function(submission) {
             if($window.confirm("As adviser of this submission, I am rejecting this submission; clarifying that this abstract should not be sent to the URS committee for review." +
