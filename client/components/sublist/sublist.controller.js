@@ -451,23 +451,33 @@ angular.module('umm3601ursamajorApp')
           return submission.approval;
         };
 
-        $scope.approveSubmission = function(submission) {
-            if($scope.isAdviser(submission) == true || $scope.hasAdminPrivs() == true){
-                var r = confirm("Are you sure you want to approve this submission?");
-                console.log(submission);
 
-                if(r){
+        $scope.approveSubmissionConfirm = function(submission){
+            Modal.confirm.option($scope.approveSubmission(submission, true),$scope.approveSubmission(submission, false))("Did the test work?");
+        };
+
+        $scope.approveSubmission = function(submission, cc) {
+            if($scope.isAdviser(submission) == true || $scope.hasAdminPrivs() == true){
+                console.log(submission);
+//                var dlg = null;
+//                dlg = $dialogs.confirm('Confirm','Would you like to be included in future emails notifying the status change of this submission?');
+//                dlg.result.then(function(btn){
+//                    $scope.confirmed = 'You thought this quite awesome!';
+//                },function(btn){
+//                    $scope.confirmed = 'Shame on you for not thinking this is awesome!';
+//                });
+                if(cc) {
                     var newPriority = 15;
-                    for(var k = 0; k < $scope.statusEdit.priority.length; k++){
-                        if($scope.statusEdit.priority[k] < newPriority && $scope.statusEdit.priority[k] != -15){
+                    for (var k = 0; k < $scope.statusEdit.priority.length; k++) {
+                        if ($scope.statusEdit.priority[k] < newPriority && $scope.statusEdit.priority[k] != -15) {
                             newPriority = $scope.statusEdit.priority[k]
                         }
                     }
-                    for(var i = 0; i < $scope.statusEdit.priority.length; i++){
-                        if($scope.statusEdit.priority[i] == newPriority){
+                    for (var i = 0; i < $scope.statusEdit.priority.length; i++) {
+                        if ($scope.statusEdit.priority[i] == newPriority) {
                             $scope.selection.item.status.strict = $scope.statusEdit.options[i];
-                            for(var j = 0; j < $scope.submissions.length; j++){
-                                if($scope.selection.item._id == $scope.submissions[j]._id){
+                            for (var j = 0; j < $scope.submissions.length; j++) {
+                                if ($scope.selection.item._id == $scope.submissions[j]._id) {
                                     console.log("Updates the strict of the current submission.");
                                     $scope.submissions[j].strict = $scope.statusEdit.options[i];
                                 }
@@ -475,9 +485,9 @@ angular.module('umm3601ursamajorApp')
                             //$scope.selection.item.status.text = status[i].text;
                             $http.patch('api/submissions/' + $scope.selection.item._id,
                                 {approval: true,
-                                 rejection: false,
-                                status: {strict: $scope.selection.item.status.strict, text: "This URS submission has been approved by an adviser."}}
-                            ).success(function(){
+                                    rejection: false,
+                                    status: {strict: $scope.selection.item.status.strict, text: "This URS submission has been approved by an adviser."}}
+                            ).success(function () {
                                     $scope.selection.item.approval = true;
                                     console.log("Successfully updated approval of submission (approved)");
                                 });
@@ -485,7 +495,7 @@ angular.module('umm3601ursamajorApp')
                     }
                     $scope.selection.item.status.text = "This URS Submission has been approved by an adviser.";
                     sendGmail({
-                        to: $scope.selection.item.presenterInfo.email +" "+ $scope.selection.item.copresenterOneInfo.email +" "+ $scope.selection.item.copresenterTwoInfo.email,
+                        to: $scope.selection.item.presenterInfo.email + " " + $scope.selection.item.copresenterOneInfo.email + " " + $scope.selection.item.copresenterTwoInfo.email,
                         subject: "[" + $scope.selection.item.title + "] " + $scope.statusEdit.subject[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)],
                         message: $scope.selection.item.presenterInfo.first + ", your URS abstract has been approved by your adviser. Please await reviewer comments."
                     });
@@ -652,8 +662,7 @@ angular.module('umm3601ursamajorApp')
         $scope.approvalWordChange = function(approval){
              if(approval){
                  return "Yes";
-                 }
-             else{
+                 } else {
                  return "No";
                  }
              };

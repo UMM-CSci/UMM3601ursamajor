@@ -56,14 +56,13 @@ hr {
 /*Formatting for details button*/
 .buttonL{
     float: right;
-    color: #ffcc33;
+    color: #ffffff;
     padding: 8px 10px;
     font-size: 15px;
     line-height: 1.33;
     border-radius: 6px;
     border-width: 0;
-    background: maroon;
-    font-weight: bold;
+    background: #428BCA;
     font-family: "Helvetica Neue Light", "Lucida Grande", "Calibri", "Arial", sans-serif;
 }
 
@@ -72,16 +71,7 @@ hr {
     display: inline-block;
     float: right;
 }
-.approveButton {
-    display: inline-block;
-    float: right;
-    margin-top: 10px;
-    background-color: darkred;
-    border: none;
-}
-.approveButton:hover {
-    background-color: indianred;
-}
+
 
 /*Overflow sets the floating elements as objects (kinda)*/
 .overflowAuto {
@@ -125,10 +115,20 @@ hr {
 /*Comment Styling*/
 .commentStyle {
     border-width: 0;
-    color: navy;
+    color: black;
     background-color: #CDE9FF;
 }
 
+.lineColor {
+    background-color: steelblue;
+    border: 1px solid steelblue;
+    height: 1px;
+}
+
+.sideStyle {
+    border-left-color: steelblue;
+
+}
 /*
 block alert < --css Look this up for the transparent 'open status change button' size?
 */
@@ -144,4 +144,15 @@ block alert < --css Look this up for the transparent 'open status change button'
 /*height: 200px;*/
 /*width: 50px;*/
 /*background-color: maroon;*/
+/*}*/
+
+/*.approveButton {*/
+/*display: inline-block;*/
+/*float: right;*/
+/*margin-top: 10px;*/
+/*background-color: darkred;*/
+/*border: none;*/
+/*}*/
+/*.approveButton:hover {*/
+/*background-color: indianred;*/
 /*}*/
