@@ -3,6 +3,7 @@
 angular.module('umm3601ursamajorApp')
     .controller('AdminCtrl', function ($scope, $http, Auth, User, $location, socket, $filter) {
 
+
         $scope.submissions = [];
         $scope.users = [];
         $scope.isAdmin = Auth.isAdmin;

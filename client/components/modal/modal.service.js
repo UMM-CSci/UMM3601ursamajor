@@ -9,6 +9,8 @@ angular.module('umm3601ursamajorApp')
      * @return {Object}            - the instance $modal.open() returns
      */
     function openModal(scope, modalClass) {
+        console.log("making new modal");
+        console.log(modalClass);
       var modalScope = $rootScope.$new();
       scope = scope || {};
       modalClass = modalClass || 'modal-default';
@@ -71,6 +73,46 @@ angular.module('umm3601ursamajorApp')
               del.apply(event, args);
             });
           };
+        },
+
+        info: function(callback) {
+            callback = callback || angular.noop;
+
+            /**
+             * Open an info confirmation modal
+             * @param {String} content - text for the confirmation modal
+             * @param {All}         - Any additional arguments are passed to the callback
+             */
+            return function() {
+                var args = Array.prototype.slice.call(arguments),
+                    content = args.shift(),
+                    infoModal;
+
+                infoModal = openModal({
+                    modal: {
+                        dismissable: true,
+                        title: "Info Confirm",
+                        html: '<p>' + content + '</p>',
+                        buttons: [{
+                            classes: 'btn-info',
+                            text: 'OK',
+                            click: function(e) {
+                                infoModal.close(e);
+                            }
+                        }, {
+                            classes:"btn-default",
+                            text: "Cancel",
+                            click: function(e) {
+                                infoModal.dismiss(e);
+                            }
+                        }]
+                    }
+                }, 'modal-info');
+
+                infoModal.result.then(function(event) {
+                   callback.apply(event, args);
+                });
+            }
         }
       }
     };

@@ -20,7 +20,7 @@ var SubmissionSchema = new Schema({
     featured: Boolean,
     mediaServicesEquipment: String,
     specialRequirements: String,
-    presenterTeeSize: String,
+    //presenterTeeSize: String,
     otherInfo: String,
     approval: Boolean,
     rejection: Boolean,
@@ -41,7 +41,13 @@ var SubmissionSchema = new Schema({
             timestamp: String,
             origin: String
         }
-    ]
+    ],
+    reviewVotes: {
+        Accepted: [String],
+        Minor: [String],
+        Major: [String],
+        TotalRewrite: [String]
+    }
 
 });
 

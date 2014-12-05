@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('umm3601ursamajorApp')
-    .controller('AccountinfoCtrl', function ($scope, Auth, $location) {
+    .controller('AccountinfoCtrl', function ($scope, Auth, $location, User) {
 
         // Doesn't let anyone do anything if not logged in.
         if(Auth.isLoggedIn() === false) {
@@ -27,8 +27,8 @@ angular.module('umm3601ursamajorApp')
             ];
 
         // Changes the tShirtSize designated to a user.
-        $scope.updateTShirtSize = function(user){
-            Auth.updateTShirtSize(user.tShirtSize, user);
+        $scope.updateTShirtSize = function(){
+            Auth.updateTShirtSize($scope.user.tShirtSize);
 //            console.log(user.tShirtSize);
 //            console.log(user);
         };

@@ -26,7 +26,7 @@ angular.module('umm3601ursamajorApp')
         }
     })
 
-    .controller('SublistCtrl', function ($scope, $http, socket, $modal, Modal, Auth, $window, $filter, $location) {
+    .controller('SublistCtrl', function($scope, $http, socket, $modal, Modal, Auth, $window, $filter, $location) {
         $scope.submissions = [];
         $scope.status = [];
 
@@ -51,7 +51,13 @@ angular.module('umm3601ursamajorApp')
                 "Review Group 3",
                 "Review Group 4"
             ],
-            tabFilter: {isPresenter:false, isCoPresenter:false, isReviewer:false, isAdviser:false}
+            tabFilter: {isPresenter:false, isCoPresenter:false, isReviewer:false, isAdviser:false},
+            featurePresentationFilterSelection: "All",
+            featurePresentationFilterOptions: [
+                "All",
+                "Interested in being feature presentation",
+                "Not interested in being feature presentation"
+            ]
         };
 
         // Returns true when the submission HAS a parent, and ISN'T the primary.
@@ -77,6 +83,13 @@ angular.module('umm3601ursamajorApp')
         $scope.setReviewGroupSelection = function(str) {
             $scope.filterData.reviewGroupFilterSelection = str;
         };
+
+        // Takes a String and sets the feature presentation filter selection to that string.
+        // Used for changing which feature presentation search is applied.
+        $scope.setFeaturePresentationFilterSelection = function(str) {
+            $scope.filterData.featurePresentationFilterSelection = str;
+        };
+
 
         // Takes no arguments and returns true if the user provided by Auth is an admin, or is in the admin group.
         $scope.hasAdminPrivs = function(){
@@ -177,6 +190,25 @@ angular.module('umm3601ursamajorApp')
 //                });
         };
 
+        $scope.featurePresentationFilter = function(submission) {
+            if($scope.filterData.featurePresentationFilterSelection === "All"){
+                return true;
+            } else if($scope.filterData.featurePresentationFilterSelection === "Interested in being feature presentation"){
+                return submission.featured === true;
+            } else if($scope.filterData.featurePresentationFilterSelection === "Not interested in being feature presentation"){
+                return submission.featured === false;
+            } else {
+                return false;
+            }
+//                var dlg = null;
+//                dlg = $dialogs.confirm('Confirm','Would you like to be included in future emails notifying the status change of this submission?');
+//                dlg.result.then(function(btn){
+//                    $scope.confirmed = 'You thought this quite awesome!';
+//                },function(btn){
+//                    $scope.confirmed = 'Shame on you for not thinking this is awesome!';
+//                });
+        };
+
         $scope.searchFilter = function(submission){
             var searchText = $scope.filterData.searchText.toLowerCase();
             return(
@@ -187,7 +219,11 @@ angular.module('umm3601ursamajorApp')
                 (submission.copresenterTwoInfo.first.toLowerCase().indexOf(searchText) != -1) ||
                 (submission.copresenterTwoInfo.last.toLowerCase().indexOf(searchText) != -1) ||
                 (submission.adviserInfo.first.toLowerCase().indexOf(searchText) != -1) ||
-                (submission.adviserInfo.last.toLowerCase().indexOf(searchText) != -1)
+                (submission.adviserInfo.last.toLowerCase().indexOf(searchText) != -1) ||
+                (submission.coadviserOneInfo.first.toLowerCase().indexOf(searchText) != -1) ||
+                (submission.coadviserOneInfo.last.toLowerCase().indexOf(searchText) != -1) ||
+                (submission.coadviserTwoInfo.first.toLowerCase().indexOf(searchText) != -1)||
+                (submission.coadviserTwoInfo.last.toLowerCase().indexOf(searchText) != -1)
             )
         };
 
@@ -352,12 +388,15 @@ angular.module('umm3601ursamajorApp')
                     $filter('filter')(
                         $filter('filter')(
                             $filter('filter')(
-                                $scope.submissions,
-                                $scope.hasPermissions
+                                $filter('filter')(
+                                    $scope.submissions,
+                                    $scope.hasPermissions
+                                ),
+                                $scope.tabFilters
                             ),
-                            $scope.tabFilters
+                            $scope.reviewGroupFilter
                         ),
-                        $scope.reviewGroupFilter
+                        $scope.featurePresentationFilter
                     ),
                     $scope.searchFilter
                 );
@@ -394,8 +433,7 @@ angular.module('umm3601ursamajorApp')
 
         $scope.approveSubmission = function(submission) {
             if($scope.isAdviser(submission) == true || $scope.hasAdminPrivs() == true){
-                var r = confirm("As an adviser, I authorize the student(s) to submit this abstract for consideration for the URS (not approve the final abstract). " +
-                    "Are you sure you want to approve this submission?");
+                var r = confirm("Are you sure you want to approve this submission?");
                 console.log(submission);
 
                 if(r){
@@ -583,7 +621,7 @@ angular.module('umm3601ursamajorApp')
 
         //TODO: broken, fix pls
         $scope.advisorApprover = function(){
-            $http.patch('api/advisorApprover/' + $scope.selection.item._id,
+            $http.patch('api/submissions/' + $scope.selection.item._id,
                 {approval: true}
             ).success(function(){
                     $scope.selection.item.approval = true;
@@ -601,21 +639,22 @@ angular.module('umm3601ursamajorApp')
              };
 
         //--------------------------------------------- Resubmission ---------------------------------------
-        $scope.flagForResubmit = function(){
-            var con = confirm('Are you sure you want to flag this submission for resubmission?');
-            if(con){
-                console.log("Attempting to flag for resubmission.");
-                $http.patch('api/submissions/' + $scope.selection.item._id,
-                    {
-                     resubmissionData: {comment: $scope.selection.item.resubmissionData.comment, parentSubmission: $scope.selection.item.resubmissionData.parentSubmission, resubmitFlag: true, isPrimary: true}
-                    }
-                ).success(function(){
-                        console.log("Successfully flagged submission for resubmit");
-                        if (!$scope.hasAdminPrivs())
-                            {$location.path('/subform');}
-                    });
-            }
+        $scope.flagForResubmitConfirm = function(){
+          Modal.confirm.info($scope.flagForResubmit)('Are you sure you want to flag this submission for resubmission?');
+        };
 
+        $scope.flagForResubmit = function(){
+
+            console.log("Attempting to flag for resubmission.");
+            $http.patch('api/submissions/' + $scope.selection.item._id,
+                {
+                 resubmissionData: {comment: $scope.selection.item.resubmissionData.comment, parentSubmission: $scope.selection.item.resubmissionData.parentSubmission, resubmitFlag: true, isPrimary: true}
+                }
+            ).success(function(){
+                    console.log("Successfully flagged submission for resubmit");
+                    if (!$scope.hasAdminPrivs())
+                        {$location.path('/subform');}
+                });
 
             //Playing with trying to use the Submission service instead of the above http request (as per the role change controller)
 //            Submission.update({id: $scope.selection.item._id},
@@ -655,6 +694,45 @@ angular.module('umm3601ursamajorApp')
 
 
         //--------------------------------------------- Comments ---------------------------------------
+
+        $scope.selectedCommentIndex = 10000;
+        $scope.currentCommentPage = 1;
+
+        $scope.menuToggle = false;
+
+        $scope.toggleCommentDropdown = function(){
+            $scope.menuToggle = !$scope.menuToggle;
+        };
+
+        $scope.selectComment = function(index) {
+            console.log("setting selected comment: " + index);
+            if(index == $scope.selectedCommentIndex){
+                console.log("case 1 ");
+            } else {
+                console.log("case 2 ");
+                $scope.selectedCommentIndex = index;
+            }
+        };
+
+        $scope.isSelectedComment = function(index){
+            return index == $scope.selectedCommentIndex;
+        };
+
+        $scope.displayedComments = function() {
+            if($scope.selection.item == null) return [];
+
+            if($scope.selection.item.comments.length == 0) {
+                return [];
+            } else if ($scope.selection.item.comments.length < 11) {
+                return $scope.selection.item.comments;
+            } else {
+                return $scope.selection.item.comments.slice(($scope.currentCommentPage - 1) * 10, $scope.currentCommentPage * 10)
+            }
+        };
+
+        $scope.transformCommentIndex = function(index){
+            return ((10*($scope.currentCommentPage - 1)) + index);
+        };
 
         $scope.addComment = function (submission) {
             console.log(submission.abstract.length);
