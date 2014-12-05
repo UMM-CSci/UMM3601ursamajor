@@ -9,6 +9,13 @@ hr {
     text-align: left;
 }
 
+.loadingImage {
+    height: 100px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 /*adds inline block to misc. things */
 .inlineBlock {
     display: inline-block;

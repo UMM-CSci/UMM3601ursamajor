@@ -29,6 +29,10 @@
             <!--<button type="button" class="btn btn-default" ng-click="filterData.orderByPredicate='timestamp'">Order by timestamp</button>-->
         </li>
 
+        <li class="list-group-item" ng-show="submissions.length < 1">
+            <img class="loadingImage" src="assets/images/hourglass-gif.gif">
+        </li>
+
         <li class="list-group-item" ng-style="statusColorTab(sub.status.strict)" ng-repeat="sub in submissions | filter:hasPermissions | filter:tabFilters | filter:reviewGroupFilter | filter:featurePresentationFilter | filter:flaggedForResubmitFilter | filter:searchFilter" ng-hide="isResubmission(sub)">
             <h3 id="text">{{sub.title}}
                 <span ng-show="getResubmission(sub) != null" title="Submission has an unapproved resubmission" style="color: red" class="glyphicon glyphicon-warning-sign"></span>
