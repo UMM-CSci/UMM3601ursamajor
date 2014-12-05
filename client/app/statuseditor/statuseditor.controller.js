@@ -96,9 +96,13 @@ angular.module('umm3601ursamajorApp')
             return count;
         };
 
+
+        $scope.addStatusConfirm = function(){
+            Modal.confirm.info($scope.addStatus)("Create a new status?");
+        };
+
+
         $scope.addStatus = function() {
-            var r = confirm("Are you sure you want to add a status?")
-            if(r == true) {
                 $http.post('/api/statuss/',
                     {   strict: "Default Status",
                         color: {red: 0, green: 0, blue: 0, alpha: 1},
@@ -110,7 +114,6 @@ angular.module('umm3601ursamajorApp')
                         console.log("Successfully added new status")
                         $scope.getStatuses();
                     });
-            }
         };
 
 
@@ -118,12 +121,15 @@ angular.module('umm3601ursamajorApp')
             return(status.required);
         };
 
+
+        $scope.submitChangesConfirm = function(status){
+            Modal.confirm.info($scope.submitChanges(status))("Save changes made to this status?");
+        };
+
         $scope.submitChanges = function(status) {
-            var r = confirm("Are you sure you want to edit this status?");
             var strict = "";
             var problem = false;
             var x = $scope.statusArray.indexOf(status);
-            if (r) {
                 for (var i = 0; i < $scope.statusArray.length; i++) {
                     if ($scope.statusArray[i].priority == status.priority) {
                         if ($scope.statusArray[i]._id != status._id) {
@@ -169,9 +175,9 @@ angular.module('umm3601ursamajorApp')
 
 
                 } else {
-                    alert("There is a problem using this priority (priority is less than 2, greater than 14, or shares a priority with another status). Please, pick a new one.")
+                    Modal.confirm.warning()("There is a problem using this priority (priority is less than 2, greater than 14, or shares a priority with another status). Please, pick a new one.");
+                    //alert("There is a problem using this priority (priority is less than 2, greater than 14, or shares a priority with another status). Please, pick a new one.")
                 }
-            }
         }
 
     });

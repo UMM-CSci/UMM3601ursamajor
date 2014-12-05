@@ -478,7 +478,7 @@ angular.module('umm3601ursamajorApp')
                 }
             }
         };
-//TODO: currently have admin@admin.com hard-coded in, don't have a solidified admin account and cannot access user roles to get admin emails
+    //TODO: currently have admin@admin.com hard-coded in, don't have a solidified admin account and cannot access user roles to get admin emails
         //CANNOT ADD IN CHAIRS' EMAILS TO SENDGMAILS BECAUSE OF THE SECURITY PRIVILEGES, SO FOR NOW WE'LL JUST SEND TO ADMIN
         $scope.rejectSubmission = function(submission) {
             if($window.confirm("As adviser of this submission, I am rejecting this submission; clarifying that this abstract should not be sent to the URS committee for review." +
@@ -824,10 +824,12 @@ angular.module('umm3601ursamajorApp')
             var newWindow = $window.open("", null, "height=300,width=600,status=yes,toolbar=no,menubar=no,location=no");
             if(comments[index].origin != id){
                 console.log("Yup");
-                newWindow.document.write("<b>" + "This comment was made on a prior version of this submission" + "</b>");
+                newWindow.document.write("<b>" + "This comgalvanized and common nails.The nails were placedment was made on a prior version of this submission" + "</b>");
                 newWindow.document.write("<br>");
             }
             newWindow.document.write("<b>" +"Comment made by " + comments[index].commenter + ": " +"</b>"+"<i>" + comments[index].commentText + "</i>");
+            newWindow.document.write("<br>");
+            newWindow.document.write(comments[index].timestamp);
             newWindow.document.write("<br>");
             newWindow.document.write(abstract);
         };

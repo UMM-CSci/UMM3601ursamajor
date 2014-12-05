@@ -91,7 +91,7 @@ angular.module('umm3601ursamajorApp')
                 infoModal = openModal({
                     modal: {
                         dismissable: true,
-                        title: "Info Confirm",
+                        title: "Confirm",
                         html: '<p>' + content + '</p>',
                         buttons: [{
                             classes: 'btn-info',
@@ -113,7 +113,42 @@ angular.module('umm3601ursamajorApp')
                    callback.apply(event, args);
                 });
             }
-        }
+        },
+
+          warning: function(callback){
+              callback = callback || angular.noop;
+              /**
+               * Open an info confirmation modal
+               * @param {String} content - text for the confirmation modal
+               * @param {All}         - Any additional arguments are passed to the callback
+               */
+              return function() {
+                  var args = Array.prototype.slice.call(arguments),
+                      content = args.shift(),
+                      warningModal;
+
+                  warningModal = openModal({
+                      modal: {
+                          dismissable: true,
+                          title: "Warning!",
+                          html: '<p>' + content + '</p>',
+                          buttons: [{
+                              classes:"btn-default",
+                              text: "OK",
+                              click: function(e) {
+                                  warningModal.dismiss(e);
+                              }
+                          }]
+                      }
+                  }, 'modal-warning');
+
+                  warningModal.result.then(function(event) {
+                      callback.apply(event, args);
+                  });
+              }
+          }
+
+
       }
     };
   });
