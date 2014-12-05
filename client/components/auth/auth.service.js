@@ -189,6 +189,7 @@ angular.module('umm3601ursamajorApp')
             if(currentUser.role === 'reviewer'){
                 return currentUser.group;
             }
+            return "";
         },
 
         /**
