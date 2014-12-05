@@ -22,7 +22,7 @@ angular.module('umm3601ursamajorApp')
         });
 
         $scope.submitChanges = function() {
-            var r = confirm("Are you sure you want to edit the form?")
+            var r = confirm("Are you sure you want to edit the form?");
             if (r == true) {
                 $http.put('/api/subformtexts/' + $scope.submissionText._id,
                     {
