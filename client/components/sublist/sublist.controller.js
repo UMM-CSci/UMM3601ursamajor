@@ -20,6 +20,8 @@ angular.module('umm3601ursamajorApp')
         }
     })
 
+
+
     .filter('fancyLimitTo', function(){
         return function(input, limit){
             return input.substring(0, limit) + "[...]";
@@ -36,6 +38,7 @@ angular.module('umm3601ursamajorApp')
         $scope.isReviewer = Auth.isReviewer;
         $scope.isAdmin = Auth.isAdmin;
         $scope.isChair = Auth.isChair;
+
 
         //--------------------- Filter Functions -----------------------
 
