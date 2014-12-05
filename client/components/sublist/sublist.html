@@ -57,9 +57,9 @@
                     <button class="btn btn-sm btn-block" ng-click="resetSelection()"><span class="glyphicon glyphicon-chevron-left"></span> Back to Submission List</button>
                     <br>
                     <button ng-show="isAdmin()" class="btn btn-md btn-danger" ng-click="deleteSubmissionConfirm(selection.item)"><span class="glyphicon glyphicon-trash"></span></button>
-                    <button ng-show="hasAdminPrivs()" class="btn btn-md btn-primary moveRight" ng-click="flagForResubmit()">Flag for Re-Submission  <span class="glyphicon glyphicon-flag"></span></button>
-                    <button ng-show="isPresenter(selection.item) && (getResubmission(selection.item).length == 0)" class="btn btn-md btn-primary sideMargins moveRight" ng-click="flagForResubmit()">Re-Submit this Submission</button>
-                    <button ng-show="isPresenter(selection.item) && (getResubmission(selection.item) == null)" class="btn btn-md btn-primary sideMargins moveRight" ng-click="flagForResubmit()">Re-Submit this Submission</button>
+                    <button ng-show="hasAdminPrivs()" class="btn btn-md btn-primary moveRight" ng-click="flagForResubmitConfirm()">Flag for Re-Submission  <span class="glyphicon glyphicon-flag"></span></button>
+                    <button ng-show="isPresenter(selection.item) && (getResubmission(selection.item).length == 0)" class="btn btn-md btn-primary sideMargins moveRight" ng-click="flagForResubmitConfirm()">Re-Submit this Submission</button>
+                    <button ng-show="isPresenter(selection.item) && (getResubmission(selection.item) == null)" class="btn btn-md btn-primary sideMargins moveRight" ng-click="flagForResubmitConfirm()">Re-Submit this Submission</button>
 
                     <div class="btn-group sideMargins moveRight">
                         <button ng-show="(isAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-success  " ng-click="approveSubmission(selection.item)">  Give adviser approval  <span class="glyphicon glyphicon-thumbs-up"></span></button>
@@ -168,21 +168,6 @@
                     </div>
                 </li>
             </ul>
-            <br>
-            <p ng-show="isAdmin()">You are seeing this submission because you are an:</p>
-            <p ng-show="isAdmin()">admin</p>
-            <p ng-show="!isAdmin()">You are seeing this submission because you are a:</p>
-            <p ng-show="isChair()">chair</p>
-            <p ng-show="isPresenter(selection.item)">presenter of this submission</p>
-            <p ng-show="isCoPresenter(selection.item)">co-presenter of this submission</p>
-            <p ng-show="isAdviser(selection.item)">adviser of this submission</p>
-            <p ng-show="isReviewerGroup(selection.item)">reviewer in Reviewer Group {{selection.item.group}}</p>
-            <b>Currently Assigned Review Group:</b>
-            <select ng-change="setReviewGroup(selection.item)" ng-model="selection.reviewGroup">
-                <option ng-repeat="option in groupOptions" value={{option}}>{{option}}</option>
-            </select>
-        </li>
-    </ul>
 
             <pagination ng-show="selection.item.comments.length > 10" class="pagination-sm" total-items="selection.item.comments.length" ng-model="currentCommentPage"></pagination>
         </div>

@@ -60,15 +60,13 @@ angular.module('umm3601ursamajorApp')
 
         $scope.colorClick = function(item, color) {
             item.color = color;
-        }
-
-        $scope.deleteSubmissionConfirm = function(item){
-            Modal.confirm.delete($scope.deleteSubmission)(item.strict, item);
         };
-        $scope.deleteStatus = function(item){
-            var r = confirm("Are you sure you want to delete this status? All statuses with this status will need to be changed.")
 
-            if(r == true) {
+        $scope.deleteStatusConfirm = function(item){
+            Modal.confirm.delete($scope.deleteStatus)(item.strict, item);
+        };
+
+        $scope.deleteStatus = function(item){
                 $http.delete('/api/statuss/' + item._id).success(function () {
                     $scope.statusArray.splice($scope.statusArray.indexOf(item), 1);
                 });
@@ -82,7 +80,6 @@ angular.module('umm3601ursamajorApp')
                         }
                     }
                 }
-            }
         };
 
 
