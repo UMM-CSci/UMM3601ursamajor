@@ -113,6 +113,7 @@
                             <p>{{selection.item.sponsors | isntEmpty:"Sponsors:":""}}</p>
                             <p>{{selection.item.mediaServicesEquipment | isntEmpty:"Media Services Equipment:":""}}</p>
                             <p>{{selection.item.specialRequirements | isntEmpty:"Special Requirements:":""}}</p>
+                            <p>Willing to be Feature Presentation: {{approvalWordChange(selection.item.featured)}}</p>
                             <p>Date of submission: {{selection.item.timestamp}}</p>
                         </li>
                     </ul>
@@ -153,7 +154,7 @@
                             <button class="btn btn-xs btn-primary" ng-click="addResponse(selection.item, transformCommentIndex($index))">Respond</button>
                             <button type="button" class="btn btn-xs btn-primary" dropdown-toggle><span class="glyphicon glyphicon-list"></span></button>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a ng-click="getOriginAbstract(selection.item , transformCommentIndex($index))">Show in Context</a></li>
+                                <li><a ng-click="getOriginAbstract(selection.item , transformCommentIndex($index))">Details</a></li>
                                 <li ng-show="hasAdminPrivs()"><a ng-click="deleteComment(selection.item , transformCommentIndex($index))">Delete Comment</a></li>
                             </ul>
                         </div>
@@ -203,6 +204,7 @@
                         <p>{{selection.resubmission.sponsors | isntEmpty:"Sponsors:":""}}</p>
                         <p>{{selection.resubmission.mediaServicesEquipment | isntEmpty:"Media Services Equipment:":""}}</p>
                         <p>{{selection.resubmission.specialRequirements | isntEmpty:"Special Requirements:":""}}</p>
+                        <p>Willing to be Feature Presentation: {{approvalWordChange(selection.item.featured)}}</p>
                         <p>Date of submission: {{selection.resubmission.timestamp}}</p>
                     </li>
                 </ul>
