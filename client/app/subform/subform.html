@@ -51,7 +51,7 @@
     <form  ng-submit="preSubmitChecks()" id="form1">
         <label class="padded">
             <pre class="preStyle">{{submissionText.submissionTitle}}</pre>
-            <textarea ng-model="submissionData.title" cols="50" name="Presentation Title" maxlength="350" required></textarea>
+            <textarea class="mobileCompatable" ng-model="submissionData.title" cols="50" name="Presentation Title" maxlength="350" required></textarea>
         </label>
         <br>
 
@@ -69,7 +69,7 @@
         <label class="padded ">
             <pre class="preStyle">{{submissionText.submissionAbstract}}</pre>
             <pre class="preStyleSmall">{{submissionText.submissionAbstractNotes}}</pre>
-            <textarea ng-model="submissionData.abstract" cols="50" name="abstract" maxlength="1000" required></textarea>
+            <textarea class="mobileCompatable" ng-model="submissionData.abstract" cols="50" name="abstract" maxlength="1000" required></textarea>
             <br> <span>{{charsRemaining()}} characters remaining.</span>
         </label>
         <br>
@@ -169,13 +169,13 @@
 
         <div class="padded">
             <b><pre class="preStyle">{{submissionText.submissionMediaServices}}</pre></b>
-            <textarea cols="50" name="mediaServices" ng-model="submissionData.mediaServicesEquipment" placeholder="Explain in detail." maxlength="1000"></textarea>
+            <textarea class="mobileCompatable" cols="50" name="mediaServices" ng-model="submissionData.mediaServicesEquipment" placeholder="Explain in detail." maxlength="1000"></textarea>
         </div>
         <br>
 
         <div class="padded">
             <b><pre class="preStyle">{{submissionText.submissionSpecialRequirements}}</pre></b>
-            <textarea name="specialRequirements"  cols="50" ng-model="submissionData.specialRequirements" placeholder="Explain in detail." maxlength="1000"></textarea>
+            <textarea class="mobileCompatable" name="specialRequirements"  cols="50" ng-model="submissionData.specialRequirements" placeholder="Explain in detail." maxlength="1000"></textarea>
         </div>
 
         <!--<label class="padded">-->
@@ -191,13 +191,13 @@
 
         <div class="padded">
             <b><pre class="preStyle">{{submissionText.submissionOther}}</pre></b>
-            <textarea cols="50" name="otherInfo" ng-model="submissionData.otherInfo" placeholder="Other info?" maxlength="1000"></textarea>
+            <textarea class="mobileCompatable" cols="50" name="otherInfo" ng-model="submissionData.otherInfo" placeholder="Other info?" maxlength="1000"></textarea>
         </div>
         <br>
 
         <div class="padded"  ng-show="isResubmitting">
             <b>Why are are you resubmitting?</b><br>
-            <textarea cols="50" name="resubmitting" ng-model="submissionData.resubmitComment" placeholder="Reason for modifying?" maxlength="1000" ng-required="isResubmitting"></textarea>
+            <textarea class="mobileCompatable" cols="50" name="resubmitting" ng-model="submissionData.resubmitComment" placeholder="Reason for modifying?" maxlength="1000" ng-required="isResubmitting"></textarea>
         </div>
         <br>
 

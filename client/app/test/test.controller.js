@@ -3,9 +3,7 @@
 angular.module('umm3601ursamajorApp')
   .controller('TestCtrl', function ($scope,$document,$http, $window) {
 
-
         $scope.textArea = "I love candy so bloody much";
-
 
 //        console.log($document[0].getElementById('ta').selectionStart);
 //        console.log( $document.prop( "body" ) );

@@ -57,6 +57,12 @@ angular.module('umm3601ursamajorApp')
                 "All",
                 "Interested in being feature presentation",
                 "Not interested in being feature presentation"
+            ],
+            flaggedForResubmitFilterSelection: "All",
+            flaggedForResubmitFilterOptions: [
+                "All",
+                "Flagged",
+                "Not Flagged"
             ]
         };
 
@@ -88,6 +94,12 @@ angular.module('umm3601ursamajorApp')
         // Used for changing which feature presentation search is applied.
         $scope.setFeaturePresentationFilterSelection = function(str) {
             $scope.filterData.featurePresentationFilterSelection = str;
+        };
+
+        // Takes a String and sets the flag for resubmit filter selection to that string.
+        // Used for changing which flag for resubmit search is applied.
+        $scope.setFlaggedForResubmitFilterSelection = function(str) {
+            $scope.filterData.flaggedForResubmitFilterSelection = str;
         };
 
 
@@ -200,13 +212,18 @@ angular.module('umm3601ursamajorApp')
             } else {
                 return false;
             }
-//                var dlg = null;
-//                dlg = $dialogs.confirm('Confirm','Would you like to be included in future emails notifying the status change of this submission?');
-//                dlg.result.then(function(btn){
-//                    $scope.confirmed = 'You thought this quite awesome!';
-//                },function(btn){
-//                    $scope.confirmed = 'Shame on you for not thinking this is awesome!';
-//                });
+        };
+
+        $scope.flaggedForResubmitFilter = function(submission) {
+            if($scope.filterData.flaggedForResubmitFilterSelection === "All"){
+                return true;
+            } else if($scope.filterData.flaggedForResubmitFilterSelection === "Flagged"){
+                return submission.resubmissionData.resubmitFlag === true;
+            } else if($scope.filterData.flaggedForResubmitFilterSelection === "Not Flagged"){
+                return submission.resubmissionData.resubmitFlag === false;
+            } else {
+                return false;
+            }
         };
 
         $scope.searchFilter = function(submission){
@@ -389,14 +406,17 @@ angular.module('umm3601ursamajorApp')
                         $filter('filter')(
                             $filter('filter')(
                                 $filter('filter')(
-                                    $scope.submissions,
-                                    $scope.hasPermissions
+                                    $filter('filter')(
+                                        $scope.submissions,
+                                        $scope.hasPermissions
+                                    ),
+                                    $scope.tabFilters
                                 ),
-                                $scope.tabFilters
+                                $scope.reviewGroupFilter
                             ),
-                            $scope.reviewGroupFilter
+                            $scope.featurePresentationFilter
                         ),
-                        $scope.featurePresentationFilter
+                        $scope.flaggedForResubmitFilter
                     ),
                     $scope.searchFilter
                 );
@@ -431,9 +451,13 @@ angular.module('umm3601ursamajorApp')
           return submission.approval;
         };
 
-        $scope.approveSubmission = function(submission) {
+
+        $scope.approveSubmissionConfirm = function(submission){
+            Modal.confirm.option($scope.approveSubmission(submission, true),$scope.approveSubmission(submission, false))("Did the test work?");
+        };
+
+        $scope.approveSubmission = function(submission, cc) {
             if($scope.isAdviser(submission) == true || $scope.hasAdminPrivs() == true){
-                var r = confirm("Are you sure you want to approve this submission?");
                 console.log(submission);
 //                var dlg = null;
 //                dlg = $dialogs.confirm('Confirm','Would you like to be included in future emails notifying the status change of this submission?');
@@ -442,18 +466,18 @@ angular.module('umm3601ursamajorApp')
 //                },function(btn){
 //                    $scope.confirmed = 'Shame on you for not thinking this is awesome!';
 //                });
-                if(r){
+                if(cc) {
                     var newPriority = 15;
-                    for(var k = 0; k < $scope.statusEdit.priority.length; k++){
-                        if($scope.statusEdit.priority[k] < newPriority && $scope.statusEdit.priority[k] != -15){
+                    for (var k = 0; k < $scope.statusEdit.priority.length; k++) {
+                        if ($scope.statusEdit.priority[k] < newPriority && $scope.statusEdit.priority[k] != -15) {
                             newPriority = $scope.statusEdit.priority[k]
                         }
                     }
-                    for(var i = 0; i < $scope.statusEdit.priority.length; i++){
-                        if($scope.statusEdit.priority[i] == newPriority){
+                    for (var i = 0; i < $scope.statusEdit.priority.length; i++) {
+                        if ($scope.statusEdit.priority[i] == newPriority) {
                             $scope.selection.item.status.strict = $scope.statusEdit.options[i];
-                            for(var j = 0; j < $scope.submissions.length; j++){
-                                if($scope.selection.item._id == $scope.submissions[j]._id){
+                            for (var j = 0; j < $scope.submissions.length; j++) {
+                                if ($scope.selection.item._id == $scope.submissions[j]._id) {
                                     console.log("Updates the strict of the current submission.");
                                     $scope.submissions[j].strict = $scope.statusEdit.options[i];
                                 }
@@ -461,9 +485,9 @@ angular.module('umm3601ursamajorApp')
                             //$scope.selection.item.status.text = status[i].text;
                             $http.patch('api/submissions/' + $scope.selection.item._id,
                                 {approval: true,
-                                 rejection: false,
-                                status: {strict: $scope.selection.item.status.strict, text: "This URS submission has been approved by an adviser."}}
-                            ).success(function(){
+                                    rejection: false,
+                                    status: {strict: $scope.selection.item.status.strict, text: "This URS submission has been approved by an adviser."}}
+                            ).success(function () {
                                     $scope.selection.item.approval = true;
                                     console.log("Successfully updated approval of submission (approved)");
                                 });
@@ -471,7 +495,7 @@ angular.module('umm3601ursamajorApp')
                     }
                     $scope.selection.item.status.text = "This URS Submission has been approved by an adviser.";
                     sendGmail({
-                        to: $scope.selection.item.presenterInfo.email +" "+ $scope.selection.item.copresenterOneInfo.email +" "+ $scope.selection.item.copresenterTwoInfo.email,
+                        to: $scope.selection.item.presenterInfo.email + " " + $scope.selection.item.copresenterOneInfo.email + " " + $scope.selection.item.copresenterTwoInfo.email,
                         subject: "[" + $scope.selection.item.title + "] " + $scope.statusEdit.subject[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)],
                         message: $scope.selection.item.presenterInfo.first + ", your URS abstract has been approved by your adviser. Please await reviewer comments."
                     });
@@ -482,9 +506,9 @@ angular.module('umm3601ursamajorApp')
         //CANNOT ADD IN CHAIRS' EMAILS TO SENDGMAILS BECAUSE OF THE SECURITY PRIVILEGES, SO FOR NOW WE'LL JUST SEND TO ADMIN
         $scope.rejectSubmission = function(submission) {
             if($window.confirm("As adviser of this submission, I am rejecting this submission; clarifying that this abstract should not be sent to the URS committee for review." +
-                "Are you sure you want to reject this submission?")){
+                " Are you sure you want to reject this submission?")){
                 if($window.confirm('Would you like to send an email to the presenter(s) of this submission clarifying why you have rejected the submission? You will be prompted to send' +
-                    'an email to the admin and chairs either way.')){
+                    ' a email to the admin and chairs either way.')){
                     sendGmail({
                         to: $scope.selection.item.presenterInfo.email +" "+ $scope.selection.item.copresenterOneInfo.email +" "+ $scope.selection.item.copresenterTwoInfo.email,
                         subject: "["+ $scope.selection.item.title + "] " + "URS submission has been rejected",
@@ -638,8 +662,7 @@ angular.module('umm3601ursamajorApp')
         $scope.approvalWordChange = function(approval){
              if(approval){
                  return "Yes";
-                 }
-             else{
+                 } else {
                  return "No";
                  }
              };

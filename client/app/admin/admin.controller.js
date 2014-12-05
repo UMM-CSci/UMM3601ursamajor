@@ -68,7 +68,7 @@ angular.module('umm3601ursamajorApp')
 
         $scope.toggleStats = function(){
             $scope.resetToggles();
-            $scope.toggles.statsToggle = true
+            $scope.toggles.statsToggle = true;
         };
 
         $scope.toggleSubEditor = function(){

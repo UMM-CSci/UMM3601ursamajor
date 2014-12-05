@@ -88,6 +88,7 @@ hr {
     overflow: auto;
 }
 
+/*changes cursor to pointer finger*/
 .clickable {
     cursor: pointer;
     cursor: hand;
@@ -95,15 +96,22 @@ hr {
 
 /*Commit button colors*/
 .responseButton {
-    background-color: royalblue;
+    background-color: #428BCA;
     color: #ffffff;
 }
 
+.responseButton:hover {
+    background-color: #3276B1;
+    color: #ffffff;
+}
+
+/*Delete button colors*/
 .deleteButton {
     background-color: indianred;
     color: #ffffff;
 }
 
+/*list formatting for comments*/
 .plainList {
     list-style: none;
     padding: 0;
@@ -112,6 +120,13 @@ hr {
 .plainList li {
     margin: 0;
     margin-top: 8px;
+}
+
+/*Comment Styling*/
+.commentStyle {
+    border-width: 0;
+    color: navy;
+    background-color: #CDE9FF;
 }
 
 /*
