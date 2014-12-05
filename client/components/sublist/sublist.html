@@ -168,21 +168,7 @@
                     </div>
                 </li>
             </ul>
-            <br>
-            <p ng-show="isAdmin()">You are seeing this submission because you are an:</p>
-            <p ng-show="isAdmin()">admin</p>
-            <p ng-show="!isAdmin()">You are seeing this submission because you are a:</p>
-            <p ng-show="isChair()">chair</p>
-            <p ng-show="isPresenter(selection.item)">presenter of this submission</p>
-            <p ng-show="isCoPresenter(selection.item)">co-presenter of this submission</p>
-            <p ng-show="isAdviser(selection.item)">adviser of this submission</p>
-            <p ng-show="isReviewerGroup(selection.item)">reviewer in Reviewer Group {{selection.item.group}}</p>
-            <b>Currently Assigned Review Group:</b>
-            <select ng-change="setReviewGroup(selection.item)" ng-model="selection.reviewGroup">
-                <option ng-repeat="option in groupOptions" value={{option}}>{{option}}</option>
-            </select>
-        </li>
-    </ul>
+
 
             <pagination ng-show="selection.item.comments.length > 10" class="pagination-sm" total-items="selection.item.comments.length" ng-model="currentCommentPage"></pagination>
         </div>
