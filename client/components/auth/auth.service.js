@@ -109,8 +109,6 @@ angular.module('umm3601ursamajorApp')
 //TODO: make this work
         updateTShirtSize: function(size, callback) {
            var cb = callback || angular.noop;
-            console.log(size);
-            console.log("cool");
             return User.updateTShirtSize(
                 {id: currentUser._id},
                 {
