@@ -96,8 +96,16 @@ angular.module('umm3601ursamajorApp')
             return count;
         };
 
+        $scope.testYes = function(){
+            console.log("yes");
+        }
+        $scope.testNo = function(){
+            console.log("No");
+        }
+
+
         $scope.testConfirm = function(){
-            Modal.confirm.option(console.log("yes"),(console.log("no")))("Did the test work?");
+            Modal.confirm.option($scope.testYes,$scope.testNo)("Did the test work?");
         };
 
 

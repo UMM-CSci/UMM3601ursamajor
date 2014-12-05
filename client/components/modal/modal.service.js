@@ -146,8 +146,62 @@ angular.module('umm3601ursamajorApp')
                       callback.apply(event, args);
                   });
               }
-          }
+          },
 
+          option: function(callbackYes, callbackNo){
+              callbackYes = callbackYes || angular.noop;
+              callbackNo = callbackNo || angular.noop;
+              /**
+               * Open an info confirmation modal
+               * @param {String} content - text for the confirmation modal
+               * @param {All}         - Any additional arguments are passed to the callback
+               */
+              return function() {
+                  var args = Array.prototype.slice.call(arguments),
+                      content = args.shift(),
+                      optionModal;
+                  var clicked = "?";
+
+                  optionModal = openModal({
+                      modal: {
+
+                          dismissable: true,
+                          title: "Confirm",
+                          html: '<p>' + content + '</p>',
+                          buttons: [{
+                              classes: 'btn-info',
+                              text: 'Yes',
+                              click: function(e) {
+                                  clicked = "yes";
+                                  optionModal.close(e);
+                              }
+                          }, {
+                              classes: 'btn-danger',
+                              text: 'No',
+                              click: function(e) {
+                                  clicked = "no";
+                                  optionModal.close(e);
+                              }
+                          }, {
+                              classes:"btn-default",
+                              text: "Cancel",
+                              click: function(e) {
+                                  optionModal.dismiss(e);
+                              }
+                          }]
+                      }
+                  }, 'modal-info');
+
+                  optionModal.result.then(function(event) {
+                      if(clicked == "yes"){
+                          callbackYes.apply(event, args);
+                      } else {
+                          callbackNo.apply(event, args);
+                      }
+
+                  });
+              }
+          }
 
       }
     };
