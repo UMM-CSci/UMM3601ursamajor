@@ -114,14 +114,6 @@ describe('Functions dealing with submissions...', function() {
         expect(1).toEqual(1);
     });
 
-//    describe('featurePresentation', function(){
-//        it('Should return true if featured is true, return false is featured is false',
-//            inject(function(featurePresentationFilter){
-//                expect(featurePresentationFilter(scope.submissions[0])).toEqual(false);
-//                expect(featurePresentationFilter(scope.submissions[1])).toEqual(true);
-//            }))
-//    });
-
     describe('Functions controlling filtering...', function(){
         // Injecting the whole filter service here might be bad practice? IDK, but it works.
         it('Default review group filter should show ALL submissions...', inject(['$filter', function($filter) {
@@ -131,6 +123,13 @@ describe('Functions dealing with submissions...', function() {
         it('User with admin role should have admin privs.', inject(function(Auth){Auth.setCurrentUser("admin@admin.com", "admin", 1)}), function() {
             expect(scope.hasAdminPrivs()).toEqual(true);
         });
+
+//        it('Should return true if featured is true, return false is featured is false', inject(['$filter', function(featurePresentationFilter) {
+//            var $scope.filterData.featurePresentationFilterSelection = "";
+//            scope.setFeaturePresentationFilterSelection("All");
+//            expect(scope.featurePresentationFilter(scope.submissions[0]).toEqual(true);
+////                expect(scope.featurePresentationFilter(scope.submissions[1])).toEqual(false);
+//            }]));
 
         it("Submission's assigned review group members should be in same review group", inject(function(Auth){Auth.setCurrentUser("admin@admin.com", "admin", 3)}), function() {
             expect(scope.isReviewerGroup(scope.submissions[0])).toEqual(true);
