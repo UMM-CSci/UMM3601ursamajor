@@ -7,6 +7,10 @@
 
     </div>
 
+    <button ng-show="isAdmin()" ng-click="adminAutoSubmit(1)" class="btn btn-danger btn-block">ADMIN AUTO SUBMIT (1x)</button>
+    <button ng-show="isAdmin()" ng-click="adminAutoSubmit(5)" class="btn btn-danger btn-block">ADMIN AUTO SUBMIT (5x)</button>
+    <button ng-show="isAdmin()" ng-click="adminAutoSubmit(10)" class="btn btn-danger btn-block">ADMIN AUTO SUBMIT (10x)</button>
+
     <pre class="preStyleH1">{{submissionText.title}} </pre>
 
     <pre class="preStyle">{{submissionText.adviserDisclaimer}}</pre>
