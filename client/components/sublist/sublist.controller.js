@@ -486,7 +486,7 @@ angular.module('umm3601ursamajorApp')
         };
 
         $scope.approveSubmissionConfirm = function(){
-            Modal.confirm.option($scope.approveHelpYes,$scope.approveHelpNo)("Would you like to receive e-mail updates on changes of this submission?");
+            Modal.confirm.approval($scope.approveHelpYes,$scope.approveHelpNo)("You are approving: [" + $scope.selection.item.title + "], would you like to receive e-mail updates on changes of this submission?");
         };
 
         $scope.approveHelpNo = function(submission){
@@ -496,7 +496,7 @@ angular.module('umm3601ursamajorApp')
                 subject: "[" + $scope.selection.item.title + "] " + $scope.statusEdit.subject[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)],
                 message: $scope.selection.item.presenterInfo.first + ", your URS abstract has been approved by your adviser. Please await reviewer comments."
             });
-        }
+        };
 
         $scope.approveHelpYes = function(submission){
             $scope.approveSubmission(submission);
@@ -511,7 +511,7 @@ angular.module('umm3601ursamajorApp')
                 subject: "[" + $scope.selection.item.title + "] " + $scope.statusEdit.subject[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)],
                 message: $scope.selection.item.presenterInfo.first + ", your URS abstract has been approved by your adviser. Please await reviewer comments."
             });
-        }
+        };
 
         $scope.approveSubmission = function(submission) {
             if($scope.isAdviser(submission) == true || $scope.hasAdminPrivs() == true){
@@ -645,6 +645,10 @@ angular.module('umm3601ursamajorApp')
                 $scope.resetTemps();
             }
         };
+
+//        $scope.submitStatusEditConfirm = function(){
+//            Modal.confirm.option()
+//        }
 
         $scope.submitStatusEdit = function(){
             $http.patch('api/submissions/' + $scope.selection.item._id,
