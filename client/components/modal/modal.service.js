@@ -30,6 +30,51 @@ angular.module('umm3601ursamajorApp')
       /* Confirmation modals */
       confirm: {
 
+          /**
+           * Create a function to open a delete confirmation modal (ex. ng-click='myModalFn(name, arg1, arg2...)')
+           * @param  {Function} del - callback, ran when delete is confirmed
+           * @return {Function}     - the function to open the modal (ex. myModalFn)
+           */
+          reject: function(del) {
+              del = del || angular.noop;
+
+              /**
+               * Open a delete confirmation modal
+               * @param  {String} name   - name or info to show on modal
+               * @param  {All}           - any additional args are passed staight to del callback
+               */
+              return function() {
+                  var args = Array.prototype.slice.call(arguments),
+                      name = args.shift(),
+                      rejectModal;
+
+                  rejectModal = openModal({
+                      modal: {
+                          dismissable: true,
+                          title: 'Confirm Submission Rejection',
+                          html: '<p>Are you sure you want to reject <strong>' + name + '</strong> ?</p>',
+                          buttons: [{
+                              classes: 'btn-danger',
+                              text: 'Confirm',
+                              click: function(e) {
+                                  rejectModal.close(e);
+                              }
+                          }, {
+                              classes: 'btn-default',
+                              text: 'Cancel',
+                              click: function(e) {
+                                  rejectModal.dismiss(e);
+                              }
+                          }]
+                      }
+                  }, 'modal-danger');
+
+                  rejectModal.result.then(function(event) {
+                      del.apply(event, args);
+                  });
+              };
+          },
+
         /**
          * Create a function to open a delete confirmation modal (ex. ng-click='myModalFn(name, arg1, arg2...)')
          * @param  {Function} del - callback, ran when delete is confirmed
@@ -43,36 +88,36 @@ angular.module('umm3601ursamajorApp')
            * @param  {String} name   - name or info to show on modal
            * @param  {All}           - any additional args are passed staight to del callback
            */
-          return function() {
-            var args = Array.prototype.slice.call(arguments),
-                name = args.shift(),
-                deleteModal;
+            return function() {
+                var args = Array.prototype.slice.call(arguments),
+                    name = args.shift(),
+                    deleteModal;
 
-            deleteModal = openModal({
-              modal: {
-                dismissable: true,
-                title: 'Confirm Delete',
-                html: '<p>Are you sure you want to delete <strong>' + name + '</strong> ?</p>',
-                buttons: [{
-                  classes: 'btn-danger',
-                  text: 'Delete',
-                  click: function(e) {
-                    deleteModal.close(e);
-                  }
-                }, {
-                  classes: 'btn-default',
-                  text: 'Cancel',
-                  click: function(e) {
-                    deleteModal.dismiss(e);
-                  }
-                }]
-              }
-            }, 'modal-danger');
+                deleteModal = openModal({
+                    modal: {
+                        dismissable: true,
+                        title: 'Confirm Delete',
+                        html: '<p>Are you sure you want to delete <strong>' + name + '</strong> ?</p>',
+                        buttons: [{
+                            classes: 'btn-danger',
+                            text: 'Delete',
+                            click: function(e) {
+                                deleteModal.close(e);
+                            }
+                        }, {
+                            classes: 'btn-default',
+                            text: 'Cancel',
+                            click: function(e) {
+                                deleteModal.dismiss(e);
+                            }
+                        }]
+                    }
+                }, 'modal-danger');
 
-            deleteModal.result.then(function(event) {
-              del.apply(event, args);
-            });
-          };
+                deleteModal.result.then(function(event) {
+                    del.apply(event, args);
+                });
+            };
         },
 
         info: function(callback) {
@@ -176,7 +221,7 @@ angular.module('umm3601ursamajorApp')
                                   optionModal.close(e);
                               }
                           }, {
-                              classes: 'btn-danger',
+                              classes: 'btn-default',
                               text: 'No',
                               click: function(e) {
                                   clicked = "no";

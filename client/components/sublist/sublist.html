@@ -70,7 +70,7 @@
 
             <div class="btn-group sideMargins moveRight">
                 <button ng-show="(isAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-success  " ng-click="approveSubmissionConfirm(selection.item)">  Give adviser approval  <span class="glyphicon glyphicon-thumbs-up"></span></button>
-                <button ng-show="(isAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-danger " ng-click="rejectSubmission(selection.item)">  Reject Submission  <span class="glyphicon glyphicon-thumbs-down"></span></button>
+                <button ng-show="(isAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-danger " ng-click="rejectSubmissionConfirm(selection.item)">  Reject Submission  <span class="glyphicon glyphicon-thumbs-down"></span></button>
             </div>
 
                     <br>
