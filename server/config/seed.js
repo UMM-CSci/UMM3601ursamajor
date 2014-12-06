@@ -320,6 +320,7 @@ Submission.find({}).remove(function(){
         status:  {strict: "Awaiting Adviser Approval", text: "Your adviser has yet to approve this submission."},
         timestamp: "Sat Oct 18 2014 10:48:54 GMT-0500 (CDT)",
         group: 0,
+        roomAssignment: "Science 2610",
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
         comments: [],
         reviewVotes: {
@@ -359,6 +360,7 @@ Submission.find({}).remove(function(){
         status: {strict: "Revisions Needed", text: "Your URS submission has been flagged for revisions, and is in need of changes."},
         timestamp: "Tue Oct 21 2014 23:22:54 GMT-0500 (CDT)",
         group: 1,
+        roomAssignment: "Imholte 109",
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
         comments:[],
         reviewVotes: {
@@ -404,6 +406,7 @@ Submission.find({}).remove(function(){
         status: {strict: "Awaiting Adviser Approval", text: "Your adviser has yet to approve this submission."},
         timestamp: "Mon Sept 2 2014 1:48:54 GMT-0500 (CDT)",
         group: 1,
+        roomAssignment: "Science 2610",
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
         comments: [],
         reviewVotes: {
@@ -443,6 +446,7 @@ Submission.find({}).remove(function(){
         status: {strict: "Reviewing in Process", text: "Your URS submission has been approved by your adviser"},
         timestamp: "Mon Oct 20 2014 1:48:54 GMT-0500 (CDT)",
         group: 3,
+        roomAssignment: "Science 2610",
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
         comments: [],
         reviewVotes: {
@@ -481,6 +485,7 @@ Submission.find({}).remove(function(){
         status: {strict: "Accepted", text: "Your URS submission has been approved, congratulations!"},
         timestamp: "Thur Oct 23 2014 1:48:54 GMT-0500 (CDT)",
         group: 2,
+        roomAssignment: "Science 2610",
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
         comments: [],
         reviewVotes: {
@@ -517,6 +522,7 @@ Submission.find({}).remove(function(){
         status: {strict: "Awaiting Adviser Approval", text: "Your adviser has yet to approve this submission."},
         timestamp: "Mon Oct 20 2014 1:48:54 GMT-0500 (CDT)",
         group: 3,
+        roomAssignment: "HFA 6",
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
         comments: [],
         reviewVotes: {
