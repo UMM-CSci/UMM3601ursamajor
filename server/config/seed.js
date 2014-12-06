@@ -136,6 +136,26 @@ User.find({}).remove(function() {
             role: "chair",
             __v: 0
         }, {
+            name: "Niccolas Ricci",
+            email: "ricc0082@morris.umn.edu",
+            provider: "google",
+            google: {
+                hd: "morris.umn.edu",
+                locale: "en",
+                gender: "male",
+                picture: "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg",
+                link: "https://plus.google.com/112108475765702437555",
+                family_name: "Ricci",
+                given_name: "Niccolas",
+                name: "Niccolas Ricci",
+                verified_email: true,
+                email: "ricc0082@morris.umn.edu",
+                id: "112108475765702437555"
+            },
+            group: -1,
+            role: "user",
+            __v: 0
+        }, {
             name: "Maggie Casale",
             email: "casal033@morris.umn.edu",
             provider: "google",
