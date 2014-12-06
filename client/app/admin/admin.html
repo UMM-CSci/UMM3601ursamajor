@@ -38,12 +38,14 @@
                     </div>
                 </li>
                 <li class="list-group-item">
-                    <p>Total number of submissions stored: {{totalSubmissions()}}</p>
-                    <p>Total number of registered users: {{totalUsers()}}</p>
-                    <p>Number of submissions flagged for resubmit: {{resubmitFlags()}}</p>
-                    <p>Number of non-primary submissions: {{unapprovedResubmits()}}</p>
+                    <p>Total number of primary submissions: {{trackedSubmissions()}}</p>
+                    <p>Total number of submission items stored: {{totalSubmissions()}}</p>
+                    <hr>
+                    <p>Percentage of stored submissions that are primary submissions: {{precentageTracked()}}%</p>
                     <br>
-                    <p>Note that "total number of submissions stored" currently includes resubmissions.</p>
+                    <p>Total number of registered users: {{totalUsers()}}</p>
+                    <p>Number of submissions currently flagged for re-submission: {{resubmitFlags()}}</p>
+                    <br>
                 </li>
             </ul>
         </div>
