@@ -646,9 +646,30 @@ angular.module('umm3601ursamajorApp')
             }
         };
 
-//        $scope.submitStatusEditConfirm = function(){
-//            Modal.confirm.option()
-//        }
+        $scope.submitStatusEditConfirm = function(){
+            Modal.confirm.option($scope.statusEditHelpYes,$scope.submitStatusEdit)('Would you like to generate an email for the status change?')
+
+        };
+
+        $scope.statusEditHelpYes = function(){
+            $scope.submitStatusEdit();
+            if($scope.selection.item.cc){
+                sendGmailWithCC({
+                    to: $scope.selection.item.presenterInfo.email + " " + $scope.selection.item.copresenterOneInfo.email + " " + $scope.selection.item.copresenterTwoInfo.email,
+                    cc: $scope.selection.item.adviserInfo.email,
+                    subject: "[" + $scope.selection.item.title + "] " + $scope.statusEdit.subject[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)],
+                    message: $scope.selection.item.presenterInfo.first +
+                        $scope.statusEdit.body[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)]
+                });
+            }else {
+                sendGmail({
+                    to: $scope.selection.item.presenterInfo.email + " " + $scope.selection.item.copresenterOneInfo.email + " " + $scope.selection.item.copresenterTwoInfo.email,
+                    subject: "[" + $scope.selection.item.title + "] " + $scope.statusEdit.subject[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)],
+                    message: $scope.selection.item.presenterInfo.first +
+                        $scope.statusEdit.body[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)]
+                });
+            }
+        };
 
         $scope.submitStatusEdit = function(){
             $http.patch('api/submissions/' + $scope.selection.item._id,
@@ -673,27 +694,8 @@ angular.module('umm3601ursamajorApp')
                         console.log("Successfully updated approval of submission (approved)");
                     });
             }
-
             $scope.selection.item.status.strict = $scope.statusEdit.temp.strict;
             $scope.selection.item.status.text = $scope.statusEdit.temp.text;
-
-            //--------------------------------------------- Gmail Things ---------------------------------------
-            if($scope.selection.item.cc){
-                sendGmailWithCC({
-                    to: $scope.selection.item.presenterInfo.email + " " + $scope.selection.item.copresenterOneInfo.email + " " + $scope.selection.item.copresenterTwoInfo.email,
-                    cc: $scope.selection.item.adviserInfo.email,
-                    subject: "[" + $scope.selection.item.title + "] " + $scope.statusEdit.subject[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)],
-                    message: $scope.selection.item.presenterInfo.first +
-                        $scope.statusEdit.body[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)]
-                });
-            }else {
-                sendGmail({
-                    to: $scope.selection.item.presenterInfo.email + " " + $scope.selection.item.copresenterOneInfo.email + " " + $scope.selection.item.copresenterTwoInfo.email,
-                    subject: "[" + $scope.selection.item.title + "] " + $scope.statusEdit.subject[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)],
-                    message: $scope.selection.item.presenterInfo.first +
-                        $scope.statusEdit.body[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)]
-                });
-            }
             $scope.resetTemps();
             $scope.editStatus();
         };
