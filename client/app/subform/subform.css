@@ -5,13 +5,21 @@
     font-size: 12px;
 }
 
-/*Adds padding*/
+/*Adds padding & mobile formatting for text*/
 .padded {
    /*outline: dashed red 2px; */
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
+/*Adds formatting for mobile*/
+
+
+@media screen and (max-device-width: 500px) {
+    .mobileCompatable {
+        width: 20em;
+    }
+}
 /*Formats a group of elements to line up*/
 .stacked {
     display: inline;
@@ -55,7 +63,7 @@
     background-color: ghostwhite;
     border: 0px;
     overflow: hidden;
-    word-break: break-all;
+    word-break: normal;
     word-wrap: normal;
     white-space: pre-wrap;
     white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */

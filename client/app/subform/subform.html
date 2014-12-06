@@ -7,6 +7,10 @@
 
     </div>
 
+    <button ng-show="isAdmin()" ng-click="adminAutoSubmit(1)" class="btn btn-danger btn-block">ADMIN AUTO SUBMIT (1x)</button>
+    <button ng-show="isAdmin()" ng-click="adminAutoSubmit(5)" class="btn btn-danger btn-block">ADMIN AUTO SUBMIT (5x)</button>
+    <button ng-show="isAdmin()" ng-click="adminAutoSubmit(10)" class="btn btn-danger btn-block">ADMIN AUTO SUBMIT (10x)</button>
+
     <pre class="preStyleH1">{{submissionText.title}} </pre>
 
     <pre class="preStyle">{{submissionText.adviserDisclaimer}}</pre>
@@ -40,18 +44,20 @@
         <p>{{submissionText.scienceCriteria}}</p>
     </details>
 
+    <pre class="preStyle">{{submissionText.notes3}}</pre>
+
     <!-- Potentially add link to adviser form, or a way to email the adviser about the form. -->
 
     <hr>
 
     <form  ng-submit="preSubmitChecks()" id="form1">
-        <label class="padded">
+        <label class="padded mobileCompatable">
             <pre class="preStyle">{{submissionText.submissionTitle}}</pre>
-            <textarea ng-model="submissionData.title" cols="50" name="Presentation Title" maxlength="350" required></textarea>
+            <textarea class="mobileCompatable" ng-model="submissionData.title" cols="50" name="Presentation Title" maxlength="350" required></textarea>
         </label>
         <br>
 
-        <label class="padded">
+        <label class="padded mobileCompatable">
             <pre class="preStyle">{{submissionText.submissionFormat}}</pre>
             <div>
                 <select  ng-model="submissionData.format" placeholder="select one" required ng-required>
@@ -62,15 +68,15 @@
         </label>
         <br>
 
-        <label class="padded ">
+        <label class="padded mobileCompatable">
             <pre class="preStyle">{{submissionText.submissionAbstract}}</pre>
             <pre class="preStyleSmall">{{submissionText.submissionAbstractNotes}}</pre>
-            <textarea ng-model="submissionData.abstract" cols="50" name="abstract" maxlength="1000" required></textarea>
+            <textarea class="mobileCompatable" ng-model="submissionData.abstract" cols="50" name="abstract" maxlength="1000" required></textarea>
             <br> <span>{{charsRemaining()}} characters remaining.</span>
         </label>
         <br>
 
-        <label class="padded">
+        <label class="padded mobileCompatable">
             <pre class="preStyle">{{submissionText.submissionPresentationType}}</pre>
             <select ng-model="submissionData.presentationType" required>
                 <option value="" disabled selected>Select One</option>
@@ -80,7 +86,7 @@
         <br>
 
 
-        <div class="padded">
+        <div class="padded mobileCompatable">
             <b><pre class="preStyle">{{submissionText.submissionFormatChange}}</pre></b>
             <pre class="preStyleSmall">{{submissionText.submissionChangeNotes}}</pre>
             <label>
@@ -93,33 +99,33 @@
             <br>
         </div>
 
-        <div class="padded">
+        <div class="padded mobileCompatable">
             <b><pre class="preStyle">{{submissionText.submissionPresenter}}</pre></b>
             <input type="text" name="presenter_first" placeholder="first name" ng-model="submissionData.presenterInfo.first" required>
             <input type="text" name="presenter_last" placeholder="last name" ng-model="submissionData.presenterInfo.last" required><br>
             <input type="email" name="presenter_email" placeholder="full email address" ng-model="submissionData.presenterInfo.email" required><br>
         </div>
 
-        <div class="padded">
+        <div class="padded mobileCompatable">
             <b><pre class="preStyle">{{submissionText.submissionCopresenterOne}}</pre></b>
             <input type="text" name="copresenterOne_first" placeholder="first name" ng-model="submissionData.copresenterOne.first">
             <input type="text" name="copresenterOne_last" placeholder="last name" ng-model="submissionData.copresenterOne.last"><br>
             <input type="email" name="copersenterOne_email" placeholder="full email address" ng-model="submissionData.copresenterOne.email"><br>
         </div>
 
-        <div class="padded">
+        <div class="padded mobileCompatable">
             <b><pre class="preStyle">{{submissionText.submissionCopresenterTwo}}</pre></b>
             <input type="text" name="copresenterTwo_first" placeholder="first name" ng-model="submissionData.copresenterTwo.first">
             <input type="text" name="copresenterTwo_last" placeholder="last name" ng-model="submissionData.copresenterTwo.last"><br>
             <input type="email" name="copersenterTwo_email" placeholder="full email address" ng-model="submissionData.copresenterTwo.email"><br>
         </div>
 
-        <label class="padded">
+        <label class="padded mobileCompatable">
             <input type="text" name="discipline" placeholder="Academic Discipline" ng-model="submissionData.discipline" required>
         </label>
         <br>
 
-        <div class="padded">
+        <div class="padded mobileCompatable">
             <b><pre class="preStyle">{{submissionText.submissionSponsors}}</pre></b>
             <pre class="preStyleSmall">{{submissionText.submissionSponsorsNotes}}</pre>
             <label ng-repeat="source in fundingSources" class="stacked">
@@ -128,7 +134,7 @@
             <input type="text" placeholder="Other?" ng-model="submissionData.sponsors[numberOfSources]">
         </div>
 
-        <div class="padded">
+        <div class="padded mobileCompatable">
             <b><pre class="preStyle">{{submissionText.submissionAdviser}}</pre></b>
             <pre class="preStyleSmall">{{submissionText.submissionAdviserNotes}}</pre>
             <input type="text" required placeholder="first name" ng-model="submissionData.adviserInfo.first">
@@ -136,7 +142,7 @@
             <input type="email" required placeholder="full email address" ng-model="submissionData.adviserInfo.email">
         </div>
 
-        <div class="padded">
+        <div class="padded mobileCompatable">
         <!--<b><pre class="preStyle">{{submissionText.submissionAdviser}}</pre></b>-->
             <b><pre class="preStyle">{{submissionText.submissionCoadviserOne}}</pre></b>
             <input type="text"  placeholder="first name" ng-model="submissionData.coadviserOneInfo.first">
@@ -144,14 +150,14 @@
             <input type="email"  placeholder="full email address" ng-model="submissionData.coadviserOneInfo.email">
         </div>
 
-        <div class="padded">
+        <div class="padded mobileCompatable">
             <b><pre class="preStyle">{{submissionText.submissionCoadviserTwo}}</pre></b>
             <input type="text"  placeholder="first name" ng-model="submissionData.coadviserTwoInfo.first">
             <input type="text"  placeholder="last name" ng-model="submissionData.coadviserTwoInfo.last"><br>
             <input type="email"  placeholder="full email address" ng-model="submissionData.coadviserTwoInfo.email">
         </div>
 
-        <div class="padded">
+        <div class="padded mobileCompatable">
             <b><pre class="preStyle">{{submissionText.submissionFeatured}}</pre></b>
             <label>
                 <input ng-model="submissionData.featuredPresentation" type="radio" name="featuredPresentation" value="yes" ng-value="true" required> Yes
@@ -163,15 +169,15 @@
         </div>
         <br>
 
-        <div class="padded">
+        <div class="padded mobileCompatable">
             <b><pre class="preStyle">{{submissionText.submissionMediaServices}}</pre></b>
-            <textarea cols="50" name="mediaServices" ng-model="submissionData.mediaServicesEquipment" placeholder="Explain in detail." maxlength="1000"></textarea>
+            <textarea class="mobileCompatable" cols="50" name="mediaServices" ng-model="submissionData.mediaServicesEquipment" placeholder="Explain in detail." maxlength="1000"></textarea>
         </div>
         <br>
 
-        <div class="padded">
+        <div class="padded mobileCompatable">
             <b><pre class="preStyle">{{submissionText.submissionSpecialRequirements}}</pre></b>
-            <textarea name="specialRequirements"  cols="50" ng-model="submissionData.specialRequirements" placeholder="Explain in detail." maxlength="1000"></textarea>
+            <textarea class="mobileCompatable" name="specialRequirements"  cols="50" ng-model="submissionData.specialRequirements" placeholder="Explain in detail." maxlength="1000"></textarea>
         </div>
 
         <!--<label class="padded">-->
@@ -185,15 +191,15 @@
 
         <br>
 
-        <div class="padded">
+        <div class="padded mobileCompatable">
             <b><pre class="preStyle">{{submissionText.submissionOther}}</pre></b>
-            <textarea cols="50" name="otherInfo" ng-model="submissionData.otherInfo" placeholder="Other info?" maxlength="1000"></textarea>
+            <textarea class="mobileCompatable" cols="50" name="otherInfo" ng-model="submissionData.otherInfo" placeholder="Other info?" maxlength="1000"></textarea>
         </div>
         <br>
 
-        <div class="padded"  ng-show="isResubmitting">
+        <div class="padded mobileCompatable"  ng-show="isResubmitting">
             <b>Why are are you resubmitting?</b><br>
-            <textarea cols="50" name="resubmitting" ng-model="submissionData.resubmitComment" placeholder="Reason for modifying?" maxlength="1000" ng-required="isResubmitting"></textarea>
+            <textarea class="mobileCompatable" cols="50" name="resubmitting" ng-model="submissionData.resubmitComment" placeholder="Reason for modifying?" maxlength="1000" ng-required="isResubmitting"></textarea>
         </div>
         <br>
 

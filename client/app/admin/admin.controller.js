@@ -24,9 +24,16 @@ angular.module('umm3601ursamajorApp')
         });
 
         //-------------------------- Stats view functions -------------------------------
+       $scope.trackedSubmissions = function(){
+          return $filter('filter')($scope.submissions, function(sub){return sub.resubmissionData.isPrimary}).length;
+       };
 
        $scope.totalSubmissions = function(){
            return $scope.submissions.length;
+       };
+
+       $scope.precentageTracked = function(){
+           return Math.round(($scope.trackedSubmissions() / $scope.totalSubmissions()) * 100);
        };
 
        $scope.totalUsers = function(){
@@ -68,7 +75,7 @@ angular.module('umm3601ursamajorApp')
 
         $scope.toggleStats = function(){
             $scope.resetToggles();
-            $scope.toggles.statsToggle = true
+            $scope.toggles.statsToggle = true;
         };
 
         $scope.toggleSubEditor = function(){

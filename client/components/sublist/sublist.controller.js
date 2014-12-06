@@ -2,9 +2,9 @@
  * Created by opdah023 on 10/9/14.
  */
 'use strict';
- //When we tested this function, it worked correctly with only two
- //parameters given, until we checked the final else case, in which
- // case it broke with only two parameters
+//When we tested this function, it worked correctly with only two
+//parameters given, until we checked the final else case, in which
+// case it broke with only two parameters
 angular.module('umm3601ursamajorApp')
     .filter('isntEmpty', function(){
         return function(input, title, altTitle){
@@ -59,6 +59,18 @@ angular.module('umm3601ursamajorApp')
                 "All",
                 "Interested in being feature presentation",
                 "Not interested in being feature presentation"
+            ],
+            flaggedForResubmitFilterSelection: "All",
+            flaggedForResubmitFilterOptions: [
+                "All",
+                "Flagged",
+                "Not Flagged"
+            ],
+            pendingResubmissionsSelection: "All",
+            pendingResubmissionsOptions: [
+                "All",
+                "Pending Resubmissions",
+                "Not Pending Resubmissions"
             ]
         };
 
@@ -92,6 +104,15 @@ angular.module('umm3601ursamajorApp')
             $scope.filterData.featurePresentationFilterSelection = str;
         };
 
+        // Takes a String and sets the flag for resubmit filter selection to that string.
+        // Used for changing which flag for resubmit search is applied.
+        $scope.setFlaggedForResubmitFilterSelection = function(str) {
+            $scope.filterData.flaggedForResubmitFilterSelection = str;
+        };
+
+        $scope.setPendingResubmissionsSelection = function(str) {
+            $scope.filterData.pendingResubmissionsSelection = str;
+        };
 
         // Takes no arguments and returns true if the user provided by Auth is an admin, or is in the admin group.
         $scope.hasAdminPrivs = function(){
@@ -121,8 +142,8 @@ angular.module('umm3601ursamajorApp')
         $scope.isAdviser = function(submission) {
             if(submission == null) return false;
             if($scope.email === submission.adviserInfo.email ||
-               $scope.email === submission.coadviserOneInfo.email ||
-               $scope.email === submission.coadviserTwoInfo.email){
+                $scope.email === submission.coadviserOneInfo.email ||
+                $scope.email === submission.coadviserTwoInfo.email){
                 return true;
             } else {
                 return false;
@@ -158,9 +179,9 @@ angular.module('umm3601ursamajorApp')
                 return true;
             } else {
                 return $scope.isPresenter(submission) ||
-                       $scope.isCoPresenter(submission) ||
-                       $scope.isAdviser(submission) ||
-                       $scope.isReviewerGroup(submission)
+                    $scope.isCoPresenter(submission) ||
+                    $scope.isAdviser(submission) ||
+                    $scope.isReviewerGroup(submission)
             }
         };
 
@@ -183,13 +204,6 @@ angular.module('umm3601ursamajorApp')
             } else {
                 return false;
             }
-//                var dlg = null;
-//                dlg = $dialogs.confirm('Confirm','Would you like to be included in future emails notifying the status change of this submission?');
-//                dlg.result.then(function(btn){
-//                    $scope.confirmed = 'You thought this quite awesome!';
-//                },function(btn){
-//                    $scope.confirmed = 'Shame on you for not thinking this is awesome!';
-//                });
         };
 
         $scope.featurePresentationFilter = function(submission) {
@@ -202,13 +216,30 @@ angular.module('umm3601ursamajorApp')
             } else {
                 return false;
             }
-//                var dlg = null;
-//                dlg = $dialogs.confirm('Confirm','Would you like to be included in future emails notifying the status change of this submission?');
-//                dlg.result.then(function(btn){
-//                    $scope.confirmed = 'You thought this quite awesome!';
-//                },function(btn){
-//                    $scope.confirmed = 'Shame on you for not thinking this is awesome!';
-//                });
+        };
+
+        $scope.flaggedForResubmitFilter = function(submission) {
+            if($scope.filterData.flaggedForResubmitFilterSelection === "All"){
+                return true;
+            } else if($scope.filterData.flaggedForResubmitFilterSelection === "Flagged"){
+                return submission.resubmissionData.resubmitFlag === true;
+            } else if($scope.filterData.flaggedForResubmitFilterSelection === "Not Flagged"){
+                return submission.resubmissionData.resubmitFlag === false;
+            } else {
+                return false;
+            }
+        };
+
+        $scope.pendingResubmissionsFilter = function(submission) {
+            if($scope.filterData.pendingResubmissionsSelection === "All"){
+                return true;
+            } else if($scope.filterData.pendingResubmissionsSelection === "Pending Resubmissions"){
+                return $scope.getResubmission(submission) != null;
+            } else if($scope.filterData.pendingResubmissionsSelection === "Not Pending Resubmissions"){
+                return $scope.getResubmission(submission) === null;
+            } else {
+                return false;
+            }
         };
 
         $scope.searchFilter = function(submission){
@@ -226,12 +257,12 @@ angular.module('umm3601ursamajorApp')
                 (submission.coadviserOneInfo.last.toLowerCase().indexOf(searchText) != -1) ||
                 (submission.coadviserTwoInfo.first.toLowerCase().indexOf(searchText) != -1)||
                 (submission.coadviserTwoInfo.last.toLowerCase().indexOf(searchText) != -1)
-            )
+                )
         };
 
         //Returns true if the current user is listed as a presenter on ANY submission, false otherwise.
         $scope.isPresenterOnAnything = function(){
-           return ($filter('filter')($scope.submissions, $scope.isPresenter).length > 0)
+            return ($filter('filter')($scope.submissions, $scope.isPresenter).length > 0)
         };
 
         //Returns true if the current user is listed as a co-presenter on ANY submission, false otherwise.
@@ -283,19 +314,36 @@ angular.module('umm3601ursamajorApp')
             $scope.filterData.tabFilter.isReviewer = true;
         };
 
+        $scope.submitRoomAssignment = function(text){
+            console.log('got to function');
+            console.log(text);
+            if(text != ""){
+                console.log("text isnt empty");
+                $http.patch('api/submissions/' + $scope.selection.item._id,
+                    {
+                        roomAssignment: text
+                    }
+                ).success(function () {
+                        console.log("patch successful");
+                        $scope.selection.item.roomAssignment = text;
+                        console.log("changed local array");
+                        console.log("resubmission set as new primary")
+                    });
+            };
+        };
 
         $scope.tabFilters = function(submission){
-          if($scope.filterData.tabFilter.isPresenter){
-              return $scope.isPresenter(submission);
-          }  else if ($scope.filterData.tabFilter.isCoPresenter) {
-              return $scope.isCoPresenter(submission);
-          } else if ($scope.filterData.tabFilter.isReviewer) {
-              return $scope.reviewGroupFilter(submission);
-          } else if ($scope.filterData.tabFilter.isAdviser) {
-              return $scope.isAdviser(submission);
-          } else {
-              return true;
-          }
+            if($scope.filterData.tabFilter.isPresenter){
+                return $scope.isPresenter(submission);
+            }  else if ($scope.filterData.tabFilter.isCoPresenter) {
+                return $scope.isCoPresenter(submission);
+            } else if ($scope.filterData.tabFilter.isReviewer) {
+                return $scope.reviewGroupFilter(submission);
+            } else if ($scope.filterData.tabFilter.isAdviser) {
+                return $scope.isAdviser(submission);
+            } else {
+                return true;
+            }
         };
 
         // ----------------------- Getting Data from Mongo ----------------------------
@@ -362,11 +410,11 @@ angular.module('umm3601ursamajorApp')
             if ($scope.statusEdit.color.length == 0 || index == -1) {
                 return {'border-left': '4px solid rgba(255, 255, 255, 1)'};
             } else {
-            return {'border-left': '4px solid rgba(' + $scope.statusEdit.color[index].red
-                                               + ',' + $scope.statusEdit.color[index].green
-                                               + ',' + $scope.statusEdit.color[index].blue +
-                                                 ',' + $scope.statusEdit.color[index].alpha + ')'}
-        }};
+                return {'border-left': '4px solid rgba(' + $scope.statusEdit.color[index].red
+                    + ',' + $scope.statusEdit.color[index].green
+                    + ',' + $scope.statusEdit.color[index].blue +
+                    ',' + $scope.statusEdit.color[index].alpha + ')'}
+            }};
 
         $scope.statusColorBody = function(strict) {
             var index = $scope.statusEdit.options.indexOf(strict);
@@ -374,9 +422,9 @@ angular.module('umm3601ursamajorApp')
                 return {'background-color': 'rgba(255, 255, 255, 1)'};
             } else {
                 return {'background-color': 'rgba(' + $scope.statusEdit.color[index].red
-                                                        + ',' + $scope.statusEdit.color[index].green
-                                                        + ',' + $scope.statusEdit.color[index].blue +
-                                                          ',' + $scope.statusEdit.color[index].alpha *.66 + ')'}
+                    + ',' + $scope.statusEdit.color[index].green
+                    + ',' + $scope.statusEdit.color[index].blue +
+                    ',' + $scope.statusEdit.color[index].alpha *.66 + ')'}
             }};
 
 
@@ -391,14 +439,20 @@ angular.module('umm3601ursamajorApp')
                         $filter('filter')(
                             $filter('filter')(
                                 $filter('filter')(
-                                    $scope.submissions,
-                                    $scope.hasPermissions
+                                    $filter('filter')(
+                                        $filter('filter')(
+                                            $scope.submissions,
+                                            $scope.hasPermissions
+                                        ),
+                                        $scope.tabFilters
+                                    ),
+                                    $scope.reviewGroupFilter
                                 ),
-                                $scope.tabFilters
+                                $scope.featurePresentationFilter
                             ),
-                            $scope.reviewGroupFilter
+                            $scope.flaggedForResubmitFilter
                         ),
-                        $scope.featurePresentationFilter
+                        $scope.pendingResubmissionsFilter
                     ),
                     $scope.searchFilter
                 );
@@ -429,85 +483,102 @@ angular.module('umm3601ursamajorApp')
         };
 
         $scope.isApproved = function(submission) {
-          if(submission == null) return false;
-          return submission.approval;
+            if(submission == null) return false;
+            return submission.approval;
         };
+
+        $scope.approveSubmissionConfirm = function(){
+            Modal.confirm.option($scope.approveHelpYes,$scope.approveHelpNo)("Would you like to receive e-mail updates on changes of this submission?");
+        };
+
+        $scope.approveHelpNo = function(submission){
+            $scope.approveSubmission(submission);
+            sendGmail({
+                to: $scope.selection.item.presenterInfo.email + " " + $scope.selection.item.copresenterOneInfo.email + " " + $scope.selection.item.copresenterTwoInfo.email,
+                subject: "[" + $scope.selection.item.title + "] " + $scope.statusEdit.subject[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)],
+                message: $scope.selection.item.presenterInfo.first + ", your URS abstract has been approved by your adviser. Please await reviewer comments."
+            });
+        }
+
+        $scope.approveHelpYes = function(submission){
+            $scope.approveSubmission(submission);
+            $http.patch('api/submissions/' + $scope.selection.item._id,
+                {cc: true}).success(function(){
+                    $scope.selection.item.cc = true;
+                    console.log("Successfully updated approval of submission with CC checked");
+                })
+            sendGmailWithCC({
+                to: $scope.selection.item.presenterInfo.email + " " + $scope.selection.item.copresenterOneInfo.email + " " + $scope.selection.item.copresenterTwoInfo.email,
+                cc: $scope.selection.item.adviserInfo.email,
+                subject: "[" + $scope.selection.item.title + "] " + $scope.statusEdit.subject[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)],
+                message: $scope.selection.item.presenterInfo.first + ", your URS abstract has been approved by your adviser. Please await reviewer comments."
+            });
+        }
 
         $scope.approveSubmission = function(submission) {
             if($scope.isAdviser(submission) == true || $scope.hasAdminPrivs() == true){
-                var r = confirm("Are you sure you want to approve this submission?");
                 console.log(submission);
-//                var dlg = null;
-//                dlg = $dialogs.confirm('Confirm','Would you like to be included in future emails notifying the status change of this submission?');
-//                dlg.result.then(function(btn){
-//                    $scope.confirmed = 'You thought this quite awesome!';
-//                },function(btn){
-//                    $scope.confirmed = 'Shame on you for not thinking this is awesome!';
-//                });
-                if(r){
-                    var newPriority = 15;
-                    for(var k = 0; k < $scope.statusEdit.priority.length; k++){
-                        if($scope.statusEdit.priority[k] < newPriority && $scope.statusEdit.priority[k] != -15){
-                            newPriority = $scope.statusEdit.priority[k]
-                        }
+                var newPriority = 15;
+                for (var k = 0; k < $scope.statusEdit.priority.length; k++) {
+                    if ($scope.statusEdit.priority[k] < newPriority && $scope.statusEdit.priority[k] != -15) {
+                        newPriority = $scope.statusEdit.priority[k]
                     }
-                    for(var i = 0; i < $scope.statusEdit.priority.length; i++){
-                        if($scope.statusEdit.priority[i] == newPriority){
-                            $scope.selection.item.status.strict = $scope.statusEdit.options[i];
-                            for(var j = 0; j < $scope.submissions.length; j++){
-                                if($scope.selection.item._id == $scope.submissions[j]._id){
-                                    console.log("Updates the strict of the current submission.");
-                                    $scope.submissions[j].strict = $scope.statusEdit.options[i];
-                                }
-                            }
-                            //$scope.selection.item.status.text = status[i].text;
-                            $http.patch('api/submissions/' + $scope.selection.item._id,
-                                {approval: true,
-                                 rejection: false,
-                                status: {strict: $scope.selection.item.status.strict, text: "This URS submission has been approved by an adviser."}}
-                            ).success(function(){
-                                    $scope.selection.item.approval = true;
-                                    console.log("Successfully updated approval of submission (approved)");
-                                });
-                        }
-                    }
-                    $scope.selection.item.status.text = "This URS Submission has been approved by an adviser.";
-                    sendGmail({
-                        to: $scope.selection.item.presenterInfo.email +" "+ $scope.selection.item.copresenterOneInfo.email +" "+ $scope.selection.item.copresenterTwoInfo.email,
-                        subject: "[" + $scope.selection.item.title + "] " + $scope.statusEdit.subject[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)],
-                        message: $scope.selection.item.presenterInfo.first + ", your URS abstract has been approved by your adviser. Please await reviewer comments."
-                    });
                 }
+                for (var i = 0; i < $scope.statusEdit.priority.length; i++) {
+                    if ($scope.statusEdit.priority[i] == newPriority) {
+                        $scope.selection.item.status.strict = $scope.statusEdit.options[i];
+                        for (var j = 0; j < $scope.submissions.length; j++) {
+                            if ($scope.selection.item._id == $scope.submissions[j]._id) {
+                                console.log("Updates the strict of the current submission.");
+                                $scope.submissions[j].strict = $scope.statusEdit.options[i];
+                            }
+                        }
+                        //$scope.selection.item.status.text = status[i].text;
+                        $http.patch('api/submissions/' + $scope.selection.item._id,
+                            {approval: true,
+                                rejection: false,
+                                status: {strict: $scope.selection.item.status.strict, text: "This URS submission has been approved by an adviser."}}
+                        ).success(function () {
+                                $scope.selection.item.approval = true;
+                                console.log("Successfully updated approval of submission (approved)");
+                            });
+                    }
+                }
+                $scope.selection.item.status.text = "This URS Submission has been approved by an adviser.";
             }
         };
-//TODO: currently have admin@admin.com hard-coded in, don't have a solidified admin account and cannot access user roles to get admin emails
+
+        $scope.rejectSubmissionConfirm = function(){
+            Modal.confirm.reject(Modal.confirm.option($scope.rejectHelpYes, $scope.rejectHelpNo)
+            ("Would you like to include the presenter to the generated email?"))($scope.selection.item.title);
+        };
+
+        $scope.rejectHelpYes = function(item){
+            $scope.rejectSubmission(item);
+            sendGmailWithCC({
+                to: $scope.selection.item.presenterInfo.email +" "+ $scope.selection.item.copresenterOneInfo.email +" "+ $scope.selection.item.copresenterTwoInfo.email,
+                cc: "admin@admin.com",
+                subject: "["+ $scope.selection.item.title + "] " + "URS submission has been rejected",
+                message: $scope.selection.item.presenterInfo.first + ", unfortunately, your URS submission has been rejected."
+            });
+        };
+
+        $scope.rejectHelpNo = function(item){
+            $scope.rejectSubmission(item);
+            sendGmail({
+                to: "admin@admin.com",
+                subject: "["+ $scope.selection.item.title + "] " + "URS submission has been rejected",
+                message: $scope.selection.item.presenterInfo.first + " submitted an abstract for consideration to the URS. Unfortunately, I, as the adviser, have rejected this submission."
+            });
+        };
+
+        //TODO: currently have admin@admin.com hard-coded in, don't have a solidified admin account and cannot access user roles to get admin emails
         //CANNOT ADD IN CHAIRS' EMAILS TO SENDGMAILS BECAUSE OF THE SECURITY PRIVILEGES, SO FOR NOW WE'LL JUST SEND TO ADMIN
         $scope.rejectSubmission = function(submission) {
-            if($window.confirm("As adviser of this submission, I am rejecting this submission; clarifying that this abstract should not be sent to the URS committee for review." +
-                "Are you sure you want to reject this submission?")){
-                if($window.confirm('Would you like to send an email to the presenter(s) of this submission clarifying why you have rejected the submission? You will be prompted to send' +
-                    'an email to the admin and chairs either way.')){
-                    sendGmail({
-                        to: $scope.selection.item.presenterInfo.email +" "+ $scope.selection.item.copresenterOneInfo.email +" "+ $scope.selection.item.copresenterTwoInfo.email,
-                        subject: "["+ $scope.selection.item.title + "] " + "URS submission has been rejected",
-                        message: $scope.selection.item.presenterInfo.first + ", unfortunately, your URS submission has been rejected."
-                    });
-                    sendGmail({
-                        to: "admin@admin.com",
-                        subject: "["+ $scope.selection.item.title + "] " + "URS submission has been rejected",
-                        message: $scope.selection.item.presenterInfo.first + " submitted an abstract for consideration to the URS. Unfortunately, I, as the adviser, have rejected this submission."
-                    });
-                } else {
-                    sendGmail({
-                        to: "admin@admin.com",
-                        subject: "["+ $scope.selection.item.title + "] " + "URS submission has been rejected",
-                        message: $scope.selection.item.presenterInfo.first + " submitted an abstract for consideration to the URS. Unfortunately, I, as the adviser, have rejected this submission."
-                    });
-                }
             $http.patch('api/submissions/' + $scope.selection.item._id,
-            {rejection: true,
-                //currently everything is hardcoded for time. To fix later.
-                status: {strict: "Withdrawn", text: "The submission has been rejected by an adviser."}}
+                {rejection: true,
+                    //currently everything is hardcoded for time. To fix later.
+                    status: {strict: "Withdrawn", text: "The submission has been rejected by an adviser."}}
             ).success(function(){
                     $scope.selection.item.rejection = true;
                     //currently everything is hardcoded for time. To fix later.
@@ -515,8 +586,6 @@ angular.module('umm3601ursamajorApp')
                     $scope.selection.item.status.text = "The submission has been rejected by an adviser.";
                     console.log("Successfully rejected a submission");
                 });
-            }
-
         };
 
         // -------------------------- Editing of status ----------------------------------------------
@@ -583,7 +652,7 @@ angular.module('umm3601ursamajorApp')
                 ).success(function(){
                         console.log("Successfully updated status of submission");
                         submission.group = $scope.selection.reviewGroup;
-                });
+                    });
             }
         };
 
@@ -608,29 +677,29 @@ angular.module('umm3601ursamajorApp')
                 {status: {strict: $scope.statusEdit.temp.strict, text: $scope.statusEdit.temp.text}}
             ).success(function(){
                     console.log("Successfully updated status of submission");
-            });
+                });
 
             //TODO: needs to be updated to work with the current status system
             if($scope.selection.item.approval && $scope.statusEdit.temp.strict === "Awaiting Adviser Approval"){
                 $http.patch('api/submissions/' + $scope.selection.item._id,
                     {approval: false}
                 ).success(function(){
-                    $scope.selection.item.approval = false;
-                    console.log("Successfully updated approval of submission (un-approved)");
-                });
+                        $scope.selection.item.approval = false;
+                        console.log("Successfully updated approval of submission (un-approved)");
+                    });
             } else if(!$scope.selection.item.approval && $scope.statusEdit.temp.strict !== "Awaiting Adviser Approval"){
                 $http.patch('api/submissions/' + $scope.selection.item._id,
                     {approval: true}
                 ).success(function(){
-                    $scope.selection.item.approval = true;
-                    console.log("Successfully updated approval of submission (approved)");
-                });
+                        $scope.selection.item.approval = true;
+                        console.log("Successfully updated approval of submission (approved)");
+                    });
             }
 
             $scope.selection.item.status.strict = $scope.statusEdit.temp.strict;
             $scope.selection.item.status.text = $scope.statusEdit.temp.text;
 
-        //--------------------------------------------- Gmail Things ---------------------------------------
+            //--------------------------------------------- Gmail Things ---------------------------------------
             if($scope.selection.item.cc){
                 sendGmailWithCC({
                     to: $scope.selection.item.presenterInfo.email + " " + $scope.selection.item.copresenterOneInfo.email + " " + $scope.selection.item.copresenterTwoInfo.email,
@@ -662,30 +731,54 @@ angular.module('umm3601ursamajorApp')
         };
 
         $scope.approvalWordChange = function(approval){
-             if(approval){
-                 return "Yes";
-                 }
-             else{
-                 return "No";
-                 }
-             };
+            if(approval){
+                return "Yes";
+            } else {
+                return "No";
+            }
+        };
 
         //--------------------------------------------- Resubmission ---------------------------------------
+        $scope.showResubmitButton = function(){
+            if($scope.selection.item == null){
+                return {
+                    show: false,
+                    text: "Null"
+                }
+            }
+
+            if($scope.hasAdminPrivs()){
+                return {
+                    show: true,
+                    text: "Flag for Re-Submission"
+                };
+            } else if($scope.getResubmission($scope.selection.item) == null || $scope.getResubmission($scope.selection.item).length == 0){
+                return {
+                    show: $scope.isPresenter($scope.selection.item),
+                    text: "Re-Submit this Submission"
+                }
+            } else {
+                return {
+                    show: false,
+                    text: "Error!?!"
+                }
+            }
+        };
+
         $scope.flagForResubmitConfirm = function(){
-          Modal.confirm.info($scope.flagForResubmit)('Are you sure you want to flag this submission for resubmission?');
+            Modal.confirm.info($scope.flagForResubmit)('Are you sure you want to flag this submission for resubmission?');
         };
 
         $scope.flagForResubmit = function(){
-
             console.log("Attempting to flag for resubmission.");
             $http.patch('api/submissions/' + $scope.selection.item._id,
                 {
-                 resubmissionData: {comment: $scope.selection.item.resubmissionData.comment, parentSubmission: $scope.selection.item.resubmissionData.parentSubmission, resubmitFlag: true, isPrimary: true}
+                    resubmissionData: {comment: $scope.selection.item.resubmissionData.comment, parentSubmission: $scope.selection.item.resubmissionData.parentSubmission, resubmitFlag: true, isPrimary: true}
                 }
             ).success(function(){
                     console.log("Successfully flagged submission for resubmit");
                     if (!$scope.hasAdminPrivs())
-                        {$location.path('/subform');}
+                    {$location.path('/subform');}
                 });
 
             //Playing with trying to use the Submission service instead of the above http request (as per the role change controller)
@@ -701,6 +794,8 @@ angular.module('umm3601ursamajorApp')
         //TODO: Right now anyone that can see a resubmission can approve a resubmission, so that needs to get fixed. Should wait to fix until the permissions system is sorted out.
         $scope.approveResubmit = function(){
             var con = confirm('Are you sure you want to approve this resubmission?');
+            var roomAssignment = $scope.selection.item.roomAssignment;
+            var reviewGroup = $scope.selection.item.group;
             if (con) {
                 console.log("Attempting to approve resubmission.");
                 $http.patch('api/submissions/' + $scope.selection.item._id,
@@ -711,15 +806,19 @@ angular.module('umm3601ursamajorApp')
                         console.log("old primary is no longer primary");
                         $http.patch('api/submissions/' + $scope.selection.resubmission._id,
                             {
-                                resubmissionData: {isPrimary: true, comment: $scope.selection.resubmission.resubmissionData.comment, parentSubmission: $scope.selection.resubmission.resubmissionData.parentSubmission, resubmitFlag: false}
+                                resubmissionData: {isPrimary: true, comment: $scope.selection.resubmission.resubmissionData.comment, parentSubmission: $scope.selection.resubmission.resubmissionData.parentSubmission, resubmitFlag: false},
+                                roomAssignment: roomAssignment,
+                                group: reviewGroup
                             }
                         ).success(function () {
                                 $scope.selection.item.resubmissionData.isPrimary = false;
                                 $scope.selection.resubmission.resubmissionData.isPrimary = true;
                                 $scope.selection.item = $scope.selection.resubmission;
                                 $scope.selection.resubmission = null;
+                                $scope.selection.item.roomAssignment = roomAssignment;
+                                $scope.selection.item.group = reviewGroup;
                                 console.log("resubmission set as new primary")
-                        });
+                            });
                     });
             }
         };
@@ -805,7 +904,7 @@ angular.module('umm3601ursamajorApp')
             var abstract = submission.abstract;
             console.log(submission._id);
             if (submission._id != comments[index].origin) {
-                    $http.get('/api/submissions/' + comments[index].origin).success(function(submission) {
+                $http.get('/api/submissions/' + comments[index].origin).success(function(submission) {
                     abstract = submission.abstract;
                     $scope.populateComments(abstract, index , comments);
                 });
@@ -825,10 +924,12 @@ angular.module('umm3601ursamajorApp')
             var newWindow = $window.open("", null, "height=300,width=600,status=yes,toolbar=no,menubar=no,location=no");
             if(comments[index].origin != id){
                 console.log("Yup");
-                newWindow.document.write("<b>" + "This comment was made on a prior version of this submission" + "</b>");
+                newWindow.document.write("<b>" + "This comgalvanized and common nails.The nails were placedment was made on a prior version of this submission" + "</b>");
                 newWindow.document.write("<br>");
             }
             newWindow.document.write("<b>" +"Comment made by " + comments[index].commenter + ": " +"</b>"+"<i>" + comments[index].commentText + "</i>");
+            newWindow.document.write("<br>");
+            newWindow.documflaggedent.write(comments[index].timestamp);
             newWindow.document.write("<br>");
             newWindow.document.write(abstract);
         };

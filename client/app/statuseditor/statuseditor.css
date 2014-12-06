@@ -14,3 +14,11 @@
     margin-bottom: -9px;
     text-align: center;
 }
+
+
+/*It's a band-aid(tm) fix. Hehe*/
+.glyphiconCenter {
+
+    padding-left: 4px;
+    padding-right: 2px;
+}

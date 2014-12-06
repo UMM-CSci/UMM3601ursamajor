@@ -29,6 +29,8 @@ angular.module('umm3601ursamajorApp')
 
         // Misc. Stuff
         $scope.timestamp = Date();
+        $scope.attemptEmail = true;
+        $scope.attemptRedirect = true;
 
 
         // ---------------------------------------- General HTTP requests ----------------------------------------
@@ -351,7 +353,7 @@ angular.module('umm3601ursamajorApp')
         };
 
         $scope.submitSubmission = function(){
-            if(!$scope.isResubmitting){
+            if(!$scope.isResubmitting && $scope.attemptEmail){
                 alert("If you do not send the email that will be automatically generated, your adviser will not receive a notification to approve your submission.");
             }
 
@@ -360,6 +362,7 @@ angular.module('umm3601ursamajorApp')
                     $scope.submissionData.sponsorsFinal.push($scope.submissionData.sponsors[i]);
                 }
             }
+
             if(!$scope.isResubmitting){
                 $scope.submissionData.status = {strict: $scope.startingStatus, text: ""};
                 //updating status to ensure that it works....?
@@ -370,7 +373,7 @@ angular.module('umm3601ursamajorApp')
                 $scope.submissionData.comments = $scope.resubmitParent.comments;
                 console.log($scope.submissionData.comments);
             }
-            console.log('posting Data!');
+//            console.log('posting Data!');
             $http.post('/api/submissions/',
                 {   title: $scope.submissionData.title,
                     format: $scope.submissionData.format,
@@ -391,6 +394,7 @@ angular.module('umm3601ursamajorApp')
                     //presenterTeeSize: $scope.submissionData.presenterTeeSize,
                     otherInfo: $scope.submissionData.otherInfo,
                     approval: false,
+                    cc: false,
                     rejection: false,
                     status: $scope.submissionData.status,
                     timestamp: $scope.timestamp,
@@ -406,7 +410,7 @@ angular.module('umm3601ursamajorApp')
                 });
 
 
-            if (!$scope.isResubmitting) {
+            if (!$scope.isResubmitting && $scope.attemptEmail) {
                 sendGmail({
                     to: [$scope.submissionData.adviserInfo.email, $scope.submissionData.coadviserOneInfo.email, $scope.submissionData.coadviserTwoInfo.email],
                     subject: 'URS Submission requires approval',
@@ -427,8 +431,35 @@ angular.module('umm3601ursamajorApp')
                     });
             }
             $scope.resetData();
-            $location.path('/submissionpage');
+            if($scope.attemptRedirect){
+                $location.path('/submissionpage');
+            }
         };
+
+        $scope.randomSubmissionIndex = function(){
+            var i = Math.floor(($scope.submissions.length - 1) * Math.random());
+            console.log("random index: " + i);
+            return i;
+        };
+
+        $scope.adminAutoSubmit = function(n){
+            if(n > 1){$scope.attemptRedirect = false;}
+            for(var i=0; i<=n; i++){
+                $scope.getResubmitData($scope.submissions[$scope.randomSubmissionIndex()]);
+
+                $scope.submissionData.resubmitFlag = false;
+
+                $scope.isResubmitting = false;
+
+                $scope.submissionData.title = $scope.submissionData.title + " [FILLER SUBMISSION]";
+
+                $scope.attemptEmail = false;
+
+                console.log("auto submitting admin auto generated submission!");
+
+                $scope.submitSubmission();
+            }
+        }
 
 
 
