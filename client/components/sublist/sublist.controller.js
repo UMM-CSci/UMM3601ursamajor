@@ -726,7 +726,7 @@ angular.module('umm3601ursamajorApp')
                     show: true,
                     text: "Flag for Re-Submission"
                 };
-            } else if($scope.getResubmission($scope.selection.item) == null || $scope.getResubmission($scope.selection.item).length == 0){
+            } else if(($scope.getResubmission($scope.selection.item) == null || $scope.getResubmission($scope.selection.item).length == 0) && $scope.selection.item.approval){
                 return {
                     show: $scope.isPresenter($scope.selection.item),
                     text: "Re-Submit this Submission"
@@ -837,6 +837,10 @@ angular.module('umm3601ursamajorApp')
 
         $scope.transformCommentIndex = function(index){
             return ((10*($scope.currentCommentPage - 1)) + index);
+        };
+
+        $scope.showCommentAuthorName = function() {
+            return $scope.isAdmin() || $scope.isChair();
         };
 
         $scope.addComment = function (submission) {
