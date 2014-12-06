@@ -142,13 +142,16 @@
                     <select ng-change="setReviewGroup(selection.item)" ng-model="selection.reviewGroup">
                         <option ng-repeat="option in groupOptions" value={{option}}>{{option}}</option>
                     </select>
-                    <br></br>
+                    <br>
+                    <br>
                         <div><b>Current Room Assignment:</b> {{selection.item.roomAssignment}}</div>
-                        <br></br>
+                        <br>
                         <div ng-show="isAdmin() || isChair()">
                         <b>Edit Current Room Assignment:</b>
-                            <textarea ng-model="selection.item.roomAssignment"  cols="30" rows="1" name="roomAssignment"></textarea>
-                            <button class="btn btn-default" ng-click="submitRoomAssignment(selection.item.roomAssignment)">Submit</button>
+                            <br>
+                            <!--<textarea class="roomTextArea" ng-model="selection.item.roomAssignment"  cols="20" rows="1" name="roomAssignment"></textarea>-->
+                            <input class="blah"  ng-model="selection.item.roomAssignment" name="selection.item.roomAssignment">
+                            <button class="btn btn-primary" ng-click="submitRoomAssignment(selection.item.roomAssignment)">Submit</button>
                         </div>
 
                     </ul>
