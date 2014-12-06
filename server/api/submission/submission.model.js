@@ -31,6 +31,7 @@ var SubmissionSchema = new Schema({
     status: {strict: String, text: String},
     timestamp: String,
     group: Number,
+    roomAssignment: String,
     resubmissionData: {comment: String, parentSubmission: String, isPrimary: Boolean, resubmitFlag: Boolean},
     comments: [
         {

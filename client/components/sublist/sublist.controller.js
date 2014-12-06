@@ -291,6 +291,23 @@ angular.module('umm3601ursamajorApp')
             $scope.filterData.tabFilter.isReviewer = true;
         };
 
+        $scope.submitRoomAssignment = function(text){
+            console.log('got to function');
+            console.log(text);
+            if(text != ""){
+                console.log("text isnt empty");
+                $http.patch('api/submissions/' + $scope.selection.item._id,
+                    {
+                        roomAssignment: text
+                    }
+                ).success(function () {
+                        console.log("patch successful");
+                        $scope.selection.item.roomAssignment = text;
+                        console.log("changed local array");
+                        console.log("resubmission set as new primary")
+                    });
+            };
+        };
 
         $scope.tabFilters = function(submission){
             if($scope.filterData.tabFilter.isPresenter){
@@ -444,11 +461,9 @@ angular.module('umm3601ursamajorApp')
             return submission.approval;
         };
 
-
         $scope.approveSubmissionConfirm = function(){
             Modal.confirm.option($scope.approveHelpYes,$scope.approveHelpNo)("Would you like to receive e-mail updates on changes of this submission?");
         };
-
 
         $scope.approveHelpNo = function(submission){
             $scope.approveSubmission(submission);
@@ -458,7 +473,6 @@ angular.module('umm3601ursamajorApp')
                 message: $scope.selection.item.presenterInfo.first + ", your URS abstract has been approved by your adviser. Please await reviewer comments."
             });
         }
-
 
         $scope.approveHelpYes = function(submission){
             $scope.approveSubmission(submission);
@@ -474,7 +488,6 @@ angular.module('umm3601ursamajorApp')
                 message: $scope.selection.item.presenterInfo.first + ", your URS abstract has been approved by your adviser. Please await reviewer comments."
             });
         }
-
 
         $scope.approveSubmission = function(submission) {
             if($scope.isAdviser(submission) == true || $scope.hasAdminPrivs() == true){
@@ -509,10 +522,6 @@ angular.module('umm3601ursamajorApp')
             }
         };
 
-
-
-
-
         $scope.rejectSubmissionConfirm = function(){
             Modal.confirm.reject(Modal.confirm.option($scope.rejectHelpYes, $scope.rejectHelpNo)
             ("Would you like to include the presenter to the generated email?"))($scope.selection.item.title);
@@ -536,7 +545,6 @@ angular.module('umm3601ursamajorApp')
                 message: $scope.selection.item.presenterInfo.first + " submitted an abstract for consideration to the URS. Unfortunately, I, as the adviser, have rejected this submission."
             });
         };
-
 
         //TODO: currently have admin@admin.com hard-coded in, don't have a solidified admin account and cannot access user roles to get admin emails
         //CANNOT ADD IN CHAIRS' EMAILS TO SENDGMAILS BECAUSE OF THE SECURITY PRIVILEGES, SO FOR NOW WE'LL JUST SEND TO ADMIN
