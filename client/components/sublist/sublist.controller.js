@@ -112,7 +112,7 @@ angular.module('umm3601ursamajorApp')
             $scope.filterData.pendingResubmissionsSelection = str;
         };
 
-        // Takes no arguments and returns true if the user provided by Auth is an admin, or is in the admin group.
+        // Takes no arguments and returns true if the user provided by Auth is an admin, or is in the admin group, or is a chair.
         $scope.hasAdminPrivs = function(){
             return (($scope.getCurrentUser.role != null && $scope.getCurrentUser.role == "Admin") || $scope.isAdmin() || $scope.isChair());
         };
@@ -843,10 +843,6 @@ angular.module('umm3601ursamajorApp')
 
         $scope.transformCommentIndex = function(index){
             return ((10*($scope.currentCommentPage - 1)) + index);
-        };
-
-        $scope.showCommentAuthorName = function() {
-            return $scope.isAdmin() || $scope.isChair();
         };
 
         $scope.addComment = function (submission) {
