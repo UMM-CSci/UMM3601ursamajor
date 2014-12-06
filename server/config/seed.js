@@ -153,7 +153,7 @@ User.find({}).remove(function() {
                 id: "116234824364241021424"
             },
             group: -1,
-            role: "user",
+            role: "admin",
             __v: 0
         }, {
             name: "Jacob Opdahl",
@@ -295,6 +295,7 @@ Submission.find({}).remove(function(){
         presenterTeeSize: "L",
         otherInfo: "",
         approval: false,
+        cc: false,
         rejection: false,
         status:  {strict: "Awaiting Adviser Approval", text: "Your adviser has yet to approve this submission."},
         timestamp: "Sat Oct 18 2014 10:48:54 GMT-0500 (CDT)",
@@ -333,6 +334,7 @@ Submission.find({}).remove(function(){
         presenterTeeSize: "M",
         otherInfo: "",
         approval: true,
+        cc: false,
         rejection: false,
         status: {strict: "Revisions Needed", text: "Your URS submission has been flagged for revisions, and is in need of changes."},
         timestamp: "Tue Oct 21 2014 23:22:54 GMT-0500 (CDT)",
@@ -377,6 +379,7 @@ Submission.find({}).remove(function(){
         presenterTeeSize: "XL",
         otherInfo: "yes.",
         approval: false,
+        cc: false,
         rejection: false,
         status: {strict: "Awaiting Adviser Approval", text: "Your adviser has yet to approve this submission."},
         timestamp: "Mon Sept 2 2014 1:48:54 GMT-0500 (CDT)",
@@ -415,6 +418,7 @@ Submission.find({}).remove(function(){
         presenterTeeSize: "XL",
         otherInfo: "yes.",
         approval: true,
+        cc: false,
         rejection: false,
         status: {strict: "Reviewing in Process", text: "Your URS submission has been approved by your adviser"},
         timestamp: "Mon Oct 20 2014 1:48:54 GMT-0500 (CDT)",
@@ -452,6 +456,7 @@ Submission.find({}).remove(function(){
         presenterTeeSize: "S",
         otherInfo: "yes.",
         approval: true,
+        cc: false,
         rejection: false,
         status: {strict: "Accepted", text: "Your URS submission has been approved, congratulations!"},
         timestamp: "Thur Oct 23 2014 1:48:54 GMT-0500 (CDT)",

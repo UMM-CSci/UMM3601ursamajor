@@ -445,21 +445,40 @@ angular.module('umm3601ursamajorApp')
         };
 
 
-        $scope.approveSubmissionConfirm = function(submission){
-            Modal.confirm.option($scope.approveSubmission(submission, true),$scope.approveSubmission(submission, false))("Did the test work?");
+        $scope.approveSubmissionConfirm = function(){
+            Modal.confirm.option($scope.helpYes,$scope.helpNo)("Did the test work?");
         };
 
-        $scope.approveSubmission = function(submission, cc) {
+
+        $scope.helpNo = function(submission){
+            $scope.approveSubmission(submission);
+            sendGmail({
+                to: $scope.selection.item.presenterInfo.email + " " + $scope.selection.item.copresenterOneInfo.email + " " + $scope.selection.item.copresenterTwoInfo.email,
+                subject: "[" + $scope.selection.item.title + "] " + $scope.statusEdit.subject[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)],
+                message: $scope.selection.item.presenterInfo.first + ", your URS abstract has been approved by your adviser. Please await reviewer comments."
+            });
+        }
+
+
+        $scope.helpYes = function(submission){
+            $scope.approveSubmission(submission);
+            $http.patch('api/submissions/' + $scope.selection.item._id,
+                {cc: true}).success(function(){
+                    $scope.selection.item.cc = true;
+                    console.log("Successfully updated approval of submission with CC checked");
+                })
+            sendGmailWithCC({
+                to: $scope.selection.item.presenterInfo.email + " " + $scope.selection.item.copresenterOneInfo.email + " " + $scope.selection.item.copresenterTwoInfo.email,
+                cc: $scope.selection.item.adviserInfo.email,
+                subject: "[" + $scope.selection.item.title + "] " + $scope.statusEdit.subject[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)],
+                message: $scope.selection.item.presenterInfo.first + ", your URS abstract has been approved by your adviser. Please await reviewer comments."
+            });
+        }
+
+
+        $scope.approveSubmission = function(submission) {
             if($scope.isAdviser(submission) == true || $scope.hasAdminPrivs() == true){
                 console.log(submission);
-//                var dlg = null;
-//                dlg = $dialogs.confirm('Confirm','Would you like to be included in future emails notifying the status change of this submission?');
-//                dlg.result.then(function(btn){
-//                    $scope.confirmed = 'You thought this quite awesome!';
-//                },function(btn){
-//                    $scope.confirmed = 'Shame on you for not thinking this is awesome!';
-//                });
-                if(cc) {
                     var newPriority = 15;
                     for (var k = 0; k < $scope.statusEdit.priority.length; k++) {
                         if ($scope.statusEdit.priority[k] < newPriority && $scope.statusEdit.priority[k] != -15) {
@@ -487,14 +506,15 @@ angular.module('umm3601ursamajorApp')
                         }
                     }
                     $scope.selection.item.status.text = "This URS Submission has been approved by an adviser.";
-                    sendGmail({
-                        to: $scope.selection.item.presenterInfo.email + " " + $scope.selection.item.copresenterOneInfo.email + " " + $scope.selection.item.copresenterTwoInfo.email,
-                        subject: "[" + $scope.selection.item.title + "] " + $scope.statusEdit.subject[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)],
-                        message: $scope.selection.item.presenterInfo.first + ", your URS abstract has been approved by your adviser. Please await reviewer comments."
-                    });
-                }
             }
         };
+
+
+
+
+
+
+
     //TODO: currently have admin@admin.com hard-coded in, don't have a solidified admin account and cannot access user roles to get admin emails
         //CANNOT ADD IN CHAIRS' EMAILS TO SENDGMAILS BECAUSE OF THE SECURITY PRIVILEGES, SO FOR NOW WE'LL JUST SEND TO ADMIN
         $scope.rejectSubmission = function(submission) {
