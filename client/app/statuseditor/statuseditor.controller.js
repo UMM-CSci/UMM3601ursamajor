@@ -21,7 +21,7 @@ angular.module('umm3601ursamajorApp')
             {red: 202, green: 255, blue: 37, alpha: 1},
             {red: 0, green: 255, blue: 0, alpha: 1},
             {red: 0, green: 255, blue: 255, alpha: 1},
-            {red: 47, green: 118, blue: 255, alpha: 1},
+            {red: 0, green: 100, blue: 255, alpha: 1},
             {red: 128, green: 0, blue: 255, alpha: 1},
             {red: 255, green: 0, blue: 255, alpha: 1}
 
@@ -123,13 +123,18 @@ angular.module('umm3601ursamajorApp')
 
 
         $scope.addStatusConfirm = function(){
-            Modal.confirm.info($scope.addStatus)("Create a new status?");
+            if($scope.statusArray.length < 15) {
+                Modal.confirm.info($scope.addStatus)("Create a new status?");
+            } else {
+                Modal.confirm.warning()("You are at the maximum number of statuses");
+            }
         };
 
         $scope.addStatus = function() {
+
             $http.post('/api/statuss/',
                 {   strict: "Default Status",
-                    color: {red: 0, green: 0, blue: 0, alpha: 1},
+                    color: {red: 194, green: 194, blue: 194, alpha: 1},
                     emailSubject: "",
                     emailBody: "",
                     priority: $scope.findEmptyPriority($scope.statusArray),
@@ -138,6 +143,7 @@ angular.module('umm3601ursamajorApp')
                     console.log("Successfully added new status");
                     $scope.getStatuses();
                 });
+
         };
 
 
