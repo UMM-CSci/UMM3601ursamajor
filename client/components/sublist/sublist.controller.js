@@ -464,6 +464,8 @@ angular.module('umm3601ursamajorApp')
             $scope.selection.resubmission = $scope.getResubmission($scope.selection.item);
             $scope.selection.reviewGroup = $scope.selection.item.group;
 
+            $scope.setVoteOptions();
+
             $scope.resetTemps();
         };
 
@@ -604,22 +606,88 @@ angular.module('umm3601ursamajorApp')
             'Total rewrite'
         ];
 
-        $scope.updateReviewVoting = function(){
-            var alreadyVoted = false;
-            if($scope.selection.reviewVotes.Accepted.indexOf(getCurrentUser().email) != -1){
-                $scope.selection.reviewVotes.Accepted.splice($scope.selection.reviewVotes.Accepted.indexOf(getCurrentUser().email), 1);
+        $scope.voteOption = "";
+
+//        $scope.resetTemps = function() {
+//            if($scope.selection.item != null){
+//                $scope.statusEdit.temp.strict = $scope.selection.item.status.strict;
+//                $scope.statusEdit.temp.text = $scope.selection.item.status.text;
+//            }
+//        };
+
+        $scope.setVoteOptions = function(){
+            if($scope.selection.item.reviewVotes.Accepted.indexOf($scope.getCurrentUser().email) != -1){
+                $scope.voteOption = 'Accepted without changes';
             }
-            if($scope.selection.reviewVotes.Minor.indexOf(getCurrentUser().email) != -1){
-                $scope.selection.reviewVotes.Minor.splice($scope.selection.reviewVotes.Minor.indexOf(getCurrentUser().email), 1);
+            else if($scope.selection.item.reviewVotes.Minor.indexOf($scope.getCurrentUser().email) != -1){
+                $scope.voteOption = 'Minor revisions';
             }
-            if($scope.selection.reviewVotes.Major.indexOf(getCurrentUser().email) != -1){
-                $scope.selection.reviewVotes.Major.splice($scope.selection.reviewVotes.Major.indexOf(getCurrentUser().email), 1);
+            else if($scope.selection.item.reviewVotes.Major.indexOf($scope.getCurrentUser().email) != -1){
+                $scope.voteOption = 'Major revisions';
             }
-            if($scope.selection.reviewVotes.TotalRewrite.indexOf(getCurrentUser().email) != -1){
-                $scope.selection.reviewVotes.TotalRewrite.splice($scope.selection.reviewVotes.TotalRewrite.indexOf(getCurrentUser().email), 1);
+            else if($scope.selection.item.reviewVotes.TotalRewrite.indexOf($scope.getCurrentUser().email) != -1){
+                $scope.voteOption = 'Total rewrite';
+            }
+            console.log("it Did this thinggggg");
+        };
+
+
+
+
+        $scope.updateReviewVoting = function(value){
+            if($scope.selection.item.reviewVotes.Accepted.indexOf($scope.getCurrentUser().email) != -1){
+                $scope.selection.item.reviewVotes.Accepted.splice($scope.selection.item.reviewVotes.Accepted.indexOf($scope.getCurrentUser().email), 1);
+            }
+            else if($scope.selection.item.reviewVotes.Minor.indexOf($scope.getCurrentUser().email) != -1){
+                $scope.selection.item.reviewVotes.Minor.splice($scope.selection.item.reviewVotes.Minor.indexOf($scope.getCurrentUser().email), 1);
+            }
+            else if($scope.selection.item.reviewVotes.Major.indexOf($scope.getCurrentUser().email) != -1){
+                $scope.selection.item.reviewVotes.Major.splice($scope.selection.item.reviewVotes.Major.indexOf($scope.getCurrentUser().email), 1);
+            }
+            else if($scope.selection.item.reviewVotes.TotalRewrite.indexOf($scope.getCurrentUser().email) != -1){
+                $scope.selection.item.reviewVotes.TotalRewrite.splice($scope.selection.item.reviewVotes.TotalRewrite.indexOf($scope.getCurrentUser().email), 1);
+            } else {
+
+                console.log("This should appear first")
             }
 
+            switch(value){
+                case 'Accepted without changes':
+                    $scope.selection.item.reviewVotes.Accepted.splice($scope.selection.item.reviewVotes.Accepted.length, 0, $scope.getCurrentUser().email);
+                    console.log("This should appear Accepted")
+                    $scope.submitVoting();
+                    break;
+                case 'Minor revisions':
+                    $scope.selection.item.reviewVotes.Minor.splice($scope.selection.item.reviewVotes.Minor.length, 0, $scope.getCurrentUser().email);
+                    console.log("This should appear Minor")
+                    $scope.submitVoting();
+                    break;
+                case 'Major revisions':
+                    $scope.selection.item.reviewVotes.Major.splice($scope.selection.item.reviewVotes.Major.length, 0, $scope.getCurrentUser().email);
+                    console.log("This should appear Major")
+                    $scope.submitVoting();
+                    break;
+                case 'Total rewrite':
+                    $scope.selection.item.reviewVotes.TotalRewrite.splice($scope.selection.item.reviewVotes.TotalRewrite.length, 0, $scope.getCurrentUser().email);
+                    console.log("This should appear TotalRewrite")
+                    $scope.submitVoting();
+                    break;
+            }
+
+
         };
+
+        $scope.submitVoting = function() {
+            $http.patch('api/submissions/' + $scope.selection.item._id,
+                {reviewVotes: {Accepted: $scope.selection.item.reviewVotes.Accepted,
+                    Minor: $scope.selection.item.reviewVotes.Minor,
+                    Major: $scope.selection.item.reviewVotes.Major,
+                    TotalRewrite: $scope.selection.item.reviewVotes.TotalRewrite}
+            }).success(function(){
+                    console.log("Updated Votes")
+                })
+        };
+
 
         $scope.getReviewGroupMembers = function(group) {
             return $filter('filter')($scope.users,

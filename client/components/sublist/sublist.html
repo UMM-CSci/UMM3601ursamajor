@@ -71,11 +71,13 @@
                     <button class="btn btn-sm btn-block" ng-click="resetSelection()"><span class="glyphicon glyphicon-chevron-left"></span> Back to Submission List</button>
                     <br>
                     <div>
-                        <select ng-model="reviewVoting">
+
+                        <select ng-init="voteOption = voteOption" ng-model="voteOption">
                             <option ng-repeat="vote in reviewOptions" ng-value="'{{vote}}'">
                                 {{vote}}
                             </option>
                         </select>
+                        <button class="btn btn-warning" ng-click="updateReviewVoting(voteOption)">Submit</button>
                     </div>
                     <button ng-show="isAdmin()" class="btn btn-md btn-danger" ng-click="deleteSubmissionConfirm(selection.item)"><span class="glyphicon glyphicon-trash"></span></button>
 
