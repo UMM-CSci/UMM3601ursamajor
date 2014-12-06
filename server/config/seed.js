@@ -16,21 +16,21 @@ Status.find({}).remove(function() {
     Status.create({
         strict: "Accepted",
         color: {red: 0, green: 255, blue: 0, alpha: 1},
-        emailSubject: "URS submission update",
+        emailSubject: "URS submission has been accepted",
         emailBody:  ", Your URS submission has been approved, congratulations!",
         priority: 15,
         required: true
     },{
         strict: "Revisions Needed",
         color: {red: 255, green: 255, blue: 0, alpha: 1},
-        emailSubject: "URS submission update",
+        emailSubject: "URS submission needs revisions",
         emailBody: ", Your URS submission has been flagged for revisions, and is in need of changes.",
         priority: 3,
         required: false
     },{
         strict: "Reviewing in Process",
         color: {red: 0, green: 100, blue: 255, alpha: 1},
-        emailSubject: "URS submission update",
+        emailSubject: "URS submission is being reviewed",
         emailBody: ", Your URS submission has been approved by your adviser.",
         priority: 2,
         required: false
@@ -44,7 +44,7 @@ Status.find({}).remove(function() {
     },{
         strict: "Withdrawn",
         color: {red: 120, green: 120, blue: 120, alpha: 1},
-        emailSubject: "URS submission update",
+        emailSubject: "URS submission has been withdrawn",
         emailBody: ", Your URS submission has either been rejected by your adviser or been withdrawn.",
         priority: 14,
         required: true
