@@ -123,6 +123,7 @@ angular.module('umm3601ursamajorApp')
         info: function(callback) {
             callback = callback || angular.noop;
 
+
             /**
              * Open an info confirmation modal
              * @param {String} content - text for the confirmation modal
@@ -160,6 +161,8 @@ angular.module('umm3601ursamajorApp')
             }
         },
 
+
+
           warning: function(callback){
               callback = callback || angular.noop;
               /**
@@ -192,6 +195,7 @@ angular.module('umm3601ursamajorApp')
                   });
               }
           },
+
 
           option: function(callbackYes, callbackNo){
               callbackYes = callbackYes || angular.noop;
@@ -238,6 +242,61 @@ angular.module('umm3601ursamajorApp')
                   }, 'modal-info');
 
                   optionModal.result.then(function(event) {
+                      if(clicked == "yes"){
+                          callbackYes.apply(event, args);
+                      } else {
+                          callbackNo.apply(event, args);
+                      }
+
+                  });
+              }
+          },
+
+          approval: function(callbackYes, callbackNo){
+              callbackYes = callbackYes || angular.noop;
+              callbackNo = callbackNo || angular.noop;
+              /**
+               * Open an info confirmation modal
+               * @param {String} content - text for the confirmation modal
+               * @param {All}         - Any additional arguments are passed to the callback
+               */
+              return function() {
+                  var args = Array.prototype.slice.call(arguments),
+                      content = args.shift(),
+                      approvalModal;
+                  var clicked = "?";
+
+                  approvalModal = openModal({
+                      modal: {
+
+                          dismissable: true,
+                          title: "Confirm Approval",
+                          html: '<p>' + content + '</p>',
+                          buttons: [{
+                              classes: 'btn-success',
+                              text: 'Yes',
+                              click: function(e) {
+                                  clicked = "yes";
+                                  approvalModal.close(e);
+                              }
+                          }, {
+                              classes: 'btn-default',
+                              text: 'No',
+                              click: function(e) {
+                                  clicked = "no";
+                                  approvalModal.close(e);
+                              }
+                          }, {
+                              classes:"btn-default",
+                              text: "Cancel",
+                              click: function(e) {
+                                  approvalModal.dismiss(e);
+                              }
+                          }]
+                      }
+                  }, 'modal-success');
+
+                  approvalModal.result.then(function(event) {
                       if(clicked == "yes"){
                           callbackYes.apply(event, args);
                       } else {

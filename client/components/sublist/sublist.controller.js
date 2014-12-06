@@ -63,6 +63,12 @@ angular.module('umm3601ursamajorApp')
                 "All",
                 "Flagged",
                 "Not Flagged"
+            ],
+            pendingResubmissionsSelection: "All",
+            pendingResubmissionsOptions: [
+                "All",
+                "Pending Resubmissions",
+                "Not Pending Resubmissions"
             ]
         };
 
@@ -102,6 +108,9 @@ angular.module('umm3601ursamajorApp')
             $scope.filterData.flaggedForResubmitFilterSelection = str;
         };
 
+        $scope.setPendingResubmissionsSelection = function(str) {
+            $scope.filterData.pendingResubmissionsSelection = str;
+        };
 
         // Takes no arguments and returns true if the user provided by Auth is an admin, or is in the admin group.
         $scope.hasAdminPrivs = function(){
@@ -214,6 +223,18 @@ angular.module('umm3601ursamajorApp')
                 return submission.resubmissionData.resubmitFlag === true;
             } else if($scope.filterData.flaggedForResubmitFilterSelection === "Not Flagged"){
                 return submission.resubmissionData.resubmitFlag === false;
+            } else {
+                return false;
+            }
+        };
+
+        $scope.pendingResubmissionsFilter = function(submission) {
+            if($scope.filterData.pendingResubmissionsSelection === "All"){
+                return true;
+            } else if($scope.filterData.pendingResubmissionsSelection === "Pending Resubmissions"){
+                return $scope.getResubmission(submission) != null;
+            } else if($scope.filterData.pendingResubmissionsSelection === "Not Pending Resubmissions"){
+                return $scope.getResubmission(submission) === null;
             } else {
                 return false;
             }
@@ -417,16 +438,19 @@ angular.module('umm3601ursamajorApp')
                             $filter('filter')(
                                 $filter('filter')(
                                     $filter('filter')(
-                                        $scope.submissions,
-                                        $scope.hasPermissions
+                                        $filter('filter')(
+                                            $scope.submissions,
+                                            $scope.hasPermissions
+                                        ),
+                                        $scope.tabFilters
                                     ),
-                                    $scope.tabFilters
+                                    $scope.reviewGroupFilter
                                 ),
-                                $scope.reviewGroupFilter
+                                $scope.featurePresentationFilter
                             ),
-                            $scope.featurePresentationFilter
+                            $scope.flaggedForResubmitFilter
                         ),
-                        $scope.flaggedForResubmitFilter
+                        $scope.pendingResubmissionsFilter
                     ),
                     $scope.searchFilter
                 );
@@ -744,6 +768,8 @@ angular.module('umm3601ursamajorApp')
         //TODO: Right now anyone that can see a resubmission can approve a resubmission, so that needs to get fixed. Should wait to fix until the permissions system is sorted out.
         $scope.approveResubmit = function(){
             var con = confirm('Are you sure you want to approve this resubmission?');
+            var roomAssignment = $scope.selection.item.roomAssignment;
+            var reviewGroup = $scope.selection.item.group;
             if (con) {
                 console.log("Attempting to approve resubmission.");
                 $http.patch('api/submissions/' + $scope.selection.item._id,
@@ -754,13 +780,17 @@ angular.module('umm3601ursamajorApp')
                         console.log("old primary is no longer primary");
                         $http.patch('api/submissions/' + $scope.selection.resubmission._id,
                             {
-                                resubmissionData: {isPrimary: true, comment: $scope.selection.resubmission.resubmissionData.comment, parentSubmission: $scope.selection.resubmission.resubmissionData.parentSubmission, resubmitFlag: false}
+                                resubmissionData: {isPrimary: true, comment: $scope.selection.resubmission.resubmissionData.comment, parentSubmission: $scope.selection.resubmission.resubmissionData.parentSubmission, resubmitFlag: false},
+                                roomAssignment: roomAssignment,
+                                group: reviewGroup
                             }
                         ).success(function () {
                                 $scope.selection.item.resubmissionData.isPrimary = false;
                                 $scope.selection.resubmission.resubmissionData.isPrimary = true;
                                 $scope.selection.item = $scope.selection.resubmission;
                                 $scope.selection.resubmission = null;
+                                $scope.selection.item.roomAssignment = roomAssignment;
+                                $scope.selection.item.group = reviewGroup;
                                 console.log("resubmission set as new primary")
                             });
                     });
@@ -873,7 +903,7 @@ angular.module('umm3601ursamajorApp')
             }
             newWindow.document.write("<b>" +"Comment made by " + comments[index].commenter + ": " +"</b>"+"<i>" + comments[index].commentText + "</i>");
             newWindow.document.write("<br>");
-            newWindow.document.write(comments[index].timestamp);
+            newWindow.documflaggedent.write(comments[index].timestamp);
             newWindow.document.write("<br>");
             newWindow.document.write(abstract);
         };
