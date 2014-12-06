@@ -45,7 +45,7 @@
                         <table cellpadding="0" cellspacing="1" border="1" bgcolor="#000000">
                             <tbody>
                             <tr ng-repeat="coloring in statusColors">
-                                <td height="22" width="22" ng-click="colorClick(status, coloring)" ng-style="statusBoxColor(coloring)"><span class="glyphicon glyphicon-ok glyphiconCenter" ng-show="selectedColor(status, coloring)"> </span></td>
+                                <td height="23" width="23" ng-click="colorClick(status, coloring)" ng-style="statusBoxColor(coloring)"><span class="glyphicon glyphicon-ok glyphiconCenter" ng-show="selectedColor(status, coloring)"> </span></td>
                             </tr>
                             </tbody>
                         </table>
@@ -72,8 +72,7 @@
                         <br>
                     </div>
                     <button class="btn btn-primary padded" ng-click="submitChangesConfirm(status)">Submit Changes</button>
-                    <button class="btn btn-warning padded" ng-click="testConfirm()">Test Modal</button>
-                </div>
+                    </div>
 
                     <button ng-hide="requiredStatus(status)" class="btn btn-md btn-danger" ng-click="deleteStatusConfirm(status)">
                         <span class="glyphicon glyphicon-trash"></span></button>
