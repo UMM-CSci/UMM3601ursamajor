@@ -73,6 +73,11 @@ hr {
     font-family: "Helvetica Neue Light", "Lucida Grande", "Calibri", "Arial", sans-serif;
 }
 
+.btn-primary {
+    background: dimgray;
+    vertical-align: top;
+}
+
 /*Formats buttons related to resub Button*/
 .moveRight {
     display: inline-block;
