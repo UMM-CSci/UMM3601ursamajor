@@ -348,7 +348,7 @@ Submission.find({}).remove(function(){
         sponsors: [],
         adviserInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
         coadviserOneInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
-        coadviserTwoInfo: {first: "Aaron", last: "Lemmon", email: "lemmo031@morris.umn.edu"},
+        coadviserTwoInfo: {first: "Zachary", last: "Threadgill", email: "threa010@morris.umn.edu"},
         featured: true,
         mediaServicesEquipment: "",
         specialRequirements: "A space to perform with three people.",
