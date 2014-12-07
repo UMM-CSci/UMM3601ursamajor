@@ -72,6 +72,11 @@ angular.module('umm3601ursamajorApp')
             ]
         };
 
+        // Returns true if a submission has a status that is not the default and it also does not have adviser approval.
+        $scope.statusApprovalConflict = function(submission) {
+            return (submission.status.priority != -15 && !submission.approval);
+        };
+
         // Returns true when the submission HAS a parent, and ISN'T the primary.
         $scope.isResubmission = function(submission){
             return (!submission.resubmissionData.isPrimary);
@@ -904,12 +909,12 @@ angular.module('umm3601ursamajorApp')
             var newWindow = $window.open("", null, "height=300,width=600,status=yes,toolbar=no,menubar=no,location=no");
             if(comments[index].origin != id){
                 console.log("Yup");
-                newWindow.document.write("<b>" + "This comgalvanized and common nails.The nails were placedment was made on a prior version of this submission" + "</b>");
+                newWindow.document.write("<b>" + "This comment was made on a prior version of this submission" + "</b>");
                 newWindow.document.write("<br>");
             }
             newWindow.document.write("<b>" +"Comment made by " + comments[index].commenter + ": " +"</b>"+"<i>" + comments[index].commentText + "</i>");
             newWindow.document.write("<br>");
-            newWindow.documflaggedent.write(comments[index].timestamp);
+            newWindow.document.write(comments[index].timestamp);
             newWindow.document.write("<br>");
             newWindow.document.write(abstract);
         };

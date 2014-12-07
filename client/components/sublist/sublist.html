@@ -126,7 +126,7 @@
                             <p>Adviser: {{selection.item.adviserInfo.last}}, {{selection.item.adviserInfo.first}} email: {{selection.item.adviserInfo.email}}</p>
                             <p>{{selection.item.coadviserOneInfo.first | isntEmpty:"CoAdviser(s):":""}}{{selection.item.coadviserOneInfo.last | isntEmpty:"":""}}{{selection.item.coadviserTwoInfo.first | isntEmpty:",":""}} {{selection.item.coadviserTwoInfo.last | isntEmpty:"":""}}
                             </p>
-                            <p>Adviser Approved: {{approvalWordChange(selection.item.approval)}}</p>
+                            <p>Adviser Approved: {{approvalWordChange(selection.item.approval)}} <span class="glyphicon glyphicon-info-sign" style="color:red" ng-show="statusApprovalConflict(selection.item)" title="This submission does not have adviser approval yet, but it has moved forward with the submission process."></span></p>
                             <p>{{selection.item.sponsors | isntEmpty:"Sponsors:":""}}</p>
                             <p>{{selection.item.mediaServicesEquipment | isntEmpty:"Media Services Equipment:":""}}</p>
                             <p>{{selection.item.specialRequirements | isntEmpty:"Special Requirements:":""}}</p>
