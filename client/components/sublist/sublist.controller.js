@@ -55,8 +55,8 @@ angular.module('umm3601ursamajorApp')
             featurePresentationFilterSelection: "All",
             featurePresentationFilterOptions: [
                 "All",
-                "Interested in being feature presentation",
-                "Not interested in being feature presentation"
+                "Wants to be featured",
+                "Doesn't want to be featured"
             ],
             flaggedForResubmitFilterSelection: "All",
             flaggedForResubmitFilterOptions: [
@@ -68,7 +68,7 @@ angular.module('umm3601ursamajorApp')
             pendingResubmissionsOptions: [
                 "All",
                 "Pending Resubmissions",
-                "Not Pending Resubmissions"
+                "No Pending Resubmissions"
             ]
         };
 
