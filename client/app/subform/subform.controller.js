@@ -121,6 +121,7 @@ angular.module('umm3601ursamajorApp')
             specialRequirements: "",
             //presenterTeeSize: "",
             otherInfo: "",
+            approval: false,
             resubmitComment: "",
             resubmitParent: "",
             resubmitFlag: false,
@@ -174,6 +175,18 @@ angular.module('umm3601ursamajorApp')
             };
         };
 
+        $scope.sendAdviserEmail = function() {
+            sendGmail({
+                to: [$scope.submissionData.adviserInfo.email, $scope.submissionData.coadviserOneInfo.email, $scope.submissionData.coadviserTwoInfo.email],
+                subject: 'URS Submission requires approval',
+                message: $scope.submissionData.presenterInfo.first + " " + $scope.submissionData.presenterInfo.last +
+                    ' has submitted a URS submission that requires your approval. ' +
+                    'By approving the submission, you are authorizing the student(s) to submit this abstract for consideration for the URS, ' +
+                    'not approving the final abstract; the student(s) will have the opportunity to further revise, improve, and finalize their submission. '+
+                    'Please go to https://ursa-major.herokuapp.com/ to log in and approve (or reject) the submission.'
+            });
+        };
+
         //----------------------------------- Resubmission Functions --------------------------------------
 
         $scope.convertSponsorArray = function(arry) {
@@ -214,6 +227,28 @@ angular.module('umm3601ursamajorApp')
             return tempSponsors;
         };
 
+        $scope.checkAdviserChanges = function(){
+            var same = true;
+            if($scope.isResubmitting){
+                for(var key in $scope.submissionData.adviserInfo){
+                    if($scope.submissionData.adviserInfo.hasOwnProperty(key)){
+                        if($scope.submissionData.adviserInfo[key] != $scope.resubmitParent.adviserInfo[key]){
+                            console.log("Adviser difference!");
+                            console.log($scope.submissionData.adviserInfo[key] + " | " + $scope.resubmitParent.adviserInfo[key]);
+                            same = false;
+                            break;
+                        }
+                    }
+                }
+
+                if(!same){
+                    $scope.submissionData.approval = false;
+                    Modal.confirm.info($scope.sendAdviserEmail)("You have changed your primary adviser from " + $scope.resubmitParent.adviserInfo.last + ", " + $scope.resubmitParent.adviserInfo.first + " [" + $scope.resubmitParent.adviserInfo.email + "] to " +
+                       $scope.submissionData.adviserInfo.last + ", " + $scope.submissionData.adviserInfo.first + " [" + $scope.submissionData.adviserInfo.email + "]. " + " Your submission will now require the approval of this new adviser. Send email to new adviser?");
+                }
+            }
+        };
+
         $scope.getResubmitData = function(submission){
             $scope.submissionData = {
                 title: submission.title,
@@ -235,6 +270,7 @@ angular.module('umm3601ursamajorApp')
                 specialRequirements: submission.specialRequirements,
                 //presenterTeeSize: submission.presenterTeeSize,
                 otherInfo: submission.otherInfo,
+                approval: submission.approval,
                 resubmitComment: "",
                 resubmitParent: submission._id,
                 resubmitFlag: false,
@@ -348,11 +384,14 @@ angular.module('umm3601ursamajorApp')
 
         //---------------------------- Submitting Submission(s) ------------------------------
 
+
         $scope.submitSubmissionConfirm = function(){
             Modal.confirm.info($scope.submitSubmission)("Are you sure you want to submit?");
         };
 
         $scope.submitSubmission = function(){
+            $scope.checkAdviserChanges();
+
             if(!$scope.isResubmitting && $scope.attemptEmail){
                 alert("If you do not send the email that will be automatically generated, your adviser will not receive a notification to approve your submission.");
             }
@@ -393,7 +432,7 @@ angular.module('umm3601ursamajorApp')
                     specialRequirements: $scope.submissionData.specialRequirements,
                     //presenterTeeSize: $scope.submissionData.presenterTeeSize,
                     otherInfo: $scope.submissionData.otherInfo,
-                    approval: false,
+                    approval: $scope.submissionData.approval,
                     cc: false,
                     rejection: false,
                     status: $scope.submissionData.status,
@@ -411,15 +450,7 @@ angular.module('umm3601ursamajorApp')
 
 
             if (!$scope.isResubmitting && $scope.attemptEmail) {
-                sendGmail({
-                    to: [$scope.submissionData.adviserInfo.email, $scope.submissionData.coadviserOneInfo.email, $scope.submissionData.coadviserTwoInfo.email],
-                    subject: 'URS Submission requires approval',
-                    message: $scope.submissionData.presenterInfo.first + " " + $scope.submissionData.presenterInfo.last +
-                        ' has submitted a URS submission that requires your approval. ' +
-                        'By approving the submission, you are authorizing the student(s) to submit this abstract for consideration for the URS, ' +
-                        'not approving the final abstract; the student(s) will have the opportunity to further revise, improve, and finalize their submission. '+
-                        'Please go to https://ursa-major.herokuapp.com/ to log in and approve (or reject) the submission.'
-                });
+               $scope.sendAdviserEmail();
             }
             if ($scope.isResubmitting) {
                 $http.patch('api/submissions/' + $scope.submissionData.resubmitParent,

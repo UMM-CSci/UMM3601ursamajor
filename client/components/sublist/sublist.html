@@ -116,7 +116,7 @@
                             </div>
                         </div>
                         <button class="btn btn-default" ng-click="editStatus()">Cancel</button>
-                        <button class="btn btn-warning" ng-click="submitStatusEdit()">Submit</button>
+                        <button class="btn btn-warning" ng-click="submitStatusEditConfirm()">Submit</button>
                     </div>
                     <h3 id="text">{{selection.item.title}}</h3>
                     <strong>{{selection.item.presenterInfo.last}}, {{selection.item.presenterInfo.first}}</strong>
@@ -181,7 +181,7 @@
             <ul class="plainList ">
                 <li ng-repeat="comment in displayedComments()" ng-click="selectComment($index)" class="clickable alert alert-warning block commentStyle">
                     <p>{{comment.commentText | isntEmpty:"Comment:":"(No comment...)"}}</p>
-                    <p class="subText "><i>- {{comment.commenter}}</i></p>
+                    <p class="subText" ng-show="hasAdminPrivs() || isReviewerGroup(selection.item)"><i>- {{comment.commenter}}</i></p>
                     <div ng-show="isSelectedComment($index)">
                         <button class="btn btn-xs responseButton" ng-hide="showResponses" ng-click="showResponses = true" title="show responses"><span class="glyphicon glyphicon-chevron-down"></span></button>
                         <button class="btn btn-xs responseButton" ng-show="showResponses" ng-click="showResponses = false" title="hide responses"><span class="glyphicon glyphicon-chevron-up"></span></button>
@@ -199,8 +199,8 @@
                         <hr class="lineColor">
                         <div style="margin-left: 3px; padding-left: 10px; border-left: 2px solid steelblue" ng-repeat="response in comment.responses">
                             <p class="padded">{{response.response}}</p>
-                            <p><i>- {{response.responder}}</i></p>
-                            <button ng-show="hasAdminPrivs()" class="btn btn-xs deleteButton" ng-click="deleteResponse(selection.item , transformCommentIndex($parent.$index) , $index)">Delete Response</button>
+                            <p ng-show="hasAdminPrivs()"><i>- {{response.responder}}</i></p>
+                            <button ng-show="hasAdminPrivs() || isReviewerGroup(selection.item)" class="btn btn-xs deleteButton" ng-click="deleteResponse(selection.item , transformCommentIndex($parent.$index) , $index)">Delete Response</button>
                         </div>
                     </div>
                 </li>
