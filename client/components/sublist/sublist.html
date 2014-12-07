@@ -1,11 +1,4 @@
 <div class="container-fluid breakLongWords" ng-controller="SublistCtrl">
-    <tabset ng-hide="selection.selected">
-        <tab heading="All Submissions" ng-click="showAllSubmissions()"></tab>
-        <tab ng-show="isPresenterOnAnything()" heading="Presenter Submissions" ng-click="showMySubmissions()"></tab>
-        <tab ng-show="isCoPresenterOnAnything()" heading="CoPresenter Submissions" ng-click="showMyCoSubmissions()"></tab>
-        <tab ng-show="isAdviserOfAnything()" heading="Adviser Submissions" ng-click="showMyAdviserSubmissions()"></tab>
-        <tab ng-show="isReviewerOfAnything()" heading="Reviewer Submissions" ng-click="showMyReviewerSubmissions()"></tab>
-    </tabset>
 
 
     <!-- HTML for list view -->
@@ -73,32 +66,6 @@
             </ul>
         </div>
     </div>
-
-        <li class="list-group-item" ng-show="submissions.length < 1">
-            <img class="loadingImage" src="assets/images/hourglass-gif.gif">
-        </li>
-
-        <li class="list-group-item" ng-style="statusColorTab(sub.status.strict)" ng-repeat="sub in submissions | filter:hasPermissions | filter:tabFilters | filter:reviewGroupFilter | filter:featurePresentationFilter | filter:flaggedForResubmitFilter | filter:pendingResubmissionsFilter | filter:searchFilter" ng-hide="isResubmission(sub)">
-            <h3 id="text">{{sub.title}}
-                <span ng-show="getResubmission(sub) != null" title="Submission has an unapproved resubmission" style="color: red" class="glyphicon glyphicon-warning-sign"></span>
-                <span ng-show="sub.resubmissionData.resubmitFlag" title="Submission is flagged for resubmission" style="color: darkgoldenrod" class="glyphicon glyphicon-flag"></span>
-            </h3>
-            <button class="buttonL" ng-click="selectItem($index)">Details</button>
-            <strong>Presenter: {{sub.presenterInfo.first}} {{sub.presenterInfo.last}}</strong>
-            <p class="subtext">
-                {{sub.copresenterOneInfo.first | isntEmpty:"CoPresenter(s):":""}} {{sub.copresenterOneInfo.last | isntEmpty:"":""}}{{sub.copresenterTwoInfo.first | isntEmpty:",":""}} {{sub.copresenterTwoInfo.last | isntEmpty:"":""}}
-            </p>
-            <p>
-                Adviser: {{sub.adviserInfo.first}} {{sub.adviserInfo.last}}
-            </p>
-            <p class="subtext">
-                {{sub.coadviserOneInfo.first | isntEmpty:"CoAdviser(s):":""}} {{sub.coadviserOneInfo.last | isntEmpty:"":""}}{{sub.coadviserTwoInfo.first | isntEmpty:",":""}} {{sub.coadviserTwoInfo.last | isntEmpty:"":""}}
-            </p>
-            <p class="subtext">
-            Date of Submission: {{sub.timestamp}}
-            </p>
-            <br>
-          </li>
     </ul>
 
     <!-- HTML for details view starts here. -->
