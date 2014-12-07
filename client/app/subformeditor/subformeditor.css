@@ -13,3 +13,8 @@
     margin-bottom: 10px;
 }
 
+@media screen and (max-device-width: 500px) {
+    .mobileCompatable {
+        width: 20em;
+    }
+}

@@ -73,13 +73,6 @@ hr {
     font-family: "Helvetica Neue Light", "Lucida Grande", "Calibri", "Arial", sans-serif;
 }
 
-
-/*TODO: this is not OK. At LEAST change the border color to match...*/
-.btn-primary {
-    background: dimgray;
-    vertical-align: top;
-}
-
 /*Formats buttons related to resub Button*/
 .moveRight {
     display: inline-block;

@@ -10,26 +10,34 @@
     <!-- HTML for list view -->
     <ul class="list-group" ng-hide="selection.selected">
         <li class="list-group-item noTopBorder" id="text">
-            <h2>Submissions </h2>
-            <br>
-            <input type="text" ng-model="filterData.searchText" placeholder="Search by name">
-            <br>
-            <p ng-show="isAdmin() || isChair()">Search by review group:</p>
-            <select ng-show="isAdmin() || isChair()" ng-model="filterData.reviewGroupFilterSelection">
-                <option ng-repeat="option in filterData.reviewGroupFilterOptions" ng-value="'{{option}}'">{{option}}</option>
-            </select>
-            <p ng-show="isAdmin() || isChair()">Search by feature presentation:</p>
-            <select ng-show="isAdmin() || isChair()" ng-model="filterData.featurePresentationFilterSelection">
-                <option ng-repeat="option in filterData.featurePresentationFilterOptions" ng-value="'{{option}}'">{{option}}</option>
-            </select>
-            <p ng-show="isAdmin() || isChair()">Search by flagged for resubmission:</p>
-            <select ng-show="isAdmin() || isChair()" ng-model="filterData.flaggedForResubmitFilterSelection">
-                <option ng-repeat="option in filterData.flaggedForResubmitFilterOptions" ng-value="'{{option}}'">{{option}}</option>
-            </select>
-            <p ng-show="isAdmin() || isChair()">Search by pending resubmissions:</p>
-            <select ng-show="isAdmin() || isChair()" ng-model="filterData.pendingResubmissionsSelection">
-                <option ng-repeat="option in filterData.pendingResubmissionsOptions" ng-value="'{{option}}'">{{option}}</option>
-            </select>
+
+                    <h2>Submissions </h2>
+                    <br>
+
+                    <input type="text" ng-model="filterData.searchText" placeholder="Search by name">
+                    <br>
+
+
+
+                    <p ng-show="isAdmin() || isChair()">Search by review group:</p>
+                    <select ng-show="isAdmin() || isChair()" ng-model="filterData.reviewGroupFilterSelection">
+                        <option ng-repeat="option in filterData.reviewGroupFilterOptions" ng-value="'{{option}}'">{{option}}</option>
+                    </select>
+                    <p ng-show="isAdmin() || isChair()">Search by feature presentation:</p>
+                    <select ng-show="isAdmin() || isChair()" ng-model="filterData.featurePresentationFilterSelection">
+                        <option ng-repeat="option in filterData.featurePresentationFilterOptions" ng-value="'{{option}}'">{{option}}</option>
+                    </select>
+
+
+
+                    <p ng-show="isAdmin() || isChair()">Search by flagged for resubmission:</p>
+                    <select ng-show="isAdmin() || isChair()" ng-model="filterData.flaggedForResubmitFilterSelection">
+                        <option ng-repeat="option in filterData.flaggedForResubmitFilterOptions" ng-value="'{{option}}'">{{option}}</option>
+                    </select>
+                    <p ng-show="isAdmin() || isChair()">Search by pending resubmissions:</p>
+                    <select ng-show="isAdmin() || isChair()" ng-model="filterData.pendingResubmissionsSelection">
+                        <option ng-repeat="option in filterData.pendingResubmissionsOptions" ng-value="'{{option}}'">{{option}}</option>
+                    </select>
 
 
             <!--<button type="button" class="btn btn-default" ng-click="filterData.orderByPredicate='timestamp'">Order by timestamp</button>-->
