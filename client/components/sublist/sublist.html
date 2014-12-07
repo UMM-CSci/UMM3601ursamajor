@@ -7,41 +7,72 @@
         <tab ng-show="isReviewerOfAnything()" heading="Reviewer Submissions" ng-click="showMyReviewerSubmissions()"></tab>
     </tabset>
 
+
     <!-- HTML for list view -->
-    <ul class="list-group" ng-hide="selection.selected">
-        <li class="list-group-item noTopBorder" id="text">
 
+    <div class="row container-fluid" ng-hide="selection.selected">
+        <div class="col-md-3" style="padding-top: 50px">
+            <input type="text" ng-model="filterData.searchText" placeholder="Search by name">
+            <br>
+            <p ng-show="isAdmin() || isChair()">Search by review group:</p>
+            <select ng-show="isAdmin() || isChair()" ng-model="filterData.reviewGroupFilterSelection">
+                <option ng-repeat="option in filterData.reviewGroupFilterOptions" ng-value="'{{option}}'">{{option}}</option>
+            </select>
+            <p ng-show="isAdmin() || isChair()">Search by feature presentation:</p>
+            <select ng-show="isAdmin() || isChair()" ng-model="filterData.featurePresentationFilterSelection">
+                <option ng-repeat="option in filterData.featurePresentationFilterOptions" ng-value="'{{option}}'">{{option}}</option>
+            </select>
+            <p ng-show="isAdmin() || isChair()">Search by flagged for resubmission:</p>
+            <select ng-show="isAdmin() || isChair()" ng-model="filterData.flaggedForResubmitFilterSelection">
+                <option ng-repeat="option in filterData.flaggedForResubmitFilterOptions" ng-value="'{{option}}'">{{option}}</option>
+            </select>
+            <p ng-show="isAdmin() || isChair()">Search by pending resubmissions:</p>
+            <select ng-show="isAdmin() || isChair()" ng-model="filterData.pendingResubmissionsSelection">
+                <option ng-repeat="option in filterData.pendingResubmissionsOptions" ng-value="'{{option}}'">{{option}}</option>
+            </select>
+        </div>
+        <div class="col-md-9">
+            <tabset ng-hide="selection.selected">
+                <tab heading="All Submissions" ng-click="showAllSubmissions()"></tab>
+                <tab ng-show="isPresenterOnAnything()" heading="Presenter Submissions" ng-click="showMySubmissions()"></tab>
+                <tab ng-show="isCoPresenterOnAnything()" heading="CoPresenter Submissions" ng-click="showMyCoSubmissions()"></tab>
+                <tab ng-show="isAdviserOfAnything()" heading="Adviser Submissions" ng-click="showMyAdviserSubmissions()"></tab>
+                <tab ng-show="isReviewerOfAnything()" heading="Reviewer Submissions" ng-click="showMyReviewerSubmissions()"></tab>
+            </tabset>
+            <ul class="list-group">
+                <li class="list-group-item noTopBorder" id="text">
                     <h2>Submissions </h2>
+                    <!--<button type="button" class="btn btn-default" ng-click="filterData.orderByPredicate='timestamp'">Order by timestamp</button>-->
+                </li>
+
+                <li class="list-group-item" ng-show="submissions.length < 1">
+                    <img class="loadingImage" src="assets/images/hourglass-gif.gif">
+                </li>
+
+                <li class="list-group-item" ng-style="statusColorTab(sub.status.strict)" ng-repeat="sub in submissions | filter:hasPermissions | filter:tabFilters | filter:reviewGroupFilter | filter:featurePresentationFilter | filter:flaggedForResubmitFilter | filter:pendingResubmissionsFilter | filter:searchFilter" ng-hide="isResubmission(sub)">
+                    <h3 id="text">{{sub.title}}
+                        <span ng-show="getResubmission(sub) != null" title="Submission has an unapproved resubmission" style="color: red" class="glyphicon glyphicon-warning-sign"></span>
+                        <span ng-show="sub.resubmissionData.resubmitFlag" title="Submission is flagged for resubmission" style="color: darkgoldenrod" class="glyphicon glyphicon-flag"></span>
+                    </h3>
+                    <button class="buttonL" ng-click="selectItem($index)">Details</button>
+                    <strong>Presenter: {{sub.presenterInfo.first}} {{sub.presenterInfo.last}}</strong>
+                    <p class="subtext">
+                        {{sub.copresenterOneInfo.first | isntEmpty:"CoPresenter(s):":""}} {{sub.copresenterOneInfo.last | isntEmpty:"":""}}{{sub.copresenterTwoInfo.first | isntEmpty:",":""}} {{sub.copresenterTwoInfo.last | isntEmpty:"":""}}
+                    </p>
+                    <p>
+                        Adviser: {{sub.adviserInfo.first}} {{sub.adviserInfo.last}}
+                    </p>
+                    <p class="subtext">
+                        {{sub.coadviserOneInfo.first | isntEmpty:"CoAdviser(s):":""}} {{sub.coadviserOneInfo.last | isntEmpty:"":""}}{{sub.coadviserTwoInfo.first | isntEmpty:",":""}} {{sub.coadviserTwoInfo.last | isntEmpty:"":""}}
+                    </p>
+                    <p class="subtext">
+                        Date of Submission: {{sub.timestamp}}
+                    </p>
                     <br>
-
-                    <input type="text" ng-model="filterData.searchText" placeholder="Search by name">
-                    <br>
-
-
-
-                    <p ng-show="isAdmin() || isChair()">Search by review group:</p>
-                    <select ng-show="isAdmin() || isChair()" ng-model="filterData.reviewGroupFilterSelection">
-                        <option ng-repeat="option in filterData.reviewGroupFilterOptions" ng-value="'{{option}}'">{{option}}</option>
-                    </select>
-                    <p ng-show="isAdmin() || isChair()">Search by feature presentation:</p>
-                    <select ng-show="isAdmin() || isChair()" ng-model="filterData.featurePresentationFilterSelection">
-                        <option ng-repeat="option in filterData.featurePresentationFilterOptions" ng-value="'{{option}}'">{{option}}</option>
-                    </select>
-
-
-
-                    <p ng-show="isAdmin() || isChair()">Search by flagged for resubmission:</p>
-                    <select ng-show="isAdmin() || isChair()" ng-model="filterData.flaggedForResubmitFilterSelection">
-                        <option ng-repeat="option in filterData.flaggedForResubmitFilterOptions" ng-value="'{{option}}'">{{option}}</option>
-                    </select>
-                    <p ng-show="isAdmin() || isChair()">Search by pending resubmissions:</p>
-                    <select ng-show="isAdmin() || isChair()" ng-model="filterData.pendingResubmissionsSelection">
-                        <option ng-repeat="option in filterData.pendingResubmissionsOptions" ng-value="'{{option}}'">{{option}}</option>
-                    </select>
-
-
-            <!--<button type="button" class="btn btn-default" ng-click="filterData.orderByPredicate='timestamp'">Order by timestamp</button>-->
-        </li>
+                </li>
+            </ul>
+        </div>
+    </div>
 
         <li class="list-group-item" ng-show="submissions.length < 1">
             <img class="loadingImage" src="assets/images/hourglass-gif.gif">
@@ -73,7 +104,7 @@
     <!-- HTML for details view starts here. -->
 
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-9" >
             <ul class="list-group" ng-show="selection.selected">
                 <li class="list-group-item overflowAuto">
                     <button class="btn btn-sm btn-block" ng-click="resetSelection()"><span class="glyphicon glyphicon-chevron-left"></span> Back to Submission List</button>
@@ -82,11 +113,10 @@
 
                     <button ng-show="showResubmitButton().show" class="btn btn-md btn-primary sideMargins moveRight" ng-click="flagForResubmitConfirm()">{{showResubmitButton().text}}</button>
 
-            <div class="btn-group sideMargins moveRight">
-                <button ng-show="(isAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-success  " ng-click="approveSubmissionConfirm(selection.item)">  Give adviser approval  <span class="glyphicon glyphicon-thumbs-up"></span></button>
-                <button ng-show="(isAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-danger " ng-click="rejectSubmissionConfirm(selection.item)">  Reject Submission  <span class="glyphicon glyphicon-thumbs-down"></span></button>
-            </div>
-
+                    <div class="btn-group sideMargins moveRight">
+                        <button ng-show="(isAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-success  " ng-click="approveSubmissionConfirm(selection.item)">  Give adviser approval  <span class="glyphicon glyphicon-thumbs-up"></span></button>
+                        <button ng-show="(isAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-danger " ng-click="rejectSubmissionConfirm(selection.item)">  Reject Submission  <span class="glyphicon glyphicon-thumbs-down"></span></button>
+                    </div>
                     <br>
 
                 </li>
