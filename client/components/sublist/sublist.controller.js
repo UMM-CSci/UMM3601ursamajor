@@ -608,13 +608,6 @@ angular.module('umm3601ursamajorApp')
 
         $scope.voteOption = "";
 
-//        $scope.resetTemps = function() {
-//            if($scope.selection.item != null){
-//                $scope.statusEdit.temp.strict = $scope.selection.item.status.strict;
-//                $scope.statusEdit.temp.text = $scope.selection.item.status.text;
-//            }
-//        };
-
         $scope.setVoteOptions = function(){
             if($scope.selection.item.reviewVotes.Accepted.indexOf($scope.getCurrentUser().email) != -1){
                 $scope.voteOption = 'Accepted without changes';
@@ -628,10 +621,13 @@ angular.module('umm3601ursamajorApp')
             else if($scope.selection.item.reviewVotes.TotalRewrite.indexOf($scope.getCurrentUser().email) != -1){
                 $scope.voteOption = 'Total rewrite';
             }
-            console.log("it Did this thinggggg");
         };
 
 
+
+        $scope.updateReviewVotingConfirm = function(item){
+            Modal.confirm.info($scope.updateReviewVoting)('Would you like to vote for this?', item)
+        };
 
 
         $scope.updateReviewVoting = function(value){
@@ -676,6 +672,7 @@ angular.module('umm3601ursamajorApp')
 
 
         };
+
 
         $scope.submitVoting = function() {
             $http.patch('api/submissions/' + $scope.selection.item._id,
