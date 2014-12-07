@@ -2,7 +2,7 @@
 'use strict';
 
 angular.module('umm3601ursamajorApp')
-    .controller('RoleChangeCtrl', function ($scope, $http, Auth, User, $location, $filter, socket) {
+    .controller('RoleChangeCtrl', function ($scope, Modal, $http, Auth, User, $location, $filter, socket) {
         if(Auth.isAdmin() || Auth.isChair()) {
         } else{
             $location.path('/');
@@ -43,19 +43,23 @@ angular.module('umm3601ursamajorApp')
         };
 
 
+        //Delete user modal
+        $scope.deleteUserConfirm = function(user){
+            if (Auth.getCurrentUser().email === user.email){
+                Modal.confirm.warning()("Cannot delete yourself.");
+            } else {
+                Modal.confirm.delete($scope.deleteUser)(user.name);
+            }
+        };
+
         // Deletes a user.
         $scope.deleteUser = function(user) {
-            if (Auth.getCurrentUser().email === user.email){
-                alert('Cannot delete yourself.');
-            }
-            else if(confirm('Are you sure you want to delete this user?')) {
-                User.remove({ id: user._id });
-                angular.forEach($scope.users, function(u, i) {
-                    if (u === user) {
-                        $scope.users.splice(i, 1);
-                    }
-                });
-            }
+            User.remove({ id: user._id });
+            angular.forEach($scope.users, function(u, i) {
+                if (u === user) {
+                    $scope.users.splice(i, 1);
+                }
+            });
         };
 
         // Checks if there is a conflict between the user and the group they are being assigned to.
@@ -71,6 +75,11 @@ angular.module('umm3601ursamajorApp')
                 ) {
                 alert('Conflict with user and role.');
             }
+        };
+
+
+        $scope.updateInfoConfirm = function(user) {
+            Modal.confirm.info($scope.updateInfoConfirm)("Save changes made to " + user.name + "?");
         };
 
         // Updates a users role as long as the user being changed isn't the one doing the changing.
