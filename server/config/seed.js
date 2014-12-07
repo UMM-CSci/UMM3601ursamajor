@@ -394,7 +394,7 @@ Submission.find({}).remove(function(){
         sponsors: [], //Might need to worry about if this is static for the DB later.
         adviserInfo: {first: "Peter",last: "Hans", email: "hans4858@morris.umn.edu"},
         coadviserOneInfo: {first: "Otto", last: "Marckell", email: "marck018@morris.umn.edu"},
-        coadviserTwoInfo: {first: "Aaron", last: "Lemmon", email: "lemmo031@morris.umn.edu"},
+        coadviserTwoInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
         featured: true,
         mediaServicesEquipment: "Microphone for my sick rhymes, 5 laser stage lights with automated gimbals.",
         specialRequirements: "A whale suit.",
