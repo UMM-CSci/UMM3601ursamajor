@@ -37,6 +37,12 @@
     background-color: #7a0019;
     font-weight: bold;
 }
+/*Forces the navbar color to remain marron and gold when clicking on an active tab*/
+.navbar-default .navbar-nav .active a:focus{
+    color: #ffcc33;
+    background-color: #7a0019;
+    font-weight: bold;
+}
 
 /*Changes the color of the Navbar items when you hover*/
 .navbar-default .navbar-nav li a:hover {
@@ -70,4 +76,6 @@
     background: #ffcc33;
     color: #7a0019;
 }
+
+
 /*----------------------------------------------------------------------------------------*/

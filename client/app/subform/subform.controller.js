@@ -30,6 +30,10 @@ angular.module('umm3601ursamajorApp')
         // Misc. Stuff
         $scope.timestamp = Date();
 
+        // Admin / Testing Specific Stuff
+        $scope.attemptEmail = true; //Used to prevent the attempted sending of emails during testing.
+        $scope.attemptRedirect = true; //Used to prevent attempted redirecting during testing.
+
 
         // ---------------------------------------- General HTTP requests ----------------------------------------
         $http.get('/api/submissions').success(function(submissions) {
@@ -55,12 +59,20 @@ angular.module('umm3601ursamajorApp')
 
         // --------------------------------------- Data maintenance functions ------------------------------------
 
-        // Updates the local array with flagged submissions owned by the current user.
+        /**
+         * Updates $scope.flaggedSubmissions with any submissions owned by the user that have active resubmit flags.
+         *
+         * @param subs  - Array of submissions to update from. (usually $scope.submissions)
+         */
         $scope.updateFlaggedSubmissions = function(subs){
             $scope.flaggedSubmissions = $filter('filter')(subs, function(sub){return (sub.resubmissionData.resubmitFlag && (Auth.getCurrentUser().email === sub.presenterInfo.email))});
         };
 
-        // Returns true if the user has flagged submissions, false otherwise.
+        /**
+         * Checks if the user has any submissions with active resubmit flags.
+         *
+         * @returns {boolean}  - Whether the user has any active resubmit flags.
+         */
         $scope.hasResubmitFlags = function(){
             return $scope.flaggedSubmissions.length > 0;
         };
@@ -115,14 +127,15 @@ angular.module('umm3601ursamajorApp')
             featuredPresentation: Boolean,
             mediaServicesEquipment: "",
             specialRequirements: "",
-            //presenterTeeSize: "",
             otherInfo: "",
+            approval: false,
             resubmitComment: "",
             resubmitParent: "",
             resubmitFlag: false,
             status: {strict: $scope.startingStatus, text: ""},
             comments: [],
             group: 0,
+            roomAssignment: "",
             reviewVotes: {
                 Accepted: [],
                 Minor: [],
@@ -133,7 +146,15 @@ angular.module('umm3601ursamajorApp')
 
         // ----------------------------- Misc Helper Functions --------------------------------------
 
-        //Email for advisers
+        /**
+         * Opens a new email (gmail) in a new tab using parameters specified in opts.
+         *
+         * @param opts  - Options for the generated email:
+         *
+         * to: Array of emails to send to.
+         * subject: Subject of email.
+         * message: Body of email.
+         */
         var sendGmail = function(opts){
             var str = 'http://mail.google.com/mail/?view=cm&fs=1'+
                 '&to=' + opts.to +
@@ -143,10 +164,18 @@ angular.module('umm3601ursamajorApp')
             $window.open(str);
         };
 
+        /**
+         * Returns the number of chatacters the user has left for their abstract.
+         *
+         * @returns {number}  - The number of remaining characters (out of 1000).
+         */
         $scope.charsRemaining = function() {
             return 1000 - $scope.submissionData.abstract.length;
         };
 
+        /**
+         * Resets the submissionData to its default values.
+         */
         $scope.resetData = function(){
             $scope.submissionData = {
                 title: "",
@@ -158,32 +187,63 @@ angular.module('umm3601ursamajorApp')
                 copresenterOne: {first: "", last: "", email: ""},
                 copresenterTwo: {first: "", last: "", email: ""},
                 discipline: "",
-                sponsors: ["","","","",""], //Might need to worry about if this is static for the DB later.
+                sponsors: [],
+                sponsorsFinal: [],
                 adviserInfo: {first: "", last: "", email: ""},
                 coadviserOneInfo: {first: "", last: "", email: ""},
                 coadviserTwoInfo: {first: "", last: "", email: ""},
                 featuredPresentation: Boolean,
                 mediaServicesEquipment: "",
                 specialRequirements: "",
-                presenterTeeSize: "",
-                otherInfo: ""
+                otherInfo: "",
+                approval: false,
+                resubmitComment: "",
+                resubmitParent: "",
+                resubmitFlag: false,
+                status: {strict: $scope.startingStatus, text: ""},
+                comments: [],
+                group: 0,
+                reviewVotes: {
+                    Accepted: [],
+                    Minor: [],
+                    Major: [],
+                    TotalRewrite: []
+                }
             };
+        };
+
+        /**
+         * Sends a canned email to the advisers of the submission. (if attemptEmail is true).
+         */
+        $scope.sendAdviserEmail = function() {
+            if($scope.attemptEmail){
+                sendGmail({
+                    to: [$scope.submissionData.adviserInfo.email, $scope.submissionData.coadviserOneInfo.email, $scope.submissionData.coadviserTwoInfo.email],
+                    subject: 'URS Submission requires approval',
+                    message: $scope.submissionData.presenterInfo.first + " " + $scope.submissionData.presenterInfo.last +
+                        ' has submitted a URS submission that requires your approval. ' +
+                        'By approving the submission, you are authorizing the student(s) to submit this abstract for consideration for the URS, ' +
+                        'not approving the final abstract; the student(s) will have the opportunity to further revise, improve, and finalize their submission. '+
+                        'Please go to https://ursa-major.herokuapp.com/ to log in and approve (or reject) the submission.'
+                });
+            }
         };
 
         //----------------------------------- Resubmission Functions --------------------------------------
 
+        /**
+         * Converts array of sponsors from a submission into a format suitable for the submission form.
+         *
+         * @param arry  - the array to be converted. IE: ["UROP", "MMP"]
+         * @returns {Array}  - the array which is suitable for use in the submission form. IE: ["UROP", "",  "MMP", ""]
+         */
         $scope.convertSponsorArray = function(arry) {
             var tempSponsors = [];
             var addedToggle = false;
 
-            //fixed now (probably)
             for(var x = 0; x <= $scope.fundingSources.length; x++){
                 addedToggle = false;
-//            console.log("Main for loop, sponsor: " + $scope.fundingSources[x]);
-//            console.log("Length of sponsors from submission: " + submission.sponsors.length);
-//            console.log("X: " + x);
                 for(var y = 0; y < arry.length; y++){
-//                console.log("final case? " + (x == $scope.fundingSources.length));
                     if(x == $scope.fundingSources.length){
                         if($scope.fundingSources.indexOf(arry[arry.length - 1]) == -1){
                             tempSponsors.push(arry[arry.length - 1]);
@@ -195,7 +255,6 @@ angular.module('umm3601ursamajorApp')
                     }
                 }
                 if(!addedToggle){
-//                console.log("Added toggle false!");
                     if(x == $scope.fundingSources.length){
                         addedToggle = !addedToggle;
                     } else {
@@ -203,13 +262,44 @@ angular.module('umm3601ursamajorApp')
                         addedToggle = !addedToggle;
                     }
                 }
-//            console.log(tempSponsors);
             }
 //        console.log("~~~~~~~~~~~~~~sponsors from parent submission~~~~~~~~~~~~~~~~~~");
 //        console.log(tempSponsors);
             return tempSponsors;
         };
 
+        /**
+         * Checks for changes to primary adviser during a resubmission.
+         *
+         * If any aspect of the primary adviser has changed from the parent submission, the user will be prompted to send an email to the new adviser.
+         */
+        $scope.checkAdviserChanges = function(){
+            var same = true;
+            if($scope.isResubmitting){
+                for(var key in $scope.submissionData.adviserInfo){
+                    if($scope.submissionData.adviserInfo.hasOwnProperty(key)){
+                        if($scope.submissionData.adviserInfo[key] != $scope.resubmitParent.adviserInfo[key]){
+                            console.log("Adviser difference!");
+                            console.log($scope.submissionData.adviserInfo[key] + " | " + $scope.resubmitParent.adviserInfo[key]);
+                            same = false;
+                            break;
+                        }
+                    }
+                }
+
+                if(!same){
+                    $scope.submissionData.approval = false;
+                    Modal.confirm.info($scope.sendAdviserEmail)("You have changed your primary adviser from " + $scope.resubmitParent.adviserInfo.last + ", " + $scope.resubmitParent.adviserInfo.first + " [" + $scope.resubmitParent.adviserInfo.email + "] to " +
+                       $scope.submissionData.adviserInfo.last + ", " + $scope.submissionData.adviserInfo.first + " [" + $scope.submissionData.adviserInfo.email + "]. " + " Your submission will now require the approval of this new adviser. Send email to new adviser?");
+                }
+            }
+        };
+
+        /**
+         * Gathers relevant data from the parent submission for resubmission.
+         *
+         * @param submission  - The parent submission.
+         */
         $scope.getResubmitData = function(submission){
             $scope.submissionData = {
                 title: submission.title,
@@ -231,12 +321,14 @@ angular.module('umm3601ursamajorApp')
                 specialRequirements: submission.specialRequirements,
                 //presenterTeeSize: submission.presenterTeeSize,
                 otherInfo: submission.otherInfo,
+                approval: submission.approval,
                 resubmitComment: "",
                 resubmitParent: submission._id,
                 resubmitFlag: false,
                 status: submission.status,
                 comments: submission.comments,
                 group: submission.group,
+                roomAssignment: "",
                 reviewVotes: {
                     Accepted: submission.reviewVotes.Accepted,
                     Minor: submission.reviewVotes.Minor,
@@ -254,6 +346,11 @@ angular.module('umm3601ursamajorApp')
 
         //--------------------------- Email Validation -------------------------------
 
+        /**
+         * Checks if emails in the submission data are U of M addresses. (not specifically morris).
+         *
+         * @returns {boolean}  - Whether or not all emails are U of M addresses.
+         */
         $scope.checkEmailsAreUofM = function (){
             var presenterEmail = $scope.submissionData.presenterInfo.email;
             var copresenterOneEmail = $scope.submissionData.copresenterOne.email;
@@ -276,7 +373,7 @@ angular.module('umm3601ursamajorApp')
             if(copresenterTwoEmail != ""){
                 copresenterTwoCheck = (copresenterTwoEmail.indexOf("umn.edu") != -1);
             }
-
+            
             var adviserEmailCheck = (adviserEmail.indexOf("umn.edu") != -1);
 
             if(coadviserOneEmail != ""){
@@ -292,6 +389,11 @@ angular.module('umm3601ursamajorApp')
                 && coadviserOneCheck && coadviserTwoCheck;
         };
 
+        /**
+         * Checks if all emails in submission data are U of M Morris addresses.
+         *
+         * @returns {boolean}  - Whether or not all emails are U of M Morris addresses.
+         */
         $scope.checkEmailsAreMorris = function (){
             var presenterEmail = $scope.submissionData.presenterInfo.email;
             var copresenterOneEmail = $scope.submissionData.copresenterOne.email;
@@ -304,7 +406,7 @@ angular.module('umm3601ursamajorApp')
             var copresenterTwoCheck = true;
             var coadviserOneCheck = true;
             var coadviserTwoCheck = true;
-
+        
             var presenterCheck = (presenterEmail.indexOf("morris.umn.edu") != -1);
 
             if(copresenterOneEmail != ""){
@@ -314,7 +416,7 @@ angular.module('umm3601ursamajorApp')
             if(copresenterTwoEmail != ""){
                 copresenterTwoCheck = (copresenterTwoEmail.indexOf("morris.umn.edu") != -1);
             }
-
+            
             var adviserEmailCheck = (adviserEmail.indexOf("morris.umn.edu") != -1);
 
             if(coadviserOneEmail != ""){
@@ -324,51 +426,91 @@ angular.module('umm3601ursamajorApp')
             if(coadviserTwoEmail != ""){
                 coadviserTwoCheck = (coadviserTwoEmail.indexOf("morris.umn.edu") != -1);
             }
-
+            
             return presenterCheck && copresenterOneCheck &&
                 copresenterTwoCheck && adviserEmailCheck
                 && coadviserOneCheck && coadviserTwoCheck;
         };
+        
+        //must check that primary adviser is Morris, but all others can be just umn, because primary must log in with Morris email
+        $scope.checkPrimaryEmails = function(){
+            var presenterEmail = $scope.submissionData.presenterInfo.email;
+            var adviserEmail = $scope.submissionData.adviserInfo.email;
+            
+            var presenterEmailCheck = (presenterEmail.indexOf("morris.umn.edu") != -1);
+            var adviserEmailCheck = (adviserEmail.indexOf("morris.umn.edu") != -1);
+            
+            return presenterEmailCheck && adviserEmailCheck;
+        };
 
+        /**
+         * Runs email validation (above) and alerts the user if necessary.
+         *
+         * If validation passes, submission process will begin.
+         */
         $scope.preSubmitChecks = function(){
-            if ($scope.checkEmailsAreUofM() === true && $scope.checkEmailsAreMorris() === false){
-                var confirm = $window.confirm("At least one of the emails you entered is not a Morris email address. Would you like to continue?");
-            } else if($scope.checkEmailsAreUofM() === false){
-                $window.alert("One of the emails you entered is not a University of Minnesota email.");
-            }
+            var checkUMM = $scope.checkEmailsAreMorris();
 
-            if(confirm || $scope.checkEmailsAreMorris() === true){
+            // If all emails are UMM, proceed with submission
+            if(checkUMM){
                 $scope.submitSubmissionConfirm();
+            } else {
+                var checkPrimary = $scope.checkPrimaryEmails();
+                var checkUofM = $scope.checkEmailsAreUofM();
+
+                if(!checkPrimary){
+                    Modal.confirm.warning()("Either your main presenter email or primary adviser email is not currently a U of M Morris email.");
+                } else if(!checkUofM){
+                    Modal.confirm.warning()("One of the emails you entered is not a University of Minnesota email.");
+                } else if (checkUofM && !checkUMM){
+                    Modal.confirm.info($scope.submitSubmissionConfirm)("At least one of the emails you entered is not a Morris email address. Would you like to continue?");
+                }
             }
         };
 
         //---------------------------- Submitting Submission(s) ------------------------------
 
+        /**
+         * Opens confirmation modal (info) to confirm the user's desire to submit their submission.
+         */
         $scope.submitSubmissionConfirm = function(){
             Modal.confirm.info($scope.submitSubmission)("Are you sure you want to submit?");
         };
 
+        /**
+         * Does a variety of things in order to submit a submission to the database.
+         */
         $scope.submitSubmission = function(){
-            if(!$scope.isResubmitting){
+
+            // checking for changes to primary adviser.
+            $scope.checkAdviserChanges();
+
+            // if the user is NOT resubmitting and attemptEmail is true, the user will be warned regarding the auto-generated email(s).
+            if(!$scope.isResubmitting && $scope.attemptEmail){
                 alert("If you do not send the email that will be automatically generated, your adviser will not receive a notification to approve your submission.");
             }
 
+            // Converts the submissionData sponsors array into a readable format for storage as part of the submission.
             for (var i = 0; i < $scope.submissionData.sponsors.length; i++) {
                 if ($scope.submissionData.sponsors[i] != "" && $scope.submissionData.sponsors[i] != null) {
                     $scope.submissionData.sponsorsFinal.push($scope.submissionData.sponsors[i]);
                 }
             }
+
+            // If the user is NOT resubmitting, sets the status to the default submission status (lowest priority #?)
             if(!$scope.isResubmitting){
                 $scope.submissionData.status = {strict: $scope.startingStatus, text: ""};
                 //updating status to ensure that it works....?
             }
+
+            // if the user IS resubmitting, transfers the comments from the parent submission into submissionData for inclusion in the resubmission.
             if($scope.isResubmitting){
                 console.log("saving comments from original submission");
                 console.log("original comments: " + $scope.resubmitParent.comments);
                 $scope.submissionData.comments = $scope.resubmitParent.comments;
                 console.log($scope.submissionData.comments);
             }
-            console.log('posting Data!');
+
             $http.post('/api/submissions/',
                 {   title: $scope.submissionData.title,
                     format: $scope.submissionData.format,
@@ -386,13 +528,14 @@ angular.module('umm3601ursamajorApp')
                     featured: $scope.submissionData.featuredPresentation,
                     mediaServicesEquipment: $scope.submissionData.mediaServicesEquipment,
                     specialRequirements: $scope.submissionData.specialRequirements,
-                    //presenterTeeSize: $scope.submissionData.presenterTeeSize,
                     otherInfo: $scope.submissionData.otherInfo,
-                    approval: false,
+                    approval: $scope.submissionData.approval,
+                    cc: false,
                     rejection: false,
                     status: $scope.submissionData.status,
                     timestamp: $scope.timestamp,
                     group: $scope.submissionData.group,
+                    roomAssignment: "",
                     resubmissionData: {comment: $scope.submissionData.resubmitComment, parentSubmission: $scope.submissionData.resubmitParent, isPrimary: !$scope.isResubmitting, resubmitFlag: $scope.submissionData.resubmitFlag },
                     comments: $scope.submissionData.comments,
                     reviewVotes: {
@@ -403,18 +546,12 @@ angular.module('umm3601ursamajorApp')
                     }
                 });
 
-
+            // Default attempt to send adviser email if submission is not a resubmission.
             if (!$scope.isResubmitting) {
-                sendGmail({
-                    to: [$scope.submissionData.adviserInfo.email, $scope.submissionData.coadviserOneInfo.email, $scope.submissionData.coadviserTwoInfo.email],
-                    subject: 'URS Submission requires approval',
-                    message: $scope.submissionData.presenterInfo.first + " " + $scope.submissionData.presenterInfo.last +
-                        ' has submitted a URS submission that requires your approval. ' +
-                        'By approving the submission, you are authorizing the student(s) to submit this abstract for consideration for the URS, ' +
-                        'not approving the final abstract; the student(s) will have the opportunity to further revise, improve, and finalize their submission. '+
-                        'Please go to https://ursa-major.herokuapp.com/ to log in and approve (or reject) the submission.'
-                });
+               $scope.sendAdviserEmail();
             }
+
+            // Alter resubmissionData of parent submission to reflect the fact that a resubmission has been made.
             if ($scope.isResubmitting) {
                 $http.patch('api/submissions/' + $scope.submissionData.resubmitParent,
                     {
@@ -425,10 +562,45 @@ angular.module('umm3601ursamajorApp')
                     });
             }
             $scope.resetData();
-            $location.path('/submissionpage');
+            if($scope.attemptRedirect){
+                $location.path('/submissionpage');
+            }
         };
 
+        /**
+         * Helper function for adminAutoSubmit.
+         *
+         * @returns {number}  -random number that serves as a valid index in $scope.submissions
+         */
+        $scope.randomSubmissionIndex = function(){
+            var i = Math.floor(($scope.submissions.length - 1) * Math.random());
+            console.log("random index: " + i);
+            return i;
+        };
 
+        /**
+         * Selects a random submission from the existing submissions in the database and submits it as a new submission. (n times)
+         * Used to test system performance with large numbers of submissions.
+         *
+         * @param n  - The number of random submissions to make.
+         */
+        $scope.adminAutoSubmit = function(n){
+            if(n > 1){$scope.attemptRedirect = false;}
+            for(var i=0; i<=n; i++){
+                $scope.getResubmitData($scope.submissions[$scope.randomSubmissionIndex()]);
 
+                $scope.submissionData.resubmitFlag = false;
+
+                $scope.isResubmitting = false;
+
+                $scope.submissionData.title = $scope.submissionData.title + " [FILLER SUBMISSION]";
+
+                $scope.attemptEmail = false;
+
+                console.log("auto submitting admin auto generated submission!");
+
+                $scope.submitSubmission();
+            }
+        }
 
     });

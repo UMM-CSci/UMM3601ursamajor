@@ -16,21 +16,21 @@ Status.find({}).remove(function() {
     Status.create({
         strict: "Accepted",
         color: {red: 0, green: 255, blue: 0, alpha: 1},
-        emailSubject: "URS submission update",
+        emailSubject: "URS submission has been accepted",
         emailBody:  ", Your URS submission has been approved, congratulations!",
         priority: 15,
         required: true
     },{
         strict: "Revisions Needed",
-        color: {red: 0, green: 100, blue: 255, alpha: 1},
-        emailSubject: "URS submission update",
+        color: {red: 255, green: 255, blue: 0, alpha: 1},
+        emailSubject: "URS submission needs revisions",
         emailBody: ", Your URS submission has been flagged for revisions, and is in need of changes.",
         priority: 3,
         required: false
     },{
         strict: "Reviewing in Process",
-        color: {red: 255, green: 220, blue: 10, alpha: 1},
-        emailSubject: "URS submission update",
+        color: {red: 0, green: 100, blue: 255, alpha: 1},
+        emailSubject: "URS submission is being reviewed",
         emailBody: ", Your URS submission has been approved by your adviser.",
         priority: 2,
         required: false
@@ -43,8 +43,8 @@ Status.find({}).remove(function() {
         required: true
     },{
         strict: "Withdrawn",
-        color: {red: 70, green: 70, blue: 70, alpha: 1},
-        emailSubject: "URS submission update",
+        color: {red: 120, green: 120, blue: 120, alpha: 1},
+        emailSubject: "URS submission has been withdrawn",
         emailBody: ", Your URS submission has either been rejected by your adviser or been withdrawn.",
         priority: 14,
         required: true
@@ -136,6 +136,26 @@ User.find({}).remove(function() {
             role: "chair",
             __v: 0
         }, {
+            name: "Niccolas Ricci",
+            email: "ricc0082@morris.umn.edu",
+            provider: "google",
+            google: {
+                hd: "morris.umn.edu",
+                locale: "en",
+                gender: "male",
+                picture: "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg",
+                link: "https://plus.google.com/112108475765702437555",
+                family_name: "Ricci",
+                given_name: "Niccolas",
+                name: "Niccolas Ricci",
+                verified_email: true,
+                email: "ricc0082@morris.umn.edu",
+                id: "112108475765702437555"
+            },
+            group: -1,
+            role: "user",
+            __v: 0
+        }, {
             name: "Maggie Casale",
             email: "casal033@morris.umn.edu",
             provider: "google",
@@ -153,7 +173,7 @@ User.find({}).remove(function() {
                 id: "116234824364241021424"
             },
             group: -1,
-            role: "user",
+            role: "admin",
             __v: 0
         }, {
             name: "Jacob Opdahl",
@@ -236,7 +256,7 @@ User.find({}).remove(function() {
         }, {
             provider: 'local',
             role: 'reviewer',
-            name: 'Reviewer3',
+            name: 'Reviewer',
             email: 'reviewer@reviewer.com',
             password: 'reviewer',
             group: 3
@@ -295,10 +315,12 @@ Submission.find({}).remove(function(){
         presenterTeeSize: "L",
         otherInfo: "",
         approval: false,
+        cc: false,
         rejection: false,
         status:  {strict: "Awaiting Adviser Approval", text: "Your adviser has yet to approve this submission."},
         timestamp: "Sat Oct 18 2014 10:48:54 GMT-0500 (CDT)",
         group: 0,
+        roomAssignment: "Science 2610",
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
         comments: [],
         reviewVotes: {
@@ -326,17 +348,19 @@ Submission.find({}).remove(function(){
         sponsors: [],
         adviserInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
         coadviserOneInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
-        coadviserTwoInfo: {first: "Aaron", last: "Lemmon", email: "lemmo031@morris.umn.edu"},
+        coadviserTwoInfo: {first: "Zachary", last: "Threadgill", email: "threa010@morris.umn.edu"},
         featured: true,
         mediaServicesEquipment: "",
         specialRequirements: "A space to perform with three people.",
         presenterTeeSize: "M",
         otherInfo: "",
         approval: true,
+        cc: false,
         rejection: false,
         status: {strict: "Revisions Needed", text: "Your URS submission has been flagged for revisions, and is in need of changes."},
         timestamp: "Tue Oct 21 2014 23:22:54 GMT-0500 (CDT)",
         group: 1,
+        roomAssignment: "Imholte 109",
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
         comments:[],
         reviewVotes: {
@@ -377,10 +401,12 @@ Submission.find({}).remove(function(){
         presenterTeeSize: "XL",
         otherInfo: "yes.",
         approval: false,
+        cc: false,
         rejection: false,
         status: {strict: "Awaiting Adviser Approval", text: "Your adviser has yet to approve this submission."},
         timestamp: "Mon Sept 2 2014 1:48:54 GMT-0500 (CDT)",
         group: 1,
+        roomAssignment: "Science 2610",
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
         comments: [],
         reviewVotes: {
@@ -415,10 +441,12 @@ Submission.find({}).remove(function(){
         presenterTeeSize: "XL",
         otherInfo: "yes.",
         approval: true,
+        cc: false,
         rejection: false,
         status: {strict: "Reviewing in Process", text: "Your URS submission has been approved by your adviser"},
         timestamp: "Mon Oct 20 2014 1:48:54 GMT-0500 (CDT)",
         group: 3,
+        roomAssignment: "Science 2610",
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
         comments: [],
         reviewVotes: {
@@ -452,10 +480,12 @@ Submission.find({}).remove(function(){
         presenterTeeSize: "S",
         otherInfo: "yes.",
         approval: true,
+        cc: false,
         rejection: false,
         status: {strict: "Accepted", text: "Your URS submission has been approved, congratulations!"},
         timestamp: "Thur Oct 23 2014 1:48:54 GMT-0500 (CDT)",
         group: 2,
+        roomAssignment: "Science 2610",
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
         comments: [],
         reviewVotes: {
@@ -492,6 +522,7 @@ Submission.find({}).remove(function(){
         status: {strict: "Awaiting Adviser Approval", text: "Your adviser has yet to approve this submission."},
         timestamp: "Mon Oct 20 2014 1:48:54 GMT-0500 (CDT)",
         group: 3,
+        roomAssignment: "HFA 6",
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
         comments: [],
         reviewVotes: {

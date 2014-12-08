@@ -58,6 +58,7 @@ describe('Controller: StatuseditorCtrl', function () {
      ]
   });
 
+
   it('should ...', function () {
     expect(1).toEqual(1);
   });
@@ -68,6 +69,6 @@ describe('Controller: StatuseditorCtrl', function () {
 
   it('A non-required status should be not required', function(){
     expect(scope.requiredStatus(scope.statusArray[1])).toEqual(false);
-  });
+  })
 
-});
+})

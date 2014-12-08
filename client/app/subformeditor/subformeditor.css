@@ -9,8 +9,12 @@
 
 /*Adds padding*/
 .padded {
-    /*outline: dashed red 2px; */
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
+@media screen and (max-device-width: 500px) {
+    .mobileCompatable {
+        width: 20em;
+    }
+}

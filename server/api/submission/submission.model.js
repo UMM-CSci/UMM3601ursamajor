@@ -23,11 +23,15 @@ var SubmissionSchema = new Schema({
     //presenterTeeSize: String,
     otherInfo: String,
     approval: Boolean,
+    cc: {
+        type: Boolean,
+        default: false
+    },
     rejection: Boolean,
-    cc: Boolean,
     status: {strict: String, text: String},
     timestamp: String,
     group: Number,
+    roomAssignment: String,
     resubmissionData: {comment: String, parentSubmission: String, isPrimary: Boolean, resubmitFlag: Boolean},
     comments: [
         {
