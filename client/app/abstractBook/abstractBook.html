@@ -1,5 +1,22 @@
 <div ng-controller="AbstractbookCtrl" class="container-fluid">
-    <div class="col-md-12">
-        This is the abstractBook view.
+    <div>Note: only fully accepted submissions will show here</div>
+    <br>
+    <div ng-repeat="sub in submissions" ng-show="isAccepted(sub)">
+        <li class="list-group-item">
+                  <h3 id="text">{{sub.title}}</h3>
+                  <hr>
+                  <p><b>Presenter(s):</b> {{sub.presenterInfo.first}} {{sub.presenterInfo.last}}{{sub.copresenterOneInfo.first | isntEmpty:", ":""}} {{sub.copresenterOneInfo.last | isntEmpty:"":""}}{{sub.copresenterTwoInfo.first | isntEmpty:",":""}} {{sub.copresenterTwoInfo.last | isntEmpty:"":""}}</p>
+                  </p>
+                  <p><b>Discipline:</b> {{sub.discipline}}</p>
+                  <p><b>Type:</b> {{sub.presentationType}}</p>
+                  <p><b>Adviser(s):</b> {{sub.adviserInfo.first}} {{sub.adviserInfo.last}}{{sub.coadviserOneInfo.first | isntEmpty:",":""}}{{sub.coadviserOneInfo.last | isntEmpty:"":""}}{{sub.coadviserTwoInfo.first | isntEmpty:",":""}} {{sub.coadviserTwoInfo.last | isntEmpty:"":""}}</p>
+                  </p>
+                  <!--<p><b>Willing to be Feature Presentation:</b> {{approvalWordChange(sub.featured)}}</p>-->
+                  <div><b>Room Assignment:</b> {{sub.roomAssignment}}</div>
+                  <h3>Abstract</h3>
+                  <p ng-bind-html="sub.abstract"></p>
+            </li>
+        <br>
+        <br>
     </div>
 </div>

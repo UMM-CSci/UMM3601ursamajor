@@ -577,9 +577,7 @@ angular.module('umm3601ursamajorApp')
          * @returns {number}  -random number that serves as a valid index in $scope.submissions
          */
         $scope.randomSubmissionIndex = function(){
-            var i = Math.floor(($scope.submissions.length - 1) * Math.random());
-            console.log("random index: " + i);
-            return i;
+            return Math.floor(($scope.submissions.length - 1) * Math.random());;
         };
 
         /**
