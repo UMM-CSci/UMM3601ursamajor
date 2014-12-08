@@ -29,6 +29,8 @@ angular.module('umm3601ursamajorApp')
 
         // Misc. Stuff
         $scope.timestamp = Date();
+
+        // Admin / Testing Specific Stuff
         $scope.attemptEmail = true; //Used to prevent the attempted sending of emails during testing.
         $scope.attemptRedirect = true; //Used to prevent attempted redirecting during testing.
 
@@ -211,7 +213,7 @@ angular.module('umm3601ursamajorApp')
         };
 
         /**
-         *
+         * Sends a canned email to the advisers of the submission. (if attemptEmail is true).
          */
         $scope.sendAdviserEmail = function() {
             if($scope.attemptEmail){
@@ -415,14 +417,14 @@ angular.module('umm3601ursamajorApp')
                 copresenterTwoCheck = (copresenterTwoEmail.indexOf("morris.umn.edu") != -1);
             }
             
-            var adviserEmailCheck = (adviserEmail.indexOf("umn.edu") != -1);
+            var adviserEmailCheck = (adviserEmail.indexOf("morris.umn.edu") != -1);
 
             if(coadviserOneEmail != ""){
-                coadviserOneCheck = (coadviserOneEmail.indexOf("umn.edu") != -1);
+                coadviserOneCheck = (coadviserOneEmail.indexOf("morris.umn.edu") != -1);
             }
 
             if(coadviserTwoEmail != ""){
-                coadviserTwoCheck = (coadviserTwoEmail.indexOf("umn.edu") != -1);
+                coadviserTwoCheck = (coadviserTwoEmail.indexOf("morris.umn.edu") != -1);
             }
             
             return presenterCheck && copresenterOneCheck &&
@@ -443,18 +445,26 @@ angular.module('umm3601ursamajorApp')
 
         /**
          * Runs email validation (above) and alerts the user if necessary.
+         *
+         * If validation passes, submission process will begin.
          */
         $scope.preSubmitChecks = function(){
-            if($scope.checkPrimaryEmails() === false){
-                $window.alert("Either your main presenter email or primary adviser email is not currently a U of M Morris email.");
-            } else if($scope.checkEmailsAreUofM() === false){
-                $window.alert("One of the emails you entered is not a University of Minnesota email.");
-            } else if ($scope.checkEmailsAreUofM() === true && $scope.checkEmailsAreMorris() === false){
-                var confirm = $window.confirm("At least one of the emails you entered is not a Morris email address. Would you like to continue?");
-            }
+            var checkUMM = $scope.checkEmailsAreMorris();
 
-            if(confirm || $scope.checkEmailsAreMorris() === true){
+            // If all emails are UMM, proceed with submission
+            if(checkUMM){
                 $scope.submitSubmissionConfirm();
+            } else {
+                var checkPrimary = $scope.checkPrimaryEmails();
+                var checkUofM = $scope.checkEmailsAreUofM();
+
+                if(!checkPrimary){
+                    Modal.confirm.warning()("Either your main presenter email or primary adviser email is not currently a U of M Morris email.");
+                } else if(!checkUofM){
+                    Modal.confirm.warning()("One of the emails you entered is not a University of Minnesota email.");
+                } else if (checkUofM && !checkUMM){
+                    Modal.confirm.info($scope.submitSubmissionConfirm)("At least one of the emails you entered is not a Morris email address. Would you like to continue?");
+                }
             }
         };
 
@@ -468,7 +478,7 @@ angular.module('umm3601ursamajorApp')
         };
 
         /**
-         *
+         * Does a variety of things in order to submit a submission to the database.
          */
         $scope.submitSubmission = function(){
 
@@ -570,6 +580,7 @@ angular.module('umm3601ursamajorApp')
 
         /**
          * Selects a random submission from the existing submissions in the database and submits it as a new submission. (n times)
+         * Used to test system performance with large numbers of submissions.
          *
          * @param n  - The number of random submissions to make.
          */
