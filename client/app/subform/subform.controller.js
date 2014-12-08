@@ -244,8 +244,11 @@ angular.module('umm3601ursamajorApp')
 
                 if(!same){
                     $scope.submissionData.approval = false;
+                    $scope.attemptEmail = true;
                     Modal.confirm.info($scope.sendAdviserEmail)("You have changed your primary adviser from " + $scope.resubmitParent.adviserInfo.last + ", " + $scope.resubmitParent.adviserInfo.first + " [" + $scope.resubmitParent.adviserInfo.email + "] to " +
                        $scope.submissionData.adviserInfo.last + ", " + $scope.submissionData.adviserInfo.first + " [" + $scope.submissionData.adviserInfo.email + "]. " + " Your submission will now require the approval of this new adviser. Send email to new adviser?");
+                } else if(same && $scope.isResubmitting){
+                    $scope.attemptEmail = false;
                 }
             }
         };
@@ -407,7 +410,7 @@ angular.module('umm3601ursamajorApp')
         $scope.submitSubmission = function(){
             $scope.checkAdviserChanges();
 
-            if(!$scope.isResubmitting && $scope.attemptEmail){
+            if(!$scope.isResubmitting || $scope.attemptEmail){
                 alert("If you do not send the email that will be automatically generated, your adviser will not receive a notification to approve your submission.");
             }
 
@@ -465,7 +468,7 @@ angular.module('umm3601ursamajorApp')
                 });
 
 
-            if (!$scope.isResubmitting && $scope.attemptEmail) {
+            if (!$scope.isResubmitting || $scope.attemptEmail) {
                $scope.sendAdviserEmail();
             }
             if ($scope.isResubmitting) {
