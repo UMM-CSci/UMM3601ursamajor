@@ -4,8 +4,8 @@ angular.module('umm3601ursamajorApp')
   .controller('AbstractbookCtrl', function ($scope, $http, socket, $modal, Modal, Auth, $window, $filter, $location) {
 
         //When we tested this function, it worked correctly with only two
-//parameters given, until we checked the final else case, in which
-// case it broke with only two parameters
+        //parameters given, until we checked the final else case, in which
+        // case it broke with only two parameters
         angular.module('umm3601ursamajorApp')
             .filter('isntEmpty', function(){
                 return function(input, title, altTitle){
