@@ -948,12 +948,17 @@ angular.module('umm3601ursamajorApp')
             var commenter = $scope.getCurrentUser().name;
             var selection = $window.getSelection();
             var commentText = prompt("Comment");
-            if(selection.anchorOffset <= selection.focusOffset) {
-                commentObj.beginner = selection.anchorOffset;
-                commentObj.ender = selection.focusOffset;
-            } else if(selection.anchorOffset > selection.focusOffset){
-                commentObj.ender = selection.anchorOffset;
-                commentObj.beginner = selection.focusOffset;
+            if(selection.anchorNode.data && selection.focusNode.data == submission.abstract) {
+                if (selection.anchorOffset <= selection.focusOffset) {
+                    commentObj.beginner = selection.anchorOffset;
+                    commentObj.ender = selection.focusOffset;
+                } else if (selection.anchorOffset > selection.focusOffset) {
+                    commentObj.ender = selection.anchorOffset;
+                    commentObj.beginner = selection.focusOffset;
+                }
+            } else {
+                commentObj.beginner = 0;
+                commentObj.ender = 0;
             }
             commentObj.commentText = commentText;
             commentObj.commenter = commenter;
@@ -962,16 +967,13 @@ angular.module('umm3601ursamajorApp')
             commentObj.responses = [];
             commentObj.timestamp = Date();
             commentObj.origin = submission._id;
-            console.log(commentObj.origin);
             if(commentText != null && commentText != "") {
                 comments.push(commentObj);
-                console.log(comments);
                 $http.patch('api/submissions/' + submission._id,
                     {comments: comments}
                 ).success(function () {
                         console.log("successfully pushed comments to submission!");
                     });
-                console.log(submission.comments);
             };
         };
 
