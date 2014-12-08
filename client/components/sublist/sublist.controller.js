@@ -544,7 +544,7 @@ angular.module('umm3601ursamajorApp')
                         $http.patch('api/submissions/' + $scope.selection.item._id,
                             {approval: true,
                                 rejection: false,
-                                status: {strict: $scope.selection.item.status.strict, text: "This URS submission has been approved by an adviser."}}
+                                status: {strict: $scope.selection.item.status.strict, priority: $scope.statusEdit.priority[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)], text: "This URS submission has been approved by an adviser."}}
                         ).success(function () {
                                 $scope.selection.item.approval = true;
                                 console.log("Successfully updated approval of submission (approved)");
@@ -584,14 +584,11 @@ angular.module('umm3601ursamajorApp')
         $scope.rejectSubmission = function(submission) {
             $http.patch('api/submissions/' + $scope.selection.item._id,
                 {rejection: true,
-                    //currently everything is hardcoded for time. To fix later.
-                    status: {strict: "Withdrawn", text: "The submission has been rejected by an adviser."}}
+                    status: {strict: $scope.statusEdit.options[$scope.statusEdit.priority.indexOf(14)], priority: 14, text: "The submission has been rejected by an adviser."}}
             ).success(function(){
                     $scope.selection.item.rejection = true;
-                    //currently everything is hardcoded for time. To fix later.
-                    $scope.selection.item.status.strict = "Withdrawn";
+                    $scope.selection.item.status.strict = $scope.statusEdit.options[$scope.statusEdit.priority.indexOf(14)];
                     $scope.selection.item.status.text = "The submission has been rejected by an adviser.";
-                    console.log("Successfully rejected a submission");
                 });
         };
 
@@ -769,7 +766,7 @@ angular.module('umm3601ursamajorApp')
 
         $scope.submitStatusEdit = function(){
             $http.patch('api/submissions/' + $scope.selection.item._id,
-                {status: {strict: $scope.statusEdit.temp.strict, text: $scope.statusEdit.temp.text}}
+                {status: {strict: $scope.statusEdit.temp.strict, priority: $scope.statusEdit.priority[$scope.statusEdit.options.indexOf($scope.statusEdit.temp.strict)], text: $scope.statusEdit.temp.text}}
             ).success(function(){
                     console.log("Successfully updated status of submission");
                 });

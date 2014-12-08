@@ -133,7 +133,7 @@ angular.module('umm3601ursamajorApp')
             resubmitComment: "",
             resubmitParent: "",
             resubmitFlag: false,
-            status: {strict: $scope.startingStatus, text: ""},
+            status: {strict: $scope.startingStatus, priority: -15, text: ""},
             comments: [],
             group: 0,
             roomAssignment: "",
@@ -202,7 +202,7 @@ angular.module('umm3601ursamajorApp')
                 resubmitComment: "",
                 resubmitParent: "",
                 resubmitFlag: false,
-                status: {strict: $scope.startingStatus, text: ""},
+                status: {strict: $scope.startingStatus, priority: -15, text: ""},
                 comments: [],
                 group: 0,
                 reviewVotes: {
@@ -338,9 +338,9 @@ angular.module('umm3601ursamajorApp')
                     TotalRewrite: submission.reviewVotes.TotalRewrite
                 }
             };
-            console.log("submissionData: ");
-            console.log($scope.submissionData);
-            console.log(submission.comments);
+//            console.log("submissionData: ");
+//            console.log($scope.submissionData);
+//            console.log(submission.comments);
 
             $scope.isResubmitting = true;
             $scope.resubmitParent = submission;
