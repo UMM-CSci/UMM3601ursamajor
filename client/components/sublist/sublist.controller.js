@@ -971,7 +971,7 @@ angular.module('umm3601ursamajorApp')
                 ).success(function () {
                         console.log("successfully pushed comments to submission!");
                     });
-            };
+            }
         };
 
         $scope.getOriginAbstract = function (submission , index) {
@@ -984,25 +984,29 @@ angular.module('umm3601ursamajorApp')
                     $scope.populateComments(abstract, index , comments);
                 });
             } else {
-                $scope.populateComments(abstract, index, comments, submission._id );
+                $scope.populateComments(abstract, index, comments, submission._id, submission );
             }
         };
 
 
         // Warning: You will get an error about the document not being found
         // if pop-ups are blocked
-        $scope.populateComments = function(abstract, index , comments, id){
+        $scope.populateComments = function(abstract, index , comments, id, submission){
             var start = comments[index].beginner;
             var end = comments[index].ender;
             var comment = comments[index].commentText;
             abstract = abstract.substring(0, start) + '<b>' + abstract.substring(start, end) + '</b>' + abstract.substring(end, abstract.length);
             var newWindow = $window.open("", null, "height=300,width=600,status=yes,toolbar=no,menubar=no,location=no");
             if(comments[index].origin != id){
-                console.log("Yup");
                 newWindow.document.write("<b>" + "This comment was made on a prior version of this submission" + "</b>");
                 newWindow.document.write("<br>");
             }
-            newWindow.document.write("<b>" +"Comment made by " + comments[index].commenter + ": " +"</b>"+"<i>" + comments[index].commentText + "</i>");
+            if ($scope.hasAdminPrivs() || $scope.isReviewerGroup(submission)) {
+                newWindow.document.write("<b>" +"Comment made by " + comments[index].commenter + ": " +"</b>");
+            } else {
+                newWindow.document.write("<b>" +"Comment: " + "</b>");
+            }
+            newWindow.document.write("<i>" + comments[index].commentText + "</i>");
             newWindow.document.write("<br>");
             newWindow.document.write(comments[index].timestamp);
             newWindow.document.write("<br>");
@@ -1026,8 +1030,7 @@ angular.module('umm3601ursamajorApp')
                 ).success(function () {
                         console.log("successfully pushed response to submission!");
                     });
-                console.log(comment.responses);
-            };
+            }
         };
 
         $scope.deleteComment = function (submission, index){
