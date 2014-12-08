@@ -128,6 +128,7 @@ angular.module('umm3601ursamajorApp')
             status: {strict: $scope.startingStatus, text: ""},
             comments: [],
             group: 0,
+            roomAssignment: "",
             reviewVotes: {
                 Accepted: [],
                 Minor: [],
@@ -277,6 +278,7 @@ angular.module('umm3601ursamajorApp')
                 status: submission.status,
                 comments: submission.comments,
                 group: submission.group,
+                roomAssignment: "",
                 reviewVotes: {
                     Accepted: submission.reviewVotes.Accepted,
                     Minor: submission.reviewVotes.Minor,
@@ -438,6 +440,7 @@ angular.module('umm3601ursamajorApp')
                     status: $scope.submissionData.status,
                     timestamp: $scope.timestamp,
                     group: $scope.submissionData.group,
+                    roomAssignment: "",
                     resubmissionData: {comment: $scope.submissionData.resubmitComment, parentSubmission: $scope.submissionData.resubmitParent, isPrimary: !$scope.isResubmitting, resubmitFlag: $scope.submissionData.resubmitFlag },
                     comments: $scope.submissionData.comments,
                     reviewVotes: {
