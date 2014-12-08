@@ -20,7 +20,7 @@ var SubmissionSchema = new Schema({
     featured: Boolean,
     mediaServicesEquipment: String,
     specialRequirements: String,
-    //presenterTeeSize: String,
+    presenterTeeSize: String,
     otherInfo: String,
     approval: Boolean,
     cc: {

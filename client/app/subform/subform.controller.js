@@ -127,6 +127,7 @@ angular.module('umm3601ursamajorApp')
             featuredPresentation: Boolean,
             mediaServicesEquipment: "",
             specialRequirements: "",
+            presenterTeeSize: "",
             otherInfo: "",
             approval: false,
             resubmitComment: "",
@@ -195,6 +196,7 @@ angular.module('umm3601ursamajorApp')
                 featuredPresentation: Boolean,
                 mediaServicesEquipment: "",
                 specialRequirements: "",
+                presenterTeeSize: "",
                 otherInfo: "",
                 approval: false,
                 resubmitComment: "",
@@ -319,7 +321,7 @@ angular.module('umm3601ursamajorApp')
                 featuredPresentation: submission.featured,
                 mediaServicesEquipment: submission.mediaServicesEquipment,
                 specialRequirements: submission.specialRequirements,
-                //presenterTeeSize: submission.presenterTeeSize,
+                presenterTeeSize: submission.presenterTeeSize,
                 otherInfo: submission.otherInfo,
                 approval: submission.approval,
                 resubmitComment: "",
@@ -394,7 +396,8 @@ angular.module('umm3601ursamajorApp')
          *
          * @returns {boolean}  - Whether or not all emails are U of M Morris addresses.
          */
-        $scope.checkEmailsAreMorris = function (){
+        $scope.checkEmailsAreMorris = function (
+){
             var presenterEmail = $scope.submissionData.presenterInfo.email;
             var copresenterOneEmail = $scope.submissionData.copresenterOne.email;
             var copresenterTwoEmail = $scope.submissionData.copresenterTwo.email;
@@ -516,7 +519,7 @@ angular.module('umm3601ursamajorApp')
                     format: $scope.submissionData.format,
                     abstract: $scope.submissionData.abstract,
                     presentationType: $scope.submissionData.presentationType,
-                    formatChange: $scope.submissionData.formatChange,
+                    formatChange: $scope.submissionData.foSizermatChange,
                     presenterInfo: {first: $scope.submissionData.presenterInfo.first, last: $scope.submissionData.presenterInfo.last, email: $scope.submissionData.presenterInfo.email},
                     copresenterOneInfo: {first: $scope.submissionData.copresenterOne.first, last: $scope.submissionData.copresenterOne.last, email: $scope.submissionData.copresenterOne.email},
                     copresenterTwoInfo: {first: $scope.submissionData.copresenterTwo.first, last: $scope.submissionData.copresenterTwo.last, email: $scope.submissionData.copresenterTwo.email},
@@ -528,6 +531,7 @@ angular.module('umm3601ursamajorApp')
                     featured: $scope.submissionData.featuredPresentation,
                     mediaServicesEquipment: $scope.submissionData.mediaServicesEquipment,
                     specialRequirements: $scope.submissionData.specialRequirements,
+                    presenterTeeSize: $scope.submissionData.presenterTeeSize,
                     otherInfo: $scope.submissionData.otherInfo,
                     approval: $scope.submissionData.approval,
                     cc: false,

@@ -70,7 +70,7 @@ angular.module('umm3601ursamajorApp')
             pendingResubmissionsOptions: [
                 "All",
                 "Pending Resubmissions",
-                "No Pending Resubmissions"
+                "Not Pending Resubmissions"
             ]
         };
 
