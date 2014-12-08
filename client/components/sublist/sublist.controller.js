@@ -948,7 +948,6 @@ angular.module('umm3601ursamajorApp')
             var commenter = $scope.getCurrentUser().name;
             var selection = $window.getSelection();
             var commentText = prompt("Comment");
-            console.log(selection.anchorNode.data && selection.focusNode.data == submission.abstract);
             if(selection.anchorNode.data && selection.focusNode.data == submission.abstract) {
                 if (selection.anchorOffset <= selection.focusOffset) {
                     commentObj.beginner = selection.anchorOffset;
