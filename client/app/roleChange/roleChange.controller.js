@@ -4,7 +4,7 @@
 angular.module('umm3601ursamajorApp')
     .controller('RoleChangeCtrl', function ($scope, Modal, $http, Auth, User, $location, $filter, socket) {
         if(Auth.isAdmin() || Auth.isChair()) {
-        } else{
+        } else {
             $location.path('/');
         }
 
@@ -43,6 +43,22 @@ angular.module('umm3601ursamajorApp')
         };
 
 
+        $scope.filterByUser = function(user){
+            if(user === "All"){
+                return true;
+            } else if(user === "reviewer"){
+                return true;
+            } else if(user === "chair"){
+                return true;
+            } else if(user === "user"){
+                return true;
+            } else if(user === "admin"){
+                return true;
+            } else {
+                return false;
+            }
+        }
+
         //Delete user modal
         $scope.deleteUserConfirm = function(user){
             if (Auth.getCurrentUser().email === user.email){
@@ -69,7 +85,8 @@ angular.module('umm3601ursamajorApp')
                 $filter('filter')($scope.submissions,
                     function(submission) {
                         if(submission == null) return false;
-                        return user.group === submission.group || user.email === submission.presenterInfo.email || user.email === submission.adviserInfo.email;
+                        return user.group === submission.group ||
+                            user.email === submission.presenterInfo.email || user.email === submission.adviserInfo.email;
                     }
                 ).length > 0
                 ) {

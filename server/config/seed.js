@@ -434,7 +434,7 @@ Submission.find({}).remove(function(){
         sponsors: [], //Might need to worry about if this is static for the DB later.
         adviserInfo: {first: "Niccolas", last: "Ricci", email: "saxxx027@morris.umn.edu"},
         coadviserOneInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
-        coadviserTwoInfo: {first: "Nic", last: "Ricci", email: "ricc0082@morris.umn.edu"},
+        coadviserTwoInfo: {first: "", last: "", email: ""},
         featured: true,
         mediaServicesEquipment: "A way to show images, either a projector or a warning so I can print them.",
         specialRequirements: "",

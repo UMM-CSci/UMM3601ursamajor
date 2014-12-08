@@ -351,6 +351,7 @@ angular.module('umm3601ursamajorApp')
             }
         };
 
+
         // ----------------------- Getting Data from Mongo ----------------------------
         $scope.statusEdit = {
             editing: false,
