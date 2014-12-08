@@ -1,23 +1,23 @@
 /*forces scrollbar on all the time so the navbar doesn't move when changing pages*/
 html { overflow-y: scroll; }
-/* unvisited link */
+ /*unvisited link */
 a:link {
     color: #7a0019;
 }
 
-/* visited link */
+ /*visited link */
 a:visited {
     color: #7a0019;
 }
 
-/* mouse over link */
+ /*mouse over link */
 a:hover {
     color: #7a0019;
 
     text-decoration: none;
 }
 
-/* selected link */
+ /*selected link */
 a:active {
     color: #7a0019;
 }

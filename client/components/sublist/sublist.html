@@ -214,7 +214,7 @@
         </div>
         <div ng-show="selection.selected" class="col-md-3">
 
-
+<!-------------------------------------------------------------------commenty bits start here---------------------------------------------------------------------------------------------------------->
             <ul class="plainList ">
                 <li ng-repeat="comment in displayedComments()" ng-click="selectComment($index)" class="clickable alert alert-warning block commentStyle">
                     <p>{{comment.commentText | isntEmpty:"Comment:":"(No comment...)"}}</p>
@@ -237,7 +237,7 @@
                         <div style="margin-left: 3px; padding-left: 10px; border-left: 2px solid steelblue" ng-repeat="response in comment.responses">
                             <p class="padded">{{response.response}}</p>
                             <p ng-show="hasAdminPrivs()"><i>- {{response.responder}}</i></p>
-                            <button ng-show="hasAdminPrivs() || isReviewerGroup(selection.item)" class="btn btn-xs deleteButton" ng-click="deleteResponse(selection.item , transformCommentIndex($parent.$index) , $index)">Delete Response</button>
+                            <button ng-show="hasAdminPrivs() || isReviewerGroup(selection.item)" class="btn btn-xs deleteButton moveDeleteRight" ng-click="deleteResponse(selection.item , transformCommentIndex($parent.$index) , $index)"><span class="glyphicon glyphicon-trash" ></span></button>
                         </div>
                     </div>
                 </li>
