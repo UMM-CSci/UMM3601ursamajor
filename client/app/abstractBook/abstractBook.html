@@ -1,5 +1,5 @@
 <div ng-controller="AbstractbookCtrl" class="container-fluid">
-    <div ng-repeat="sub in submissions">
+    <div ng-repeat="sub in submissions" ng-show="isAccepted(sub)">
         <li class="list-group-item">
                     <h3 id="text">{{sub.title}}</h3>
                     <!--<strong>{{sub.presenterInfo.last}}, {{sub.presenterInfo.first}}</strong>-->
