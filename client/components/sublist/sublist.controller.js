@@ -37,6 +37,8 @@ angular.module('umm3601ursamajorApp')
         $scope.isAdmin = Auth.isAdmin;
         $scope.isChair = Auth.isChair;
 
+
+
         //--------------------- Filter Functions -----------------------
 
         $scope.filterData = {
@@ -55,8 +57,8 @@ angular.module('umm3601ursamajorApp')
             featurePresentationFilterSelection: "All",
             featurePresentationFilterOptions: [
                 "All",
-                "Interested in being feature presentation",
-                "Not interested in being feature presentation"
+                "Wants to be featured",
+                "Doesn't want to be featured"
             ],
             flaggedForResubmitFilterSelection: "All",
             flaggedForResubmitFilterOptions: [
@@ -68,8 +70,13 @@ angular.module('umm3601ursamajorApp')
             pendingResubmissionsOptions: [
                 "All",
                 "Pending Resubmissions",
-                "Not Pending Resubmissions"
+                "No Pending Resubmissions"
             ]
+        };
+
+        // Returns true if a submission has a status that is not the default and it also does not have adviser approval.
+        $scope.statusApprovalConflict = function(submission) {
+            return (submission.status.priority != -15 && !submission.approval);
         };
 
         // Returns true when the submission HAS a parent, and ISN'T the primary.
@@ -462,6 +469,8 @@ angular.module('umm3601ursamajorApp')
             $scope.selection.resubmission = $scope.getResubmission($scope.selection.item);
             $scope.selection.reviewGroup = $scope.selection.item.group;
 
+            $scope.setVoteOptions();
+
             $scope.resetTemps();
         };
 
@@ -594,6 +603,93 @@ angular.module('umm3601ursamajorApp')
                 3,
                 4
             ];
+
+        $scope.reviewOptions = [
+            'Accepted without changes',
+            'Minor revisions',
+            'Major revisions',
+            'Total rewrite'
+        ];
+
+        $scope.voteOption = "";
+
+        $scope.setVoteOptions = function(){
+            if($scope.selection.item.reviewVotes.Accepted.indexOf($scope.getCurrentUser().email) != -1){
+                $scope.voteOption = 'Accepted without changes';
+            }
+            else if($scope.selection.item.reviewVotes.Minor.indexOf($scope.getCurrentUser().email) != -1){
+                $scope.voteOption = 'Minor revisions';
+            }
+            else if($scope.selection.item.reviewVotes.Major.indexOf($scope.getCurrentUser().email) != -1){
+                $scope.voteOption = 'Major revisions';
+            }
+            else if($scope.selection.item.reviewVotes.TotalRewrite.indexOf($scope.getCurrentUser().email) != -1){
+                $scope.voteOption = 'Total rewrite';
+            }
+        };
+
+
+
+        $scope.updateReviewVotingConfirm = function(item){
+            Modal.confirm.info($scope.updateReviewVoting)('Would you like to vote for this?', item)
+        };
+
+
+        $scope.updateReviewVoting = function(value){
+            if($scope.selection.item.reviewVotes.Accepted.indexOf($scope.getCurrentUser().email) != -1){
+                $scope.selection.item.reviewVotes.Accepted.splice($scope.selection.item.reviewVotes.Accepted.indexOf($scope.getCurrentUser().email), 1);
+            }
+            else if($scope.selection.item.reviewVotes.Minor.indexOf($scope.getCurrentUser().email) != -1){
+                $scope.selection.item.reviewVotes.Minor.splice($scope.selection.item.reviewVotes.Minor.indexOf($scope.getCurrentUser().email), 1);
+            }
+            else if($scope.selection.item.reviewVotes.Major.indexOf($scope.getCurrentUser().email) != -1){
+                $scope.selection.item.reviewVotes.Major.splice($scope.selection.item.reviewVotes.Major.indexOf($scope.getCurrentUser().email), 1);
+            }
+            else if($scope.selection.item.reviewVotes.TotalRewrite.indexOf($scope.getCurrentUser().email) != -1){
+                $scope.selection.item.reviewVotes.TotalRewrite.splice($scope.selection.item.reviewVotes.TotalRewrite.indexOf($scope.getCurrentUser().email), 1);
+            } else {
+
+                console.log("This should appear first")
+            }
+
+            switch(value){
+                case 'Accepted without changes':
+                    $scope.selection.item.reviewVotes.Accepted.splice($scope.selection.item.reviewVotes.Accepted.length, 0, $scope.getCurrentUser().email);
+                    console.log("This should appear Accepted")
+                    $scope.submitVoting();
+                    break;
+                case 'Minor revisions':
+                    $scope.selection.item.reviewVotes.Minor.splice($scope.selection.item.reviewVotes.Minor.length, 0, $scope.getCurrentUser().email);
+                    console.log("This should appear Minor")
+                    $scope.submitVoting();
+                    break;
+                case 'Major revisions':
+                    $scope.selection.item.reviewVotes.Major.splice($scope.selection.item.reviewVotes.Major.length, 0, $scope.getCurrentUser().email);
+                    console.log("This should appear Major")
+                    $scope.submitVoting();
+                    break;
+                case 'Total rewrite':
+                    $scope.selection.item.reviewVotes.TotalRewrite.splice($scope.selection.item.reviewVotes.TotalRewrite.length, 0, $scope.getCurrentUser().email);
+                    console.log("This should appear TotalRewrite")
+                    $scope.submitVoting();
+                    break;
+            }
+
+
+        };
+
+
+        $scope.submitVoting = function() {
+            $http.patch('api/submissions/' + $scope.selection.item._id,
+                {reviewVotes: {Accepted: $scope.selection.item.reviewVotes.Accepted,
+                    Minor: $scope.selection.item.reviewVotes.Minor,
+                    Major: $scope.selection.item.reviewVotes.Major,
+                    TotalRewrite: $scope.selection.item.reviewVotes.TotalRewrite}
+            }).success(function(){
+                    console.log("Updated Votes")
+                })
+        };
+
 
         $scope.getReviewGroupMembers = function(group) {
             return $filter('filter')($scope.users,
@@ -852,12 +948,18 @@ angular.module('umm3601ursamajorApp')
             var commenter = $scope.getCurrentUser().name;
             var selection = $window.getSelection();
             var commentText = prompt("Comment");
-            if(selection.anchorOffset <= selection.focusOffset) {
-                commentObj.beginner = selection.anchorOffset;
-                commentObj.ender = selection.focusOffset;
-            } else if(selection.anchorOffset > selection.focusOffset){
-                commentObj.ender = selection.anchorOffset;
-                commentObj.beginner = selection.focusOffset;
+            console.log(selection.anchorNode.data && selection.focusNode.data == submission.abstract);
+            if(selection.anchorNode.data && selection.focusNode.data == submission.abstract) {
+                if (selection.anchorOffset <= selection.focusOffset) {
+                    commentObj.beginner = selection.anchorOffset;
+                    commentObj.ender = selection.focusOffset;
+                } else if (selection.anchorOffset > selection.focusOffset) {
+                    commentObj.ender = selection.anchorOffset;
+                    commentObj.beginner = selection.focusOffset;
+                }
+            } else {
+                commentObj.beginner = 0;
+                commentObj.ender = 0;
             }
             commentObj.commentText = commentText;
             commentObj.commenter = commenter;
@@ -866,16 +968,13 @@ angular.module('umm3601ursamajorApp')
             commentObj.responses = [];
             commentObj.timestamp = Date();
             commentObj.origin = submission._id;
-            console.log(commentObj.origin);
             if(commentText != null && commentText != "") {
                 comments.push(commentObj);
-                console.log(comments);
                 $http.patch('api/submissions/' + submission._id,
                     {comments: comments}
                 ).success(function () {
                         console.log("successfully pushed comments to submission!");
                     });
-                console.log(submission.comments);
             };
         };
 
@@ -904,12 +1003,12 @@ angular.module('umm3601ursamajorApp')
             var newWindow = $window.open("", null, "height=300,width=600,status=yes,toolbar=no,menubar=no,location=no");
             if(comments[index].origin != id){
                 console.log("Yup");
-                newWindow.document.write("<b>" + "This comgalvanized and common nails.The nails were placedment was made on a prior version of this submission" + "</b>");
+                newWindow.document.write("<b>" + "This comment was made on a prior version of this submission" + "</b>");
                 newWindow.document.write("<br>");
             }
             newWindow.document.write("<b>" +"Comment made by " + comments[index].commenter + ": " +"</b>"+"<i>" + comments[index].commentText + "</i>");
             newWindow.document.write("<br>");
-            newWindow.documflaggedent.write(comments[index].timestamp);
+            newWindow.document.write(comments[index].timestamp);
             newWindow.document.write("<br>");
             newWindow.document.write(abstract);
         };
