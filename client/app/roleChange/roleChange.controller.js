@@ -18,6 +18,16 @@ angular.module('umm3601ursamajorApp')
             socket.syncUpdates('submission', $scope.submissions);
         });
 
+        $scope.filterSelection = "All";
+
+        $scope.filterRoleOptions =
+            [   'chair',
+                'reviewer',
+                'admin',
+                'user',
+                'All'
+            ];
+
         $scope.roleOptions =
             [   'chair',
                 'reviewer',
