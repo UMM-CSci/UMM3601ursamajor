@@ -73,6 +73,11 @@ hr {
     font-family: "Helvetica Neue Light", "Lucida Grande", "Calibri", "Arial", sans-serif;
 }
 
+.buttonL:hover{
+    color: #ffffff;
+    background: #3276B1;
+}
+
 /*Formats buttons related to resub Button*/
 .moveRight {
     display: inline-block;
