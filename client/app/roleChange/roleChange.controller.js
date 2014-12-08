@@ -21,11 +21,11 @@ angular.module('umm3601ursamajorApp')
         $scope.filterSelection = "All";
 
         $scope.filterRoleOptions =
-            [   'chair',
+            [   'All',
+                'chair',
                 'reviewer',
                 'admin',
-                'user',
-                'All'
+                'user'
             ];
 
         $scope.roleOptions =
