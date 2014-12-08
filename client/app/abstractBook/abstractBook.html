@@ -1,5 +1,36 @@
 <div ng-controller="AbstractbookCtrl" class="container-fluid">
-    <div class="col-md-12">
-        This is the abstractBook view.
+    <div ng-repeat="sub in submissions">
+        <li class="list-group-item">
+                    <h3 id="text">{{sub.title}}</h3>
+                    <!--<strong>{{sub.presenterInfo.last}}, {{sub.presenterInfo.first}}</strong>-->
+                    <hr>
+                    <!--<ul class="list-group">-->
+                        <!--<li class="list-group-item">-->
+                            <p><b>Presenter(s):</b> {{sub.presenterInfo.first}} {{sub.presenterInfo.last}}{{sub.copresenterOneInfo.first | isntEmpty:", ":""}} {{sub.copresenterOneInfo.last | isntEmpty:"":""}}{{sub.copresenterTwoInfo.first | isntEmpty:",":""}} {{sub.copresenterTwoInfo.last | isntEmpty:"":""}}</p>
+                            <!--<p>{{sub.copresenterOneInfo.first | isntEmpty:"CoPresenter(s):":""}} {{sub.copresenterOneInfo.last | isntEmpty:"":""}}{{sub.copresenterTwoInfo.first | isntEmpty:",":""}} {{sub.copresenterTwoInfo.last | isntEmpty:"":""}}-->
+                            </p>
+                            <p><b>Discipline:</b> {{sub.discipline}}</p>
+                            <p><b>Type:</b> {{sub.presentationType}}</p>
+                            <p><b>Adviser(s):</b> {{sub.adviserInfo.first}} {{sub.adviserInfo.last}}{{sub.coadviserOneInfo.first | isntEmpty:",":""}}{{sub.coadviserOneInfo.last | isntEmpty:"":""}}{{sub.coadviserTwoInfo.first | isntEmpty:",":""}} {{sub.coadviserTwoInfo.last | isntEmpty:"":""}}</p>
+                            <!--<p>{{sub.coadviserOneInfo.first | isntEmpty:"CoAdviser(s):":""}}{{sub.coadviserOneInfo.last | isntEmpty:"":""}}{{sub.coadviserTwoInfo.first | isntEmpty:",":""}} {{sub.coadviserTwoInfo.last | isntEmpty:"":""}}-->
+                            </p>
+                            <!--<p><b>Willing to be Feature Presentation:</b> {{approvalWordChange(sub.featured)}}</p>-->
+                            <div><b>Room Assignment:</b> {{sub.roomAssignment}}</div>
+                        <!--</li>-->
+                    <!--</ul>-->
+
+    <!--<ul class="list-group">-->
+        <!--<li class="list-group-item">-->
+            <h3>Abstract</h3>
+        <!--</li>-->
+        <!--<li class="list-group-item">-->
+            <p ng-bind-html="sub.abstract"></p>
+        <!--</li>-->
+
+            </li>
+
+        <br>
+        <br>
+
     </div>
 </div>
