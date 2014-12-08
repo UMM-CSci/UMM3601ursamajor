@@ -58,7 +58,7 @@ angular.module('umm3601ursamajorApp')
             featurePresentationFilterOptions: [
                 "All",
                 "Wants to be featured",
-                "Doesn't want to be featured"
+                "Does not want to be featured"
             ],
             flaggedForResubmitFilterSelection: "All",
             flaggedForResubmitFilterOptions: [
@@ -76,6 +76,7 @@ angular.module('umm3601ursamajorApp')
 
         // Returns true if a submission has a status that is not the default and it also does not have adviser approval.
         $scope.statusApprovalConflict = function(submission) {
+            if(submission == null){return false;}
             return (submission.status.priority != -15 && !submission.approval);
         };
 
@@ -214,9 +215,9 @@ angular.module('umm3601ursamajorApp')
         $scope.featurePresentationFilter = function(submission) {
             if($scope.filterData.featurePresentationFilterSelection === "All"){
                 return true;
-            } else if($scope.filterData.featurePresentationFilterSelection === "Interested in being feature presentation"){
+            } else if($scope.filterData.featurePresentationFilterSelection === "Wants to be featured"){
                 return submission.featured === true;
-            } else if($scope.filterData.featurePresentationFilterSelection === "Not interested in being feature presentation"){
+            } else if($scope.filterData.featurePresentationFilterSelection === "Does not want to be featured"){
                 return submission.featured === false;
             } else {
                 return false;
