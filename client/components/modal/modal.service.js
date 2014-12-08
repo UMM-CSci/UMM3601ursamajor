@@ -196,6 +196,39 @@ angular.module('umm3601ursamajorApp')
               }
           },
 
+//          details: function(callback){
+//              callback = callback || angular.noop;
+//              /**
+//               * Open an info confirmation modal
+//               * @param {String} content - text for the confirmation modal
+//               * @param {All}         - Any additional arguments are passed to the callback
+//               */
+//              return function() {
+//                  var args = Array.prototype.slice.call(arguments),
+//                      content = args.shift(),
+//                      detailsModal;
+//
+//                  detailsModal = openModal({
+//                      modal: {
+//                          dismissable: true,
+//                          title: "Details",
+//                          html: '<p>' + content + '</p>',
+//                          buttons: [{
+//                              classes:"btn-default",
+//                              text: "OK",
+//                              click: function(e) {
+//                                  detailsModal.dismiss(e);
+//                              }
+//                          }]
+//                      }
+//                  }, 'modal-warning');
+//
+//                  detailsModal.result.then(function(event) {
+//                      callback.apply(event, args);
+//                  });
+//              }
+//          },
+
 
           option: function(callbackYes, callbackNo){
               callbackYes = callbackYes || angular.noop;
