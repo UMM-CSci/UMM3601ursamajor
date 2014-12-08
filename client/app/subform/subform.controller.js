@@ -336,9 +336,9 @@ angular.module('umm3601ursamajorApp')
                     TotalRewrite: submission.reviewVotes.TotalRewrite
                 }
             };
-            console.log("submissionData: ");
-            console.log($scope.submissionData);
-            console.log(submission.comments);
+//            console.log("submissionData: ");
+//            console.log($scope.submissionData);
+//            console.log(submission.comments);
 
             $scope.isResubmitting = true;
             $scope.resubmitParent = submission;
