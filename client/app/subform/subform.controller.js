@@ -318,7 +318,7 @@ angular.module('umm3601ursamajorApp')
             if(copresenterTwoEmail != ""){
                 copresenterTwoCheck = (copresenterTwoEmail.indexOf("umn.edu") != -1);
             }
-
+            
             var adviserEmailCheck = (adviserEmail.indexOf("umn.edu") != -1);
 
             if(coadviserOneEmail != ""){
@@ -346,7 +346,7 @@ angular.module('umm3601ursamajorApp')
             var copresenterTwoCheck = true;
             var coadviserOneCheck = true;
             var coadviserTwoCheck = true;
-
+        
             var presenterCheck = (presenterEmail.indexOf("morris.umn.edu") != -1);
 
             if(copresenterOneEmail != ""){
@@ -356,27 +356,40 @@ angular.module('umm3601ursamajorApp')
             if(copresenterTwoEmail != ""){
                 copresenterTwoCheck = (copresenterTwoEmail.indexOf("morris.umn.edu") != -1);
             }
-
-            var adviserEmailCheck = (adviserEmail.indexOf("morris.umn.edu") != -1);
+            
+            var adviserEmailCheck = (adviserEmail.indexOf("umn.edu") != -1);
 
             if(coadviserOneEmail != ""){
-                coadviserOneCheck = (coadviserOneEmail.indexOf("morris.umn.edu") != -1);
+                coadviserOneCheck = (coadviserOneEmail.indexOf("umn.edu") != -1);
             }
 
             if(coadviserTwoEmail != ""){
-                coadviserTwoCheck = (coadviserTwoEmail.indexOf("morris.umn.edu") != -1);
+                coadviserTwoCheck = (coadviserTwoEmail.indexOf("umn.edu") != -1);
             }
-
+            
             return presenterCheck && copresenterOneCheck &&
                 copresenterTwoCheck && adviserEmailCheck
                 && coadviserOneCheck && coadviserTwoCheck;
         };
+        
+        //must check that primary adviser is Morris, but all others can be just umn, because primary must log in with Morris email
+        $scope.checkPrimaryEmails = function(){
+            var presenterEmail = $scope.submissionData.presenterInfo.email;
+            var adviserEmail = $scope.submissionData.adviserInfo.email;
+            
+            var presenterEmailCheck = (presenterEmail.indexOf("morris.umn.edu") != -1);
+            var adviserEmailCheck = (adviserEmail.indexOf("morris.umn.edu") != -1);
+            
+            return presenterEmailCheck && adviserEmailCheck;
+        };
 
         $scope.preSubmitChecks = function(){
-            if ($scope.checkEmailsAreUofM() === true && $scope.checkEmailsAreMorris() === false){
-                var confirm = $window.confirm("At least one of the emails you entered is not a Morris email address. Would you like to continue?");
+            if($scope.checkPrimaryEmails() === false){
+                $window.alert("Either your main presenter email or primary adviser email is not currently a U of M Morris email.");
             } else if($scope.checkEmailsAreUofM() === false){
                 $window.alert("One of the emails you entered is not a University of Minnesota email.");
+            } else if ($scope.checkEmailsAreUofM() === true && $scope.checkEmailsAreMorris() === false){
+                var confirm = $window.confirm("At least one of the emails you entered is not a Morris email address. Would you like to continue?");
             }
 
             if(confirm || $scope.checkEmailsAreMorris() === true){
