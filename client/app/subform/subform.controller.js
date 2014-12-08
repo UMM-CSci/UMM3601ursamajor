@@ -244,8 +244,11 @@ angular.module('umm3601ursamajorApp')
 
                 if(!same){
                     $scope.submissionData.approval = false;
+                    $scope.attemptEmail = true;
                     Modal.confirm.info($scope.sendAdviserEmail)("You have changed your primary adviser from " + $scope.resubmitParent.adviserInfo.last + ", " + $scope.resubmitParent.adviserInfo.first + " [" + $scope.resubmitParent.adviserInfo.email + "] to " +
                        $scope.submissionData.adviserInfo.last + ", " + $scope.submissionData.adviserInfo.first + " [" + $scope.submissionData.adviserInfo.email + "]. " + " Your submission will now require the approval of this new adviser. Send email to new adviser?");
+                } else if(same && $scope.isResubmitting){
+                    $scope.attemptEmail = false;
                 }
             }
         };
@@ -318,7 +321,7 @@ angular.module('umm3601ursamajorApp')
             if(copresenterTwoEmail != ""){
                 copresenterTwoCheck = (copresenterTwoEmail.indexOf("umn.edu") != -1);
             }
-
+            
             var adviserEmailCheck = (adviserEmail.indexOf("umn.edu") != -1);
 
             if(coadviserOneEmail != ""){
@@ -346,7 +349,7 @@ angular.module('umm3601ursamajorApp')
             var copresenterTwoCheck = true;
             var coadviserOneCheck = true;
             var coadviserTwoCheck = true;
-
+        
             var presenterCheck = (presenterEmail.indexOf("morris.umn.edu") != -1);
 
             if(copresenterOneEmail != ""){
@@ -356,27 +359,40 @@ angular.module('umm3601ursamajorApp')
             if(copresenterTwoEmail != ""){
                 copresenterTwoCheck = (copresenterTwoEmail.indexOf("morris.umn.edu") != -1);
             }
-
-            var adviserEmailCheck = (adviserEmail.indexOf("morris.umn.edu") != -1);
+            
+            var adviserEmailCheck = (adviserEmail.indexOf("umn.edu") != -1);
 
             if(coadviserOneEmail != ""){
-                coadviserOneCheck = (coadviserOneEmail.indexOf("morris.umn.edu") != -1);
+                coadviserOneCheck = (coadviserOneEmail.indexOf("umn.edu") != -1);
             }
 
             if(coadviserTwoEmail != ""){
-                coadviserTwoCheck = (coadviserTwoEmail.indexOf("morris.umn.edu") != -1);
+                coadviserTwoCheck = (coadviserTwoEmail.indexOf("umn.edu") != -1);
             }
-
+            
             return presenterCheck && copresenterOneCheck &&
                 copresenterTwoCheck && adviserEmailCheck
                 && coadviserOneCheck && coadviserTwoCheck;
         };
+        
+        //must check that primary adviser is Morris, but all others can be just umn, because primary must log in with Morris email
+        $scope.checkPrimaryEmails = function(){
+            var presenterEmail = $scope.submissionData.presenterInfo.email;
+            var adviserEmail = $scope.submissionData.adviserInfo.email;
+            
+            var presenterEmailCheck = (presenterEmail.indexOf("morris.umn.edu") != -1);
+            var adviserEmailCheck = (adviserEmail.indexOf("morris.umn.edu") != -1);
+            
+            return presenterEmailCheck && adviserEmailCheck;
+        };
 
         $scope.preSubmitChecks = function(){
-            if ($scope.checkEmailsAreUofM() === true && $scope.checkEmailsAreMorris() === false){
-                var confirm = $window.confirm("At least one of the emails you entered is not a Morris email address. Would you like to continue?");
+            if($scope.checkPrimaryEmails() === false){
+                $window.alert("Either your main presenter email or primary adviser email is not currently a U of M Morris email.");
             } else if($scope.checkEmailsAreUofM() === false){
                 $window.alert("One of the emails you entered is not a University of Minnesota email.");
+            } else if ($scope.checkEmailsAreUofM() === true && $scope.checkEmailsAreMorris() === false){
+                var confirm = $window.confirm("At least one of the emails you entered is not a Morris email address. Would you like to continue?");
             }
 
             if(confirm || $scope.checkEmailsAreMorris() === true){
@@ -394,7 +410,7 @@ angular.module('umm3601ursamajorApp')
         $scope.submitSubmission = function(){
             $scope.checkAdviserChanges();
 
-            if(!$scope.isResubmitting && $scope.attemptEmail){
+            if(!$scope.isResubmitting || $scope.attemptEmail){
                 alert("If you do not send the email that will be automatically generated, your adviser will not receive a notification to approve your submission.");
             }
 
@@ -452,7 +468,7 @@ angular.module('umm3601ursamajorApp')
                 });
 
 
-            if (!$scope.isResubmitting && $scope.attemptEmail) {
+            if (!$scope.isResubmitting || $scope.attemptEmail) {
                $scope.sendAdviserEmail();
             }
             if ($scope.isResubmitting) {
