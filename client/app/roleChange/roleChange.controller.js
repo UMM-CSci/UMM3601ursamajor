@@ -20,6 +20,8 @@ angular.module('umm3601ursamajorApp')
 
         $scope.filterSelection = "All";
 
+
+
         $scope.filterRoleOptions =
             [   'All',
                 'chair',
@@ -74,7 +76,7 @@ angular.module('umm3601ursamajorApp')
             if (Auth.getCurrentUser().email === user.email){
                 Modal.confirm.warning()("Cannot delete yourself.");
             } else {
-                Modal.confirm.delete($scope.deleteUser)(user.name);
+                Modal.confirm.delete($scope.deleteUser)(user.name, user);
             }
         };
 
@@ -89,7 +91,7 @@ angular.module('umm3601ursamajorApp')
         };
 
         // Checks if there is a conflict between the user and the group they are being assigned to.
-          // Currently not working, have too many stories to worry about this right now.
+        // Currently not working, have too many stories to worry about this right now.
         $scope.checkForConflict = function(user) {
             if (
                 $filter('filter')($scope.submissions,
@@ -106,22 +108,19 @@ angular.module('umm3601ursamajorApp')
 
 
         $scope.updateInfoConfirm = function(user) {
-            Modal.confirm.info($scope.updateInfoConfirm)("Save changes made to " + user.name + "?");
+            if (Auth.getCurrentUser().email === user.email){
+                Modal.confirm.warning()('Cannot change user role for yourself.');
+            } else {
+                Modal.confirm.info($scope.updateInfo)("Save changes made to " + user.name  + "?");
+            }
         };
 
         // Updates a users role as long as the user being changed isn't the one doing the changing.
         $scope.updateInfo = function(user) {
-            console.log(user);
-            //$scope.checkForConflict(user);
-            if (Auth.getCurrentUser().email === user.email){
-                alert('Cannot change user role for yourself.');
-            }
-            else if(confirm('Are you sure you want to update this users role?')) {
-                if(user.role != 'reviewer') {
-                    Auth.updateInfo(user.role, -1, user);
-                } else {
-                    Auth.updateInfo(user.role, user.group, user);
-                }
+            if(user.role != 'reviewer') {
+                Auth.updateInfo(user.role, -1, user);
+            } else {
+                Auth.updateInfo(user.role, user.group, user);
             }
         };
     });
