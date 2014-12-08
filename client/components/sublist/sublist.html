@@ -119,7 +119,7 @@
                     </div>
                     <button ng-show="isAdmin()" class="btn btn-md btn-danger" ng-click="deleteSubmissionConfirm(selection.item)"><span class="glyphicon glyphicon-trash"></span></button>
 
-                    <button ng-show="showResubmitButton().show" class="btn btn-md btn-primary sideMargins moveRight" ng-click="flagForResubmitConfirm()">{{showResubmitButton().text}}</button>
+                    <button ng-show="showResubmitButton().show" class="btn btn-md sideMargins moveRight {{showResubmitButton().style}}" ng-click="showResubmitButton().action()">{{showResubmitButton().text}}</button>
 
                     <div class="btn-group sideMargins moveRight">
                         <button ng-show="(isAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-success  " ng-click="approveSubmissionConfirm(selection.item)">  Give adviser approval  <span class="glyphicon glyphicon-thumbs-up"></span></button>
