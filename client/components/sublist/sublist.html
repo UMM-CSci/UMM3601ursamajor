@@ -96,10 +96,10 @@
                 <li class="list-group-item overflowAuto">
                     <button class="btn btn-sm btn-block" ng-click="resetSelection()"><span class="glyphicon glyphicon-chevron-left"></span> Back to Submission List</button>
                     <br>
-                    <div>
+                    <div ng-show="hasAdminPrivs() || getCurrentUser().role == 'reviewer'">
                             Vote on status
                             <br>
-                        <select ng-model="voteOption">
+                        <select  ng-model="voteOption">
                             <option selected = 'selected'>
                                 {{voteOption}}
                             </option>
@@ -108,8 +108,12 @@
                             </option>
                         </select>
                         <button class="btn btn-warning" ng-click="updateReviewVotingConfirm(voteOption)">Submit</button>
-                        <br>
                         <div ng-show="hasAdminPrivs()">
+                           <button class="btn btn-xs voteDropDown" ng-hide="showVotes" ng-click="showVotes = true">Show Votes <span class="glyphicon glyphicon-chevron-down"></span></button>
+                           <button class="btn btn-xs voteDropDown" ng-show="showVotes" ng-click="showVotes = false">Hide Votes <span class="glyphicon glyphicon-chevron-up"></span></button>
+                        </div>
+                        <br>
+                        <div ng-show="hasAdminPrivs() && showVotes">
                         <p>"Accepted without revisions" votes: {{selection.item.reviewVotes.Accepted.length}}</p>
                         <p>"Minor revisions" votes: {{selection.item.reviewVotes.Minor.length}}</p>
                         <p>"Major revisions" votes: {{selection.item.reviewVotes.Major.length}}</p>
