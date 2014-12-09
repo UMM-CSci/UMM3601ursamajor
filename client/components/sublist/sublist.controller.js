@@ -709,7 +709,7 @@ angular.module('umm3601ursamajorApp')
                 ).length > 0
                 ) {
                 console.log("Conflict with submission and review group.");
-                alert('Conflict with submission and review group.');
+                Modal.confirm.warning()('Conflict with submission and review group.');
             }
         };
 

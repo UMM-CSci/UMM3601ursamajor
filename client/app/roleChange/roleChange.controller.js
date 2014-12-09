@@ -101,7 +101,7 @@ angular.module('umm3601ursamajorApp')
                     }
                 ).length > 0
                 ) {
-                alert('Conflict with user and role.');
+                Modal.confirm.warning()('Conflict with user and role.');
             }
         };
 

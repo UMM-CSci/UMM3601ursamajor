@@ -149,10 +149,8 @@ angular.module('umm3601ursamajorApp')
                         problem = true;
                         reason = "A status with the selected priority already exists."
                     }
-
                 }
             }
-
             if ((status.priority <= 1 || status.priority >= 14)) {
                 problem = true;
                 reason = "You cannot create a status with a priority greater than 13"
