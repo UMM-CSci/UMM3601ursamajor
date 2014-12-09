@@ -155,8 +155,8 @@ User.find({}).remove(function() {
                 email: "ricc0082@morris.umn.edu",
                 id: "112108475765702437555"
             },
-            group: -1,
-            role: "user",
+            group: 3,
+            role: "reviewer",
             __v: 0
         }, {
             name: "Maggie Casale",
@@ -176,8 +176,8 @@ User.find({}).remove(function() {
                 email: "casal033@morris.umn.edu",
                 id: "116234824364241021424"
             },
-            group: -1,
-            role: "user",
+            group: 2,
+            role: "reviewer",
             __v: 0
         }, {
             name: "Jacob Opdahl",
