@@ -114,10 +114,10 @@
                         </div>
                         <br>
                         <div ng-show="hasAdminPrivs() && showVotes">
-                        <p>"Accepted without revisions" votes: {{selection.item.reviewVotes.Accepted.length}}</p>
-                        <p>"Minor revisions" votes: {{selection.item.reviewVotes.Minor.length}}</p>
-                        <p>"Major revisions" votes: {{selection.item.reviewVotes.Major.length}}</p>
-                        <p>"Total Rewrite" votes: {{selection.item.reviewVotes.TotalRewrite.length}}</p>
+                        <p><b>Accepted without revisions votes</b>: {{selection.item.reviewVotes.Accepted.length}}</p>
+                        <p><b>Minor revisions votes</b>: {{selection.item.reviewVotes.Minor.length}}</p>
+                        <p><b>Major revisions votes</b>: {{selection.item.reviewVotes.Major.length}}</p>
+                        <p><b>Total Rewrite votes</b>: {{selection.item.reviewVotes.TotalRewrite.length}}</p>
                         </div>
                     </div>
                     <button ng-show="isAdmin()" class="btn btn-md btn-danger" ng-click="deleteSubmissionConfirm(selection.item)"><span class="glyphicon glyphicon-trash"></span></button>

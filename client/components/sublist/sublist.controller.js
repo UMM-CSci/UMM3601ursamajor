@@ -628,7 +628,7 @@ angular.module('umm3601ursamajorApp')
         };
 
         $scope.updateReviewVotingConfirm = function(item){
-            Modal.confirm.info($scope.updateReviewVoting)('Would you like to vote for this?', item)
+            Modal.confirm.info($scope.updateReviewVoting)('Are you sure you would like to vote on this?', item)
         };
 
         $scope.updateReviewVoting = function(value){
