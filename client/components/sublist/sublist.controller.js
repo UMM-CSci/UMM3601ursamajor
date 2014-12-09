@@ -496,8 +496,8 @@ angular.module('umm3601ursamajorApp')
             return submission.approval;
         };
 
-        $scope.approveSubmissionConfirm = function(){
-            Modal.confirm.approval($scope.approveHelpYes,$scope.approveHelpNo)("You are approving: [" + $scope.selection.item.title + "], would you like to receive e-mail updates on changes of this submission?");
+        $scope.approveSubmissionConfirm = function(submission){
+            Modal.confirm.approval($scope.approveHelpYes,$scope.approveHelpNo)("You are approving: [" + $scope.selection.item.title + "], would you like to receive e-mail updates on changes of this submission?", submission);
         };
 
         $scope.approveHelpNo = function(submission){
