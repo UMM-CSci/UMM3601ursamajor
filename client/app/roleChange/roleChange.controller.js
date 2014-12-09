@@ -110,7 +110,7 @@ angular.module('umm3601ursamajorApp')
             if (Auth.getCurrentUser().email === user.email){
                 Modal.confirm.warning()('Cannot change user role for yourself.');
             } else {
-                Modal.confirm.info($scope.updateInfo)("Save changes made to " + user.name  + "?");
+                Modal.confirm.info($scope.updateInfo)("Save changes made to " + user.name  + "?", user);
             }
         };
 
