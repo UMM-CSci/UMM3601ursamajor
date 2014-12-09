@@ -338,9 +338,9 @@ angular.module('umm3601ursamajorApp')
                     TotalRewrite: submission.reviewVotes.TotalRewrite
                 }
             };
-            console.log("submissionData: ");
-            console.log($scope.submissionData);
-            console.log(submission.comments);
+//            console.log("submissionData: ");
+//            console.log($scope.submissionData);
+//            console.log(submission.comments);
 
             $scope.isResubmitting = true;
             $scope.resubmitParent = submission;
@@ -519,7 +519,7 @@ angular.module('umm3601ursamajorApp')
                     format: $scope.submissionData.format,
                     abstract: $scope.submissionData.abstract,
                     presentationType: $scope.submissionData.presentationType,
-                    formatChange: $scope.submissionData.foSizermatChange,
+                    formatChange: $scope.submissionData.formatChange,
                     presenterInfo: {first: $scope.submissionData.presenterInfo.first, last: $scope.submissionData.presenterInfo.last, email: $scope.submissionData.presenterInfo.email},
                     copresenterOneInfo: {first: $scope.submissionData.copresenterOne.first, last: $scope.submissionData.copresenterOne.last, email: $scope.submissionData.copresenterOne.email},
                     copresenterTwoInfo: {first: $scope.submissionData.copresenterTwo.first, last: $scope.submissionData.copresenterTwo.last, email: $scope.submissionData.copresenterTwo.email},
@@ -577,9 +577,7 @@ angular.module('umm3601ursamajorApp')
          * @returns {number}  -random number that serves as a valid index in $scope.submissions
          */
         $scope.randomSubmissionIndex = function(){
-            var i = Math.floor(($scope.submissions.length - 1) * Math.random());
-            console.log("random index: " + i);
-            return i;
+            return Math.floor(($scope.submissions.length - 1) * Math.random());;
         };
 
         /**

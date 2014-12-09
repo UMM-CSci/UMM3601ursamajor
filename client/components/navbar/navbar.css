@@ -56,6 +56,9 @@
     color: #7a0019;
 }
 
+.navbar-default .navbar-brand:focus{
+    color: #7a0019;
+}
 /*Adds circle behind notification number on navbar.*/
 #circle {
     /*circle styling*/

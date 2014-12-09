@@ -18,6 +18,7 @@ Status.find({}).remove(function() {
         color: {red: 0, green: 255, blue: 0, alpha: 1},
         emailSubject: "URS submission has been accepted",
         emailBody:  ", Your URS submission has been approved, congratulations!",
+        //only change this priority if you change the function in abstractBook.controller
         priority: 15,
         required: true
     },{
@@ -432,7 +433,7 @@ Submission.find({}).remove(function(){
         copresenterTwoInfo: {first: "", last: "", email: ""},
         discipline: "History",
         sponsors: [], //Might need to worry about if this is static for the DB later.
-        adviserInfo: {first: "Niccolas", last: "Ricci", email: "saxxx027@morris.umn.edu"},
+        adviserInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
         coadviserOneInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
         coadviserTwoInfo: {first: "", last: "", email: ""},
         featured: true,
