@@ -657,22 +657,22 @@ angular.module('umm3601ursamajorApp')
             switch(value){
                 case 'Accepted without changes':
                     $scope.selection.item.reviewVotes.Accepted.splice($scope.selection.item.reviewVotes.Accepted.length, 0, $scope.getCurrentUser().email);
-                    console.log("This should appear Accepted")
+                    console.log("This should appear Accepted");
                     $scope.submitVoting();
                     break;
                 case 'Minor revisions':
                     $scope.selection.item.reviewVotes.Minor.splice($scope.selection.item.reviewVotes.Minor.length, 0, $scope.getCurrentUser().email);
-                    console.log("This should appear Minor")
+                    console.log("This should appear Minor");
                     $scope.submitVoting();
                     break;
                 case 'Major revisions':
                     $scope.selection.item.reviewVotes.Major.splice($scope.selection.item.reviewVotes.Major.length, 0, $scope.getCurrentUser().email);
-                    console.log("This should appear Major")
+                    console.log("This should appear Major");
                     $scope.submitVoting();
                     break;
                 case 'Total rewrite':
                     $scope.selection.item.reviewVotes.TotalRewrite.splice($scope.selection.item.reviewVotes.TotalRewrite.length, 0, $scope.getCurrentUser().email);
-                    console.log("This should appear TotalRewrite")
+                    console.log("This should appear TotalRewrite");
                     $scope.submitVoting();
                     break;
             }
