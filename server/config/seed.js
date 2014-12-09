@@ -210,7 +210,7 @@ User.find({}).remove(function() {
                 id: "114952307600153399103"
             },
             group: -1,
-            role: "admin",
+            role: "user",
             __v: 0
         }, {
             name: "Kristin Lamberty",
@@ -323,7 +323,62 @@ Submission.find({}).remove(function(){
         group: 0,
         roomAssignment: "Science 2610",
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
-        comments: [],
+        comments: [
+            {
+                beginner: 0,
+                ender: 64,
+                commentText:"You don't need to restate the title of the submission...",
+                commenter: "Joseph Thelen",
+                selectionText : "The title of my project is called On Your March, Get Set, Rust! ",
+                indicator : 0,
+                timestamp : "Mon Dec 08 2014 18:41:16 GMT-0600 (CST)",
+                origin : "5486429c6adf9b0859cb58c7",
+                responses: []
+            }, {
+                beginner: 245 ,
+                ender: 284 ,
+                commentText: "Why were they sanded?" ,
+                commenter: "Joseph Thelen" ,
+                selectionText: "sanding ten galvanized and common nails" ,
+                indicator: 0 ,
+                timestamp: "Mon Dec 08 2014 18:42:05 GMT-0600 (CST)" ,
+                origin: "5486429c6adf9b0859cb58c7" ,
+                responses: [
+                    {
+                        "response": "Obviously to release the magical nail spirits.",
+                        "responder": "Joseph Thelen",
+                        "timestamp": "Mon Dec 08 2014 19:03:17 GMT-0600 (CST)"
+                    }
+                ]
+            }, {
+                beginner: 161 ,
+                ender: 222 ,
+                commentText: "Poorly worded. Should be \"more quickly\" ?" ,
+                commenter: "Joseph Thelen" ,
+                selectionText: " which type of nails, galvanized or common will rust quickly." ,
+                indicator: 0 ,
+                timestamp: "Mon Dec 08 2014 18:43:43 GMT-0600 (CST)" ,
+                origin: "5486429c6adf9b0859cb58c7" ,
+                responses: [ ]
+            }, {
+                beginner: 536 ,
+                ender: 678 ,
+                commentText: "Big portion needs re-write..." ,
+                commenter: "Joseph Thelen" ,
+                selectionText: "My results of my data resolves that galvanized and common nails in freshwater had a higher average or rust than the other nails in salt water." ,
+                indicator: 0 ,
+                timestamp: "Mon Dec 08 2014 18:44:47 GMT-0600 (CST)" ,
+                origin: "5486429c6adf9b0859cb58c7" ,
+                responses: [
+                    {
+                        response: "But WHYYYYY?" ,
+                        responder: "Joseph Thelen" ,
+                        timestamp: "Mon Dec 08 2014 18:52:18 GMT-0600 (CST)"
+                    }
+                ]
+            }
+
+        ],
         reviewVotes: {
             Accepted: [],
             Minor: [],
@@ -395,7 +450,7 @@ Submission.find({}).remove(function(){
         sponsors: [], //Might need to worry about if this is static for the DB later.
         adviserInfo: {first: "Peter",last: "Hans", email: "hans4858@morris.umn.edu"},
         coadviserOneInfo: {first: "Otto", last: "Marckell", email: "marck018@morris.umn.edu"},
-        coadviserTwoInfo: {first: "Aaron", last: "Lemmon", email: "lemmo031@morris.umn.edu"},
+        coadviserTwoInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
         featured: true,
         mediaServicesEquipment: "Microphone for my sick rhymes, 5 laser stage lights with automated gimbals.",
         specialRequirements: "A whale suit.",
@@ -435,7 +490,7 @@ Submission.find({}).remove(function(){
         sponsors: [], //Might need to worry about if this is static for the DB later.
         adviserInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
         coadviserOneInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
-        coadviserTwoInfo: {first: "Nic", last: "Ricci", email: "ricc0082@morris.umn.edu"},
+        coadviserTwoInfo: {first: "", last: "", email: ""},
         featured: true,
         mediaServicesEquipment: "A way to show images, either a projector or a warning so I can print them.",
         specialRequirements: "",
