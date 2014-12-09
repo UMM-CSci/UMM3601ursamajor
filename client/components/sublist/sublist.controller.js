@@ -36,6 +36,7 @@ angular.module('umm3601ursamajorApp')
         $scope.isReviewer = Auth.isReviewer;
         $scope.isAdmin = Auth.isAdmin;
         $scope.isChair = Auth.isChair;
+        $scope.showVotes = false;
 
 
 
@@ -629,7 +630,7 @@ angular.module('umm3601ursamajorApp')
 
 
         $scope.updateReviewVotingConfirm = function(item){
-            Modal.confirm.info($scope.updateReviewVoting)('Would you like to vote for this?', item)
+            Modal.confirm.info($scope.updateReviewVoting)('Are you sure you would like to vote on this?', item)
         };
 
 

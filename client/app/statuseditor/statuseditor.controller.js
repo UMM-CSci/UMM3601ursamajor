@@ -188,7 +188,7 @@ angular.module('umm3601ursamajorApp')
                                 console.log("things were detected to be different");
                                 $scope.submissions[j].status.strict = $scope.statusArray[x].strict;
                                 $http.patch('/api/submissions/' + $scope.submissions[j]._id, {
-                                    status: {strict: $scope.statusArray[x].strict, text: $scope.submissions[j].status.text}
+                                    status: {strict: $scope.statusArray[x].strict, priority: $scope.statusArray[x].priority, text: $scope.submissions[j].status.text}
                                 })
 
                             }

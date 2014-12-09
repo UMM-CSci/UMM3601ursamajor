@@ -40,6 +40,11 @@
     background-color: #7a0019;
 }
 
+.active-true {
+    color: #ffcc33;
+    background-color: #7a0019;
+}
+
 /*Formats the system information title*/
 #title {
     color: #7a0019;
