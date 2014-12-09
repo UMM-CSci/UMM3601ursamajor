@@ -126,8 +126,8 @@
                     <button ng-show="showResubmitButton().show" class="btn btn-md btn-primary sideMargins moveRight" ng-click="flagForResubmitConfirm()">{{showResubmitButton().text}}</button>
 
                     <div class="btn-group sideMargins moveRight">
-                        <button ng-show="(isAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-success  " ng-click="approveSubmissionConfirm(selection.item)">  Give adviser approval  <span class="glyphicon glyphicon-thumbs-up"></span></button>
-                        <button ng-show="(isAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-danger " ng-click="rejectSubmissionConfirm(selection.item)">  Reject Submission  <span class="glyphicon glyphicon-thumbs-down"></span></button>
+                        <button ng-show="(isPrimaryAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-success  " ng-click="approveSubmissionConfirm(selection.item)">  Give adviser approval  <span class="glyphicon glyphicon-thumbs-up"></span></button>
+                        <button ng-show="(isPrimaryAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item) && (selection.item.status.strict != 'Withdrawn')" class="btn btn-md btn-danger " ng-click="rejectSubmissionConfirm(selection.item)">  Reject Submission  <span class="glyphicon glyphicon-thumbs-down"></span></button>
                     </div>
                     <br>
 
@@ -169,7 +169,7 @@
                             <p>Discipline: {{selection.item.discipline}}</p>
                             <p>Format:  {{selection.item.format}}</p>
                             <p>Type:{{selection.item.presentationType}}</p>
-                            <p>Adviser: {{selection.item.adviserInfo.last}}, {{selection.item.adviserInfo.first}} email: {{selection.item.adviserInfo.email}}</p>
+                            <p>Adviser: {{selection.item.adviserInfo.first}} {{selection.item.adviserInfo.last}}, email: {{selection.item.adviserInfo.email}}</p>
                             <p>{{selection.item.coadviserOneInfo.first | isntEmpty:"CoAdviser(s):":""}}{{selection.item.coadviserOneInfo.last | isntEmpty:"":""}}{{selection.item.coadviserTwoInfo.first | isntEmpty:",":""}} {{selection.item.coadviserTwoInfo.last | isntEmpty:"":""}}
                             </p>
                             <p>Adviser Approved: {{approvalWordChange(selection.item.approval)}} <span class="glyphicon glyphicon-info-sign" style="color:red" ng-show="statusApprovalConflict(selection.item)" title="This submission does not have adviser approval yet, but it has moved forward with the submission process."></span></p>
@@ -276,7 +276,7 @@
                         <p>Discipline: {{selection.resubmission.discipline}}</p>
                         <p>Format:  {{selection.resubmission.format}}</p>
                         <p>Type: {{selection.resubmission.presentationType}}</p>
-                        <p>Adviser: {{selection.resubmission.adviserInfo.last}}, {{selection.resubmission.adviserInfo.first}} email: {{selection.resubmission.adviserInfo.email}}</p>
+                        <p>Adviser: {{selection.resubmission.adviserInfo.first}} {{selection.resubmission.adviserInfo.last}}, email: {{selection.resubmission.adviserInfo.email}}</p>
                         <p>Adviser Approved: {{approvalWordChange(selection.item.approval)}}</p>
                         <p>{{selection.resubmission.sponsors | isntEmpty:"Sponsors:":""}}</p>
                         <p>{{selection.resubmission.mediaServicesEquipment | isntEmpty:"Media Services Equipment:":""}}</p>

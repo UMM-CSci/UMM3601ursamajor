@@ -71,7 +71,8 @@ describe('Functions dealing with submissions...', function() {
             specialRequirements: "a sloth",
             presenterTeeSize: "M",
             otherInfo: "Maybe",
-            approval: false,
+            approval: true,
+            rejection: false,
             status: {strict: "Awaiting Adviser Approval", text: "Your adviser has yet to approve this submission."},
             timestamp: "Mon Oct 20 2014 1:48:54 GMT-0500 (CDT)",
             group: 3,
@@ -94,6 +95,8 @@ describe('Functions dealing with submissions...', function() {
            discipline: "Art History",
            sponsors: [],
            adviserInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
+           coadviserOneInfo: {},
+           coadviserTwoInfo: {},
            featured: true,
            mediaServicesEquipment: "",
            specialRequirements: "A space to perform with three people.",
@@ -105,7 +108,13 @@ describe('Functions dealing with submissions...', function() {
            timestamp: "Tue Oct 21 2014 23:22:54 GMT-0500 (CDT)",
            group: 1,
            resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
-           comments:[]
+           comments:[],
+           reviewVotes: {
+                   Accepted: [],
+                   Minor: [],
+                   Major: [],
+                   TotalRewrite: []
+               }
         }
        ]
     });
@@ -193,6 +202,28 @@ describe('Functions dealing with submissions...', function() {
            expect(scope.selection.item.title).toBe("Blind Construction: Mixed Media");
         });
 
+        it("Selecting when filters are applied should select the correct submission (feature presentation)", inject(function(Auth){Auth.setCurrentUser("admin@admin.com", "admin", 1)}), function() {
+            expect(scope.selection.item).toEqual(null);
+            scope.filterData.featurePresentationFilterSelection = "Wants to be featured";
+            scope.selectItem(0);
+            expect(scope.selection.item.title).toBe("Blind Construction: Mixed Media");
+        });
+
+        it("Selecting when filters are applied should select the correct submission (flagged for resubmission)", inject(function(Auth){Auth.setCurrentUser("admin@admin.com", "admin", 1)}), function() {
+            expect(scope.selection.item).toEqual(null);
+            scope.filterData.flaggedForResubmitFilterSelection = "Not Flagged";
+            scope.selectItem(0);
+            expect(scope.selection.item.title).toBe("Blind Construction: Mixed Media");
+        });
+
+        it("Selecting when filters are applied should select the correct submission (pending resubmissions)", inject(function(Auth){Auth.setCurrentUser("admin@admin.com", "admin", 1)}), function() {
+            expect(scope.selection.item).toEqual(null);
+            scope.filterData.pendingResubmissionsOptions = "Not Pending Resubmissions";
+            scope.selectItem(0);
+            expect(scope.selection.item.title).toBe("Blind Construction: Mixed Media");
+        });
+
+
 
     });
 
@@ -208,29 +239,34 @@ describe('Functions dealing with submissions...', function() {
     });
 
     describe('Functions handling approve/reject button...', function() {
-//        it('should be a approval...', function () {
-//            expect();
-//        });
+        it('should be approved...', function () {
+            expect(scope.submissions[0].approval).toEqual(true);
+        });
 
-        it('rejection should be false...', function (){
+        it('should not be rejected...', function (){
             expect(scope.submissions[1].rejection).toEqual(false);
         });
 
-
-
 //        it('should be a rejection...', function (){
-//           scope.rejectSubmission(scope.submissions[1]);
+//           scope.rejectSubmission(scope.submissions);
 //           expect(scope.submissions[1].rejection).toEqual(true);
 //        });
 
     });
 
-//    describe('Testing the that the additional advisers are indeed in a submission...', function {
-//       it('coadviserOneInfo for submission 1 [1] should be Dalton Gusaas...', function() {
-//            expect(scope.submissions[0].coadviserOneInfo).toEqual("")
-//       });
-//    });
+    describe('Testing the that the additional advisers are indeed in a submission...', function() {
+        it('coadviserOneInfo for submission 1 [0] should be Dalton Gusaas...', function() {
+            expect(scope.submissions[0].coadviserOneInfo).toEqual({ first : 'Dalton', last : 'Gusaas', email : 'gusaa004@morris.umn.edu'});
+        });
 
+        it('coadviserTwoInfo for submission 1 [0] should be blank...', function() {
+            expect(scope.submissions[0].coadviserTwoInfo).toEqual({});
+        });
 
+        it('both coadvisers should be blank for submission 2 [1]...', function(){
+           expect(scope.submissions[1].coadviserOneInfo && scope.submissions[1].coadviserTwoInfo).toEqual({});
+        });
+
+    });
 
 });
