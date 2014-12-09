@@ -990,15 +990,12 @@ angular.module('umm3601ursamajorApp')
         };
 
 
-        // Warning: You will get an error about the document not being found
-        // if pop-ups are blocked
         $scope.populateComments = function(abstract, index , comments, id, submission){
             var start = comments[index].beginner;
             var end = comments[index].ender;
             var comment = comments[index].commentText;
             var details = "";
             abstract = abstract.substring(0, start) + '<b>' + abstract.substring(start, end) + '</b>' + abstract.substring(end, abstract.length);
-            var newWindow = $window.open("", null, "height=300,width=600,status=yes,toolbar=no,menubar=no,location=no");
             if(comments[index].origin != id){
                 details = details + "<b>" + "This comment was made on a prior version of this submission" + "</b>" + "<br>";
             }
@@ -1042,14 +1039,12 @@ angular.module('umm3601ursamajorApp')
 
         $scope.deleteComment = function (submission, index){
             var comments = submission.comments;
-            if (confirm("Do you wish to delete this comment and all of its responses?")) {
                 comments.splice(index, 1);
                 $http.patch('api/submissions/' + $scope.selection.item._id,
                     {comments: comments}
                 ).success(function(){
                         console.log("successfully deleted comments from a submission!");
                     });
-            }
         };
 
         $scope.deleteResponseModal = function(submission,parentIndex,childIndex) {
@@ -1058,14 +1053,12 @@ angular.module('umm3601ursamajorApp')
 
         $scope.deleteResponse = function (submission, parentIndex, childIndex){
             var comments = submission.comments;
-            if (confirm("Do you wish to delete this response?")) {
                 comments[parentIndex].responses.splice(childIndex, 1);
                 $http.patch('api/submissions/' + $scope.selection.item._id,
                     {comments: comments}
                 ).success(function(){
                         console.log("successfully deleted response from a comment to a submission!");
                     });
-            }
         };
 
     });
