@@ -1,5 +1,6 @@
 <div class="container-fluid breakLongWords" ng-controller="SublistCtrl">
 
+
     <!-- HTML for list view -->
 
     <div class="row container-fluid" ng-hide="selection.selected">
@@ -17,7 +18,7 @@
                         </select>
                     </label>
 
-                    <label ng-show="isAdmin() || isChair() || isReviewer()">
+                    <label ng-show="isAdmin() || isChair()">
                         Filter by feature presentation:
                         <br>
                         <select ng-model="filterData.featurePresentationFilterSelection">
@@ -25,7 +26,7 @@
                         </select>
                     </label>
 
-                    <label ng-show="isAdmin() || isChair() || isReviewer()">
+                    <label ng-show="isAdmin() || isChair()">
                         Filter by flagged for resubmission:
                         <br>
                         <select ng-model="filterData.flaggedForResubmitFilterSelection">
@@ -33,7 +34,7 @@
                         </select>
                     </label>
 
-                    <label ng-show="isAdmin() || isChair() || isReviewer()">
+                    <label ng-show="isAdmin() || isChair()">
                         Filter by pending resubmissions:
                         <br>
                         <select ng-model="filterData.pendingResubmissionsSelection">
@@ -66,7 +67,7 @@
                         <span ng-show="getResubmission(sub) != null" title="Submission has an unapproved resubmission" style="color: red" class="glyphicon glyphicon-warning-sign"></span>
                         <span ng-show="sub.resubmissionData.resubmitFlag" title="Submission is flagged for resubmission" style="color: darkgoldenrod" class="glyphicon glyphicon-flag"></span>
                     </h3>
-                    <button class="buttonL" ng-click=($index)">Details</button>
+                    <button class="buttonL" ng-click="selectItem($index)">Details</button>
                     <strong>Presenter: {{sub.presenterInfo.first}} {{sub.presenterInfo.last}}</strong>
                     <p class="subtext">
                         {{sub.copresenterOneInfo.first | isntEmpty:"CoPresenter(s):":""}} {{sub.copresenterOneInfo.last | isntEmpty:"":""}}{{sub.copresenterTwoInfo.first | isntEmpty:",":""}} {{sub.copresenterTwoInfo.last | isntEmpty:"":""}}
@@ -85,7 +86,6 @@
             </ul>
         </div>
     </div>
-
     </ul>
 
     <!-- HTML for details view starts here. -->
@@ -97,7 +97,6 @@
                     <button class="btn btn-sm btn-block" ng-click="resetSelection()"><span class="glyphicon glyphicon-chevron-left"></span> Back to Submission List</button>
                     <br>
                     <div>
-
                             Vote on status
                             <br>
                         <select ng-model="voteOption">
@@ -119,7 +118,7 @@
                     </div>
                     <button ng-show="isAdmin()" class="btn btn-md btn-danger" ng-click="deleteSubmissionConfirm(selection.item)"><span class="glyphicon glyphicon-trash"></span></button>
 
-                    <button ng-show="showResubmitButton().show" class="btn btn-md sideMargins moveRight {{showResubmitButton().style}}" ng-click="showResubmitButton().action()">{{showResubmitButton().text}}</button>
+                    <button ng-show="showResubmitButton().show" class="btn btn-md btn-primary sideMargins moveRight" ng-click="flagForResubmitConfirm()">{{showResubmitButton().text}}</button>
 
                     <div class="btn-group sideMargins moveRight">
                         <button ng-show="(isAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-success  " ng-click="approveSubmissionConfirm(selection.item)">  Give adviser approval  <span class="glyphicon glyphicon-thumbs-up"></span></button>
@@ -156,23 +155,23 @@
                         <button class="btn btn-warning" ng-click="submitStatusEditConfirm()">Submit</button>
                     </div>
                     <h3 id="text">{{selection.item.title}}</h3>
-                    <strong>{{selection.item.presenterInfo.first}} {{selection.item.presenterInfo.last}}</strong>
+                    <strong>{{selection.item.presenterInfo.last}}, {{selection.item.presenterInfo.first}}</strong>
                     <hr>
                     <ul class="list-group">
                         <li class="list-group-item">
                             <p>{{selection.item.copresenterOneInfo.first | isntEmpty:"CoPresenter(s):":""}} {{selection.item.copresenterOneInfo.last | isntEmpty:"":""}}{{selection.item.copresenterTwoInfo.first | isntEmpty:",":""}} {{selection.item.copresenterTwoInfo.last | isntEmpty:"":""}}
                             </p>
-                            <p>Discipline: {{selection.item.discipline}}</p>
-                            <p>Format: {{selection.item.format}}</p>
-                            <p>Type: {{selection.item.presentationType}}</p>
-                            <p>Adviser: {{selection.item.adviserInfo.first}} {{selection.item.adviserInfo.last}}, email: {{selection.item.adviserInfo.email}}</p>
+                            <p><b>Discipline:</b> {{selection.item.discipline}}</p>
+                            <p><b>Format:</b>  {{selection.item.format}}</p>
+                            <p><b>Type:</b> {{selection.item.presentationType}}</p>
+                            <p><b>Adviser:</b> {{selection.item.adviserInfo.last}}, {{selection.item.adviserInfo.first}} email: {{selection.item.adviserInfo.email}}</p>
                             <p>{{selection.item.coadviserOneInfo.first | isntEmpty:"CoAdviser(s):":""}}{{selection.item.coadviserOneInfo.last | isntEmpty:"":""}}{{selection.item.coadviserTwoInfo.first | isntEmpty:",":""}} {{selection.item.coadviserTwoInfo.last | isntEmpty:"":""}}
                             </p>
                             <p>Adviser Approved: {{approvalWordChange(selection.item.approval)}} <span class="glyphicon glyphicon-info-sign" style="color:red" ng-show="statusApprovalConflict(selection.item)" title="This submission does not have adviser approval yet, but it has moved forward with the submission process."></span></p>
                             <p>{{selection.item.sponsors | isntEmpty:"Sponsors:":""}}</p>
                             <p>{{selection.item.mediaServicesEquipment | isntEmpty:"Media Services Equipment:":""}}</p>
                             <p>{{selection.item.specialRequirements | isntEmpty:"Special Requirements:":""}}</p>
-                            <p>Willing to be Feature Presentation: {{approvalWordChange(selection.item.featured)}}</p>
+                            <p><b>Willing to be Feature Presentation:</b> {{approvalWordChange(selection.item.featured)}}</p>
                             <p>Date of submission: {{selection.item.timestamp}}</p>
                         </li>
                     </ul>
@@ -213,8 +212,8 @@
             </ul>
         </div>
         <div ng-show="selection.selected" class="col-md-3">
+            <button class="btn btn-primary btn-block" ng-click="addComment(selection.item)">New Comment <span class="glyphicon glyphicon-pencil"></span></button>
 
-<!-------------------------------------------------------------------commenty bits start here---------------------------------------------------------------------------------------------------------->
             <ul class="plainList ">
                 <li ng-repeat="comment in displayedComments()" ng-click="selectComment($index)" class="clickable alert alert-warning block commentStyle">
                     <p>{{comment.commentText | isntEmpty:"Comment:":"(No comment...)"}}</p>
@@ -237,12 +236,12 @@
                         <div style="margin-left: 3px; padding-left: 10px; border-left: 2px solid steelblue" ng-repeat="response in comment.responses">
                             <p class="padded">{{response.response}}</p>
                             <p ng-show="hasAdminPrivs()"><i>- {{response.responder}}</i></p>
-                            <button ng-show="hasAdminPrivs() || isReviewerGroup(selection.item)" class="btn btn-xs deleteButton moveDeleteRight" ng-click="deleteResponse(selection.item , transformCommentIndex($parent.$index) , $index)"><span class="glyphicon glyphicon-trash" ></span></button>
+                            <button ng-show="hasAdminPrivs() || isReviewerGroup(selection.item)" class="btn btn-xs deleteButton" ng-click="deleteResponse(selection.item , transformCommentIndex($parent.$index) , $index)">Delete Response</button>
                         </div>
                     </div>
                 </li>
             </ul>
-            <button class="btn btn-primary btn-block" ng-click="addComment(selection.item)" title="Highlight a section of the abstract to have it marked in your comment.">New Comment  <span class="glyphicon glyphicon-pencil" ></span></button>
+
 
             <pagination ng-show="selection.item.comments.length > 10" class="pagination-sm" total-items="selection.item.comments.length" ng-model="currentCommentPage"></pagination>
         </div>
@@ -263,16 +262,16 @@
             </li>
             <li class="list-group-item">
                 <h3 id="text">{{selection.resubmission.title}}</h3>
-                <strong>{{selection.resubmission.presenterInfo.first}} {{selection.resubmission.presenterInfo.last}}</strong>
+                <strong>{{selection.resubmission.presenterInfo.last}}, {{selection.resubmission.presenterInfo.first}}</strong>
                 <hr>
                 <ul class="list-group">
                     <li class="list-group-item">
                         <p>{{selection.resubmission.copresenterOneInfo.first | isntEmpty:"Co-Presenter(s):":""}} {{selection.resubmission.copresenterOneInfo.last | isntEmpty:"":""}}{{selection.resubmission.copresenterTwoInfo.first | isntEmpty:",":""}} {{selection.item.copresenterTwoInfo.last | isntEmpty:"":""}}
                         </p>
                         <p>Discipline: {{selection.resubmission.discipline}}</p>
-                        <p>Format: {{selection.resubmission.format}}</p>
+                        <p>Format:  {{selection.resubmission.format}}</p>
                         <p>Type: {{selection.resubmission.presentationType}}</p>
-                        <p>Adviser: {{selection.resubmission.adviserInfo.first}} {{selection.resubmission.adviserInfo.last}}, email: {{selection.resubmission.adviserInfo.email}}</p>
+                        <p>Adviser: {{selection.resubmission.adviserInfo.last}}, {{selection.resubmission.adviserInfo.first}} email: {{selection.resubmission.adviserInfo.email}}</p>
                         <p>Adviser Approved: {{approvalWordChange(selection.item.approval)}}</p>
                         <p>{{selection.resubmission.sponsors | isntEmpty:"Sponsors:":""}}</p>
                         <p>{{selection.resubmission.mediaServicesEquipment | isntEmpty:"Media Services Equipment:":""}}</p>
