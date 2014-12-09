@@ -177,7 +177,7 @@ User.find({}).remove(function() {
                 id: "116234824364241021424"
             },
             group: -1,
-            role: "admin",
+            role: "user",
             __v: 0
         }, {
             name: "Jacob Opdahl",
