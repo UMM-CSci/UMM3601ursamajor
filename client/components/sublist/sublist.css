@@ -84,6 +84,11 @@ hr {
     float: right;
 }
 
+.moveDeleteRight {
+    display: inline-block;
+    float: right;
+    margin-top: -35px;
+}
 
 /*Overflow sets the floating elements as objects (kinda)*/
 .overflowAuto {
@@ -110,6 +115,11 @@ hr {
 /*Delete button colors*/
 .deleteButton {
     background-color: indianred;
+    color: #ffffff;
+}
+
+.deleteButton:hover {
+    background-color: firebrick;
     color: #ffffff;
 }
 

@@ -351,6 +351,7 @@ angular.module('umm3601ursamajorApp')
             }
         };
 
+
         // ----------------------- Getting Data from Mongo ----------------------------
         $scope.statusEdit = {
             editing: false,
@@ -479,7 +480,7 @@ angular.module('umm3601ursamajorApp')
             $scope.resetTemps();
         };
 
-        $scope.deleteSubmissionConfirm = function(item){
+        $scope.deleteSubmissionConfirm = function(item) {
             Modal.confirm.delete($scope.deleteSubmission)(item.title, item);
         };
 
@@ -564,7 +565,7 @@ angular.module('umm3601ursamajorApp')
             $scope.rejectSubmission(item);
             sendGmailWithCC({
                 to: $scope.selection.item.presenterInfo.email +" "+ $scope.selection.item.copresenterOneInfo.email +" "+ $scope.selection.item.copresenterTwoInfo.email,
-                cc: "admin@admin.com",
+                cc: "ursadmin@morris.umn.edu",
                 subject: "["+ $scope.selection.item.title + "] " + "URS submission has been rejected",
                 message: $scope.selection.item.presenterInfo.first + ", unfortunately, your URS submission has been rejected."
             });
@@ -573,13 +574,13 @@ angular.module('umm3601ursamajorApp')
         $scope.rejectHelpNo = function(item){
             $scope.rejectSubmission(item);
             sendGmail({
-                to: "admin@admin.com",
+                to: "ursadmin@morris.umn.edu",
                 subject: "["+ $scope.selection.item.title + "] " + "URS submission has been rejected",
                 message: $scope.selection.item.presenterInfo.first + " submitted an abstract for consideration to the URS. Unfortunately, I, as the adviser, have rejected this submission."
             });
         };
 
-        //TODO: currently have admin@admin.com hard-coded in, don't have a solidified admin account and cannot access user roles to get admin emails
+        //currently have ursadmin@morris.umn.edu hard-coded in because this is the email address for the URSA Major admin group,
         //CANNOT ADD IN CHAIRS' EMAILS TO SENDGMAILS BECAUSE OF THE SECURITY PRIVILEGES, SO FOR NOW WE'LL JUST SEND TO ADMIN
         $scope.rejectSubmission = function(submission) {
             $http.patch('api/submissions/' + $scope.selection.item._id,
@@ -652,22 +653,22 @@ angular.module('umm3601ursamajorApp')
             switch(value){
                 case 'Accepted without changes':
                     $scope.selection.item.reviewVotes.Accepted.splice($scope.selection.item.reviewVotes.Accepted.length, 0, $scope.getCurrentUser().email);
-                    console.log("This should appear Accepted")
+                    console.log("This should appear Accepted");
                     $scope.submitVoting();
                     break;
                 case 'Minor revisions':
                     $scope.selection.item.reviewVotes.Minor.splice($scope.selection.item.reviewVotes.Minor.length, 0, $scope.getCurrentUser().email);
-                    console.log("This should appear Minor")
+                    console.log("This should appear Minor");
                     $scope.submitVoting();
                     break;
                 case 'Major revisions':
                     $scope.selection.item.reviewVotes.Major.splice($scope.selection.item.reviewVotes.Major.length, 0, $scope.getCurrentUser().email);
-                    console.log("This should appear Major")
+                    console.log("This should appear Major");
                     $scope.submitVoting();
                     break;
                 case 'Total rewrite':
                     $scope.selection.item.reviewVotes.TotalRewrite.splice($scope.selection.item.reviewVotes.TotalRewrite.length, 0, $scope.getCurrentUser().email);
-                    console.log("This should appear TotalRewrite")
+                    console.log("This should appear TotalRewrite");
                     $scope.submitVoting();
                     break;
             }
@@ -997,6 +998,7 @@ angular.module('umm3601ursamajorApp')
             var comment = comments[index].commentText;
             var details = "";
             abstract = abstract.substring(0, start) + '<b>' + abstract.substring(start, end) + '</b>' + abstract.substring(end, abstract.length);
+            var newWindow = $window.open("", null, "height=300,width=600,status=yes,toolbar=no,menubar=no,location=no");
             if(comments[index].origin != id){
                 details = details + "<b>" + "This comment was made on a prior version of this submission" + "</b>" + "<br>";
             }
@@ -1040,12 +1042,14 @@ angular.module('umm3601ursamajorApp')
 
         $scope.deleteComment = function (submission, index){
             var comments = submission.comments;
+            if (confirm("Do you wish to delete this comment and all of its responses?")) {
                 comments.splice(index, 1);
                 $http.patch('api/submissions/' + $scope.selection.item._id,
                     {comments: comments}
                 ).success(function(){
                         console.log("successfully deleted comments from a submission!");
                     });
+            }
         };
 
         $scope.deleteResponseModal = function(submission,parentIndex,childIndex) {
@@ -1054,12 +1058,14 @@ angular.module('umm3601ursamajorApp')
 
         $scope.deleteResponse = function (submission, parentIndex, childIndex){
             var comments = submission.comments;
+            if (confirm("Do you wish to delete this response?")) {
                 comments[parentIndex].responses.splice(childIndex, 1);
                 $http.patch('api/submissions/' + $scope.selection.item._id,
                     {comments: comments}
                 ).success(function(){
                         console.log("successfully deleted response from a comment to a submission!");
                     });
+            }
         };
 
     });

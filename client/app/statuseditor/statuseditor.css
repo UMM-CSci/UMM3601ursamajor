@@ -28,3 +28,12 @@
         width: 12em;
     }
 }
+
+/*Changes dropdown colors on hover*/
+.colorSliderDropdown {
+    background-color: lightgray;
+}
+
+.colorSliderDropdown:hover {
+    background-color: darkgray;
+}
