@@ -94,7 +94,7 @@ describe('Controller: AbstractbookCtrl', function () {
     });
 
     describe('returns true if a submission is accepted', function() {
-       it('something', inject(function(isAccepted){
+       it('something', inject(function(){
            expect(scope.isAccepted(scope.submissions[0])).toEqual(true);
            expect(scope.isAccepted(scope.submissions[1])).toEqual(false);
        })) ;

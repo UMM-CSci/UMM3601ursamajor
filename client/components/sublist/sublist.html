@@ -26,7 +26,7 @@
                         </select>
                     </label>
 
-                    <label ng-show="isAdmin() || isChair()">
+                    <label ng-show="isAdmin() || isChair() || isReviewerOfAnything()">
                         Filter by flagged for resubmission:
                         <br>
                         <select ng-model="filterData.flaggedForResubmitFilterSelection">
@@ -34,7 +34,7 @@
                         </select>
                     </label>
 
-                    <label ng-show="isAdmin() || isChair()">
+                    <label ng-show="isAdmin() || isChair() || isReviewerOfAnything()">
                         Filter by pending resubmissions:
                         <br>
                         <select ng-model="filterData.pendingResubmissionsSelection">
