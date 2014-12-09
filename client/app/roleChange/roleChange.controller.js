@@ -4,7 +4,7 @@
 angular.module('umm3601ursamajorApp')
     .controller('RoleChangeCtrl', function ($scope, Modal, $http, Auth, User, $location, $filter, socket) {
         if(Auth.isAdmin() || Auth.isChair()) {
-        } else{
+        } else {
             $location.path('/');
         }
 
@@ -17,6 +17,16 @@ angular.module('umm3601ursamajorApp')
             $scope.submissions = submissions;
             socket.syncUpdates('submission', $scope.submissions);
         });
+
+        $scope.filterSelection = "All";
+
+        $scope.filterRoleOptions =
+            [   'All',
+                'chair',
+                'reviewer',
+                'admin',
+                'user'
+            ];
 
         $scope.roleOptions =
             [   'chair',
@@ -43,12 +53,29 @@ angular.module('umm3601ursamajorApp')
         };
 
 
+        $scope.filterByUser = function(user){
+            console.log(user);
+            if($scope.filterSelection === "All"){
+                return true;
+            } else if($scope.filterSelection === "reviewer"){
+                return user.role === "reviewer";
+            } else if($scope.filterSelection === "chair"){
+                return user.role === "chair";
+            } else if($scope.filterSelection === "user"){
+                return user.role === "user";
+            } else if($scope.filterSelection === "admin"){
+                return user.role === "admin";
+            } else {
+                return false;
+            }
+        };
+
         //Delete user modal
         $scope.deleteUserConfirm = function(user){
             if (Auth.getCurrentUser().email === user.email){
                 Modal.confirm.warning()("Cannot delete yourself.");
             } else {
-                Modal.confirm.delete($scope.deleteUser)(user.name);
+                Modal.confirm.delete($scope.deleteUser)(user.name, user);
             }
         };
 
@@ -63,13 +90,14 @@ angular.module('umm3601ursamajorApp')
         };
 
         // Checks if there is a conflict between the user and the group they are being assigned to.
-          // Currently not working, have too many stories to worry about this right now.
+        // Currently not working, have too many stories to worry about this right now.
         $scope.checkForConflict = function(user) {
             if (
                 $filter('filter')($scope.submissions,
                     function(submission) {
                         if(submission == null) return false;
-                        return user.group === submission.group || user.email === submission.presenterInfo.email || user.email === submission.adviserInfo.email;
+                        return user.group === submission.group ||
+                            user.email === submission.presenterInfo.email || user.email === submission.adviserInfo.email;
                     }
                 ).length > 0
                 ) {
@@ -79,22 +107,19 @@ angular.module('umm3601ursamajorApp')
 
 
         $scope.updateInfoConfirm = function(user) {
-            Modal.confirm.info($scope.updateInfoConfirm)("Save changes made to " + user.name + "?");
+            if (Auth.getCurrentUser().email === user.email){
+                Modal.confirm.warning()('Cannot change user role for yourself.');
+            } else {
+                Modal.confirm.info($scope.updateInfo)("Save changes made to " + user.name  + "?", user);
+            }
         };
 
         // Updates a users role as long as the user being changed isn't the one doing the changing.
         $scope.updateInfo = function(user) {
-            console.log(user);
-            //$scope.checkForConflict(user);
-            if (Auth.getCurrentUser().email === user.email){
-                alert('Cannot change user role for yourself.');
-            }
-            else if(confirm('Are you sure you want to update this users role?')) {
-                if(user.role != 'reviewer') {
-                    Auth.updateInfo(user.role, -1, user);
-                } else {
-                    Auth.updateInfo(user.role, user.group, user);
-                }
+            if(user.role != 'reviewer') {
+                Auth.updateInfo(user.role, -1, user);
+            } else {
+                Auth.updateInfo(user.role, user.group, user);
             }
         };
     });
