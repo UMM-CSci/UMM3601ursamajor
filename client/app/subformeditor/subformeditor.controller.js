@@ -58,8 +58,8 @@ angular.module('umm3601ursamajorApp')
                         submissionFeatured: $scope.submissionText.submissionFeatured,
                         submissionMediaServices: $scope.submissionText.submissionMediaServices,
                         submissionSpecialRequirements: $scope.submissionText.submissionSpecialRequirements,
-//                        submissionTee: $scope.submissionText.submissionTee,
-//                        submissionTeeNotes: $scope.submissionText.submissionTeeNotes,
+                        submissionTee: $scope.submissionText.submissionTee,
+                        submissionTeeNotes: $scope.submissionText.submissionTeeNotes,
                         submissionOther: $scope.submissionText.submissionOther
                     }
                 ).success(function () {

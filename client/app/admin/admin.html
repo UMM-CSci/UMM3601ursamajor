@@ -4,11 +4,11 @@
 
     <div class="col-lg-3">
         <div class="btn-group-vertical">
-            <button type="button" class="btn btn-default buttonLrg" ng-click="toggleStats()">System Information</button>
-            <button type="button" class="btn btn-default buttonLrg" ng-click="toggleSubEditor()"> Edit the Submission Form</button>
-            <button type="button" class="btn btn-default buttonLrg" ng-click="toggleStatusEdit()">Edit Status Options</button>
-            <button type="button" class="btn btn-default buttonLrg" ng-click="toggleUserEdit()">Edit Users</button>
-            <!--<button type="button" class="btn btn-default buttonLrg" ng-click="toggleAbstractBook()">View Abstract Book</button>-->
+            <button type="button" class="btn btn-default buttonLrg active-{{toggles.statsToggle}}" ng-click="toggleStats()">System Information</button>
+            <button type="button" class="btn btn-default buttonLrg active-{{toggles.subFormEditorToggle}}" ng-click="toggleSubEditor()"> Edit the Submission Form</button>
+            <button type="button" class="btn btn-default buttonLrg active-{{toggles.statusEditToggle}}" ng-click="toggleStatusEdit()">Edit Status Options</button>
+            <button type="button" class="btn btn-default buttonLrg active-{{toggles.userEditToggle}}" ng-click="toggleUserEdit()">Edit Users</button>
+            <button type="button" class="btn btn-default buttonLrg active-{{toggles.abstractBookToggle}}" ng-click="toggleAbstractBook()">Abstract Book Preview</button>
         </div>
     </div>
 

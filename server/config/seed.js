@@ -18,6 +18,7 @@ Status.find({}).remove(function() {
         color: {red: 0, green: 255, blue: 0, alpha: 1},
         emailSubject: "URS submission has been accepted",
         emailBody:  ", Your URS submission has been approved, congratulations!",
+        //only change this priority if you change the function in abstractBook.controller
         priority: 15,
         required: true
     },{
@@ -118,6 +119,7 @@ User.find({}).remove(function() {
     User.create({
             name: 'Matthew Kangas',
             email: 'kanga139@morris.umn.edu',
+            tShirtSize: "XXXLarge",
             provider: 'google',
             google: {
                 hd: 'morris.umn.edu',
@@ -138,6 +140,7 @@ User.find({}).remove(function() {
         }, {
             name: "Niccolas Ricci",
             email: "ricc0082@morris.umn.edu",
+            tShirtSize: "Small",
             provider: "google",
             google: {
                 hd: "morris.umn.edu",
@@ -158,6 +161,7 @@ User.find({}).remove(function() {
         }, {
             name: "Maggie Casale",
             email: "casal033@morris.umn.edu",
+            tShirtSize: "Small",
             provider: "google",
             google: {
                 hd: "morris.umn.edu",
@@ -173,11 +177,12 @@ User.find({}).remove(function() {
                 id: "116234824364241021424"
             },
             group: -1,
-            role: "admin",
+            role: "user",
             __v: 0
         }, {
             name: "Jacob Opdahl",
             email: "opdah023@morris.umn.edu",
+            tShirtSize: "Medium",
             provider: "google",
             google: {
                 hd: "morris.umn.edu",
@@ -196,6 +201,7 @@ User.find({}).remove(function() {
         }, {
             name: "Joseph Thelen",
             email: "thele116@morris.umn.edu",
+            tShirtSize: "XLarge",
             provider: "google",
             google: {
                 hd: "morris.umn.edu",
@@ -209,11 +215,12 @@ User.find({}).remove(function() {
                 id: "114952307600153399103"
             },
             group: -1,
-            role: "admin",
+            role: "user",
             __v: 0
         }, {
             name: "Kristin Lamberty",
             email: "lamberty@morris.umn.edu",
+            tShirtSize: "Medium",
             provider: "google",
             google: {
                 hd: "morris.umn.edu",
@@ -236,6 +243,7 @@ User.find({}).remove(function() {
             role: 'user',
             name: 'User',
             email: 'test@test.com',
+            tShirtSize: "XLarge",
             password: 'test',
             group: -1
         }, {
@@ -251,6 +259,7 @@ User.find({}).remove(function() {
             role: 'chair',
             name: 'Chair',
             email: 'chair@chair.com',
+            tShirtSize: "Small",
             password: 'chair',
             group: -1
         }, {
@@ -258,6 +267,7 @@ User.find({}).remove(function() {
             role: 'reviewer',
             name: 'Reviewer',
             email: 'reviewer@reviewer.com',
+            tShirtSize: "XXLarge",
             password: 'reviewer',
             group: 3
         }, function () {
@@ -312,17 +322,72 @@ Submission.find({}).remove(function(){
         featured: false,
         mediaServicesEquipment: "",
         specialRequirements: "",
-        presenterTeeSize: "L",
+//        presenterTeeSize: "L",
         otherInfo: "",
         approval: false,
         cc: false,
         rejection: false,
-        status:  {strict: "Awaiting Adviser Approval", text: "Your adviser has yet to approve this submission."},
+        status:  {strict: "Awaiting Adviser Approval", priority: -15, text: "Your adviser has yet to approve this submission."},
         timestamp: "Sat Oct 18 2014 10:48:54 GMT-0500 (CDT)",
         group: 0,
         roomAssignment: "Science 2610",
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
-        comments: [],
+        comments: [
+            {
+                beginner: 0,
+                ender: 64,
+                commentText:"You don't need to restate the title of the submission...",
+                commenter: "Joseph Thelen",
+                selectionText : "The title of my project is called On Your March, Get Set, Rust! ",
+                indicator : 0,
+                timestamp : "Mon Dec 08 2014 18:41:16 GMT-0600 (CST)",
+                origin : "5486429c6adf9b0859cb58c7",
+                responses: []
+            }, {
+                beginner: 245 ,
+                ender: 284 ,
+                commentText: "Why were they sanded?" ,
+                commenter: "Joseph Thelen" ,
+                selectionText: "sanding ten galvanized and common nails" ,
+                indicator: 0 ,
+                timestamp: "Mon Dec 08 2014 18:42:05 GMT-0600 (CST)" ,
+                origin: "5486429c6adf9b0859cb58c7" ,
+                responses: [
+                    {
+                        "response": "Obviously to release the magical nail spirits.",
+                        "responder": "Joseph Thelen",
+                        "timestamp": "Mon Dec 08 2014 19:03:17 GMT-0600 (CST)"
+                    }
+                ]
+            }, {
+                beginner: 161 ,
+                ender: 222 ,
+                commentText: "Poorly worded. Should be \"more quickly\" ?" ,
+                commenter: "Joseph Thelen" ,
+                selectionText: " which type of nails, galvanized or common will rust quickly." ,
+                indicator: 0 ,
+                timestamp: "Mon Dec 08 2014 18:43:43 GMT-0600 (CST)" ,
+                origin: "5486429c6adf9b0859cb58c7" ,
+                responses: [ ]
+            }, {
+                beginner: 536 ,
+                ender: 678 ,
+                commentText: "Big portion needs re-write..." ,
+                commenter: "Joseph Thelen" ,
+                selectionText: "My results of my data resolves that galvanized and common nails in freshwater had a higher average or rust than the other nails in salt water." ,
+                indicator: 0 ,
+                timestamp: "Mon Dec 08 2014 18:44:47 GMT-0600 (CST)" ,
+                origin: "5486429c6adf9b0859cb58c7" ,
+                responses: [
+                    {
+                        response: "But WHYYYYY?" ,
+                        responder: "Joseph Thelen" ,
+                        timestamp: "Mon Dec 08 2014 18:52:18 GMT-0600 (CST)"
+                    }
+                ]
+            }
+
+        ],
         reviewVotes: {
             Accepted: [],
             Minor: [],
@@ -352,12 +417,12 @@ Submission.find({}).remove(function(){
         featured: true,
         mediaServicesEquipment: "",
         specialRequirements: "A space to perform with three people.",
-        presenterTeeSize: "M",
+//        presenterTeeSize: "M",
         otherInfo: "",
         approval: true,
         cc: false,
         rejection: false,
-        status: {strict: "Revisions Needed", text: "Your URS submission has been flagged for revisions, and is in need of changes."},
+        status: {strict: "Revisions Needed", priority: 3, text: "Your URS submission has been flagged for revisions, and is in need of changes."},
         timestamp: "Tue Oct 21 2014 23:22:54 GMT-0500 (CDT)",
         group: 1,
         roomAssignment: "Imholte 109",
@@ -394,16 +459,16 @@ Submission.find({}).remove(function(){
         sponsors: [], //Might need to worry about if this is static for the DB later.
         adviserInfo: {first: "Peter",last: "Hans", email: "hans4858@morris.umn.edu"},
         coadviserOneInfo: {first: "Otto", last: "Marckell", email: "marck018@morris.umn.edu"},
-        coadviserTwoInfo: {first: "Aaron", last: "Lemmon", email: "lemmo031@morris.umn.edu"},
+        coadviserTwoInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
         featured: true,
         mediaServicesEquipment: "Microphone for my sick rhymes, 5 laser stage lights with automated gimbals.",
         specialRequirements: "A whale suit.",
-        presenterTeeSize: "XL",
+//        presenterTeeSize: "XL",
         otherInfo: "yes.",
-        approval: false,
+        approval: true,
         cc: false,
         rejection: false,
-        status: {strict: "Awaiting Adviser Approval", text: "Your adviser has yet to approve this submission."},
+        status: {strict: "Reviewing in Process", priority: 2, text: "Your URS submission has been approved by your adviser."},
         timestamp: "Mon Sept 2 2014 1:48:54 GMT-0500 (CDT)",
         group: 1,
         roomAssignment: "Science 2610",
@@ -432,18 +497,18 @@ Submission.find({}).remove(function(){
         copresenterTwoInfo: {first: "", last: "", email: ""},
         discipline: "History",
         sponsors: [], //Might need to worry about if this is static for the DB later.
-        adviserInfo: {first: "Niccolas", last: "Ricci", email: "saxxx027@morris.umn.edu"},
+        adviserInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
         coadviserOneInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
-        coadviserTwoInfo: {first: "Nic", last: "Ricci", email: "ricc0082@morris.umn.edu"},
+        coadviserTwoInfo: {first: "", last: "", email: ""},
         featured: true,
         mediaServicesEquipment: "A way to show images, either a projector or a warning so I can print them.",
         specialRequirements: "",
-        presenterTeeSize: "XL",
+//        presenterTeeSize: "XL",
         otherInfo: "yes.",
         approval: true,
         cc: false,
         rejection: false,
-        status: {strict: "Reviewing in Process", text: "Your URS submission has been approved by your adviser"},
+        status: {strict: "Reviewing in Process", priority: 2, text: "Your URS submission has been approved by your adviser"},
         timestamp: "Mon Oct 20 2014 1:48:54 GMT-0500 (CDT)",
         group: 3,
         roomAssignment: "Science 2610",
@@ -477,12 +542,12 @@ Submission.find({}).remove(function(){
         featured: true,
         mediaServicesEquipment: "",
         specialRequirements: "A small space to make the presentation personal.",
-        presenterTeeSize: "S",
+//        presenterTeeSize: "S",
         otherInfo: "yes.",
         approval: true,
         cc: false,
         rejection: false,
-        status: {strict: "Accepted", text: "Your URS submission has been approved, congratulations!"},
+        status: {strict: "Accepted", priority: 15, text: "Your URS submission has been approved, congratulations!"},
         timestamp: "Thur Oct 23 2014 1:48:54 GMT-0500 (CDT)",
         group: 2,
         roomAssignment: "Science 2610",
@@ -514,12 +579,12 @@ Submission.find({}).remove(function(){
         featured: false,
         mediaServicesEquipment: "",
         specialRequirements: "a sloth",
-        presenterTeeSize: "M",
+//        presenterTeeSize: "M",
         otherInfo: "Maybe",
         approval: false,
         rejection: false,
         cc: true,
-        status: {strict: "Awaiting Adviser Approval", text: "Your adviser has yet to approve this submission."},
+        status: {strict: "Awaiting Adviser Approval", priority: -15, text: "Your adviser has yet to approve this submission."},
         timestamp: "Mon Oct 20 2014 1:48:54 GMT-0500 (CDT)",
         group: 3,
         roomAssignment: "HFA 6",

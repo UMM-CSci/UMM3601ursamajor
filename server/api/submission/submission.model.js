@@ -20,7 +20,7 @@ var SubmissionSchema = new Schema({
     featured: Boolean,
     mediaServicesEquipment: String,
     specialRequirements: String,
-    //presenterTeeSize: String,
+//    presenterTeeSize: String,
     otherInfo: String,
     approval: Boolean,
     cc: {
@@ -28,7 +28,7 @@ var SubmissionSchema = new Schema({
         default: false
     },
     rejection: Boolean,
-    status: {strict: String, text: String},
+    status: {strict: String, priority: Number, text: String},
     timestamp: String,
     group: Number,
     roomAssignment: String,

@@ -15,25 +15,25 @@
             <div class="row">
                 <div class="col-lg-5">
 
-                    <label class="padded">
+                    <label class="padded mobileCompatable">
                         <br>
-                        <textarea ng-model="status.strict"  cols="30" rows="1" name="Strict"></textarea>
+                        <textarea class="mobileCompatable" ng-model="status.strict"  cols="30" rows="1" name="Strict"></textarea>
                     </label>
                     <br>
 
-                    <label class="padded">
+                    <label class="padded mobileCompatable">
                         Email Subject:
                         <br>
-                        <textarea ng-model="status.emailSubject"  cols="30" rows="1" name="EmailSubject"></textarea>
+                        <textarea class="mobileCompatable" ng-model="status.emailSubject"  cols="30" rows="1" name="EmailSubject"></textarea>
                     </label>
                     <br>
 
-                    <label class="padded">
+                    <label class="padded mobileCompatable">
                         Email Body:
                         <br>
                         (presenter's name will precede the text):
                         <br>
-                        <textarea ng-model="status.emailBody"  cols="30" rows="5" name="Strict"></textarea>
+                        <textarea class="mobileCompatable" ng-model="status.emailBody"  cols="30" rows="5" name="Strict"></textarea>
                     </label>
                     <br>
                 </div>
@@ -54,8 +54,8 @@
 
                 <div class="col-lg-3">
 
-                    <button class="btn btn-xs" ng-hide="showColorSlider" ng-click="showColorSlider = true">Show Color Sliders <span class="glyphicon glyphicon-chevron-down"></span></button>
-                    <button class="btn btn-xs" ng-show="showColorSlider" ng-click="showColorSlider = false">Hide Color Sliders <span class="glyphicon glyphicon-chevron-up"></span></button>
+                    <button class="btn btn-xs colorSliderDropdown" ng-hide="showColorSlider" ng-click="showColorSlider = true">Show Color Sliders <span class="glyphicon glyphicon-chevron-down"></span></button>
+                    <button class="btn btn-xs colorSliderDropdown" ng-show="showColorSlider" ng-click="showColorSlider = false">Hide Color Sliders <span class="glyphicon glyphicon-chevron-up"></span></button>
 
                     <div ng-show="showColorSlider">
                         Red<input type="range" ng-model="status.color.red" min="0" max="255">

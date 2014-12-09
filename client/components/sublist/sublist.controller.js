@@ -36,6 +36,7 @@ angular.module('umm3601ursamajorApp')
         $scope.isReviewer = Auth.isReviewer;
         $scope.isAdmin = Auth.isAdmin;
         $scope.isChair = Auth.isChair;
+        $scope.showVotes = false;
 
 
 
@@ -70,7 +71,7 @@ angular.module('umm3601ursamajorApp')
             pendingResubmissionsOptions: [
                 "All",
                 "Pending Resubmissions",
-                "No Pending Resubmissions"
+                "Not Pending Resubmissions"
             ]
         };
 
@@ -214,9 +215,9 @@ angular.module('umm3601ursamajorApp')
         $scope.featurePresentationFilter = function(submission) {
             if($scope.filterData.featurePresentationFilterSelection === "All"){
                 return true;
-            } else if($scope.filterData.featurePresentationFilterSelection === "Interested in being feature presentation"){
+            } else if($scope.filterData.featurePresentationFilterSelection === "Wants to be featured"){
                 return submission.featured === true;
-            } else if($scope.filterData.featurePresentationFilterSelection === "Not interested in being feature presentation"){
+            } else if($scope.filterData.featurePresentationFilterSelection === "Doesn't want to be featured"){
                 return submission.featured === false;
             } else {
                 return false;
@@ -351,6 +352,7 @@ angular.module('umm3601ursamajorApp')
             }
         };
 
+
         // ----------------------- Getting Data from Mongo ----------------------------
         $scope.statusEdit = {
             editing: false,
@@ -479,7 +481,7 @@ angular.module('umm3601ursamajorApp')
             $scope.resetTemps();
         };
 
-        $scope.deleteSubmissionConfirm = function(item){
+        $scope.deleteSubmissionConfirm = function(item) {
             Modal.confirm.delete($scope.deleteSubmission)(item.title, item);
         };
 
@@ -544,7 +546,7 @@ angular.module('umm3601ursamajorApp')
                         $http.patch('api/submissions/' + $scope.selection.item._id,
                             {approval: true,
                                 rejection: false,
-                                status: {strict: $scope.selection.item.status.strict, text: "This URS submission has been approved by an adviser."}}
+                                status: {strict: $scope.selection.item.status.strict, priority: $scope.statusEdit.priority[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)], text: "This URS submission has been approved by an adviser."}}
                         ).success(function () {
                                 $scope.selection.item.approval = true;
                                 console.log("Successfully updated approval of submission (approved)");
@@ -569,7 +571,7 @@ angular.module('umm3601ursamajorApp')
             $scope.rejectSubmission(item);
             sendGmailWithCC({
                 to: $scope.selection.item.presenterInfo.email +" "+ $scope.selection.item.copresenterOneInfo.email +" "+ $scope.selection.item.copresenterTwoInfo.email,
-                cc: "admin@admin.com",
+                cc: "ursadmin@morris.umn.edu",
                 subject: "["+ $scope.selection.item.title + "] " + "URS submission has been rejected",
                 message: $scope.selection.item.presenterInfo.first + ", unfortunately, your URS submission has been rejected."
             });
@@ -578,25 +580,22 @@ angular.module('umm3601ursamajorApp')
         $scope.rejectHelpNo = function(item){
             $scope.rejectSubmission(item);
             sendGmail({
-                to: "admin@admin.com",
+                to: "ursadmin@morris.umn.edu",
                 subject: "["+ $scope.selection.item.title + "] " + "URS submission has been rejected",
                 message: $scope.selection.item.presenterInfo.first + " submitted an abstract for consideration to the URS. Unfortunately, I, as the adviser, have rejected this submission."
             });
         };
 
-        //TODO: currently have admin@admin.com hard-coded in, don't have a solidified admin account and cannot access user roles to get admin emails
+        //currently have ursadmin@morris.umn.edu hard-coded in because this is the email address for the URSA Major admin group,
         //CANNOT ADD IN CHAIRS' EMAILS TO SENDGMAILS BECAUSE OF THE SECURITY PRIVILEGES, SO FOR NOW WE'LL JUST SEND TO ADMIN
         $scope.rejectSubmission = function(submission) {
             $http.patch('api/submissions/' + $scope.selection.item._id,
                 {rejection: true,
-                    //currently everything is hardcoded for time. To fix later.
-                    status: {strict: "Withdrawn", text: "The submission has been rejected by an adviser."}}
+                    status: {strict: $scope.statusEdit.options[$scope.statusEdit.priority.indexOf(14)], priority: 14, text: "The submission has been rejected by an adviser."}}
             ).success(function(){
                     $scope.selection.item.rejection = true;
-                    //currently everything is hardcoded for time. To fix later.
-                    $scope.selection.item.status.strict = "Withdrawn";
+                    $scope.selection.item.status.strict = $scope.statusEdit.options[$scope.statusEdit.priority.indexOf(14)];
                     $scope.selection.item.status.text = "The submission has been rejected by an adviser.";
-                    console.log("Successfully rejected a submission");
                 });
         };
 
@@ -636,7 +635,7 @@ angular.module('umm3601ursamajorApp')
 
 
         $scope.updateReviewVotingConfirm = function(item){
-            Modal.confirm.info($scope.updateReviewVoting)('Would you like to vote for this?', item)
+            Modal.confirm.info($scope.updateReviewVoting)('Are you sure you would like to vote on this?', item)
         };
 
 
@@ -660,22 +659,22 @@ angular.module('umm3601ursamajorApp')
             switch(value){
                 case 'Accepted without changes':
                     $scope.selection.item.reviewVotes.Accepted.splice($scope.selection.item.reviewVotes.Accepted.length, 0, $scope.getCurrentUser().email);
-                    console.log("This should appear Accepted")
+                    console.log("This should appear Accepted");
                     $scope.submitVoting();
                     break;
                 case 'Minor revisions':
                     $scope.selection.item.reviewVotes.Minor.splice($scope.selection.item.reviewVotes.Minor.length, 0, $scope.getCurrentUser().email);
-                    console.log("This should appear Minor")
+                    console.log("This should appear Minor");
                     $scope.submitVoting();
                     break;
                 case 'Major revisions':
                     $scope.selection.item.reviewVotes.Major.splice($scope.selection.item.reviewVotes.Major.length, 0, $scope.getCurrentUser().email);
-                    console.log("This should appear Major")
+                    console.log("This should appear Major");
                     $scope.submitVoting();
                     break;
                 case 'Total rewrite':
                     $scope.selection.item.reviewVotes.TotalRewrite.splice($scope.selection.item.reviewVotes.TotalRewrite.length, 0, $scope.getCurrentUser().email);
-                    console.log("This should appear TotalRewrite")
+                    console.log("This should appear TotalRewrite");
                     $scope.submitVoting();
                     break;
             }
@@ -774,7 +773,7 @@ angular.module('umm3601ursamajorApp')
 
         $scope.submitStatusEdit = function(){
             $http.patch('api/submissions/' + $scope.selection.item._id,
-                {status: {strict: $scope.statusEdit.temp.strict, text: $scope.statusEdit.temp.text}}
+                {status: {strict: $scope.statusEdit.temp.strict, priority: $scope.statusEdit.priority[$scope.statusEdit.options.indexOf($scope.statusEdit.temp.strict)], text: $scope.statusEdit.temp.text}}
             ).success(function(){
                     console.log("Successfully updated status of submission");
                 });
@@ -953,7 +952,6 @@ angular.module('umm3601ursamajorApp')
             var commenter = $scope.getCurrentUser().name;
             var selection = $window.getSelection();
             var commentText = prompt("Comment");
-            console.log(selection.anchorNode.data && selection.focusNode.data == submission.abstract);
             if(selection.anchorNode.data && selection.focusNode.data == submission.abstract) {
                 if (selection.anchorOffset <= selection.focusOffset) {
                     commentObj.beginner = selection.anchorOffset;
@@ -980,7 +978,7 @@ angular.module('umm3601ursamajorApp')
                 ).success(function () {
                         console.log("successfully pushed comments to submission!");
                     });
-            };
+            }
         };
 
         $scope.getOriginAbstract = function (submission , index) {
@@ -993,29 +991,32 @@ angular.module('umm3601ursamajorApp')
                     $scope.populateComments(abstract, index , comments);
                 });
             } else {
-                $scope.populateComments(abstract, index, comments, submission._id );
+                $scope.populateComments(abstract, index, comments, submission._id, submission );
             }
         };
 
 
-        // Warning: You will get an error about the document not being found
-        // if pop-ups are blocked
-        $scope.populateComments = function(abstract, index , comments, id){
+        $scope.populateComments = function(abstract, index , comments, id, submission){
             var start = comments[index].beginner;
             var end = comments[index].ender;
             var comment = comments[index].commentText;
+            var details = "";
             abstract = abstract.substring(0, start) + '<b>' + abstract.substring(start, end) + '</b>' + abstract.substring(end, abstract.length);
-            var newWindow = $window.open("", null, "height=300,width=600,status=yes,toolbar=no,menubar=no,location=no");
             if(comments[index].origin != id){
-                console.log("Yup");
-                newWindow.document.write("<b>" + "This comment was made on a prior version of this submission" + "</b>");
-                newWindow.document.write("<br>");
+                details = details + "<b>" + "This comment was made on a prior version of this submission" + "</b>" + "<br>";
             }
-            newWindow.document.write("<b>" +"Comment made by " + comments[index].commenter + ": " +"</b>"+"<i>" + comments[index].commentText + "</i>");
-            newWindow.document.write("<br>");
-            newWindow.document.write(comments[index].timestamp);
-            newWindow.document.write("<br>");
-            newWindow.document.write(abstract);
+            if ($scope.hasAdminPrivs() || $scope.isReviewerGroup(submission)) {
+                details = details + "<b>" +"Comment made by " + comments[index].commenter + ": " + "</b>";
+            } else {
+                details = details + "<b>" +"Comment: " + "</b>";
+            }
+            details = details + "<i>" + comments[index].commentText + "</i>" + "<br>" + comments[index].timestamp;
+            if (start == 0 && end == 0) {
+                Modal.confirm.details()(details);
+            } else {
+                details = details + "<br>" + abstract;
+                Modal.confirm.details()(details);
+            }
         };
 
         $scope.showResponses = false;
@@ -1035,32 +1036,35 @@ angular.module('umm3601ursamajorApp')
                 ).success(function () {
                         console.log("successfully pushed response to submission!");
                     });
-                console.log(comment.responses);
-            };
+            }
+        };
+
+        $scope.deleteCommentModal = function(submission, index){
+            Modal.confirm.deleteComment($scope.deleteComment)("this comment and all of its responses",submission,index);
         };
 
         $scope.deleteComment = function (submission, index){
             var comments = submission.comments;
-            if (confirm("Do you wish to delete this comment and all of its responses?")) {
                 comments.splice(index, 1);
                 $http.patch('api/submissions/' + $scope.selection.item._id,
                     {comments: comments}
                 ).success(function(){
                         console.log("successfully deleted comments from a submission!");
                     });
-            }
+        };
+
+        $scope.deleteResponseModal = function(submission,parentIndex,childIndex) {
+            Modal.confirm.deleteComment($scope.deleteResponse)("this response",submission,parentIndex,childIndex);
         };
 
         $scope.deleteResponse = function (submission, parentIndex, childIndex){
             var comments = submission.comments;
-            if (confirm("Do you wish to delete this response?")) {
                 comments[parentIndex].responses.splice(childIndex, 1);
                 $http.patch('api/submissions/' + $scope.selection.item._id,
                     {comments: comments}
                 ).success(function(){
                         console.log("successfully deleted response from a comment to a submission!");
                     });
-            }
         };
 
     });

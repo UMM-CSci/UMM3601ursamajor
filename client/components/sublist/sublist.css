@@ -73,12 +73,22 @@ hr {
     font-family: "Helvetica Neue Light", "Lucida Grande", "Calibri", "Arial", sans-serif;
 }
 
+.buttonL:hover{
+    color: #ffffff;
+    background: #3276B1;
+}
+
 /*Formats buttons related to resub Button*/
 .moveRight {
     display: inline-block;
     float: right;
 }
 
+.moveDeleteRight {
+    display: inline-block;
+    float: right;
+    margin-top: -35px;
+}
 
 /*Overflow sets the floating elements as objects (kinda)*/
 .overflowAuto {
@@ -105,6 +115,11 @@ hr {
 /*Delete button colors*/
 .deleteButton {
     background-color: indianred;
+    color: #ffffff;
+}
+
+.deleteButton:hover {
+    background-color: firebrick;
     color: #ffffff;
 }
 

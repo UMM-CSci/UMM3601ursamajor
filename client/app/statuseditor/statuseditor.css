@@ -22,3 +22,18 @@
     padding-left: 4px;
     padding-right: 2px;
 }
+
+@media screen and (max-device-width: 500px) {
+    .mobileCompatable {
+        width: 12em;
+    }
+}
+
+/*Changes dropdown colors on hover*/
+.colorSliderDropdown {
+    background-color: lightgray;
+}
+
+.colorSliderDropdown:hover {
+    background-color: darkgray;
+}
