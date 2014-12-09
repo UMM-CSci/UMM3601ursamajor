@@ -100,14 +100,14 @@ angular.module('umm3601ursamajorApp')
 
         $scope.numberOfSources = $scope.fundingSources.length;
 
-        $scope.teeSizes = [
-            'S',
-            'M',
-            'L',
-            'XL',
-            'XXL',
-            'XXXL'
-        ];
+//        $scope.teeSizes = [
+//            'S',
+//            'M',
+//            'L',
+//            'XL',
+//            'XXL',
+//            'XXXL'
+//        ];
 
         $scope.submissionData = {
             title: "",
@@ -127,7 +127,7 @@ angular.module('umm3601ursamajorApp')
             featuredPresentation: Boolean,
             mediaServicesEquipment: "",
             specialRequirements: "",
-            presenterTeeSize: "",
+//            presenterTeeSize: "",
             otherInfo: "",
             approval: false,
             resubmitComment: "",
@@ -196,7 +196,7 @@ angular.module('umm3601ursamajorApp')
                 featuredPresentation: Boolean,
                 mediaServicesEquipment: "",
                 specialRequirements: "",
-                presenterTeeSize: "",
+//                presenterTeeSize: "",
                 otherInfo: "",
                 approval: false,
                 resubmitComment: "",
@@ -321,7 +321,7 @@ angular.module('umm3601ursamajorApp')
                 featuredPresentation: submission.featured,
                 mediaServicesEquipment: submission.mediaServicesEquipment,
                 specialRequirements: submission.specialRequirements,
-                presenterTeeSize: submission.presenterTeeSize,
+//                presenterTeeSize: submission.presenterTeeSize,
                 otherInfo: submission.otherInfo,
                 approval: submission.approval,
                 resubmitComment: "",
@@ -531,7 +531,7 @@ angular.module('umm3601ursamajorApp')
                     featured: $scope.submissionData.featuredPresentation,
                     mediaServicesEquipment: $scope.submissionData.mediaServicesEquipment,
                     specialRequirements: $scope.submissionData.specialRequirements,
-                    presenterTeeSize: $scope.submissionData.presenterTeeSize,
+//                    presenterTeeSize: $scope.submissionData.presenterTeeSize,
                     otherInfo: $scope.submissionData.otherInfo,
                     approval: $scope.submissionData.approval,
                     cc: false,

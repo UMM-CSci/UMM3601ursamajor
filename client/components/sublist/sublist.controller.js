@@ -102,7 +102,8 @@ angular.module('umm3601ursamajorApp')
         $scope.setReviewGroupSelection = function(str) {
             $scope.filterData.reviewGroupFilterSelection = str;
         };
-
+"Wants to be featured",
+                "Doesn't want to be featured"
         // Takes a String and sets the feature presentation filter selection to that string.
         // Used for changing which feature presentation search is applied.
         $scope.setFeaturePresentationFilterSelection = function(str) {
@@ -214,9 +215,9 @@ angular.module('umm3601ursamajorApp')
         $scope.featurePresentationFilter = function(submission) {
             if($scope.filterData.featurePresentationFilterSelection === "All"){
                 return true;
-            } else if($scope.filterData.featurePresentationFilterSelection === "Interested in being feature presentation"){
+            } else if($scope.filterData.featurePresentationFilterSelection === "Wants to be featured"){
                 return submission.featured === true;
-            } else if($scope.filterData.featurePresentationFilterSelection === "Not interested in being feature presentation"){
+            } else if($scope.filterData.featurePresentationFilterSelection === "Doesn't want to be featured"){
                 return submission.featured === false;
             } else {
                 return false;
