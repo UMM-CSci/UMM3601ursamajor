@@ -215,9 +215,9 @@ angular.module('umm3601ursamajorApp')
         $scope.featurePresentationFilter = function(submission) {
             if($scope.filterData.featurePresentationFilterSelection === "All"){
                 return true;
-            } else if($scope.filterData.featurePresentationFilterSelection === "Interested in being feature presentation"){
+            } else if($scope.filterData.featurePresentationFilterSelection === "Wants to be featured"){
                 return submission.featured === true;
-            } else if($scope.filterData.featurePresentationFilterSelection === "Not interested in being feature presentation"){
+            } else if($scope.filterData.featurePresentationFilterSelection === "Doesn't want to be featured"){
                 return submission.featured === false;
             } else {
                 return false;
@@ -627,9 +627,12 @@ angular.module('umm3601ursamajorApp')
             }
         };
 
+
+
         $scope.updateReviewVotingConfirm = function(item){
             Modal.confirm.info($scope.updateReviewVoting)('Are you sure you would like to vote on this?', item)
         };
+
 
         $scope.updateReviewVoting = function(value){
             if($scope.selection.item.reviewVotes.Accepted.indexOf($scope.getCurrentUser().email) != -1){
@@ -670,6 +673,8 @@ angular.module('umm3601ursamajorApp')
                     $scope.submitVoting();
                     break;
             }
+
+
         };
 
 
@@ -968,7 +973,7 @@ angular.module('umm3601ursamajorApp')
                 ).success(function () {
                         console.log("successfully pushed comments to submission!");
                     });
-            };
+            }
         };
 
         $scope.getOriginAbstract = function (submission , index) {
@@ -981,29 +986,32 @@ angular.module('umm3601ursamajorApp')
                     $scope.populateComments(abstract, index , comments);
                 });
             } else {
-                $scope.populateComments(abstract, index, comments, submission._id );
+                $scope.populateComments(abstract, index, comments, submission._id, submission );
             }
         };
 
 
-        // Warning: You will get an error about the document not being found
-        // if pop-ups are blocked
-        $scope.populateComments = function(abstract, index , comments, id){
+        $scope.populateComments = function(abstract, index , comments, id, submission){
             var start = comments[index].beginner;
             var end = comments[index].ender;
             var comment = comments[index].commentText;
+            var details = "";
             abstract = abstract.substring(0, start) + '<b>' + abstract.substring(start, end) + '</b>' + abstract.substring(end, abstract.length);
-            var newWindow = $window.open("", null, "height=300,width=600,status=yes,toolbar=no,menubar=no,location=no");
             if(comments[index].origin != id){
-                console.log("Yup");
-                newWindow.document.write("<b>" + "This comment was made on a prior version of this submission" + "</b>");
-                newWindow.document.write("<br>");
+                details = details + "<b>" + "This comment was made on a prior version of this submission" + "</b>" + "<br>";
             }
-            newWindow.document.write("<b>" +"Comment made by " + comments[index].commenter + ": " +"</b>"+"<i>" + comments[index].commentText + "</i>");
-            newWindow.document.write("<br>");
-            newWindow.document.write(comments[index].timestamp);
-            newWindow.document.write("<br>");
-            newWindow.document.write(abstract);
+            if ($scope.hasAdminPrivs() || $scope.isReviewerGroup(submission)) {
+                details = details + "<b>" +"Comment made by " + comments[index].commenter + ": " + "</b>";
+            } else {
+                details = details + "<b>" +"Comment: " + "</b>";
+            }
+            details = details + "<i>" + comments[index].commentText + "</i>" + "<br>" + comments[index].timestamp;
+            if (start == 0 && end == 0) {
+                Modal.confirm.details()(details);
+            } else {
+                details = details + "<br>" + abstract;
+                Modal.confirm.details()(details);
+            }
         };
 
         $scope.showResponses = false;
@@ -1023,32 +1031,35 @@ angular.module('umm3601ursamajorApp')
                 ).success(function () {
                         console.log("successfully pushed response to submission!");
                     });
-                console.log(comment.responses);
-            };
+            }
+        };
+
+        $scope.deleteCommentModal = function(submission, index){
+            Modal.confirm.deleteComment($scope.deleteComment)("this comment and all of its responses",submission,index);
         };
 
         $scope.deleteComment = function (submission, index){
             var comments = submission.comments;
-            if (confirm("Do you wish to delete this comment and all of its responses?")) {
                 comments.splice(index, 1);
                 $http.patch('api/submissions/' + $scope.selection.item._id,
                     {comments: comments}
                 ).success(function(){
                         console.log("successfully deleted comments from a submission!");
                     });
-            }
+        };
+
+        $scope.deleteResponseModal = function(submission,parentIndex,childIndex) {
+            Modal.confirm.deleteComment($scope.deleteResponse)("this response",submission,parentIndex,childIndex);
         };
 
         $scope.deleteResponse = function (submission, parentIndex, childIndex){
             var comments = submission.comments;
-            if (confirm("Do you wish to delete this response?")) {
                 comments[parentIndex].responses.splice(childIndex, 1);
                 $http.patch('api/submissions/' + $scope.selection.item._id,
                     {comments: comments}
                 ).success(function(){
                         console.log("successfully deleted response from a comment to a submission!");
                     });
-            }
         };
 
     });

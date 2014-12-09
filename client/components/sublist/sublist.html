@@ -18,7 +18,7 @@
                         </select>
                     </label>
 
-                    <label ng-show="isAdmin() || isChair()">
+                    <label ng-show="isAdmin() || isChair() || isReviewerOfAnything()">
                         Filter by feature presentation:
                         <br>
                         <select ng-model="filterData.featurePresentationFilterSelection">
@@ -26,7 +26,7 @@
                         </select>
                     </label>
 
-                    <label ng-show="isAdmin() || isChair()">
+                    <label ng-show="isAdmin() || isChair() || isReviewerOfAnything()">
                         Filter by flagged for resubmission:
                         <br>
                         <select ng-model="filterData.flaggedForResubmitFilterSelection">
@@ -34,7 +34,7 @@
                         </select>
                     </label>
 
-                    <label ng-show="isAdmin() || isChair()">
+                    <label ng-show="isAdmin() || isChair() || isReviewerOfAnything()">
                         Filter by pending resubmissions:
                         <br>
                         <select ng-model="filterData.pendingResubmissionsSelection">
@@ -159,7 +159,7 @@
                         <button class="btn btn-warning" ng-click="submitStatusEditConfirm()">Submit</button>
                     </div>
                     <h3 id="text">{{selection.item.title}}</h3>
-                    <strong>{{selection.item.presenterInfo.last}}, {{selection.item.presenterInfo.first}}</strong>
+                    <strong>{{selection.item.presenterInfo.first}} {{selection.item.presenterInfo.last}}</strong>
                     <hr>
                     <ul class="list-group">
                         <li class="list-group-item">
@@ -231,7 +231,7 @@
                             <button type="button" class="btn btn-xs btn-primary" dropdown-toggle><span class="glyphicon glyphicon-list"></span></button>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a ng-click="getOriginAbstract(selection.item , transformCommentIndex($index))">Details</a></li>
-                                <li ng-show="hasAdminPrivs()"><a ng-click="deleteComment(selection.item , transformCommentIndex($index))">Delete Comment</a></li>
+                                <li ng-show="hasAdminPrivs()"><a ng-click="deleteCommentModal(selection.item , transformCommentIndex($index))">Delete Comment</a></li>
                             </ul>
                         </div>
                     </div>
@@ -240,7 +240,7 @@
                         <div style="margin-left: 3px; padding-left: 10px; border-left: 2px solid steelblue" ng-repeat="response in comment.responses">
                             <p class="padded">{{response.response}}</p>
                             <p ng-show="hasAdminPrivs()"><i>- {{response.responder}}</i></p>
-                            <button ng-show="hasAdminPrivs() || isReviewerGroup(selection.item)" class="btn btn-xs deleteButton" ng-click="deleteResponse(selection.item , transformCommentIndex($parent.$index) , $index)">Delete Response</button>
+                            <button ng-show="hasAdminPrivs() || isReviewerGroup(selection.item)" class="btn btn-xs deleteButton" ng-click="deleteResponseModal(selection.item , transformCommentIndex($parent.$index) , $index)">Delete Response</button>
                         </div>
                     </div>
                 </li>
@@ -266,7 +266,7 @@
             </li>
             <li class="list-group-item">
                 <h3 id="text">{{selection.resubmission.title}}</h3>
-                <strong>{{selection.resubmission.presenterInfo.last}}, {{selection.resubmission.presenterInfo.first}}</strong>
+                <strong>{{selection.resubmission.presenterInfo.first}} {{selection.resubmission.presenterInfo.last}}</strong>
                 <hr>
                 <ul class="list-group">
                     <li class="list-group-item">
@@ -292,7 +292,7 @@
                 </ul>
                 <br>
                 <p ng-show="isAdmin()">You are seeing this submission because you are an:</p>
-                <p ng-show="isAdmin()">admin</p>
+                <p ng-show="isAdmin()">admin</p>first
                 <p ng-show="!isAdmin()">You are seeing this submission because you are a:</p>
                 <p ng-show="isChair()">chair</p>
                 <p ng-show="isPresenter(selection.resubmission)">presenter of this submission</p>
