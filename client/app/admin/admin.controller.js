@@ -3,6 +3,11 @@
 angular.module('umm3601ursamajorApp')
     .controller('AdminCtrl', function ($scope, $http, Auth, User, $location, socket, $filter) {
 
+        //this is for the admin menu buttons.
+        $('li').click(function(){
+            $('li').removeClass('selected');
+            $(this).addClass('selected');
+        });
 
         $scope.submissions = [];
         $scope.users = [];

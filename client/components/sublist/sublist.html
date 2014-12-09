@@ -110,12 +110,15 @@
                         <button class="btn btn-warning" ng-click="updateReviewVotingConfirm(voteOption)">Submit</button>
                         <br>
                         <div ng-show="hasAdminPrivs()">
-                        <p>"Accepted without revisions" votes: {{selection.item.reviewVotes.Accepted.length}}</p>
-                        <p>"Minor revisions" votes: {{selection.item.reviewVotes.Minor.length}}</p>
-                        <p>"Major revisions" votes: {{selection.item.reviewVotes.Major.length}}</p>
-                        <p>"Total Rewrite" votes: {{selection.item.reviewVotes.TotalRewrite.length}}</p>
+
+                            <p>"Accepted without revisions" votes: {{selection.item.reviewVotes.Accepted.length}}</p>
+                            <p>"Minor revisions" votes: {{selection.item.reviewVotes.Minor.length}}</p>
+                            <p>"Major revisions" votes: {{selection.item.reviewVotes.Major.length}}</p>
+                            <p>"Total Rewrite" votes: {{selection.item.reviewVotes.TotalRewrite.length}}</p>
+
                         </div>
                     </div>
+                    <hr>
                     <button ng-show="isAdmin()" class="btn btn-md btn-danger" ng-click="deleteSubmissionConfirm(selection.item)"><span class="glyphicon glyphicon-trash"></span></button>
 
                     <button ng-show="showResubmitButton().show" class="btn btn-md btn-primary sideMargins moveRight" ng-click="flagForResubmitConfirm()">{{showResubmitButton().text}}</button>
