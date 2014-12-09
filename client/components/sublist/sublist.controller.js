@@ -102,8 +102,7 @@ angular.module('umm3601ursamajorApp')
         $scope.setReviewGroupSelection = function(str) {
             $scope.filterData.reviewGroupFilterSelection = str;
         };
-"Wants to be featured",
-                "Doesn't want to be featured"
+
         // Takes a String and sets the feature presentation filter selection to that string.
         // Used for changing which feature presentation search is applied.
         $scope.setFeaturePresentationFilterSelection = function(str) {
