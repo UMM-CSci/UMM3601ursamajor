@@ -628,12 +628,9 @@ angular.module('umm3601ursamajorApp')
             }
         };
 
-
-
         $scope.updateReviewVotingConfirm = function(item){
             Modal.confirm.info($scope.updateReviewVoting)('Are you sure you would like to vote on this?', item)
         };
-
 
         $scope.updateReviewVoting = function(value){
             if($scope.selection.item.reviewVotes.Accepted.indexOf($scope.getCurrentUser().email) != -1){
@@ -677,7 +674,6 @@ angular.module('umm3601ursamajorApp')
 
 
         };
-
 
         $scope.submitVoting = function() {
             $http.patch('api/submissions/' + $scope.selection.item._id,
