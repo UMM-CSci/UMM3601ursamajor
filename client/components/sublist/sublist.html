@@ -67,7 +67,7 @@
                         <span ng-show="getResubmission(sub) != null" title="Submission has an unapproved resubmission" style="color: red" class="glyphicon glyphicon-warning-sign"></span>
                         <span ng-show="sub.resubmissionData.resubmitFlag" title="Submission is flagged for resubmission" style="color: darkgoldenrod" class="glyphicon glyphicon-flag"></span>
                     </h3>
-                    <button class="buttonL" ng-click="selectItem($index)">Details</button>
+                    <button class="buttonL" ng-click=($index)">Details</button>
                     <strong>Presenter: {{sub.presenterInfo.first}} {{sub.presenterInfo.last}}</strong>
                     <p class="subtext">
                         {{sub.copresenterOneInfo.first | isntEmpty:"CoPresenter(s):":""}} {{sub.copresenterOneInfo.last | isntEmpty:"":""}}{{sub.copresenterTwoInfo.first | isntEmpty:",":""}} {{sub.copresenterTwoInfo.last | isntEmpty:"":""}}

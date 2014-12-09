@@ -20,8 +20,6 @@ angular.module('umm3601ursamajorApp')
 
         $scope.filterSelection = "All";
 
-
-
         $scope.filterRoleOptions =
             [   'All',
                 'chair',
@@ -56,20 +54,21 @@ angular.module('umm3601ursamajorApp')
 
 
         $scope.filterByUser = function(user){
-            if(user === "All"){
+            console.log(user);
+            if($scope.filterSelection === "All"){
                 return true;
-            } else if(user === "reviewer"){
-                return true;
-            } else if(user === "chair"){
-                return true;
-            } else if(user === "user"){
-                return true;
-            } else if(user === "admin"){
-                return true;
+            } else if($scope.filterSelection === "reviewer"){
+                return user.role === "reviewer";
+            } else if($scope.filterSelection === "chair"){
+                return user.role === "chair";
+            } else if($scope.filterSelection === "user"){
+                return user.role === "user";
+            } else if($scope.filterSelection === "admin"){
+                return user.role === "admin";
             } else {
                 return false;
             }
-        }
+        };
 
         //Delete user modal
         $scope.deleteUserConfirm = function(user){
