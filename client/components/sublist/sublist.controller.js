@@ -557,14 +557,14 @@ angular.module('umm3601ursamajorApp')
             }
         };
 
-/*
-        $scope.reJectSubmission
-*/
 
-        $scope.rejectSubmissionConfirm = function(){
-            Modal.confirm.reject(Modal.confirm.option($scope.rejectHelpYes, scope.rejectHelpNo), "Would you like to include the presenter to the generated email?")($scope.selection.item.title);
+        $scope.rejectSubmissionConfirmHelp = function(item){
+            Modal.confirm.option($scope.rejectHelpYes, $scope.rejectHelpNo)("Would you like to include the presenter to the generated email?", item);
+        };
 
-//              Modal.confirm.option($scope.rejectHelpYes, $scope.rejectHelpNo)("Would you like to include the presenter to the generated email?");
+
+        $scope.rejectSubmissionConfirm = function(item){
+            Modal.confirm.reject($scope.rejectSubmissionConfirmHelp)($scope.selection.item.title, item);
         };
 
         $scope.rejectHelpYes = function(item){
