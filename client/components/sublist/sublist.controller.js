@@ -565,7 +565,7 @@ angular.module('umm3601ursamajorApp')
             $scope.rejectSubmission(item);
             sendGmailWithCC({
                 to: $scope.selection.item.presenterInfo.email +" "+ $scope.selection.item.copresenterOneInfo.email +" "+ $scope.selection.item.copresenterTwoInfo.email,
-                cc: "admin@admin.com",
+                cc: "ursadmin@morris.umn.edu",
                 subject: "["+ $scope.selection.item.title + "] " + "URS submission has been rejected",
                 message: $scope.selection.item.presenterInfo.first + ", unfortunately, your URS submission has been rejected."
             });
@@ -574,13 +574,13 @@ angular.module('umm3601ursamajorApp')
         $scope.rejectHelpNo = function(item){
             $scope.rejectSubmission(item);
             sendGmail({
-                to: "admin@admin.com",
+                to: "ursadmin@morris.umn.edu",
                 subject: "["+ $scope.selection.item.title + "] " + "URS submission has been rejected",
                 message: $scope.selection.item.presenterInfo.first + " submitted an abstract for consideration to the URS. Unfortunately, I, as the adviser, have rejected this submission."
             });
         };
 
-        //TODO: currently have admin@admin.com hard-coded in, don't have a solidified admin account and cannot access user roles to get admin emails
+        //currently have ursadmin@morris.umn.edu hard-coded in because this is the email address for the URSA Major admin group,
         //CANNOT ADD IN CHAIRS' EMAILS TO SENDGMAILS BECAUSE OF THE SECURITY PRIVILEGES, SO FOR NOW WE'LL JUST SEND TO ADMIN
         $scope.rejectSubmission = function(submission) {
             $http.patch('api/submissions/' + $scope.selection.item._id,
@@ -626,12 +626,9 @@ angular.module('umm3601ursamajorApp')
             }
         };
 
-
-
         $scope.updateReviewVotingConfirm = function(item){
             Modal.confirm.info($scope.updateReviewVoting)('Would you like to vote for this?', item)
         };
-
 
         $scope.updateReviewVoting = function(value){
             if($scope.selection.item.reviewVotes.Accepted.indexOf($scope.getCurrentUser().email) != -1){
@@ -672,8 +669,6 @@ angular.module('umm3601ursamajorApp')
                     $scope.submitVoting();
                     break;
             }
-
-
         };
 
 
