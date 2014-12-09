@@ -109,8 +109,8 @@ Subformtext.find({}).remove(function() {
         submissionFeatured: "The URS features one presentation in the opening ceremony. This presentation should have broader appeal with interdisciplinary components, and may easily accommodate a performance component. The featured presenter will have more time, as well as a bigger room than regular presentations. Would you be interested in having your presentation featured during the opening ceremony? ",
         submissionMediaServices: "Each presentation room will have available an overhead projector and a Macintosh or PC computer with video projection capabilities. Do you anticipate needing any additional Media Services equipment? Please explain in detail: ",
         submissionSpecialRequirements: "Do you anticipate any special room location, non-media services equipment (i.e., recital hall, piano, etc.), or scheduling requirements (i.e., several groups holding a forum that would require more than the allotted 15 minutes)? Please explain in detail: ",
-        submissionTee: "T-Shirt for PRIMARY PRESENTER ",
-        submissionTeeNotes: "All sizes are US adult sizes",
+        //submissionTee: "T-Shirt for PRIMARY PRESENTER ",
+        //submissionTeeNotes: "All sizes are US adult sizes",
         submissionOther: "Is there anything else you would like us to know about your presentation?"
     });
 });
