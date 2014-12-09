@@ -16,7 +16,7 @@ var UserSchema = new Schema({
       type: Number,
       default: -1
   },
-//  tShirtSize: String,
+  tShirtSize: String,
   hashedPassword: String,
   provider: String,
   salt: String,

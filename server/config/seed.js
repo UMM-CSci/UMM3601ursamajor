@@ -119,6 +119,7 @@ User.find({}).remove(function() {
     User.create({
             name: 'Matthew Kangas',
             email: 'kanga139@morris.umn.edu',
+            tShirtSize: "XXXLarge",
             provider: 'google',
             google: {
                 hd: 'morris.umn.edu',
@@ -139,6 +140,7 @@ User.find({}).remove(function() {
         }, {
             name: "Niccolas Ricci",
             email: "ricc0082@morris.umn.edu",
+            tShirtSize: "Small",
             provider: "google",
             google: {
                 hd: "morris.umn.edu",
@@ -159,6 +161,7 @@ User.find({}).remove(function() {
         }, {
             name: "Maggie Casale",
             email: "casal033@morris.umn.edu",
+            tShirtSize: "Small",
             provider: "google",
             google: {
                 hd: "morris.umn.edu",
@@ -174,11 +177,12 @@ User.find({}).remove(function() {
                 id: "116234824364241021424"
             },
             group: -1,
-            role: "admin",
+            role: "user",
             __v: 0
         }, {
             name: "Jacob Opdahl",
             email: "opdah023@morris.umn.edu",
+            tShirtSize: "Medium",
             provider: "google",
             google: {
                 hd: "morris.umn.edu",
@@ -197,6 +201,7 @@ User.find({}).remove(function() {
         }, {
             name: "Joseph Thelen",
             email: "thele116@morris.umn.edu",
+            tShirtSize: "XLarge",
             provider: "google",
             google: {
                 hd: "morris.umn.edu",
@@ -215,6 +220,7 @@ User.find({}).remove(function() {
         }, {
             name: "Kristin Lamberty",
             email: "lamberty@morris.umn.edu",
+            tShirtSize: "Medium",
             provider: "google",
             google: {
                 hd: "morris.umn.edu",
@@ -237,6 +243,7 @@ User.find({}).remove(function() {
             role: 'user',
             name: 'User',
             email: 'test@test.com',
+            tShirtSize: "XLarge",
             password: 'test',
             group: -1
         }, {
@@ -252,6 +259,7 @@ User.find({}).remove(function() {
             role: 'chair',
             name: 'Chair',
             email: 'chair@chair.com',
+            tShirtSize: "Small",
             password: 'chair',
             group: -1
         }, {
@@ -259,6 +267,7 @@ User.find({}).remove(function() {
             role: 'reviewer',
             name: 'Reviewer',
             email: 'reviewer@reviewer.com',
+            tShirtSize: "XXLarge",
             password: 'reviewer',
             group: 3
         }, function () {
@@ -313,7 +322,7 @@ Submission.find({}).remove(function(){
         featured: false,
         mediaServicesEquipment: "",
         specialRequirements: "",
-        presenterTeeSize: "L",
+//        presenterTeeSize: "L",
         otherInfo: "",
         approval: false,
         cc: false,
@@ -408,7 +417,7 @@ Submission.find({}).remove(function(){
         featured: true,
         mediaServicesEquipment: "",
         specialRequirements: "A space to perform with three people.",
-        presenterTeeSize: "M",
+//        presenterTeeSize: "M",
         otherInfo: "",
         approval: true,
         cc: false,
@@ -454,12 +463,12 @@ Submission.find({}).remove(function(){
         featured: true,
         mediaServicesEquipment: "Microphone for my sick rhymes, 5 laser stage lights with automated gimbals.",
         specialRequirements: "A whale suit.",
-        presenterTeeSize: "XL",
+//        presenterTeeSize: "XL",
         otherInfo: "yes.",
-        approval: false,
+        approval: true,
         cc: false,
         rejection: false,
-        status: {strict: "Awaiting Adviser Approval", priority: -15, text: "Your adviser has yet to approve this submission."},
+        status: {strict: "Reviewing in Process", priority: 2, text: "Your URS submission has been approved by your adviser."},
         timestamp: "Mon Sept 2 2014 1:48:54 GMT-0500 (CDT)",
         group: 1,
         roomAssignment: "Science 2610",
@@ -494,7 +503,7 @@ Submission.find({}).remove(function(){
         featured: true,
         mediaServicesEquipment: "A way to show images, either a projector or a warning so I can print them.",
         specialRequirements: "",
-        presenterTeeSize: "XL",
+//        presenterTeeSize: "XL",
         otherInfo: "yes.",
         approval: true,
         cc: false,
@@ -533,7 +542,7 @@ Submission.find({}).remove(function(){
         featured: true,
         mediaServicesEquipment: "",
         specialRequirements: "A small space to make the presentation personal.",
-        presenterTeeSize: "S",
+//        presenterTeeSize: "S",
         otherInfo: "yes.",
         approval: true,
         cc: false,
@@ -570,7 +579,7 @@ Submission.find({}).remove(function(){
         featured: false,
         mediaServicesEquipment: "",
         specialRequirements: "a sloth",
-        presenterTeeSize: "M",
+//        presenterTeeSize: "M",
         otherInfo: "Maybe",
         approval: false,
         rejection: false,

@@ -120,13 +120,13 @@ angular.module('umm3601ursamajorApp')
                     return cb(err);
                 }
             ).$promise;
-//            $http.patch('/api/users' + user.email,
-//                {
-//                    tShirtSize: size
-//                }).success(function(){
-//                    console.log('patch successful!');
-//                    //$scope.gettshirtsize();
-//                });
+            $http.patch('/api/users' + user.email,
+                {
+                    tShirtSize: size
+                }).success(function(){
+                    console.log('patch successful!');
+                    //$scope.gettshirtsize();
+                });
         },
 
 

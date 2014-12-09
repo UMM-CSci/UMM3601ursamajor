@@ -88,16 +88,16 @@ describe('Controller: AbstractbookCtrl', function () {
             }
         ]
     });
-//
-//    it('1 should equal 1...', function () {
-//        expect(1).toEqual(1);
-//    });
 
-//    describe('returns true if a submission is accepted', function() {
-//       it('something', inject(function(isAccepted){
-//           expect(scope.isAccepted(scope.submissions[0])).toEqual(true);
-//           expect(scope.isAccepted(scope.submissions[1])).toEqual(false);
-//       })) ;
-//    });
+    it('1 should equal 1...', function () {
+        expect(1).toEqual(1);
+    });
+
+    describe('returns true if a submission is accepted', function() {
+       it('something', inject(function(){
+           expect(scope.isAccepted(scope.submissions[0])).toEqual(true);
+           expect(scope.isAccepted(scope.submissions[1])).toEqual(false);
+       })) ;
+    });
 
 });
