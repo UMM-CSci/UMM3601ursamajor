@@ -228,7 +228,7 @@
                             <button type="button" class="btn btn-xs btn-primary" dropdown-toggle><span class="glyphicon glyphicon-list"></span></button>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a ng-click="getOriginAbstract(selection.item , transformCommentIndex($index))">Details</a></li>
-                                <li ng-show="hasAdminPrivs()"><a ng-click="deleteComment(selection.item , transformCommentIndex($index))">Delete Comment</a></li>
+                                <li ng-show="hasAdminPrivs()"><a ng-click="deleteCommentModal(selection.item , transformCommentIndex($index))">Delete Comment</a></li>
                             </ul>
                         </div>
                     </div>
@@ -237,7 +237,7 @@
                         <div style="margin-left: 3px; padding-left: 10px; border-left: 2px solid steelblue" ng-repeat="response in comment.responses">
                             <p class="padded">{{response.response}}</p>
                             <p ng-show="hasAdminPrivs()"><i>- {{response.responder}}</i></p>
-                            <button ng-show="hasAdminPrivs() || isReviewerGroup(selection.item)" class="btn btn-xs deleteButton" ng-click="deleteResponse(selection.item , transformCommentIndex($parent.$index) , $index)">Delete Response</button>
+                            <button ng-show="hasAdminPrivs() || isReviewerGroup(selection.item)" class="btn btn-xs deleteButton" ng-click="deleteResponseModal(selection.item , transformCommentIndex($parent.$index) , $index)">Delete Response</button>
                         </div>
                     </div>
                 </li>

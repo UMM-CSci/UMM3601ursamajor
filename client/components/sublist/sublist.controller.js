@@ -995,22 +995,23 @@ angular.module('umm3601ursamajorApp')
             var start = comments[index].beginner;
             var end = comments[index].ender;
             var comment = comments[index].commentText;
+            var details = "";
             abstract = abstract.substring(0, start) + '<b>' + abstract.substring(start, end) + '</b>' + abstract.substring(end, abstract.length);
-            var newWindow = $window.open("", null, "height=300,width=600,status=yes,toolbar=no,menubar=no,location=no");
             if(comments[index].origin != id){
-                newWindow.document.write("<b>" + "This comment was made on a prior version of this submission" + "</b>");
-                newWindow.document.write("<br>");
+                details = details + "<b>" + "This comment was made on a prior version of this submission" + "</b>" + "<br>";
             }
             if ($scope.hasAdminPrivs() || $scope.isReviewerGroup(submission)) {
-                newWindow.document.write("<b>" +"Comment made by " + comments[index].commenter + ": " +"</b>");
+                details = details + "<b>" +"Comment made by " + comments[index].commenter + ": " + "</b>";
             } else {
-                newWindow.document.write("<b>" +"Comment: " + "</b>");
+                details = details + "<b>" +"Comment: " + "</b>";
             }
-            newWindow.document.write("<i>" + comments[index].commentText + "</i>");
-            newWindow.document.write("<br>");
-            newWindow.document.write(comments[index].timestamp);
-            newWindow.document.write("<br>");
-            newWindow.document.write(abstract);
+            details = details + "<i>" + comments[index].commentText + "</i>" + "<br>" + comments[index].timestamp;
+            if (start == 0 && end == 0) {
+                Modal.confirm.details()(details);
+            } else {
+                details = details + "<br>" + abstract;
+                Modal.confirm.details()(details);
+            }
         };
 
         $scope.showResponses = false;
@@ -1033,28 +1034,32 @@ angular.module('umm3601ursamajorApp')
             }
         };
 
+        $scope.deleteCommentModal = function(submission, index){
+            Modal.confirm.deleteComment($scope.deleteComment)("this comment and all of its responses",submission,index);
+        };
+
         $scope.deleteComment = function (submission, index){
             var comments = submission.comments;
-            if (confirm("Do you wish to delete this comment and all of its responses?")) {
                 comments.splice(index, 1);
                 $http.patch('api/submissions/' + $scope.selection.item._id,
                     {comments: comments}
                 ).success(function(){
                         console.log("successfully deleted comments from a submission!");
                     });
-            }
+        };
+
+        $scope.deleteResponseModal = function(submission,parentIndex,childIndex) {
+            Modal.confirm.deleteComment($scope.deleteResponse)("this response",submission,parentIndex,childIndex);
         };
 
         $scope.deleteResponse = function (submission, parentIndex, childIndex){
             var comments = submission.comments;
-            if (confirm("Do you wish to delete this response?")) {
                 comments[parentIndex].responses.splice(childIndex, 1);
                 $http.patch('api/submissions/' + $scope.selection.item._id,
                     {comments: comments}
                 ).success(function(){
                         console.log("successfully deleted response from a comment to a submission!");
                     });
-            }
         };
 
     });
