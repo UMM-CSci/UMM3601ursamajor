@@ -120,6 +120,46 @@ angular.module('umm3601ursamajorApp')
             };
         },
 
+          deleteComment: function(del) {
+              del = del || angular.noop;
+
+              /**
+               * Open a delete confirmation modal
+               * @param  {String} name   - name or info to show on modal
+               * @param  {All}           - any additional args are passed staight to del callback
+               */
+              return function() {
+                  var args = Array.prototype.slice.call(arguments),
+                      name = args.shift(),
+                      deleteCommentModal;
+
+                  deleteCommentModal = openModal({
+                      modal: {
+                          dismissable: true,
+                          title: 'Confirm Delete',
+                          html: '<p>Are you sure you want to delete ' + name + ' ?</p>',
+                          buttons: [{
+                              classes: 'btn-danger',
+                              text: 'Delete',
+                              click: function(e) {
+                                  deleteCommentModal.close(e);
+                              }
+                          }, {
+                              classes: 'btn-default',
+                              text: 'Cancel',
+                              click: function(e) {
+                                  deleteCommentModal.dismiss(e);
+                              }
+                          }]
+                      }
+                  }, 'modal-danger');
+
+                  deleteCommentModal.result.then(function(event) {
+                      del.apply(event, args);
+                  });
+              };
+          },
+
         info: function(callback) {
             callback = callback || angular.noop;
 
@@ -196,38 +236,38 @@ angular.module('umm3601ursamajorApp')
               }
           },
 
-//          details: function(callback){
-//              callback = callback || angular.noop;
-//              /**
-//               * Open an info confirmation modal
-//               * @param {String} content - text for the confirmation modal
-//               * @param {All}         - Any additional arguments are passed to the callback
-//               */
-//              return function() {
-//                  var args = Array.prototype.slice.call(arguments),
-//                      content = args.shift(),
-//                      detailsModal;
-//
-//                  detailsModal = openModal({
-//                      modal: {
-//                          dismissable: true,
-//                          title: "Details",
-//                          html: '<p>' + content + '</p>',
-//                          buttons: [{
-//                              classes:"btn-default",
-//                              text: "OK",
-//                              click: function(e) {
-//                                  detailsModal.dismiss(e);
-//                              }
-//                          }]
-//                      }
-//                  }, 'modal-warning');
-//
-//                  detailsModal.result.then(function(event) {
-//                      callback.apply(event, args);
-//                  });
-//              }
-//          },
+          details: function(callback){
+              callback = callback || angular.noop;
+              /**
+               * Open an info confirmation modal
+               * @param {String} content - text for the confirmation modal
+               * @param {All}         - Any additional arguments are passed to the callback
+               */
+              return function() {
+                  var args = Array.prototype.slice.call(arguments),
+                      content = args.shift(),
+                      detailsModal;
+
+                  detailsModal = openModal({
+                      modal: {
+                          dismissable: true,
+                          title: "Details",
+                          html: '<p>' + content + '</p>',
+                          buttons: [{
+                              classes:"btn-default",
+                              text: "OK",
+                              click: function(e) {
+                                  detailsModal.dismiss(e);
+                              }
+                          }]
+                      }
+                  }, 'modal-info');
+
+                  detailsModal.result.then(function(event) {
+                      callback.apply(event, args);
+                  });
+              }
+          },
 
 
           option: function(callbackYes, callbackNo){
