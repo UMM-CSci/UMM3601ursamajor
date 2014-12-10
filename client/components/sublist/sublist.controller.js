@@ -506,8 +506,9 @@ angular.module('umm3601ursamajorApp')
 
         $scope.approveHelpNo = function(submission){
             $scope.approveSubmission(submission);
-            sendGmail({
+            sendGmailWithCC({
                 to: $scope.selection.item.presenterInfo.email + " " + $scope.selection.item.copresenterOneInfo.email + " " + $scope.selection.item.copresenterTwoInfo.email,
+                cc: 'ursadmin@morris.umn.edu',
                 subject: "[" + $scope.selection.item.title + "] " + $scope.statusEdit.subject[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)],
                 message: $scope.selection.item.presenterInfo.first + ", your URS abstract has been approved by your adviser. Please await reviewer comments."
             });
@@ -522,7 +523,7 @@ angular.module('umm3601ursamajorApp')
                 });
             sendGmailWithCC({
                 to: $scope.selection.item.presenterInfo.email + " " + $scope.selection.item.copresenterOneInfo.email + " " + $scope.selection.item.copresenterTwoInfo.email,
-                cc: $scope.selection.item.adviserInfo.email + "ursadmin@morris.umn.edu",
+                cc: $scope.selection.item.adviserInfo.email + " " + "ursadmin@morris.umn.edu",
                 subject: "[" + $scope.selection.item.title + "] " + $scope.statusEdit.subject[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)],
                 message: $scope.selection.item.presenterInfo.first + ", your URS abstract has been approved by your adviser. Please await reviewer comments."
             });
