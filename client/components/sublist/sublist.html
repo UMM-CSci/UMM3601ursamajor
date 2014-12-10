@@ -96,7 +96,7 @@
                 <li class="list-group-item overflowAuto">
                     <button class="btn btn-sm btn-block" ng-click="resetSelection()"><span class="glyphicon glyphicon-chevron-left"></span> Back to Submission List</button>
                     <br>
-                    <div ng-show="hasAdminPrivs() || getCurrentUser().role == 'reviewer'">
+                    <div ng-show="hasAdminPrivs() || getCurrentUser().role == 'reviewer'" ng-hide="voteHide(selection.item)">
                             Vote on status
                             <br>
                         <select  ng-model="voteOption">
@@ -195,7 +195,7 @@
                     <p ng-show="isAdviser(selection.item)">adviser of this submission</p>
                     <p ng-show="isReviewerGroup(selection.item)">reviewer in Reviewer Group {{selection.item.group}}</p>
                     <div ng-show="isAdmin() || isChair()"><b>Currently Assigned Review Group:</b>
-                        <select ng-change="setReviewGroup(selection.item)" ng-model="selection.reviewGroup">
+                        <select ng-change="setReviewGroupConfirm(selection.item)" ng-model="selection.reviewGroup">
                         <option ng-repeat="option in groupOptions" value={{option}}>{{option}}</option>
                     </select>
                     <br>

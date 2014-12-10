@@ -621,6 +621,12 @@ angular.module('umm3601ursamajorApp')
             'Total rewrite'
         ];
 
+        $scope.voteHide = function(sub){
+          if(sub.status.priority == -15 || sub.status.priority == -14 || sub.status.priority == 15){
+              return true;
+          }
+        };
+
         $scope.voteOption = "";
 
         $scope.setVoteOptions = function(){
@@ -718,18 +724,18 @@ angular.module('umm3601ursamajorApp')
             }
         };
 
+        $scope.setReviewGroupConfirm = function(submission) {
+            Modal.confirm.info($scope.setReviewGroup)('Are you sure you want to change this submissions review group?', submission);
+        };
+
         $scope.setReviewGroup = function(submission) {
             $scope.checkForConflict(submission);
-            var bl = confirm('Are you sure you want to change this submissions review group?');
-            if(bl) {
-                console.log(bl);
                 $http.patch('api/submissions/' + submission._id,
                     {group: $scope.selection.reviewGroup}
                 ).success(function(){
                         console.log("Successfully updated status of submission");
                         submission.group = $scope.selection.reviewGroup;
                     });
-            }
         };
 
         $scope.resetTemps = function() {
