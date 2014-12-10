@@ -545,11 +545,6 @@ angular.module('umm3601ursamajorApp')
                     }
                 });
 
-            // Default attempt to send adviser email if submission is not a resubmission.
-            if (!$scope.isResubmitting) {
-               $scope.sendAdviserEmail();
-            }
-
             // Alter resubmissionData of parent submission to reflect the fact that a resubmission has been made.
             if ($scope.isResubmitting) {
                 $http.patch('api/submissions/' + $scope.submissionData.resubmitParent,
