@@ -3,6 +3,7 @@
 
 angular.module('umm3601ursamajorApp')
     .controller('RoleChangeCtrl', function ($scope, Modal, $http, Auth, User, $location, $filter, socket) {
+
         if(Auth.isAdmin() || Auth.isChair()) {
         } else {
             $location.path('/');
@@ -13,12 +14,13 @@ angular.module('umm3601ursamajorApp')
         $scope.isAdmin = Auth.isAdmin;
         $scope.isChair = Auth.isChair();
 
+        $scope.filterSelection = "All";
+
         $http.get('/api/submissions').success(function(submissions) {
             $scope.submissions = submissions;
             socket.syncUpdates('submission', $scope.submissions);
         });
 
-        $scope.filterSelection = "All";
 
         $scope.filterRoleOptions =
             [   'All',
@@ -34,6 +36,7 @@ angular.module('umm3601ursamajorApp')
                 'admin',
                 'user'
             ];
+
         $scope.groupOptions =
             [   1,
                 2,

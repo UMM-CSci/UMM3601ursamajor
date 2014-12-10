@@ -390,7 +390,6 @@ angular.module('umm3601ursamajorApp')
             socket.syncUpdates('user', $scope.users)
         });
 
-        //*******Needs to be updated with new status system******
         var sendGmail = function(opts){
             var str = 'http://mail.google.com/mail/?view=cm&fs=1'+
                 '&to=' + opts.to +

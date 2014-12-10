@@ -505,7 +505,7 @@ Submission.find({}).remove(function(){
         specialRequirements: "",
 //        presenterTeeSize: "XL",
         otherInfo: "yes.",
-        approval: false,
+        approval: true,
         cc: false,
         rejection: false,
         status: {strict: "Reviewing in Process", priority: 2, text: "Your URS submission has been approved by your adviser"},

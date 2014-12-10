@@ -4,18 +4,22 @@
         <label>
             Filter users by their roles:
             <br>
-        <select ng-model="filterSelection">
-            <option ng-repeat="option in filterRoleOptions" ng-value="'{{option}}'" >{{option}}</option>
-        </select>
+            <select ng-model="filterSelection">
+                <option ng-repeat="option in filterRoleOptions" ng-value="'{{option}}'" >{{option}}</option>
+            </select>
         </label>
+
         <li class="list-group-item" ng-repeat="user in users | filter:filterByUser">
             <strong>{{user.name}}:</strong><br>
+
             <span class="text-muted">
                 {{user.email}} <br>
             </span>
+
             <button ng-click="deleteUserConfirm(user)" class="btn btn-md btn-danger pull-right" >
-                <span class="glyphicon glyphicon-trash">
-            </span></button>
+                <span class="glyphicon glyphicon-trash"></span>
+            </button>
+
             <div>
                 <!--Selector for user role-->
                 <select ng-model="user.role"  placeholder="" required ng-required>
