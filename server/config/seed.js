@@ -109,8 +109,8 @@ Subformtext.find({}).remove(function() {
         submissionFeatured: "The URS features one presentation in the opening ceremony. This presentation should have broader appeal with interdisciplinary components, and may easily accommodate a performance component. The featured presenter will have more time, as well as a bigger room than regular presentations. Would you be interested in having your presentation featured during the opening ceremony? ",
         submissionMediaServices: "Each presentation room will have available an overhead projector and a Macintosh or PC computer with video projection capabilities. Do you anticipate needing any additional Media Services equipment? Please explain in detail: ",
         submissionSpecialRequirements: "Do you anticipate any special room location, non-media services equipment (i.e., recital hall, piano, etc.), or scheduling requirements (i.e., several groups holding a forum that would require more than the allotted 15 minutes)? Please explain in detail: ",
-        submissionTee: "T-Shirt for PRIMARY PRESENTER ",
-        submissionTeeNotes: "All sizes are US adult sizes",
+        //submissionTee: "T-Shirt for PRIMARY PRESENTER ",
+        //submissionTeeNotes: "All sizes are US adult sizes",
         submissionOther: "Is there anything else you would like us to know about your presentation?"
     });
 });
@@ -155,8 +155,8 @@ User.find({}).remove(function() {
                 email: "ricc0082@morris.umn.edu",
                 id: "112108475765702437555"
             },
-            group: -1,
-            role: "user",
+            group: 3,
+            role: "reviewer",
             __v: 0
         }, {
             name: "Maggie Casale",
@@ -176,8 +176,8 @@ User.find({}).remove(function() {
                 email: "casal033@morris.umn.edu",
                 id: "116234824364241021424"
             },
-            group: -1,
-            role: "user",
+            group: 2,
+            role: "reviewer",
             __v: 0
         }, {
             name: "Jacob Opdahl",

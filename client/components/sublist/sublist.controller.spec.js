@@ -193,6 +193,28 @@ describe('Functions dealing with submissions...', function() {
            expect(scope.selection.item.title).toBe("Blind Construction: Mixed Media");
         });
 
+        it("Selecting when filters are applied should select the correct submission (feature presentation)", inject(function(Auth){Auth.setCurrentUser("admin@admin.com", "admin", 1)}), function() {
+            expect(scope.selection.item).toEqual(null);
+            scope.filterData.featurePresentationFilterSelection = "Wants to be featured";
+            scope.selectItem(0);
+            expect(scope.selection.item.title).toBe("Blind Construction: Mixed Media");
+        });
+
+        it("Selecting when filters are applied should select the correct submission (flagged for resubmission)", inject(function(Auth){Auth.setCurrentUser("admin@admin.com", "admin", 1)}), function() {
+            expect(scope.selection.item).toEqual(null);
+            scope.filterData.flaggedForResubmitFilterSelection = "Not Flagged";
+            scope.selectItem(0);
+            expect(scope.selection.item.title).toBe("Blind Construction: Mixed Media");
+        });
+
+        it("Selecting when filters are applied should select the correct submission (pending resubmissions)", inject(function(Auth){Auth.setCurrentUser("admin@admin.com", "admin", 1)}), function() {
+            expect(scope.selection.item).toEqual(null);
+            scope.filterData.pendingResubmissionsOptions = "Not Pending Resubmissions";
+            scope.selectItem(0);
+            expect(scope.selection.item.title).toBe("Blind Construction: Mixed Media");
+        });
+
+
 
     });
 
