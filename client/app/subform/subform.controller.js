@@ -488,12 +488,6 @@ angular.module('umm3601ursamajorApp')
             // checking for changes to primary adviser.
             $scope.checkAdviserChanges();
 
-            // if the user is NOT resubmitting and attemptEmail is true, the user will be warned regarding the auto-generated email(s).
-            if(!$scope.isResubmitting && $scope.attemptEmail){
-                Modal.confirm.warning()("If you do not send the email that will be automatically generated, your adviser will not receive a notification to approve your submission.");
-//                alert("If you do not send the email that will be automatically generated, your adviser will not receive a notification to approve your submission.");
-            }
-
             // Converts the submissionData sponsors array into a readable format for storage as part of the submission.
             for (var i = 0; i < $scope.submissionData.sponsors.length; i++) {
                 if ($scope.submissionData.sponsors[i] != "" && $scope.submissionData.sponsors[i] != null) {
@@ -566,10 +560,25 @@ angular.module('umm3601ursamajorApp')
                         console.log("Successfully unflagged the original submission for resbumission.");
                     });
             }
-            $scope.resetData();
+            // Default attempt to send adviser email if submission is not a resubmission.
+            if(!$scope.isResubmitting && $scope.attemptEmail){
+                Modal.confirm.warning($scope.sendSpecialAdviserEmail)("If you do not send the email that will be automatically generated, your adviser will not receive a notification to approve your submission.");
+            };
+
+        };
+
+        $scope.resetAndRedirect = function(){
+                $scope.resetData();
+                console.log('reseting data');
             if($scope.attemptRedirect){
                 $location.path('/submissionpage');
-            }
+                console.log('redirecting');
+            };
+        };
+
+        $scope.sendSpecialAdviserEmail = function(){
+            $scope.sendAdviserEmail();
+            $scope.resetAndRedirect();
         };
 
         /**
