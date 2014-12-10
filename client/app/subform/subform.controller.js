@@ -545,11 +545,6 @@ angular.module('umm3601ursamajorApp')
                     }
                 });
 
-            // Default attempt to send adviser email if submission is not a resubmission.
-            if (!$scope.isResubmitting) {
-               $scope.sendAdviserEmail();
-            }
-
             // Alter resubmissionData of parent submission to reflect the fact that a resubmission has been made.
             if ($scope.isResubmitting) {
                 $http.patch('api/submissions/' + $scope.submissionData.resubmitParent,
@@ -560,6 +555,7 @@ angular.module('umm3601ursamajorApp')
                         console.log("Successfully unflagged the original submission for resbumission.");
                     });
             }
+
             // Default attempt to send adviser email if submission is not a resubmission.
             if(!$scope.isResubmitting && $scope.attemptEmail){
                 Modal.confirm.warning($scope.sendSpecialAdviserEmail)("If you do not send the email that will be automatically generated, your adviser will not receive a notification to approve your submission.");

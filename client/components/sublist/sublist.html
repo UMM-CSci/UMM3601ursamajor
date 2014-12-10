@@ -4,7 +4,7 @@
     <!-- HTML for list view -->
 
     <div class="row container-fluid" ng-hide="selection.selected">
-        <div class="col-md-3">
+        <div class="col-lg-3">
             <ul class="list-group">
                 <li class="list-group-item">
                     <input type="text" ng-model="filterData.searchText" placeholder="Search by name">
@@ -44,7 +44,7 @@
                 </li>
             </ul>
         </div>
-        <div class="col-md-9">
+        <div class="col-lg-9">
             <tabset ng-hide="selection.selected">
                 <tab heading="All Submissions" ng-click="showAllSubmissions()"></tab>
                 <tab ng-show="isPresenterOnAnything()" heading="Presenter Submissions" ng-click="showMySubmissions()"></tab>

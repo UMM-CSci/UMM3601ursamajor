@@ -134,7 +134,7 @@ angular.module('umm3601ursamajorApp')
         // Returns false if the submission is null, or the user isn't listed as the primary presenter.
         $scope.isPresenter = function(submission) {
             if(submission == null) return false;
-            return $scope.email === submission.presenterInfo.email;
+            return $scope.getCurrentUser().email === submission.presenterInfo.email;
         };
 
         // Takes a submission as an argument and returns true if the user provided by Auth is listed as a co-presenter on that submission.
@@ -470,8 +470,8 @@ angular.module('umm3601ursamajorApp')
 
             $scope.selection.selected = true;
             $scope.selection.item = filteredSubmissions[itemIndex];
-            console.log("submissions");
-            console.log(filteredSubmissions);
+//            console.log("submissions");
+//            console.log(filteredSubmissions);
             $scope.selection.resubmission = $scope.getResubmission($scope.selection.item);
             $scope.selection.reviewGroup = $scope.selection.item.group;
 
@@ -523,7 +523,7 @@ angular.module('umm3601ursamajorApp')
                 });
             sendGmailWithCC({
                 to: $scope.selection.item.presenterInfo.email + " " + $scope.selection.item.copresenterOneInfo.email + " " + $scope.selection.item.copresenterTwoInfo.email,
-                cc: $scope.selection.item.adviserInfo.email + " " + "ursadmin@morris.umn.edu",
+                cc: $scope.selection.item.adviserInfo.email + " " + 'ursadmin@morris.umn.edu',
                 subject: "[" + $scope.selection.item.title + "] " + $scope.statusEdit.subject[$scope.statusEdit.options.indexOf($scope.selection.item.status.strict)],
                 message: $scope.selection.item.presenterInfo.first + ", your URS abstract has been approved by your adviser. Please await reviewer comments."
             });
@@ -856,14 +856,13 @@ angular.module('umm3601ursamajorApp')
                     };
                 }
             } else if(!$scope.hasResubmissions($scope.selection.item) && $scope.selection.item.approval && !$scope.selection.item.resubmissionData.resubmitFlag){
-                console.log("no resubmissions, approved, and not flagged!");
                 return {
                     show: $scope.isPresenter($scope.selection.item),
                     style: "btn-primary",
                     text: "Re-Submit this Submission",
                     action: function(){$scope.flagForResubmitConfirm();}
                 }
-            } else if($scope.selection.item.resubmissionData.resubmitFlag) {
+            } else if($scope.selection.item.resubmissionData.resubmitFlag && $scope.isPresenter($scope.selection.item)) {
                 return {
                     show: true,
                     style: "btn-primary",
@@ -871,6 +870,7 @@ angular.module('umm3601ursamajorApp')
                     action: function(){$location.path('/subform');}
                 }
             } else {
+                //this will usually happen when the submission meets criteria for resubmission, but lacks approval.
                 return {
                     show: false,
                     style: "btn-danger",

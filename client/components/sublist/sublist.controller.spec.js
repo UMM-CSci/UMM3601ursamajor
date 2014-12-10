@@ -121,7 +121,86 @@ describe('Functions dealing with submissions...', function() {
                 Major: ["reviewer@reviewer.com"],
                 TotalRewrite: []
            }
-        }
+        }, {
+               _id: "veryUniqueID2",
+               title: "The Commemoration and Memorialization of the American Revolution",
+               format: "Artist Statement",
+               abstract: "This project involves discovering how the American Revolution was remembered during the nineteenth century.  " +
+                   "The goal is to show that the American Revolution was memorialized by the actions of the United States government during the 1800s. " +
+                   "This has been done by examining events such as the Supreme Court cases of John Marshall and the Nullification Crisis. " +
+                   "Upon examination of these events, it becomes clear that John Marshall and John Calhoun (creator of the Doctrine of Nullification) " +
+                   "attempted to use the American Revolution to bolster their claims by citing speeches from Founding Fathers. " +
+                   "Through showing that the American Revolution lives on in memory, " +
+                   "this research highlights the importance of the revolution in shaping the actions of the United States government.",
+               presentationType: "Performance",
+               formatChange: false,
+               presenterInfo: {first: "Mitchell", last: "Finzel", email: "finze008@morris.umn.edu"},
+               copresenterOneInfo: {first: "Brandon", last: "Moody", email: "moody107@morris.umn.edu"},
+               copresenterTwoInfo: {first: "", last: "", email: ""},
+               discipline: "History",
+               sponsors: [], //Might need to worry about if this is static for the DB later.
+               adviserInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
+               coadviserOneInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
+               coadviserTwoInfo: {first: "", last: "", email: ""},
+               featured: true,
+               mediaServicesEquipment: "A way to show images, either a projector or a warning so I can print them.",
+               specialRequirements: "",
+               otherInfo: "yes.",
+               approval: true,
+               cc: false,
+               rejection: false,
+               status: {strict: "Reviewing in Process", priority: 2, text: "Your URS submission has been approved by your adviser"},
+               timestamp: "Mon Oct 20 2014 1:48:54 GMT-0500 (CDT)",
+               group: 3,
+               roomAssignment: "Science 2610",
+               resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+               comments: [],
+               reviewVotes: {
+                   Accepted: [],
+                   Minor: [],
+                   Major: ["reviewer@reviewer.com"],
+                   TotalRewrite: []
+               }
+           }, {
+               _id: "veryUniqueID3",
+               title: "Margaret C. Anderson’s Little Review",
+               format: "Social Science",
+               abstract: "This research looks at the work of Margaret C. Anderson, the editor of the Little Review.  " +
+                   "The review published first works by Sherwood Anderson, James Joyce, Wyndham Lewis, and Ezra Pound.  " +
+                   "This research draws upon mostly primary sources including memoirs, published letters, and a complete collection of the Little Review. " +
+                   "Most prior research on Anderson focsal033@morris.umn.eduuses on her connection to the famous writers and personalities that she published and associated with.  " +
+                   "This focus undermines her role as the dominant creative force behind one of the most influential little magazines published in the 20th Century. " +
+                   "This case example shows how little magazine publishing is arguably a literary art.",
+               presentationType: "Poster or Visual Display",
+               formatChange: true,
+               presenterInfo: {first: "Savannah", last: "Farm", email: "farmx009@morris.umn.edu"},
+               copresenterOneInfo: {first: "", last: "", email: ""},
+               copresenterTwoInfo: {first: "", last: "", email: ""},
+               discipline: "English",
+               sponsors: [], //Might need to worry about if this is static for the DB later.
+               adviserInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
+               coadviserOneInfo: {first: "", last: "", email: ""},
+               coadviserTwoInfo: {first: "", last: "", email: ""},
+               featured: true,
+               mediaServicesEquipment: "",
+               specialRequirements: "A small space to make the presentation personal.",
+               otherInfo: "yes.",
+               approval: true,
+               cc: false,
+               rejection: false,
+               status: {strict: "Accepted", priority: 15, text: "Your URS submission has been approved, congratulations!"},
+               timestamp: "Thur Oct 23 2014 1:48:54 GMT-0500 (CDT)",
+               group: 2,
+               roomAssignment: "Science 2610",
+               resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: true},
+               comments: [],
+               reviewVotes: {
+                   Accepted: [],
+                   Minor: [],
+                   Major: [],
+                   TotalRewrite: ["reviewer@reviewer.com"]
+               }
+           }
        ]
     });
 
@@ -241,7 +320,52 @@ describe('Functions dealing with submissions...', function() {
         it('Should find the resubmission of a submission', function() {
             expect(scope.getResubmission(scope.submissions[1]) != null).toEqual(true);
             expect(scope.getResubmission(scope.submissions[1])._id).toBe("uniqueIdString");
-        })
+        });
+
+        describe('Testing logic for displaying resubmit button...', function(){
+            describe('Should show correct buttons for admin...', function() {
+                beforeEach(inject(function(Auth){Auth.setCurrentUser("admin@admin.com", "admin", 1)}));
+
+                it('When submission has no flag and no resubmissions', function(){
+                    scope.selectItem(2);
+                    expect(scope.showResubmitButton().show).toEqual(true);
+                    expect(scope.showResubmitButton().text).toBe("Flag for Re-Submission");
+                    expect(scope.showResubmitButton().style).toBe("btn-primary");
+                });
+
+                it('When submission is flagged', function(){
+                    scope.selectItem(3);
+                    expect(scope.showResubmitButton().show).toEqual(true);
+                    expect(scope.showResubmitButton().text).toBe("Remove Resubmit Flag");
+                    expect(scope.showResubmitButton().style).toBe("btn-warning");
+                })
+            });
+
+            describe('Should show correct buttons for presenter...', function(){
+                beforeEach(inject(function(Auth){Auth.setCurrentUser("finze008@morris.umn.edu", "user", 1)}));
+
+                it('When the submission has no flag and no resubmissions', function(){
+                    scope.selectItem(2);
+                    expect(scope.showResubmitButton().show).toEqual(true);
+                    expect(scope.showResubmitButton().text).toBe("Re-Submit this Submission");
+                    expect(scope.showResubmitButton().style).toBe("btn-primary");
+                });
+
+                it('When the submission is flagged', function(){
+                    scope.submissions[2].resubmissionData.resubmitFlag = true;
+                    scope.selectItem(2);
+                    expect(scope.showResubmitButton().show).toEqual(true);
+                    expect(scope.showResubmitButton().text).toBe("Click to Resubmit");
+                    expect(scope.showResubmitButton().style).toBe("btn-primary");
+                });
+
+                it('When the submission is not approved', function(){
+                    scope.submissions[2].approval = false;
+                    scope.selectItem(2);
+                    expect(scope.showResubmitButton().show).toEqual(false);
+                });
+            });
+        });
     });
 
     describe('Functions handling approve/reject button...', function() {
@@ -275,7 +399,6 @@ describe('Functions dealing with submissions...', function() {
 
     });
 
-
     describe('Testing voting by looking for certain statuses...', function() {
         it('Major for submission 2 [1] should be reviewer@reviewer.com...', function() {
             expect(scope.submissions[1].reviewVotes.Major.length).toEqual(1);
@@ -297,4 +420,6 @@ describe('Functions dealing with submissions...', function() {
         });
 
     });
+
+
 });
