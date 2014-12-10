@@ -748,7 +748,7 @@ angular.module('umm3601ursamajorApp')
             }
         };
 
-        $scope.specitatusEditConfirm = function(){
+        $scope.submitStatusEditConfirm = function(){
             Modal.confirm.option($scope.statusEditHelpYes,$scope.submitStatusEdit)('Would you like to generate an email for the status change?')
 
         };
