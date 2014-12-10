@@ -917,12 +917,14 @@ angular.module('umm3601ursamajorApp')
                 });
         };
 
+        $scope.approveResubmitConfirm = function(){
+            Modal.confirm.info($scope.approveResubmit)('Are you sure you want to approve this resubmission?');
+        };
+
         //TODO: Right now anyone that can see a resubmission can approve a resubmission, so that needs to get fixed. Should wait to fix until the permissions system is sorted out.
         $scope.approveResubmit = function(){
-            var con = confirm('Are you sure you want to approve this resubmission?');
             var roomAssignment = $scope.selection.item.roomAssignment;
             var reviewGroup = $scope.selection.item.group;
-            if (con) {
                 console.log("Attempting to approve resubmission.");
                 $http.patch('api/submissions/' + $scope.selection.item._id,
                     {
@@ -946,7 +948,6 @@ angular.module('umm3601ursamajorApp')
                                 console.log("resubmission set as new primary")
                             });
                     });
-            }
         };
 
 
