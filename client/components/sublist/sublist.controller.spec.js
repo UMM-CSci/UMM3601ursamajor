@@ -77,7 +77,13 @@ describe('Functions dealing with submissions...', function() {
             timestamp: "Mon Oct 20 2014 1:48:54 GMT-0500 (CDT)",
             group: 3,
             resubmissionData: {comment: "Initial Submission", parentSubmission: "testIdForTesting", isPrimary: false, resubmitFlag: false},
-            comments: []
+            comments: [],
+            reviewVotes: {
+                Accepted: [],
+                Minor: [],
+                Major: [],
+                TotalRewrite: []
+            }
         }, {
            _id: "testIdForTesting",
            title: "Blind Construction: Mixed Media",
@@ -110,11 +116,11 @@ describe('Functions dealing with submissions...', function() {
            resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
            comments:[],
            reviewVotes: {
-                   Accepted: [],
-                   Minor: [],
-                   Major: [],
-                   TotalRewrite: []
-               }
+                Accepted: [],
+                Minor: [],
+                Major: ["reviewer@reviewer.com"],
+                TotalRewrite: []
+           }
         }
        ]
     });
@@ -269,4 +275,26 @@ describe('Functions dealing with submissions...', function() {
 
     });
 
+
+    describe('Testing voting by looking for certain statuses...', function() {
+        it('Major for submission 2 [1] should be reviewer@reviewer.com...', function() {
+            expect(scope.submissions[1].reviewVotes.Major.length).toEqual(1);
+        });
+
+        it('Accepted for submission 1 [0] should be blank...', function() {
+            expect(scope.submissions[0].reviewVotes.Accepted.length).toEqual(0);
+        });
+
+    });
+
+    describe('Testing for statuses in submissions...', function() {
+        it('Status for submission 1 [0] should be "Awaiting Adviser Approval"...', function() {
+            expect(scope.submissions[0].status).toEqual({strict: 'Awaiting Adviser Approval', text: 'Your adviser has yet to approve this submission.'});
+        });
+
+        it('Status for submission 2 [1] should be "Awaiting Adviser Approval"...', function() {
+            expect(scope.submissions[1].status).toEqual({strict: 'Revisions Needed', text: 'Your URS submission has been flagged for revisions, and is in need of changes.'});
+        });
+
+    });
 });
