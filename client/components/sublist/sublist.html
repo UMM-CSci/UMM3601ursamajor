@@ -108,6 +108,7 @@
                             </option>
                         </select>
                         <button class="btn btn-warning" ng-click="updateReviewVotingConfirm(voteOption)">Submit</button>
+                        <br>
                         <div ng-show="hasAdminPrivs()">
                            <button class="btn btn-xs voteDropDown" ng-hide="showVotes" ng-click="showVotes = true">Show Votes <span class="glyphicon glyphicon-chevron-down"></span></button>
                            <button class="btn btn-xs voteDropDown" ng-show="showVotes" ng-click="showVotes = false">Hide Votes <span class="glyphicon glyphicon-chevron-up"></span></button>
@@ -122,11 +123,11 @@
                     </div>
                     <button ng-show="isAdmin()" class="btn btn-md btn-danger" ng-click="deleteSubmissionConfirm(selection.item)"><span class="glyphicon glyphicon-trash"></span></button>
 
-                    <button ng-show="showResubmitButton().show" class="btn btn-md btn-primary sideMargins moveRight" ng-click="flagForResubmitConfirm()">{{showResubmitButton().text}}</button>
+                    <button ng-show="showResubmitButton().show" class="btn btn-md sideMargins moveRight {{showResubmitButton().style}}" ng-click="showResubmitButton().action()">{{showResubmitButton().text}}</button>
 
                     <div class="btn-group sideMargins moveRight">
-                        <button ng-show="(isAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-success  " ng-click="approveSubmissionConfirm(selection.item)">  Give adviser approval  <span class="glyphicon glyphicon-thumbs-up"></span></button>
-                        <button ng-show="(isAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item) && (selection.item.status.strict != 'Withdrawn')" class="btn btn-md btn-danger " ng-click="rejectSubmissionConfirm(selection.item)">  Reject Submission  <span class="glyphicon glyphicon-thumbs-down"></span></button>
+                        <button ng-show="(isPrimaryAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-success  " ng-click="approveSubmissionConfirm(selection.item)">  Give adviser approval  <span class="glyphicon glyphicon-thumbs-up"></span></button>
+                        <button ng-show="(isPrimaryAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item) && (selection.item.status.strict != 'Withdrawn')" class="btn btn-md btn-danger " ng-click="rejectSubmissionConfirm(selection.item)">  Reject Submission  <span class="glyphicon glyphicon-thumbs-down"></span></button>
                     </div>
                     <br>
 

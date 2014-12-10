@@ -490,7 +490,8 @@ angular.module('umm3601ursamajorApp')
 
             // if the user is NOT resubmitting and attemptEmail is true, the user will be warned regarding the auto-generated email(s).
             if(!$scope.isResubmitting && $scope.attemptEmail){
-                alert("If you do not send the email that will be automatically generated, your adviser will not receive a notification to approve your submission.");
+                Modal.confirm.warning()("If you do not send the email that will be automatically generated, your adviser will not receive a notification to approve your submission.");
+//                alert("If you do not send the email that will be automatically generated, your adviser will not receive a notification to approve your submission.");
             }
 
             // Converts the submissionData sponsors array into a readable format for storage as part of the submission.

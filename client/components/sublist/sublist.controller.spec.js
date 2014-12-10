@@ -71,12 +71,19 @@ describe('Functions dealing with submissions...', function() {
             specialRequirements: "a sloth",
             presenterTeeSize: "M",
             otherInfo: "Maybe",
-            approval: false,
+            approval: true,
+            rejection: false,
             status: {strict: "Awaiting Adviser Approval", text: "Your adviser has yet to approve this submission."},
             timestamp: "Mon Oct 20 2014 1:48:54 GMT-0500 (CDT)",
             group: 3,
             resubmissionData: {comment: "Initial Submission", parentSubmission: "testIdForTesting", isPrimary: false, resubmitFlag: false},
-            comments: []
+            comments: [],
+            reviewVotes: {
+                Accepted: [],
+                Minor: [],
+                Major: [],
+                TotalRewrite: []
+            }
         }, {
            _id: "testIdForTesting",
            title: "Blind Construction: Mixed Media",
@@ -94,6 +101,8 @@ describe('Functions dealing with submissions...', function() {
            discipline: "Art History",
            sponsors: [],
            adviserInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
+           coadviserOneInfo: {},
+           coadviserTwoInfo: {},
            featured: true,
            mediaServicesEquipment: "",
            specialRequirements: "A space to perform with three people.",
@@ -105,7 +114,13 @@ describe('Functions dealing with submissions...', function() {
            timestamp: "Tue Oct 21 2014 23:22:54 GMT-0500 (CDT)",
            group: 1,
            resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
-           comments:[]
+           comments:[],
+           reviewVotes: {
+                Accepted: [],
+                Minor: [],
+                Major: ["reviewer@reviewer.com"],
+                TotalRewrite: []
+           }
         }
        ]
     });
@@ -230,29 +245,56 @@ describe('Functions dealing with submissions...', function() {
     });
 
     describe('Functions handling approve/reject button...', function() {
-//        it('should be a approval...', function () {
-//            expect();
-//        });
+        it('should be approved...', function () {
+            expect(scope.submissions[0].approval).toEqual(true);
+        });
 
-        it('rejection should be false...', function (){
+        it('should not be rejected...', function (){
             expect(scope.submissions[1].rejection).toEqual(false);
         });
 
-
-
 //        it('should be a rejection...', function (){
-//           scope.rejectSubmission(scope.submissions[1]);
+//           scope.rejectSubmission(scope.submissions);
 //           expect(scope.submissions[1].rejection).toEqual(true);
 //        });
 
     });
 
-//    describe('Testing the that the additional advisers are indeed in a submission...', function {
-//       it('coadviserOneInfo for submission 1 [1] should be Dalton Gusaas...', function() {
-//            expect(scope.submissions[0].coadviserOneInfo).toEqual("")
-//       });
-//    });
+    describe('Testing the that the additional advisers are indeed in a submission...', function() {
+        it('coadviserOneInfo for submission 1 [0] should be Dalton Gusaas...', function() {
+            expect(scope.submissions[0].coadviserOneInfo).toEqual({ first : 'Dalton', last : 'Gusaas', email : 'gusaa004@morris.umn.edu'});
+        });
+
+        it('coadviserTwoInfo for submission 1 [0] should be blank...', function() {
+            expect(scope.submissions[0].coadviserTwoInfo).toEqual({});
+        });
+
+        it('both coadvisers should be blank for submission 2 [1]...', function(){
+           expect(scope.submissions[1].coadviserOneInfo && scope.submissions[1].coadviserTwoInfo).toEqual({});
+        });
+
+    });
 
 
+    describe('Testing voting by looking for certain statuses...', function() {
+        it('Major for submission 2 [1] should be reviewer@reviewer.com...', function() {
+            expect(scope.submissions[1].reviewVotes.Major.length).toEqual(1);
+        });
 
+        it('Accepted for submission 1 [0] should be blank...', function() {
+            expect(scope.submissions[0].reviewVotes.Accepted.length).toEqual(0);
+        });
+
+    });
+
+    describe('Testing for statuses in submissions...', function() {
+        it('Status for submission 1 [0] should be "Awaiting Adviser Approval"...', function() {
+            expect(scope.submissions[0].status).toEqual({strict: 'Awaiting Adviser Approval', text: 'Your adviser has yet to approve this submission.'});
+        });
+
+        it('Status for submission 2 [1] should be "Awaiting Adviser Approval"...', function() {
+            expect(scope.submissions[1].status).toEqual({strict: 'Revisions Needed', text: 'Your URS submission has been flagged for revisions, and is in need of changes.'});
+        });
+
+    });
 });
