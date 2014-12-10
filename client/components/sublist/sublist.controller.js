@@ -911,6 +911,7 @@ angular.module('umm3601ursamajorApp')
             $scope.menuToggle = !$scope.menuToggle;
         };
 
+        //Selects a comment nd sets its index
         $scope.selectComment = function(index) {
             console.log("setting selected comment: " + index);
             if(index == $scope.selectedCommentIndex){
@@ -921,10 +922,12 @@ angular.module('umm3601ursamajorApp')
             }
         };
 
+        //Checks if a comment is the currently selected comment
         $scope.isSelectedComment = function(index){
             return index == $scope.selectedCommentIndex;
         };
 
+        //Controls and restricts the number of comments to display
         $scope.displayedComments = function() {
             if($scope.selection.item == null) return [];
 
@@ -941,6 +944,7 @@ angular.module('umm3601ursamajorApp')
             return ((10*($scope.currentCommentPage - 1)) + index);
         };
 
+        //Creates a comment Object and patches it to the database
         $scope.addComment = function (submission) {
             console.log(submission.abstract.length);
             var commentObj = {};
@@ -977,10 +981,10 @@ angular.module('umm3601ursamajorApp')
             }
         };
 
+        //Gets the abstract version that a comment originated on
         $scope.getOriginAbstract = function (submission , index) {
             var comments = submission.comments;
             var abstract = submission.abstract;
-            console.log(submission._id);
             if (submission._id != comments[index].origin) {
                 $http.get('/api/submissions/' + comments[index].origin).success(function(submission) {
                     abstract = submission.abstract;
@@ -992,6 +996,7 @@ angular.module('umm3601ursamajorApp')
         };
 
 
+        //Creates the details view of a comment using a modal
         $scope.populateComments = function(abstract, index , comments, id, submission){
             var start = comments[index].beginner;
             var end = comments[index].ender;
@@ -1015,8 +1020,10 @@ angular.module('umm3601ursamajorApp')
             }
         };
 
+        //Responses dropdown toggle
         $scope.showResponses = false;
 
+        //Creates a response object and patches it to the comment in the database
         $scope.addResponse = function (submission, index){
             var comments = submission.comments;
             var comment = comments[index];
@@ -1035,10 +1042,12 @@ angular.module('umm3601ursamajorApp')
             }
         };
 
+        //Calls the modal for the deleteComment function
         $scope.deleteCommentModal = function(submission, index){
             Modal.confirm.deleteComment($scope.deleteComment)("this comment and all of its responses",submission,index);
         };
 
+        //Removbes a comment from a submissions comment array and then patches it to the database
         $scope.deleteComment = function (submission, index){
             var comments = submission.comments;
                 comments.splice(index, 1);
@@ -1049,10 +1058,12 @@ angular.module('umm3601ursamajorApp')
                     });
         };
 
+        //Creates a modal for the deleteResponses function
         $scope.deleteResponseModal = function(submission,parentIndex,childIndex) {
             Modal.confirm.deleteComment($scope.deleteResponse)("this response",submission,parentIndex,childIndex);
         };
 
+        //Removes a response from a commentObj and then patches to the database
         $scope.deleteResponse = function (submission, parentIndex, childIndex){
             var comments = submission.comments;
                 comments[parentIndex].responses.splice(childIndex, 1);
