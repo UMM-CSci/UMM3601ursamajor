@@ -98,6 +98,10 @@ angular.module('umm3601ursamajorApp')
             return null;
         };
 
+        $scope.hasResubmissions = function(submission){
+            return ($scope.getResubmission(submission) != null);
+        };
+
         // Takes a String and sets the review group filter selection to that string.
         // Used for changing which review group filter is applied.
         $scope.setReviewGroupSelection = function(str) {
@@ -820,24 +824,51 @@ angular.module('umm3601ursamajorApp')
             if($scope.selection.item == null){
                 return {
                     show: false,
-                    text: "Null"
+                    style: "btn-danger",
+                    text: "Null",
+                    action: function(){alert('something has gone horribly wrong');}
                 }
             }
 
             if($scope.hasAdminPrivs()){
-                return {
-                    show: true,
-                    text: "Flag for Re-Submission"
-                };
-            } else if(($scope.getResubmission($scope.selection.item) == null || $scope.getResubmission($scope.selection.item).length == 0) && $scope.selection.item.approval){
+                if($scope.selection.item.resubmissionData.resubmitFlag){
+                    return {
+                        show: true,
+                        style: "btn-warning",
+                        text: "Remove Resubmit Flag",
+                        action: function(){$scope.removeResumitFlagConfirm();}
+                    }
+                } else {
+                    return {
+                        show: true,
+                        style: "btn-primary",
+                        text: "Flag for Re-Submission",
+                        action: function(){
+                            $scope.flagForResubmitConfirm();
+                        }
+                    };
+                }
+            } else if(!$scope.hasResubmissions($scope.selection.item) && $scope.selection.item.approval && !$scope.selection.item.resubmissionData.resubmitFlag){
+                console.log("no resubmissions, approved, and not flagged!");
                 return {
                     show: $scope.isPresenter($scope.selection.item),
-                    text: "Re-Submit this Submission"
+                    style: "btn-primary",
+                    text: "Re-Submit this Submission",
+                    action: function(){$scope.flagForResubmitConfirm();}
+                }
+            } else if($scope.selection.item.resubmissionData.resubmitFlag) {
+                return {
+                    show: true,
+                    style: "btn-primary",
+                    text: "Click to Resubmit",
+                    action: function(){$location.path('/subform');}
                 }
             } else {
                 return {
                     show: false,
-                    text: "Error!?!"
+                    style: "btn-danger",
+                    text: "Error!?!",
+                    action: function(){alert('something has gone horribly wrong');}
                 }
             }
         };
@@ -854,6 +885,7 @@ angular.module('umm3601ursamajorApp')
                 }
             ).success(function(){
                     console.log("Successfully flagged submission for resubmit");
+                    $scope.selection.item.resubmissionData.resubmitFlag = true;
                     if (!$scope.hasAdminPrivs())
                     {$location.path('/subform');}
                 });
@@ -866,6 +898,22 @@ angular.module('umm3601ursamajorApp')
 //                    $scope.selection.item.resubmissionData.resubmitFlag = true;
 //                    if(!$scope.hasAdminPrivs()){$location.path('/subform');}
 //            });
+        };
+
+        $scope.removeResumitFlagConfirm = function(){
+            Modal.confirm.info($scope.removeResubmitFlag)('Are you sure you want to remove the re-submission flag?');
+        };
+
+        $scope.removeResubmitFlag = function(){
+            console.log("Attempting to remove resubmit flag.");
+            $http.patch('api/submissions/' + $scope.selection.item._id,
+                {
+                    resubmissionData: {comment: $scope.selection.item.resubmissionData.comment, parentSubmission: $scope.selection.item.resubmissionData.parentSubmission, resubmitFlag: false, isPrimary: true}
+                }
+            ).success(function(){
+                    console.log("Successfully removed resubmit flag");
+                    $scope.selection.item.resubmissionData.resubmitFlag = false;
+                });
         };
 
         //TODO: Right now anyone that can see a resubmission can approve a resubmission, so that needs to get fixed. Should wait to fix until the permissions system is sorted out.
