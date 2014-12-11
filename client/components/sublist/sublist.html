@@ -96,7 +96,8 @@
                 <li class="list-group-item overflowAuto">
                     <button class="btn btn-sm btn-block" ng-click="resetSelection()"><span class="glyphicon glyphicon-chevron-left"></span> Back to Submission List</button>
                     <br>
-                    <div ng-show="hasAdminPrivs() || getCurrentUser().role == 'reviewer'" ng-hide="voteHide(selection.item)">
+
+                    <div ng-show="(hasAdminPrivs() || getCurrentUser().role == 'reviewer') && !voteHide(selection.item)">
                             Vote on status
                             <br>
                         <select  ng-model="voteOption">
