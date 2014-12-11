@@ -4,7 +4,7 @@
     <!-- HTML for list view -->
 
     <div class="row container-fluid" ng-hide="selection.selected">
-        <div class="col-md-3">
+        <div class="col-lg-3">
             <ul class="list-group">
                 <li class="list-group-item">
                     <input type="text" ng-model="filterData.searchText" placeholder="Search by name">
@@ -44,7 +44,7 @@
                 </li>
             </ul>
         </div>
-        <div class="col-md-9">
+        <div class="col-lg-9">
             <tabset ng-hide="selection.selected">
                 <tab heading="All Submissions" ng-click="showAllSubmissions()"></tab>
                 <tab ng-show="isPresenterOnAnything()" heading="Presenter Submissions" ng-click="showMySubmissions()"></tab>
@@ -96,7 +96,8 @@
                 <li class="list-group-item overflowAuto">
                     <button class="btn btn-sm btn-block" ng-click="resetSelection()"><span class="glyphicon glyphicon-chevron-left"></span> Back to Submission List</button>
                     <br>
-                    <div ng-show="hasAdminPrivs() || getCurrentUser().role == 'reviewer'">
+
+                    <div ng-show="(hasAdminPrivs() || getCurrentUser().role == 'reviewer') && !voteHide(selection.item)">
                             Vote on status
                             <br>
                         <select  ng-model="voteOption">
@@ -123,7 +124,7 @@
                     </div>
                     <button ng-show="isAdmin()" class="btn btn-md btn-danger" ng-click="deleteSubmissionConfirm(selection.item)"><span class="glyphicon glyphicon-trash"></span></button>
 
-                    <button ng-show="showResubmitButton().show" class="btn btn-md btn-primary sideMargins moveRight" ng-click="flagForResubmitConfirm()">{{showResubmitButton().text}}</button>
+                    <button ng-show="showResubmitButton().show" class="btn btn-md sideMargins moveRight {{showResubmitButton().style}}" ng-click="showResubmitButton().action()">{{showResubmitButton().text}}</button>
 
                     <div class="btn-group sideMargins moveRight">
                         <button ng-show="(isPrimaryAdviser(selection.item) || hasAdminPrivs()) && !isApproved(selection.item)" class="btn btn-md btn-success  " ng-click="approveSubmissionConfirm(selection.item)">  Give adviser approval  <span class="glyphicon glyphicon-thumbs-up"></span></button>
@@ -168,7 +169,7 @@
                             </p>
                             <p>Discipline: {{selection.item.discipline}}</p>
                             <p>Format:  {{selection.item.format}}</p>
-                            <p>Type:{{selection.item.presentationType}}</p>
+                            <p>Type: {{selection.item.presentationType}}</p>
                             <p>Adviser: {{selection.item.adviserInfo.first}} {{selection.item.adviserInfo.last}}, email: {{selection.item.adviserInfo.email}}</p>
                             <p>{{selection.item.coadviserOneInfo.first | isntEmpty:"CoAdviser(s):":""}}{{selection.item.coadviserOneInfo.last | isntEmpty:"":""}}{{selection.item.coadviserTwoInfo.first | isntEmpty:",":""}} {{selection.item.coadviserTwoInfo.last | isntEmpty:"":""}}
                             </p>
@@ -195,7 +196,7 @@
                     <p ng-show="isAdviser(selection.item)">adviser of this submission</p>
                     <p ng-show="isReviewerGroup(selection.item)">reviewer in Reviewer Group {{selection.item.group}}</p>
                     <div ng-show="isAdmin() || isChair()"><b>Currently Assigned Review Group:</b>
-                        <select ng-change="setReviewGroup(selection.item)" ng-model="selection.reviewGroup">
+                        <select ng-change="setReviewGroupConfirm(selection.item)" ng-model="selection.reviewGroup">
                         <option ng-repeat="option in groupOptions" value={{option}}>{{option}}</option>
                     </select>
                     <br>
@@ -258,7 +259,7 @@
         <ul class="list-group" ng-show="(selection.resubmission != null) && selection.selected">
             <li class="list-group-item">
                 <h1>Resubmission</h1>
-                <button type="button" ng-show="hasAdminPrivs()" class="btn btn-success resubbutton" ng-click="approveResubmit()">Approve Resubmission</button>
+                <button type="button" ng-show="hasAdminPrivs()" class="btn btn-success resubbutton" ng-click="approveResubmitConfirm()">Approve Resubmission</button>
                 <button type="button" ng-show="isAdmin()" class="btn btn-danger" ng-click="deleteSubmissionConfirm(selection.resubmission)"><span class="glyphicon glyphicon-trash"></span></button>
             </li>
             <li class="list-group-item">

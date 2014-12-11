@@ -224,7 +224,7 @@ angular.module('umm3601ursamajorApp')
                               classes:"btn-default",
                               text: "OK",
                               click: function(e) {
-                                  warningModal.dismiss(e);
+                                  warningModal.close(e);
                               }
                           }]
                       }
