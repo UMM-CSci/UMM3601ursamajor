@@ -110,17 +110,17 @@
                         </select>
                         <button class="btn btn-warning" ng-click="updateReviewVotingConfirm(voteOption)">Submit</button>
                         <br>
-                        <div ng-show="hasAdminPrivs()">
                            <button class="btn btn-xs voteDropDown" ng-hide="showVotes" ng-click="showVotes = true">Show Votes <span class="glyphicon glyphicon-chevron-down"></span></button>
                            <button class="btn btn-xs voteDropDown" ng-show="showVotes" ng-click="showVotes = false">Hide Votes <span class="glyphicon glyphicon-chevron-up"></span></button>
-                        </div>
                         <br>
-                        <div ng-show="hasAdminPrivs() && showVotes">
+                        <div ng-show="showVotes">
+                        <br>
                         <p><b>Accepted without revisions votes</b>: {{selection.item.reviewVotes.Accepted.length}}</p>
                         <p><b>Minor revisions votes</b>: {{selection.item.reviewVotes.Minor.length}}</p>
                         <p><b>Major revisions votes</b>: {{selection.item.reviewVotes.Major.length}}</p>
                         <p><b>Total Rewrite votes</b>: {{selection.item.reviewVotes.TotalRewrite.length}}</p>
                         </div>
+                        <br>
                     </div>
                     <button ng-show="isAdmin()" class="btn btn-md btn-danger" ng-click="deleteSubmissionConfirm(selection.item)"><span class="glyphicon glyphicon-trash"></span></button>
 

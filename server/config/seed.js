@@ -177,7 +177,7 @@ User.find({}).remove(function() {
                 id: "116234824364241021424"
             },
             group: 2,
-            role: "reviewer",
+            role: "admin",
             __v: 0
         }, {
             name: "Jacob Opdahl",
@@ -457,7 +457,7 @@ Submission.find({}).remove(function(){
         copresenterTwoInfo: {first: "", last: "", email: ""},
         discipline: "Biology",
         sponsors: [], //Might need to worry about if this is static for the DB later.
-        adviserInfo: {first: "Peter",last: "Hans", email: "hans4858@morris.umn.edu"},
+        adviserInfo: {first: "Peter",last: "Hans", email: "saxxx027@morris.umn.edu"},
         coadviserOneInfo: {first: "Otto", last: "Marckell", email: "marck018@morris.umn.edu"},
         coadviserTwoInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
         featured: true,
@@ -465,7 +465,7 @@ Submission.find({}).remove(function(){
         specialRequirements: "A whale suit.",
 //        presenterTeeSize: "XL",
         otherInfo: "yes.",
-        approval: true,
+        approval: false,
         cc: false,
         rejection: false,
         status: {strict: "Reviewing in Process", priority: 2, text: "Your URS submission has been approved by your adviser."},

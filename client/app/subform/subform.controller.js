@@ -396,8 +396,7 @@ angular.module('umm3601ursamajorApp')
          *
          * @returns {boolean}  - Whether or not all emails are U of M Morris addresses.
          */
-        $scope.checkEmailsAreMorris = function (
-){
+        $scope.checkEmailsAreMorris = function (){
             var presenterEmail = $scope.submissionData.presenterInfo.email;
             var copresenterOneEmail = $scope.submissionData.copresenterOne.email;
             var copresenterTwoEmail = $scope.submissionData.copresenterTwo.email;
