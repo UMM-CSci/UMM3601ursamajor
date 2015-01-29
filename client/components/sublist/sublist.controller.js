@@ -621,10 +621,14 @@ angular.module('umm3601ursamajorApp')
             'Total rewrite'
         ];
 
-        $scope.voteHide = function(sub){
-          if(sub.status.priority == -15 || sub.status.priority == -14 || sub.status.priority == 15){
+        $scope.voteHide = function(sub) {
+          if (sub == null) return true;
+
+          if(sub.status.priority == -15 || sub.status.priority == -14 || sub.status.priority == 15) {
               return true;
           }
+
+          return false;
         };
 
         $scope.voteOption = "";

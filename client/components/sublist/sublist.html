@@ -122,6 +122,7 @@
                         </div>
                         <br>
                     </div>
+
                     <button ng-show="isAdmin()" class="btn btn-md btn-danger" ng-click="deleteSubmissionConfirm(selection.item)"><span class="glyphicon glyphicon-trash"></span></button>
 
                     <button ng-show="showResubmitButton().show" class="btn btn-md sideMargins moveRight {{showResubmitButton().style}}" ng-click="showResubmitButton().action()">{{showResubmitButton().text}}</button>
@@ -146,7 +147,7 @@
                                 <label>
                                     Select Submission Status <br>
                                     <select ng-model="statusEdit.temp.strict">
-                                        <option ng-repeat="status in statusEdit.options" ng-value="{{'status'}}">{{status}}</option>
+                                        <option ng-repeat="status in statusEdit.options" ng-value="'{{status}}'">{{status}}</option>
                                     </select>
                                 </label>
                             </div>
