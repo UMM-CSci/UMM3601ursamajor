@@ -134,31 +134,30 @@ User.find({}).remove(function() {
                 email: 'kanga139@morris.umn.edu',
                 id:"112564589444054176387"
             },
-            group: -1,
-            role: "chair",
+            group: 1,
+            role: "reviewer",
             __v: 0
         }, {
-            name: "Niccolas Ricci",
-            email: "ricc0082@morris.umn.edu",
-            tShirtSize: "Small",
+            name: "Mark Lehet",
+            email: "lehet005@morris.umn.edu",
             provider: "google",
             google: {
                 hd: "morris.umn.edu",
                 locale: "en",
                 gender: "male",
-                picture: "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg",
-                link: "https://plus.google.com/112108475765702437555",
-                family_name: "Ricci",
-                given_name: "Niccolas",
-                name: "Niccolas Ricci",
+                picture: "https://lh6.googleusercontent.com/-ismwlkS7xqs/AAAAAAAAAAI/AAAAAAAAABI/j0NXKAx-4GU/photo.jpg",
+                link: "https://plus.google.com/102737466880551658774",
+                family_name: "Lehet",
+                given_name: "Mark",
+                name: "Mark Lehet",
                 verified_email: true,
-                email: "ricc0082@morris.umn.edu",
-                id: "112108475765702437555"
+                email: "lehet005@morris.umn.edu",
+                id: "102737466880551658774"
             },
-            group: 3,
-            role: "reviewer",
+            group: -1,
+            role: "user",
             __v: 0
-        }, {
+      }, {
             name: "Maggie Casale",
             email: "casal033@morris.umn.edu",
             tShirtSize: "Small",
@@ -177,7 +176,7 @@ User.find({}).remove(function() {
                 id: "116234824364241021424"
             },
             group: 2,
-            role: "admin",
+            role: "chair",
             __v: 0
         }, {
             name: "Jacob Opdahl",
@@ -272,27 +271,6 @@ User.find({}).remove(function() {
             group: 3
         }, function () {
             console.log('finished populating users');
-        }, {
-            name: 'Dalton Gusaas',
-            email: 'gusaa004@morris.umn.edu',
-            tShirtSize: "Medium",
-            provider: 'google',
-            google: {
-                hd: 'morris.umn.edu',
-                locale: "en",
-                gender: "male",
-                picture: "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg",
-                link: "https://plus.google.com/105501894365476440976",
-                family_name: 'Gusaas',
-                given_name: 'Dalton',
-                name: "Dalton Gusaas",
-                verified_email: true,
-                email: 'gusaa004@morris.umn.edu',
-                id: '105501894365476440976'
-            },
-            group: 2,
-            role: "reviewer",
-            __v: 0
         }
     );
 });
@@ -311,14 +289,14 @@ Submission.find({}).remove(function(){
             "Saltwater may rust something faster than freshwater, but salt contains sodium chloride in which it causes the nails in saltwater to rust at a slower rate.",
         presentationType: "Oral Presentation",
         formatChange: true,
-        presenterInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
-        copresenterOneInfo: {first: "Maggie", last: "Casale", email: "casal033@morris.umn.edu"},
+        presenterInfo: {first: "Joseph", last: "Thelen", email: "thele116@morris.umn.edu"},
+        copresenterOneInfo: {first: "", last: "", email: ""},
         copresenterTwoInfo: {first: "", last: "", email: ""},
         discipline: "Chemistry",
         sponsors: [], //Might need to worry about if this is static for the DB later.
-        adviserInfo: {first: "Joseph", last: "Thelen", email: "thele116@morris.umn.edu"},
-        coadviserOneInfo: {first: "Dalton", last: "Gusaas", email: "gusaa004@morris.umn.edu"},
-        coadviserTwoInfo: {first: "Hongya", last: "Zhou", email: "zhou616@morris.umn.edu"},
+        adviserInfo: {first: "Hongya", last: "Zhou", email: "zhou616@morris.umn.edu"},
+        coadviserOneInfo: {first: "", last: "", email: ""},
+        coadviserTwoInfo: {first: "", last: "", email: ""},
         featured: false,
         mediaServicesEquipment: "",
         specialRequirements: "",
@@ -337,7 +315,7 @@ Submission.find({}).remove(function(){
                 beginner: 0,
                 ender: 64,
                 commentText:"You don't need to restate the title of the submission...",
-                commenter: "Joseph Thelen",
+                commenter: "Hongya Zhou",
                 selectionText : "The title of my project is called On Your March, Get Set, Rust! ",
                 indicator : 0,
                 timestamp : "Mon Dec 08 2014 18:41:16 GMT-0600 (CST)",
@@ -347,7 +325,7 @@ Submission.find({}).remove(function(){
                 beginner: 245 ,
                 ender: 284 ,
                 commentText: "Why were they sanded?" ,
-                commenter: "Joseph Thelen" ,
+                commenter: "Hongya Zhou" ,
                 selectionText: "sanding ten galvanized and common nails" ,
                 indicator: 0 ,
                 timestamp: "Mon Dec 08 2014 18:42:05 GMT-0600 (CST)" ,
@@ -355,7 +333,7 @@ Submission.find({}).remove(function(){
                 responses: [
                     {
                         "response": "Obviously to release the magical nail spirits.",
-                        "responder": "Joseph Thelen",
+                        "responder": "Hongya Zhou",
                         "timestamp": "Mon Dec 08 2014 19:03:17 GMT-0600 (CST)"
                     }
                 ]
@@ -363,7 +341,7 @@ Submission.find({}).remove(function(){
                 beginner: 161 ,
                 ender: 222 ,
                 commentText: "Poorly worded. Should be \"more quickly\" ?" ,
-                commenter: "Joseph Thelen" ,
+                commenter: "Hongya Zhou" ,
                 selectionText: " which type of nails, galvanized or common will rust quickly." ,
                 indicator: 0 ,
                 timestamp: "Mon Dec 08 2014 18:43:43 GMT-0600 (CST)" ,
@@ -373,7 +351,7 @@ Submission.find({}).remove(function(){
                 beginner: 536 ,
                 ender: 678 ,
                 commentText: "Big portion needs re-write..." ,
-                commenter: "Joseph Thelen" ,
+                commenter: "Hongya Zhou" ,
                 selectionText: "My results of my data resolves that galvanized and common nails in freshwater had a higher average or rust than the other nails in salt water." ,
                 indicator: 0 ,
                 timestamp: "Mon Dec 08 2014 18:44:47 GMT-0600 (CST)" ,
@@ -381,12 +359,11 @@ Submission.find({}).remove(function(){
                 responses: [
                     {
                         response: "But WHYYYYY?" ,
-                        responder: "Joseph Thelen" ,
+                        responder: "Hongya Zhou" ,
                         timestamp: "Mon Dec 08 2014 18:52:18 GMT-0600 (CST)"
                     }
                 ]
             }
-
         ],
         reviewVotes: {
             Accepted: [],
@@ -406,14 +383,14 @@ Submission.find({}).remove(function(){
             "Upon completion of the assignment we found the piece aesthetically pleasing because of the way it molds to the human body, but can be a piece all on its own.",
         presentationType: "Performance",
         formatChange: false,
-        presenterInfo: {first: "Jacob", last: "Opdahl", email: "opdah023@morris.umn.edu"},
-        copresenterOneInfo: {first: "Savannah", last: "Farm", email: "farmx009@morris.umn.edu"},
-        copresenterTwoInfo: {first: "Maggie", last: "Casale", email: "casal033@morris.umn.edu"},
+        presenterInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
+        copresenterOneInfo: {first: "Joseph", last: "Thelen", email: "thele116@morris.umn.edu"},
+        copresenterTwoInfo: {first: "", last: "", email: ""},
         discipline: "Art History",
         sponsors: [],
-        adviserInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
-        coadviserOneInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
-        coadviserTwoInfo: {first: "Zachary", last: "Threadgill", email: "threa010@morris.umn.edu"},
+        adviserInfo: {first: "Matt", last: "Kangas", email: "kanga139@morris.umn.edu"},
+        coadviserOneInfo: {first: "", last: "", email: ""},
+        coadviserTwoInfo: {first: "", last: "", email: ""},
         featured: true,
         mediaServicesEquipment: "",
         specialRequirements: "A space to perform with three people.",
@@ -452,12 +429,12 @@ Submission.find({}).remove(function(){
             "happens layers of dust and rock will begin to collect upon the space whale until eventually the space whale is rendered unable to feed, or is crushed to death.",
         presentationType: "Performance",
         formatChange: false,
-        presenterInfo: {first: "Joseph", last: "Thelen", email: "thele116@morris.umn.edu"},
-        copresenterOneInfo: {first: "Jacob", last: "Opdahl", email: "opdah023@morris.umn.edu"},
+        presenterInfo: {first: "Peter", last: "Hans", email: "saxxx027@morris.umn.edu"},
+        copresenterOneInfo: {first: "", last: "", email: ""},
         copresenterTwoInfo: {first: "", last: "", email: ""},
         discipline: "Biology",
         sponsors: [], //Might need to worry about if this is static for the DB later.
-        adviserInfo: {first: "Peter",last: "Hans", email: "saxxx027@morris.umn.edu"},
+        adviserInfo: {first: "Maggie",last: "Casale", email: "casal033@morris.umn.edu"},
         coadviserOneInfo: {first: "Otto", last: "Marckell", email: "marck018@morris.umn.edu"},
         coadviserTwoInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
         featured: true,
@@ -492,13 +469,13 @@ Submission.find({}).remove(function(){
             "this research highlights the importance of the revolution in shaping the actions of the United States government.",
         presentationType: "Performance",
         formatChange: false,
-        presenterInfo: {first: "Mitchell", last: "Finzel", email: "finze008@morris.umn.edu"},
+        presenterInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
         copresenterOneInfo: {first: "Brandon", last: "Moody", email: "moody107@morris.umn.edu"},
         copresenterTwoInfo: {first: "", last: "", email: ""},
         discipline: "History",
         sponsors: [], //Might need to worry about if this is static for the DB later.
         adviserInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
-        coadviserOneInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
+        coadviserOneInfo: {first: "", last: "", email: ""},
         coadviserTwoInfo: {first: "", last: "", email: ""},
         featured: true,
         mediaServicesEquipment: "A way to show images, either a projector or a warning so I can print them.",
@@ -536,7 +513,7 @@ Submission.find({}).remove(function(){
         copresenterTwoInfo: {first: "", last: "", email: ""},
         discipline: "English",
         sponsors: [], //Might need to worry about if this is static for the DB later.
-        adviserInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
+        adviserInfo: {first: "Otto", last: "Marckell", email: "marck018@morris.umn.edu"},
         coadviserOneInfo: {first: "", last: "", email: ""},
         coadviserTwoInfo: {first: "", last: "", email: ""},
         featured: true,
@@ -573,8 +550,8 @@ Submission.find({}).remove(function(){
         copresenterTwoInfo: {first: "Dalton", last: "Gusaas", email: "gusaa004@morris.umn.edu"},
         discipline: "Biology",
         sponsors: [], //Might need to worry about if this is static for the DB later.
-        adviserInfo: {first: "Maggie", last: "Casale", email: "casal033@morris.umn.edu"},
-        coadviserOneInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
+        adviserInfo: {first: "Otto", last: "Marckell", email: "marck018@morris.umn.edu"},
+        coadviserOneInfo: {first: "", last: "", email: ""},
         coadviserTwoInfo: {first: "", last: "", email: ""},
         featured: false,
         mediaServicesEquipment: "",
