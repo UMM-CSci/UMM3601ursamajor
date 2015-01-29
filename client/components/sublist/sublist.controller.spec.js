@@ -50,162 +50,156 @@ describe('Functions dealing with submissions...', function() {
        scope.submissions = [
         {
             _id: "uniqueIdString",
-          title: "A Study of the Properties of a Paperclip in the Digestive System of a Sloth",
-          format: "Artist Statement",
-          abstract: "Many physicists would agree that, had it not been for scatter/gather I/O, the study of link-level acknowledgements might never have occurred. " +
-          "While such a claim might seem unexpected, it usually conflicts with the need to provide thin clients to hackers worldwide. " +
-          "In fact, few security experts would disagree with the construction of kernels. In order to overcome this question, we construct an analysis of the Ethernet (Mollah)," +
-          " which we use to prove that redundancy and replication can interfere to achieve this aim. ",
-          presentationType: "Oral Presentation",
-          formatChange: false,
-          presenterInfo: {first: "Hongya", last: "Zhou", email: "zhoux616@morris.umn.edu"},
-          copresenterOneInfo: {first: "Otto", last: "Marckel II", email: "marck018@morris.umn.edu"},
-          copresenterTwoInfo: {first: "Dalton", last: "Gusaas", email: "gusaa004@morris.umn.edu"},
-          discipline: "Biology",
-          sponsors: [], //Might need to worry about if this is static for the DB later.
-          adviserInfo: {first: "Otto", last: "Marckell", email: "marck018@morris.umn.edu"},
-          coadviserOneInfo: {first: "", last: "", email: ""},
-          coadviserTwoInfo: {first: "", last: "", email: ""},
-          featured: false,
-          mediaServicesEquipment: "",
-          specialRequirements: "a sloth",
-//        presenterTeeSize: "M",
-           otherInfo: "Maybe",
-           approval: false,
-           rejection: false,
-           cc: true,
-           status: {strict: "Awaiting Adviser Approval", priority: -15, text: "Your adviser has yet to approve this submission."},
-           timestamp: "Mon Oct 20 2014 1:48:54 GMT-0500 (CDT)",
-           group: 3,
-           roomAssignment: "HFA 6",
-           resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
-           comments: [],
-           reviewVotes: {
-             Accepted: [],
-             Minor: [],
-             Major: [],
-             TotalRewrite: ["reviewer@reviewer.com"]
-           }
+            title: "A Study of the Properties of a Paperclip in the Digestive System of a Sloth",
+            format: "Artist Statement",
+            abstract: "Many physicists would agree that, had it not been for scatter/gather I/O, the study of link-level acknowledgements might never have occurred. " +
+                "While such a claim might seem unexpected, it usually conflicts with the need to provide thin clients to hackers worldwide. " +
+                "In fact, few security experts would disagree with the construction of kernels. In order to overcome this question, we construct an analysis of the Ethernet (Mollah)," +
+                " which we use to prove that redundancy and replication can interfere to achieve this aim. ",
+            presentationType: "Oral Presentation",
+            formatChange: false,
+            presenterInfo: {first: "Hongya", last: "Zhou", email: "zhoux616@morris.umn.edu"},
+            copresenterOneInfo: {first: "Otto", last: "Marckel II", email: "marck018@morris.umn.edu"},
+            copresenterTwoInfo: {first: "Dalton", last: "Gusaas", email: "gusaa004@morris.umn.edu"},
+            discipline: "Biology",
+            sponsors: [], //Might need to worry about if this is static for the DB later.
+            adviserInfo: {first: "Maggie", last: "Casale", email: "casal033@morris.umn.edu"},
+            coadviserOneInfo: {first: "Dalton", last: "Gusaas", email: "gusaa004@morris.umn.edu"},
+            coadviserTwoInfo: {},
+            featured: false,
+            mediaServicesEquipment: "",
+            specialRequirements: "a sloth",
+            presenterTeeSize: "M",
+            otherInfo: "Maybe",
+            approval: true,
+            rejection: false,
+            status: {strict: "Awaiting Adviser Approval", text: "Your adviser has yet to approve this submission."},
+            timestamp: "Mon Oct 20 2014 1:48:54 GMT-0500 (CDT)",
+            group: 3,
+            resubmissionData: {comment: "Initial Submission", parentSubmission: "testIdForTesting", isPrimary: false, resubmitFlag: false},
+            comments: [],
+            reviewVotes: {
+                Accepted: [],
+                Minor: [],
+                Major: [],
+                TotalRewrite: []
+            }
         }, {
            _id: "testIdForTesting",
            title: "Blind Construction: Mixed Media",
            format: "Artist Statement",
            abstract: "The basis of this project was to create a garment using mixed media in order to mimic the human body. " +
-           "The materials we used to create this piece include: buckram, copper wire, spray paint, fabric paint, a variety of novelty fabrics, and chains.  " +
-           "The techniques we created in order to manipulate the piece include: fabric branding and burning, grid painting, sewing, draping, molding buckram, and coiling.  " +
-           "Our overall approach was to create a theatrical wearable art piece. " +
-           "Upon completion of the assignment we found the piece aesthetically pleasing because of the way it molds to the human body, but can be a piece all on its own.",
+               "The materials we used to create this piece include: buckram, copper wire, spray paint, fabric paint, a variety of novelty fabrics, and chains.  " +
+               "The techniques we created in order to manipulate the piece include: fabric branding and burning, grid painting, sewing, draping, molding buckram, and coiling.  " +
+               "Our overall approach was to create a theatrical wearable art piece. " +
+               "Upon completion of the assignment we found the piece aesthetically pleasing because of the way it molds to the human body, but can be a piece all on its own.",
            presentationType: "Performance",
            formatChange: false,
-           presenterInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
-           copresenterOneInfo: {first: "Joseph", last: "Thelen", email: "thele116@morris.umn.edu"},
-           copresenterTwoInfo: {first: "", last: "", email: ""},
+           presenterInfo: {first: "Jacob", last: "Opdahl", email: "opdah023@morris.umn.edu"},
+           copresenterOneInfo: {first: "Savannah", last: "Farm", email: "farmx009@morris.umn.edu"},
+           copresenterTwoInfo: {first: "Maggie", last: "Casale", email: "casal033@morris.umn.edu"},
            discipline: "Art History",
            sponsors: [],
-           adviserInfo: {first: "Matt", last: "Kangas", email: "kanga139@morris.umn.edu"},
-           coadviserOneInfo: {first: "", last: "", email: ""},
-           coadviserTwoInfo: {first: "", last: "", email: ""},
+           adviserInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
+           coadviserOneInfo: {},
+           coadviserTwoInfo: {},
            featured: true,
            mediaServicesEquipment: "",
            specialRequirements: "A space to perform with three people.",
-//        presenterTeeSize: "M",
+           presenterTeeSize: "M",
            otherInfo: "",
-           approval: true,
-           cc: false,
+           approval: false,
            rejection: false,
-           status: {strict: "Revisions Needed", priority: 3, text: "Your URS submission has been flagged for revisions, and is in need of changes."},
+           status: {strict: "Revisions Needed", text: "Your URS submission has been flagged for revisions, and is in need of changes."},
            timestamp: "Tue Oct 21 2014 23:22:54 GMT-0500 (CDT)",
            group: 1,
-           roomAssignment: "Imholte 109",
            resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
            comments:[],
            reviewVotes: {
-             Accepted: ["reviewer@reviewer.com"],
-             Minor: [],
-             Major: [],
-             TotalRewrite: []
+                Accepted: [],
+                Minor: [],
+                Major: ["reviewer@reviewer.com"],
+                TotalRewrite: []
            }
         }, {
                _id: "veryUniqueID2",
-           title: "The Commemoration and Memorialization of the American Revolution",
-           format: "Artist Statement",
-           abstract: "This project involves discovering how the American Revolution was remembered during the nineteenth century.  " +
-           "The goal is to show that the American Revolution was memorialized by the actions of the United States government during the 1800s. " +
-           "This has been done by examining events such as the Supreme Court cases of John Marshall and the Nullification Crisis. " +
-           "Upon examination of these events, it becomes clear that John Marshall and John Calhoun (creator of the Doctrine of Nullification) " +
-           "attempted to use the American Revolution to bolster their claims by citing speeches from Founding Fathers. " +
-           "Through showing that the American Revolution lives on in memory, " +
-           "this research highlights the importance of the revolution in shaping the actions of the United States government.",
-           presentationType: "Performance",
-           formatChange: false,
-           presenterInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
-           copresenterOneInfo: {first: "Brandon", last: "Moody", email: "moody107@morris.umn.edu"},
-           copresenterTwoInfo: {first: "", last: "", email: ""},
-           discipline: "History",
-           sponsors: [], //Might need to worry about if this is static for the DB later.
-           adviserInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
-           coadviserOneInfo: {first: "", last: "", email: ""},
-           coadviserTwoInfo: {first: "", last: "", email: ""},
-           featured: true,
-           mediaServicesEquipment: "A way to show images, either a projector or a warning so I can print them.",
-           specialRequirements: "",
-//        presenterTeeSize: "XL",
-           otherInfo: "yes.",
-           approval: true,
-           cc: false,
-           rejection: false,
-           status: {strict: "Reviewing in Process", priority: 2, text: "Your URS submission has been approved by your adviser"},
-           timestamp: "Mon Oct 20 2014 1:48:54 GMT-0500 (CDT)",
-           group: 3,
-           roomAssignment: "Science 2610",
-           resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
-           comments: [],
-           reviewVotes: {
-             Accepted: [],
-             Minor: [],
-             Major: ["reviewer@reviewer.com"],
-             TotalRewrite: []
-           }
+               title: "The Commemoration and Memorialization of the American Revolution",
+               format: "Artist Statement",
+               abstract: "This project involves discovering how the American Revolution was remembered during the nineteenth century.  " +
+                   "The goal is to show that the American Revolution was memorialized by the actions of the United States government during the 1800s. " +
+                   "This has been done by examining events such as the Supreme Court cases of John Marshall and the Nullification Crisis. " +
+                   "Upon examination of these events, it becomes clear that John Marshall and John Calhoun (creator of the Doctrine of Nullification) " +
+                   "attempted to use the American Revolution to bolster their claims by citing speeches from Founding Fathers. " +
+                   "Through showing that the American Revolution lives on in memory, " +
+                   "this research highlights the importance of the revolution in shaping the actions of the United States government.",
+               presentationType: "Performance",
+               formatChange: false,
+               presenterInfo: {first: "Mitchell", last: "Finzel", email: "finze008@morris.umn.edu"},
+               copresenterOneInfo: {first: "Brandon", last: "Moody", email: "moody107@morris.umn.edu"},
+               copresenterTwoInfo: {first: "", last: "", email: ""},
+               discipline: "History",
+               sponsors: [], //Might need to worry about if this is static for the DB later.
+               adviserInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
+               coadviserOneInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
+               coadviserTwoInfo: {first: "", last: "", email: ""},
+               featured: true,
+               mediaServicesEquipment: "A way to show images, either a projector or a warning so I can print them.",
+               specialRequirements: "",
+               otherInfo: "yes.",
+               approval: true,
+               cc: false,
+               rejection: false,
+               status: {strict: "Reviewing in Process", priority: 2, text: "Your URS submission has been approved by your adviser"},
+               timestamp: "Mon Oct 20 2014 1:48:54 GMT-0500 (CDT)",
+               group: 3,
+               roomAssignment: "Science 2610",
+               resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+               comments: [],
+               reviewVotes: {
+                   Accepted: [],
+                   Minor: [],
+                   Major: ["reviewer@reviewer.com"],
+                   TotalRewrite: []
+               }
            }, {
                _id: "veryUniqueID3",
-           title: "Margaret C. Anderson’s Little Review",
-           format: "Social Science",
-           abstract: "This research looks at the work of Margaret C. Anderson, the editor of the Little Review.  " +
-           "The review published first works by Sherwood Anderson, James Joyce, Wyndham Lewis, and Ezra Pound.  " +
-           "This research draws upon mostly primary sources including memoirs, published letters, and a complete collection of the Little Review. " +
-           "Most prior research on Anderson focsal033@morris.umn.eduuses on her connection to the famous writers and personalities that she published and associated with.  " +
-           "This focus undermines her role as the dominant creative force behind one of the most influential little magazines published in the 20th Century. " +
-           "This case example shows how little magazine publishing is arguably a literary art.",
-           presentationType: "Poster or Visual Display",
-           formatChange: true,
-           presenterInfo: {first: "Savannah", last: "Farm", email: "farmx009@morris.umn.edu"},
-           copresenterOneInfo: {first: "", last: "", email: ""},
-           copresenterTwoInfo: {first: "", last: "", email: ""},
-           discipline: "English",
-           sponsors: [], //Might need to worry about if this is static for the DB later.
-           adviserInfo: {first: "Otto", last: "Marckell", email: "marck018@morris.umn.edu"},
-           coadviserOneInfo: {first: "", last: "", email: ""},
-           coadviserTwoInfo: {first: "", last: "", email: ""},
-           featured: true,
-           mediaServicesEquipment: "",
-           specialRequirements: "A small space to make the presentation personal.",
-//        presenterTeeSize: "S",
-           otherInfo: "yes.",
-           approval: true,
-           cc: false,
-           rejection: false,
-           status: {strict: "Accepted", priority: 15, text: "Your URS submission has been approved, congratulations!"},
-           timestamp: "Thur Oct 23 2014 1:48:54 GMT-0500 (CDT)",
-           group: 2,
-           roomAssignment: "Science 2610",
-           resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
-           comments: [],
-           reviewVotes: {
-             Accepted: [],
-             Minor: [],
-             Major: [],
-             TotalRewrite: ["reviewer@reviewer.com"]
-           }
+               title: "Margaret C. Anderson’s Little Review",
+               format: "Social Science",
+               abstract: "This research looks at the work of Margaret C. Anderson, the editor of the Little Review.  " +
+                   "The review published first works by Sherwood Anderson, James Joyce, Wyndham Lewis, and Ezra Pound.  " +
+                   "This research draws upon mostly primary sources including memoirs, published letters, and a complete collection of the Little Review. " +
+                   "Most prior research on Anderson focsal033@morris.umn.eduuses on her connection to the famous writers and personalities that she published and associated with.  " +
+                   "This focus undermines her role as the dominant creative force behind one of the most influential little magazines published in the 20th Century. " +
+                   "This case example shows how little magazine publishing is arguably a literary art.",
+               presentationType: "Poster or Visual Display",
+               formatChange: true,
+               presenterInfo: {first: "Savannah", last: "Farm", email: "farmx009@morris.umn.edu"},
+               copresenterOneInfo: {first: "", last: "", email: ""},
+               copresenterTwoInfo: {first: "", last: "", email: ""},
+               discipline: "English",
+               sponsors: [], //Might need to worry about if this is static for the DB later.
+               adviserInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
+               coadviserOneInfo: {first: "", last: "", email: ""},
+               coadviserTwoInfo: {first: "", last: "", email: ""},
+               featured: true,
+               mediaServicesEquipment: "",
+               specialRequirements: "A small space to make the presentation personal.",
+               otherInfo: "yes.",
+               approval: true,
+               cc: false,
+               rejection: false,
+               status: {strict: "Accepted", priority: 15, text: "Your URS submission has been approved, congratulations!"},
+               timestamp: "Thur Oct 23 2014 1:48:54 GMT-0500 (CDT)",
+               group: 2,
+               roomAssignment: "Science 2610",
+               resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: true},
+               comments: [],
+               reviewVotes: {
+                   Accepted: [],
+                   Minor: [],
+                   Major: [],
+                   TotalRewrite: ["reviewer@reviewer.com"]
+               }
            }
        ]
     });
