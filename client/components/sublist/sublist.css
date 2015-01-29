@@ -37,7 +37,7 @@ hr {
 }
 
 /*Adds Italics and Times font*/
-#text{
+.text{
     font-style: oblique;
     font-family: "Times New Roman", Times, monospace;
 }
