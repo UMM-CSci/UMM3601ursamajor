@@ -57,7 +57,7 @@ angular.module('umm3601ursamajorApp')
 
 
         $scope.filterByUser = function(user){
-            console.log(user);
+            console.log("user");
             if($scope.filterSelection === "All"){
                 return true;
             } else if($scope.filterSelection === "reviewer"){
