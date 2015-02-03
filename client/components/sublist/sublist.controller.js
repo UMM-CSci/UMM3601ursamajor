@@ -59,7 +59,7 @@ angular.module('umm3601ursamajorApp')
             featurePresentationFilterOptions: [
                 "All",
                 "Wants to be featured",
-                "Doesn't want to be featured"
+                "No desire to be featured"
             ],
             flaggedForResubmitFilterSelection: "All",
             flaggedForResubmitFilterOptions: [
@@ -224,7 +224,7 @@ angular.module('umm3601ursamajorApp')
                 return true;
             } else if($scope.filterData.featurePresentationFilterSelection === "Wants to be featured"){
                 return submission.featured === true;
-            } else if($scope.filterData.featurePresentationFilterSelection === "Doesn't want to be featured"){
+            } else if($scope.filterData.featurePresentationFilterSelection === "No desire to be featured"){
                 return submission.featured === false;
             } else {
                 return false;
