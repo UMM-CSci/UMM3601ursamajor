@@ -420,6 +420,4 @@ describe('Functions dealing with submissions...', function() {
         });
 
     });
-
-
 });

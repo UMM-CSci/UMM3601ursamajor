@@ -218,9 +218,10 @@
                 </li>
             </ul>
         </div>
+        <!--Button for adding a comment-->
         <div ng-show="selection.selected" class="col-md-3">
             <button class="btn btn-primary btn-block" ng-click="addComment(selection.item)">New Comment <span class="glyphicon glyphicon-pencil"></span></button>
-
+            <!--Displays the comments as well as the buttons for showing/hiding responses, deleting comments if you have admin privs and viewing the details of a comment-->
             <ul class="plainList ">
                 <li ng-repeat="comment in displayedComments()" ng-click="selectComment($index)" class="clickable alert alert-warning block commentStyle">
                     <p>{{comment.commentText | isntEmpty:"Comment:":"(No comment...)"}}</p>
@@ -238,6 +239,7 @@
                             </ul>
                         </div>
                     </div>
+                    <!--Display of responses as well as buttons associated with deleting them if the user has admin privs-->
                     <div ng-show="showResponses">
                         <hr class="lineColor">
                         <div style="margin-left: 3px; padding-left: 10px; border-left: 2px solid steelblue" ng-repeat="response in comment.responses">
@@ -249,7 +251,7 @@
                 </li>
             </ul>
 
-
+            <!--Creates the pagination for the displayed comments-->
             <pagination ng-show="selection.item.comments.length > 10" class="pagination-sm" total-items="selection.item.comments.length" ng-model="currentCommentPage"></pagination>
         </div>
     </div>

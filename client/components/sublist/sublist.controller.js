@@ -1009,7 +1009,6 @@ angular.module('umm3601ursamajorApp')
 
         //Creates a comment Object and patches it to the database
         $scope.addComment = function (submission) {
-            console.log(submission.abstract.length);
             var commentObj = {};
             var comments = submission.comments;
             var commenter = $scope.getCurrentUser().name;
@@ -1115,7 +1114,7 @@ angular.module('umm3601ursamajorApp')
             Modal.confirm.deleteComment($scope.deleteComment)("this comment and all of its responses",submission,index);
         };
 
-        //Removbes a comment from a submissions comment array and then patches it to the database
+        //Removes a comment from a submissions comment array and then patches it to the database
         $scope.deleteComment = function (submission, index){
             var comments = submission.comments;
                 comments.splice(index, 1);
