@@ -1015,18 +1015,23 @@ angular.module('umm3601ursamajorApp')
             var commenter = $scope.getCurrentUser().name;
             var selection = $window.getSelection();
             var commentText = prompt("Comment");
-            if(selection.anchorNode.data && selection.focusNode.data == submission.abstract) {
-                if (selection.anchorOffset <= selection.focusOffset) {
-                    commentObj.beginner = selection.anchorOffset;
-                    commentObj.ender = selection.focusOffset;
-                } else if (selection.anchorOffset > selection.focusOffset) {
-                    commentObj.ender = selection.anchorOffset;
-                    commentObj.beginner = selection.focusOffset;
-                }
+          if(selection.anchorNode != null) {
+            if (selection.anchorNode.data && selection.focusNode.data == submission.abstract) {
+              if (selection.anchorOffset <= selection.focusOffset) {
+                commentObj.beginner = selection.anchorOffset;
+                commentObj.ender = selection.focusOffset;
+              } else if (selection.anchorOffset > selection.focusOffset) {
+                commentObj.ender = selection.anchorOffset;
+                commentObj.beginner = selection.focusOffset;
+              }
             } else {
-                commentObj.beginner = 0;
-                commentObj.ender = 0;
+              commentObj.beginner = 0;
+              commentObj.ender = 0;
             }
+          } else {
+            commentObj.beginner = 0;
+            commentObj.ender = 0;
+          }
             commentObj.commentText = commentText;
             commentObj.commenter = commenter;
             commentObj.selectionText = selection.toString();
