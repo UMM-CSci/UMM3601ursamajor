@@ -47,7 +47,7 @@ angular.module('umm3601ursamajorApp')
             for(var i = 0; i < $scope.statusArray.length; i++) {
                 if ($scope.statusArray[i].priority == -15) {
                     $scope.startingStatus = $scope.statusArray[i].strict;
-                    $scope.submissionData.status = {strict: $scope.startingStatus, text: ""};
+                    $scope.submissionData.status = {strict: $scope.startingStatus, priority: -15, text: ""};
                 }
             }
         });
@@ -375,7 +375,7 @@ angular.module('umm3601ursamajorApp')
             if(copresenterTwoEmail != ""){
                 copresenterTwoCheck = (copresenterTwoEmail.indexOf("umn.edu") != -1);
             }
-            
+
             var adviserEmailCheck = (adviserEmail.indexOf("umn.edu") != -1);
 
             if(coadviserOneEmail != ""){
@@ -408,7 +408,7 @@ angular.module('umm3601ursamajorApp')
             var copresenterTwoCheck = true;
             var coadviserOneCheck = true;
             var coadviserTwoCheck = true;
-        
+
             var presenterCheck = (presenterEmail.indexOf("morris.umn.edu") != -1);
 
             if(copresenterOneEmail != ""){
@@ -418,7 +418,7 @@ angular.module('umm3601ursamajorApp')
             if(copresenterTwoEmail != ""){
                 copresenterTwoCheck = (copresenterTwoEmail.indexOf("morris.umn.edu") != -1);
             }
-            
+
             var adviserEmailCheck = (adviserEmail.indexOf("morris.umn.edu") != -1);
 
             if(coadviserOneEmail != ""){
@@ -428,20 +428,20 @@ angular.module('umm3601ursamajorApp')
             if(coadviserTwoEmail != ""){
                 coadviserTwoCheck = (coadviserTwoEmail.indexOf("morris.umn.edu") != -1);
             }
-            
+
             return presenterCheck && copresenterOneCheck &&
                 copresenterTwoCheck && adviserEmailCheck
                 && coadviserOneCheck && coadviserTwoCheck;
         };
-        
+
         //must check that primary adviser is Morris, but all others can be just umn, because primary must log in with Morris email
         $scope.checkPrimaryEmails = function(){
             var presenterEmail = $scope.submissionData.presenterInfo.email;
             var adviserEmail = $scope.submissionData.adviserInfo.email;
-            
+
             var presenterEmailCheck = (presenterEmail.indexOf("morris.umn.edu") != -1);
             var adviserEmailCheck = (adviserEmail.indexOf("morris.umn.edu") != -1);
-            
+
             return presenterEmailCheck && adviserEmailCheck;
         };
 
@@ -495,10 +495,10 @@ angular.module('umm3601ursamajorApp')
             }
 
             // If the user is NOT resubmitting, sets the status to the default submission status (lowest priority #?)
-            if(!$scope.isResubmitting){
-                $scope.submissionData.status = {strict: $scope.startingStatus, text: ""};
-                //updating status to ensure that it works....?
-            }
+            //if(!$scope.isResubmitting){
+            //    $scope.submissionData.status = {strict: $scope.startingStatus, text: ""};
+            //    //updating status to ensure that it works....?
+            //}
 
             // if the user IS resubmitting, transfers the comments from the parent submission into submissionData for inclusion in the resubmission.
             if($scope.isResubmitting){
