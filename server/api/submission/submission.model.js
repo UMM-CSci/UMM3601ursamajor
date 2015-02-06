@@ -23,10 +23,7 @@ var SubmissionSchema = new Schema({
 //    presenterTeeSize: String,
     otherInfo: String,
     approval: Boolean,
-    cc: {
-        type: Boolean,
-        default: false
-    },
+    cc: Boolean,
     rejection: Boolean,
     status: {strict: String, priority: Number, text: String},
     timestamp: String,

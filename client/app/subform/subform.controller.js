@@ -100,15 +100,6 @@ angular.module('umm3601ursamajorApp')
 
         $scope.numberOfSources = $scope.fundingSources.length;
 
-//        $scope.teeSizes = [
-//            'S',
-//            'M',
-//            'L',
-//            'XL',
-//            'XXL',
-//            'XXXL'
-//        ];
-
         $scope.submissionData = {
             title: "",
             format: "",
@@ -127,9 +118,10 @@ angular.module('umm3601ursamajorApp')
             featuredPresentation: Boolean,
             mediaServicesEquipment: "",
             specialRequirements: "",
-//            presenterTeeSize: "",
             otherInfo: "",
             approval: false,
+            cc: false,
+            rejection: false,
             resubmitComment: "",
             resubmitParent: "",
             resubmitFlag: false,
@@ -196,9 +188,10 @@ angular.module('umm3601ursamajorApp')
                 featuredPresentation: Boolean,
                 mediaServicesEquipment: "",
                 specialRequirements: "",
-//                presenterTeeSize: "",
                 otherInfo: "",
                 approval: false,
+                cc: false,
+                rejection: false,
                 resubmitComment: "",
                 resubmitParent: "",
                 resubmitFlag: false,
@@ -322,9 +315,10 @@ angular.module('umm3601ursamajorApp')
                 featuredPresentation: submission.featured,
                 mediaServicesEquipment: submission.mediaServicesEquipment,
                 specialRequirements: submission.specialRequirements,
-//                presenterTeeSize: submission.presenterTeeSize,
                 otherInfo: submission.otherInfo,
                 approval: submission.approval,
+                cc: submission.cc,
+                rejection: submission.rejection,
                 resubmitComment: "",
                 resubmitParent: submission._id,
                 resubmitFlag: false,
@@ -495,12 +489,6 @@ angular.module('umm3601ursamajorApp')
                 }
             }
 
-            // If the user is NOT resubmitting, sets the status to the default submission status (lowest priority #?)
-            //if(!$scope.isResubmitting){
-            //    $scope.submissionData.status = {strict: $scope.startingStatus, text: ""};
-            //    //updating status to ensure that it works....?
-            //}
-
             // if the user IS resubmitting, transfers the comments from the parent submission into submissionData for inclusion in the resubmission.
             if($scope.isResubmitting){
                 console.log("saving comments from original submission");
@@ -526,11 +514,10 @@ angular.module('umm3601ursamajorApp')
                     featured: $scope.submissionData.featuredPresentation,
                     mediaServicesEquipment: $scope.submissionData.mediaServicesEquipment,
                     specialRequirements: $scope.submissionData.specialRequirements,
-//                    presenterTeeSize: $scope.submissionData.presenterTeeSize,
                     otherInfo: $scope.submissionData.otherInfo,
                     approval: $scope.submissionData.approval,
-                    cc: false,
-                    rejection: false,
+                    cc: $scope.submissionData.cc,
+                    rejection: $scope.submissionData.rejection,
                     status: $scope.submissionData.status,
                     timestamp: $scope.timestamp,
                     group: $scope.submissionData.group,
