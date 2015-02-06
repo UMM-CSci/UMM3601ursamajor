@@ -561,6 +561,15 @@ angular.module('umm3601ursamajorApp')
                 Modal.confirm.warning($scope.sendSpecialAdviserEmail)("If you do not send the email that will be automatically generated, your adviser will not receive a notification to approve your submission.");
             };
 
+            if($scope.isResubmitting) {
+              $scope.resetData();
+              console.log('reseting data');
+              if($scope.attemptRedirect){
+                $location.path('/submissionpage');
+                console.log('redirecting');
+              };
+            };
+
         };
 
         $scope.resetAndRedirect = function(){
