@@ -4,7 +4,6 @@
     <div class="btn-group-vertical btn-block padded" ng-show="hasResubmitFlags()">
         <button type="button" class="btn btn-default disabled ">You have {{flaggedSubmissions.length}} submission(s) flagged for resubmitting! Click on the submission below to select it for resubmission.</button>
         <button type="button" class="btn btn-default ResubButton" ng-repeat="item in flaggedSubmissions" ng-click="getResubmitData(item)">{{item.title}}</button>
-
     </div>
 
     <!--<button ng-show="isAdmin()" ng-click="adminAutoSubmit(1)" class="btn btn-danger btn-block">ADMIN AUTO SUBMIT (1x)</button>-->
@@ -46,8 +45,6 @@
 
     <pre class="preStyle">{{submissionText.notes3}}</pre>
 
-    <!-- Potentially add link to adviser form, or a way to email the adviser about the form. -->
-
     <hr>
 
     <form  ng-submit="preSubmitChecks()" id="form1">
@@ -84,7 +81,6 @@
             </select>
         </label>
         <br>
-
 
         <div class="padded mobileCompatable">
             <b><pre class="preStyle">{{submissionText.submissionFormatChange}}</pre></b>
@@ -129,7 +125,7 @@
             <b><pre class="preStyle">{{submissionText.submissionSponsors}}</pre></b>
             <pre class="preStyleSmall">{{submissionText.submissionSponsorsNotes}}</pre>
             <label ng-repeat="source in fundingSources" class="stacked">
-                <input ng-model="submissionData.sponsors[$index]" type="checkbox" value="{{source}}" ng-value="{{source}}" ng-true-value="'{{source}}'" ng-false-value="''">{{" " + source}}
+                <input ng-model="submissionData.sponsors[$index]" type="checkbox" value="{{source}}" ng-value="'{{source}}'" ng-true-value="'{{source}}'" ng-false-value="''">{{" " + source}}
             </label>
             <input type="text" placeholder="Other?" ng-model="submissionData.sponsors[numberOfSources]">
         </div>
@@ -143,7 +139,6 @@
         </div>
 
         <div class="padded mobileCompatable">
-        <!--<b><pre class="preStyle">{{submissionText.submissionAdviser}}</pre></b>-->
             <b><pre class="preStyle">{{submissionText.submissionCoadviserOne}}</pre></b>
             <input type="text"  placeholder="first name" ng-model="submissionData.coadviserOneInfo.first">
             <input type="text"  placeholder="last name" ng-model="submissionData.coadviserOneInfo.last"><br>
@@ -179,17 +174,6 @@
             <b><pre class="preStyle">{{submissionText.submissionSpecialRequirements}}</pre></b>
             <textarea class="mobileCompatable" name="specialRequirements"  cols="50" ng-model="submissionData.specialRequirements" placeholder="Explain in detail." maxlength="1000"></textarea>
         </div>
-
-        <!--<label class="padded">-->
-            <!--<pre class="preStyle">{{submissionText.submissionTee}}</pre>-->
-            <!--<pre class="preStyleSmall">{{submissionText.submissionTeeNotes}}</pre>-->
-            <!--<select ng-model="submissionData.presenterTeeSize" required>-->
-                <!--<option value="" disabled selected>Select One</option>-->
-                <!--<option ng-repeat="size in teeSizes" value="{{size}}">{{size}}</option>-->
-            <!--</select>-->
-        <!--</label>-->
-
-        <!--<br>-->
 
         <div class="padded mobileCompatable">
             <b><pre class="preStyle">{{submissionText.submissionOther}}</pre></b>

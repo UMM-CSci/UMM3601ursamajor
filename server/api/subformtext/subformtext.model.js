@@ -36,8 +36,6 @@ var SubformtextSchema = new Schema({
   submissionFeatured: String,
   submissionMediaServices: String,
   submissionSpecialRequirements: String,
-  //submissionTee: String,
-  //submissionTeeNotes: String,
   submissionOther: String
 });
 
