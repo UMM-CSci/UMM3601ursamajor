@@ -29,6 +29,120 @@ describe('filter', function() {
             }));
     });
 
+});
+
+describe('filterSelections', function() {
+  beforeEach(module('umm3601ursamajorApp'));
+  beforeEach(module('socketMock'));
+  beforeEach(module('authMock'));
+
+  var SublistCtrl, scope;
+
+  beforeEach(inject(function($controller, $rootScope) {
+    scope = $rootScope.$new();
+    SublistCtrl = $controller('SublistCtrl', {
+      $scope: scope
+    });
+  }));
+
+  beforeEach(function() {
+    scope.filterData = {
+      searchText: "",
+      orderByPredicate: "",
+      reviewGroupFilterSelection: "All",
+      reviewGroupFilterOptions: [
+        "All",
+        "Unassigned",
+        "Review Group 1",
+        "Review Group 2",
+        "Review Group 3",
+        "Review Group 4"
+      ],
+      tabFilter: {isPresenter:false, isCoPresenter:false, isReviewer:false, isAdviser:false},
+      featurePresentationFilterSelection: "All",
+      featurePresentationFilterOptions: [
+        "All",
+        "Wants to be featured",
+        "No desire to be featured"
+      ],
+      flaggedForResubmitFilterSelection: "All",
+      flaggedForResubmitFilterOptions: [
+        "All",
+        "Flagged",
+        "Not Flagged"
+      ],
+      pendingResubmissionsSelection: "All",
+      pendingResubmissionsOptions: [
+        "All",
+        "Pending Resubmissions",
+        "Not Pending Resubmissions"
+      ]
+    };
+  });
+
+  describe('Function that sets the string for filtering based on review group.', function() {
+    it('Should change the scope.reviewGroupFilterSelection from All to Review Group 1', function() {
+      expect(scope.filterData.reviewGroupFilterSelection).toEqual(scope.filterData.reviewGroupFilterOptions[0]);
+      scope.setReviewGroupSelection(scope.filterData.reviewGroupFilterOptions[2]);
+      expect(scope.filterData.reviewGroupFilterSelection).toEqual(scope.filterData.reviewGroupFilterOptions[2]);
+    });
+
+    it('Should change the scope.reviewGroupFilterSelection from All to unassigned to Review group 3.', function() {
+      expect(scope.filterData.reviewGroupFilterSelection).toEqual(scope.filterData.reviewGroupFilterOptions[0]);
+      scope.setReviewGroupSelection(scope.filterData.reviewGroupFilterOptions[1]);
+      expect(scope.filterData.reviewGroupFilterSelection).toEqual(scope.filterData.reviewGroupFilterOptions[1]);
+      scope.setReviewGroupSelection(scope.filterData.reviewGroupFilterOptions[4]);
+      expect(scope.filterData.reviewGroupFilterSelection).toEqual(scope.filterData.reviewGroupFilterOptions[4]);
+    });
+  });
+
+  describe('Function that sets the string for filtering based on feature presentation.', function() {
+    it('Should change the scope.featurePresentationFilterSelection from All to Wants to be featured', function() {
+      expect(scope.filterData.featurePresentationFilterSelection).toEqual(scope.filterData.featurePresentationFilterOptions[0]);
+      scope.setFeaturePresentationFilterSelection(scope.filterData.featurePresentationFilterOptions[1]);
+      expect(scope.filterData.featurePresentationFilterSelection).toEqual(scope.filterData.featurePresentationFilterOptions[1]);
+    });
+
+    it('Should change the scope.featurePresentationFilterSelection from All to No desire to be featured, back to all.', function() {
+      expect(scope.filterData.featurePresentationFilterSelection).toEqual(scope.filterData.featurePresentationFilterOptions[0]);
+      scope.setFeaturePresentationFilterSelection(scope.filterData.featurePresentationFilterOptions[2]);
+      expect(scope.filterData.featurePresentationFilterSelection).toEqual(scope.filterData.featurePresentationFilterOptions[2]);
+      scope.setFeaturePresentationFilterSelection(scope.filterData.featurePresentationFilterOptions[0]);
+      expect(scope.filterData.featurePresentationFilterSelection).toEqual(scope.filterData.featurePresentationFilterOptions[0]);
+    });
+  });
+
+  describe('Function that sets the string for filtering based on flagged for resubmission.', function() {
+    it('Should change the scope.flaggedForResubmitFilterSelection from All to Wants to Not Flagged', function() {
+      expect(scope.filterData.flaggedForResubmitFilterSelection).toEqual(scope.filterData.flaggedForResubmitFilterOptions[0]);
+      scope.setFlaggedForResubmitFilterSelection(scope.filterData.flaggedForResubmitFilterOptions[2]);
+      expect(scope.filterData.flaggedForResubmitFilterSelection).toEqual(scope.filterData.flaggedForResubmitFilterOptions[2]);
+    });
+
+    it('Should change the scope.flaggedForResubmitFilterSelection from All to No desire to Flagged, to Not Flagged.', function() {
+      expect(scope.filterData.flaggedForResubmitFilterSelection).toEqual(scope.filterData.flaggedForResubmitFilterOptions[0]);
+      scope.setFlaggedForResubmitFilterSelection(scope.filterData.flaggedForResubmitFilterOptions[1]);
+      expect(scope.filterData.flaggedForResubmitFilterSelection).toEqual(scope.filterData.flaggedForResubmitFilterOptions[1]);
+      scope.setFlaggedForResubmitFilterSelection(scope.filterData.flaggedForResubmitFilterOptions[2]);
+      expect(scope.filterData.flaggedForResubmitFilterSelection).toEqual(scope.filterData.flaggedForResubmitFilterOptions[2]);
+    });
+  });
+
+  describe('Function that sets the string for filtering based on pending resubmission.', function() {
+    it('Should change the scope.pendingResubmissionsSelection from All to All', function() {
+      expect(scope.filterData.pendingResubmissionsSelection).toEqual(scope.filterData.pendingResubmissionsOptions[0]);
+      scope.setPendingResubmissionsSelection(scope.filterData.pendingResubmissionsOptions[0]);
+      expect(scope.filterData.pendingResubmissionsSelection).toEqual(scope.filterData.pendingResubmissionsOptions[0]);
+    });
+
+    it('Should change the scope.pendingResubmissionsSelection from All to Pending Resubmissions to Not Pending Resubmissions', function() {
+      expect(scope.filterData.pendingResubmissionsSelection).toEqual(scope.filterData.pendingResubmissionsOptions[0]);
+      scope.setPendingResubmissionsSelection(scope.filterData.pendingResubmissionsOptions[1]);
+      expect(scope.filterData.pendingResubmissionsSelection).toEqual(scope.filterData.pendingResubmissionsOptions[1]);
+      scope.setPendingResubmissionsSelection(scope.filterData.pendingResubmissionsOptions[2]);
+      expect(scope.filterData.pendingResubmissionsSelection).toEqual(scope.filterData.pendingResubmissionsOptions[2]);
+    });
+  });
 
 });
 
@@ -72,8 +186,9 @@ describe('Functions dealing with submissions...', function() {
             presenterTeeSize: "M",
             otherInfo: "Maybe",
             approval: true,
+            cc: false,
             rejection: false,
-            status: {strict: "Awaiting Adviser Approval", text: "Your adviser has yet to approve this submission."},
+            status: {strict: "Awaiting Adviser Approval", priority: -15, text: "Your adviser has yet to approve this submission."},
             timestamp: "Mon Oct 20 2014 1:48:54 GMT-0500 (CDT)",
             group: 3,
             resubmissionData: {comment: "Initial Submission", parentSubmission: "testIdForTesting", isPrimary: false, resubmitFlag: false},
@@ -109,8 +224,9 @@ describe('Functions dealing with submissions...', function() {
            presenterTeeSize: "M",
            otherInfo: "",
            approval: false,
+           cc: false,
            rejection: false,
-           status: {strict: "Revisions Needed", text: "Your URS submission has been flagged for revisions, and is in need of changes."},
+           status: {strict: "Revisions Needed", priority: 3, text: "Your URS submission has been flagged for revisions, and is in need of changes."},
            timestamp: "Tue Oct 21 2014 23:22:54 GMT-0500 (CDT)",
            group: 1,
            resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
@@ -412,12 +528,26 @@ describe('Functions dealing with submissions...', function() {
 
     describe('Testing for statuses in submissions...', function() {
         it('Status for submission 1 [0] should be "Awaiting Adviser Approval"...', function() {
-            expect(scope.submissions[0].status).toEqual({strict: 'Awaiting Adviser Approval', text: 'Your adviser has yet to approve this submission.'});
+            expect(scope.submissions[0].status).toEqual({strict: 'Awaiting Adviser Approval', priority: -15, text: 'Your adviser has yet to approve this submission.'});
         });
 
         it('Status for submission 2 [1] should be "Awaiting Adviser Approval"...', function() {
-            expect(scope.submissions[1].status).toEqual({strict: 'Revisions Needed', text: 'Your URS submission has been flagged for revisions, and is in need of changes.'});
+            expect(scope.submissions[1].status).toEqual({strict: 'Revisions Needed', priority: 3, text: 'Your URS submission has been flagged for revisions, and is in need of changes.'});
         });
 
+    });
+
+    describe('Function that verifies a submission is not in progress and still needs adviser approval (statusApprovalConflict)', function() {
+        it('Should return false if the submission argument is null.', function() {
+            expect(scope.statusApprovalConflict(null)).toEqual(false);
+        });
+
+        it('Should return true if the submission argument has false for adviser approval and priority is not -15', function() {
+           expect(scope.statusApprovalConflict(scope.submissions[1])).toEqual(true);
+        });
+
+        it('Should return false if the submission argument has true for adviser approval and priority is -15', function() {
+          expect(scope.statusApprovalConflict(scope.submissions[2])).toEqual(false);
+        });
     });
 });
