@@ -85,13 +85,37 @@ describe('Controller for Admin Page...', function() {
         expect(1).toEqual(1);
     });
 
+//----------------------- Trying to test data in mongo --------------//
+/*    describe('Getting Data from Mongo Functions', function(){
+      it('getting user data', function() {
+        $http.get('/api/users').success(function(users);
+        expect(scope.users).toEqual(users);
+      });
+    });*/
+
     describe('system info functions...', function() {
+        it('Total # of tracked submissions', function() {
+          expect(scope.trackedSubmissions()).toEqual(1);
+        });
+
         it('Total # of submissions in system should be accurate', function() {
            expect(scope.totalSubmissions()).toEqual(2);
         });
 
+       it('Total percentage of tracked submissions', function() {
+          expect(scope.precentageTracked()).toEqual(50);
+        });
+
         it('Total # of registered users should be accurate', function() {
             expect(scope.totalUsers()).toEqual(3);
+        });
+
+        it('Total # of resubmitflags', function() {
+          expect(scope.resubmitFlags()).toEqual(0);
+        });
+
+        it('Total # of resubmitflags', function() {
+          expect(scope.unapprovedResubmits()).toEqual(1);
         });
     });
 
@@ -108,6 +132,7 @@ describe('Controller for Admin Page...', function() {
                 }
             }
         });
+
     });
 
 
