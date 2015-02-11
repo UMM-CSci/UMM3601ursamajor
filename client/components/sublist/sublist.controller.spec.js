@@ -1,7 +1,3 @@
-/**
-* Created by saxxx027 on 11/10/14.
-*/
-
 'use strict';
 
 describe('filter', function() {
