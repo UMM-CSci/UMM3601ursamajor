@@ -546,4 +546,109 @@ describe('Functions dealing with submissions...', function() {
           expect(scope.statusApprovalConflict(scope.submissions[2])).toEqual(false);
         });
     });
+
+    describe('Functions that are used to check a users relation to a submission', function () {
+        it('isPresenter(submission) should return false if submission is null.', function () {
+            expect(scope.isPresenter(null)).toEqual(false);
+        });
+
+        it('isCoPresenter(submission) should return false if submission is null.', function () {
+          expect(scope.isCoPresenter(null)).toEqual(false);
+        });
+
+        it('isCoPresenter(submission) should return true if email is a copresenter.', function () {
+          scope.email = scope.submissions[1].copresenterOneInfo.email;
+          expect(scope.isCoPresenter(scope.submissions[1])).toEqual(true);
+        });
+
+        it('isCoPresenter(submission) should return false if email is not a copresenter.', function () {
+          scope.email = "crazyunrealemailthatwillneverhappen@morris.umn.edu";
+          expect(scope.isCoPresenter(scope.submissions[1])).toEqual(false);
+        });
+
+        it('isAdviser(submission) should return false if submission is null.', function () {
+          expect(scope.isAdviser(null)).toEqual(false);
+        });
+
+        it('isAdviser(submission) should return true if the email is a coadviser.', function () {
+          scope.email = scope.submissions[0].coadviserOneInfo.email;
+          expect(scope.isAdviser(scope.submissions[0])).toEqual(true);
+        });
+
+        it('isAdviser(submission) should return false if the email is not not any adviser of the submission', function () {
+          scope.email = "crazyunrealemailthatwillneverhappen@morris.umn.edu";
+          expect(scope.isAdviser(scope.submissions[0])).toEqual(false);
+        });
+
+        it('isPrimaryAdviser(submission) should return false if submission is null.', function () {
+          expect(scope.isPrimaryAdviser(null)).toEqual(false);
+        });
+
+        it('isPrimaryAdviser(submission) should return true for submission 0 if the correct primary adviser appears.', function () {
+          scope.email = scope.submissions[0].adviserInfo.email;
+          expect(scope.isPrimaryAdviser(scope.submissions[0])).toEqual(true);
+        });
+
+        it('isPrimaryAdviser(submission) should return false for submission 0 if the eamil doesnt match.', function () {
+          scope.email = "crazyunrealemailthatwillneverhappen@morris.umn.edu";
+          expect(scope.isPrimaryAdviser(scope.submissions[0])).toEqual(false);
+        });
+
+        it('isReviewerGroup(submission) should return false if submission is null.', function () {
+          expect(scope.isReviewerGroup(null)).toEqual(false);
+        });
+
+        it('isReviewerGroup(submission) should return true if group is same.', function () {
+          scope.group = scope.submissions[2].group;
+          expect(scope.isReviewerGroup(scope.submissions[2])).toEqual(true);
+        });
+
+        it('isReviewerGroup(submission) should return false if group is different.', function () {
+          scope.group = 100; //Non-existant review group.
+          expect(scope.isReviewerGroup(scope.submissions[2])).toEqual(false);
+        });
+    });
+
+    //describe('Function that returns true if in any way a user should have permissions to see a submission', function () {
+    //
+    //    beforeEach(inject(function(Auth){Auth.setCurrentUser("admin@admin.com", null, 1)}));
+    //
+    //    it('User without a role should not have permissions', inject(function(Auth){Auth.setCurrentUser("admin@admin.com", null, 1)}) ,function() {
+    //      console.log(!Auth.isLoggedIn);
+    //      console.log(Auth.getCurrentUser().role);
+    //      expect(scope.hasPermissions(scope.submissions[0])).toEqual(false);
+    //    });
+    //});
+
+    describe('Functions that check the review group of a submission', function(){
+      it('reviewGroupFilter(submission) should return false if the filter doesnt match the submissions review group', function(){
+        scope.filterData.reviewGroupFilterSelection = "Unassigned";
+        expect(scope.reviewGroupFilter(scope.submissions[0])).toEqual(false);
+      });
+
+      it('reviewGroupFilter(submission) should return false if the filter doesnt match the submissions review group', function(){
+        scope.filterData.reviewGroupFilterSelection = "Review Group 1";
+        expect(scope.reviewGroupFilter(scope.submissions[0])).toEqual(false);
+      });
+
+      it('reviewGroupFilter(submission) should return true if the filter does match the submissions review group', function(){
+        scope.filterData.reviewGroupFilterSelection = "Review Group 2";
+        expect(scope.reviewGroupFilter(scope.submissions[3])).toEqual(true);
+      });
+
+      it('reviewGroupFilter(submission) should return true if the filter does match the submissions review group', function(){
+        scope.filterData.reviewGroupFilterSelection = "Review Group 3";
+        expect(scope.reviewGroupFilter(scope.submissions[0])).toEqual(true);
+      });
+
+      it('reviewGroupFilter(submission) should return false if the filter doesnt match the submissions review group', function(){
+        scope.filterData.reviewGroupFilterSelection = "Review Group 4";
+        expect(scope.reviewGroupFilter(scope.submissions[0])).toEqual(false);
+      });
+
+      it('reviewGroupFilter(submission) should return false if the filter doesnt match the submissions review group', function(){
+        scope.filterData.reviewGroupFilterSelection = "Review Group Not Going to Happen!";
+        expect(scope.reviewGroupFilter(scope.submissions[0])).toEqual(false);
+      });
+    });
 });
