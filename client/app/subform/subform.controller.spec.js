@@ -97,6 +97,16 @@ describe('Controller: SubformCtrl', function () {
         expect(1).toEqual(1);
     });
 
+    it('Updates $scope.flaggedSubmissions with any submissions owned by the user that have active resubmit flags', function(){
+        scope.updateFlaggedSubmissions(scope.submissions);
+        expect(scope.submissions[0].resubmissionData.resubmitFlag).toEqual(false);
+        expect(scope.submissions[1].resubmissionData.resubmitFlag).toEqual(false);
+    });
+
+    it('Should return whether or not flagged submissions exist for a user', function(){
+        expect(scope.hasResubmitFlags()).toEqual(scope.flaggedSubmissions.length > 0);
+    });
+
     it('Should convert arrays for submission list', function() {
         var testSponsors_1 = [
             "UROP",
@@ -235,6 +245,19 @@ describe('Controller: SubformCtrl', function () {
         expect(scope.submissionData.title).toBe("");
         expect(scope.submissionData.formatChange).toBe(Boolean);
         expect(scope.submissionData.sponsors.length).toBe(0);
+    });
+
+    it('Returns the number of chatacters the user has left for their abstract.', function() {
+        expect(scope.charsRemaining()).toEqual(1000 - scope.submissionData.abstract.length);
+    });
+
+    it('must check that primary adviser is Morris, but all others can be just umn, because primary must log in with Morris email.', function() {
+        expect(scope.checkPrimaryEmails()).toEqual(scope.submissionData.presenterInfo.email.indexOf("morris.umn.edu") != -1 && scope.submissionData.adviserInfo.email.indexOf("morris.umn.edu") != -1);
+    });
+
+    it('Returns the number of chatacters the user has left for their abstract.', function() {
+        expect(scope.sendSpecialAdviserEmail()).toEqual(scope.sendAdviserEmail());
+        expect(scope.sendSpecialAdviserEmail()).toEqual(scope.resetAndRedirect());
     });
 
 });
