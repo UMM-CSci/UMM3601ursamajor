@@ -86,12 +86,6 @@ describe('Controller for Admin Page...', function() {
     });
 
 //----------------------- Trying to test data in mongo --------------//
-/*    describe('Getting Data from Mongo Functions', function(){
-      it('getting user data', function() {
-        $http.get('/api/users').success(function(users);
-        expect(scope.users).toEqual(users);
-      });
-    });*/
 
     describe('system info functions...', function() {
         it('Total # of tracked submissions', function() {
@@ -119,9 +113,17 @@ describe('Controller for Admin Page...', function() {
         });
     });
 
-    describe('functions affecting the view...', function() {
+  //----------------------------- Nav Control ---------------------------//
+
+  describe('functions affecting the view...', function() {
         it('default view should be statistics view', function(){
-            expect(scope.toggles.statsToggle).toEqual(true);
+          expect(scope.toggles.statsToggle).toEqual(true);
+          expect(scope.toggles.subFormEditorToggle).toEqual(false);
+          expect(scope.toggles.userEditToggle).toEqual(false);
+          expect(scope.toggles.statusEditToggle).toEqual(false);
+          expect(scope.toggles.abstractBookToggle).toEqual(false);
+          expect(scope.toggles.subListToggle).toEqual(false);
+
         });
 
         it('resetToggles should reset the view completely', function(){
@@ -131,6 +133,12 @@ describe('Controller for Admin Page...', function() {
                     expect(scope.toggles[key]).toEqual(false);
                 }
             }
+        });
+
+        it('toggling sublist', function() {
+            scope.toggles.subListToggle();
+            scope.resetToggles();
+            expect(scope.toggles.subListToggle).toEqual(true);
         });
 
     });
