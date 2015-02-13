@@ -25,6 +25,120 @@ describe('filter', function() {
             }));
     });
 
+});
+
+describe('filterSelections', function() {
+  beforeEach(module('umm3601ursamajorApp'));
+  beforeEach(module('socketMock'));
+  beforeEach(module('authMock'));
+
+  var SublistCtrl, scope;
+
+  beforeEach(inject(function($controller, $rootScope) {
+    scope = $rootScope.$new();
+    SublistCtrl = $controller('SublistCtrl', {
+      $scope: scope
+    });
+  }));
+
+  beforeEach(function() {
+    scope.filterData = {
+      searchText: "",
+      orderByPredicate: "",
+      reviewGroupFilterSelection: "All",
+      reviewGroupFilterOptions: [
+        "All",
+        "Unassigned",
+        "Review Group 1",
+        "Review Group 2",
+        "Review Group 3",
+        "Review Group 4"
+      ],
+      tabFilter: {isPresenter:false, isCoPresenter:false, isReviewer:false, isAdviser:false},
+      featurePresentationFilterSelection: "All",
+      featurePresentationFilterOptions: [
+        "All",
+        "Wants to be featured",
+        "No desire to be featured"
+      ],
+      flaggedForResubmitFilterSelection: "All",
+      flaggedForResubmitFilterOptions: [
+        "All",
+        "Flagged",
+        "Not Flagged"
+      ],
+      pendingResubmissionsSelection: "All",
+      pendingResubmissionsOptions: [
+        "All",
+        "Pending Resubmissions",
+        "Not Pending Resubmissions"
+      ]
+    };
+  });
+
+  describe('Function that sets the string for filtering based on review group.', function() {
+    it('Should change the scope.reviewGroupFilterSelection from All to Review Group 1', function() {
+      expect(scope.filterData.reviewGroupFilterSelection).toEqual(scope.filterData.reviewGroupFilterOptions[0]);
+      scope.setReviewGroupSelection(scope.filterData.reviewGroupFilterOptions[2]);
+      expect(scope.filterData.reviewGroupFilterSelection).toEqual(scope.filterData.reviewGroupFilterOptions[2]);
+    });
+
+    it('Should change the scope.reviewGroupFilterSelection from All to unassigned to Review group 3.', function() {
+      expect(scope.filterData.reviewGroupFilterSelection).toEqual(scope.filterData.reviewGroupFilterOptions[0]);
+      scope.setReviewGroupSelection(scope.filterData.reviewGroupFilterOptions[1]);
+      expect(scope.filterData.reviewGroupFilterSelection).toEqual(scope.filterData.reviewGroupFilterOptions[1]);
+      scope.setReviewGroupSelection(scope.filterData.reviewGroupFilterOptions[4]);
+      expect(scope.filterData.reviewGroupFilterSelection).toEqual(scope.filterData.reviewGroupFilterOptions[4]);
+    });
+  });
+
+  describe('Function that sets the string for filtering based on feature presentation.', function() {
+    it('Should change the scope.featurePresentationFilterSelection from All to Wants to be featured', function() {
+      expect(scope.filterData.featurePresentationFilterSelection).toEqual(scope.filterData.featurePresentationFilterOptions[0]);
+      scope.setFeaturePresentationFilterSelection(scope.filterData.featurePresentationFilterOptions[1]);
+      expect(scope.filterData.featurePresentationFilterSelection).toEqual(scope.filterData.featurePresentationFilterOptions[1]);
+    });
+
+    it('Should change the scope.featurePresentationFilterSelection from All to No desire to be featured, back to all.', function() {
+      expect(scope.filterData.featurePresentationFilterSelection).toEqual(scope.filterData.featurePresentationFilterOptions[0]);
+      scope.setFeaturePresentationFilterSelection(scope.filterData.featurePresentationFilterOptions[2]);
+      expect(scope.filterData.featurePresentationFilterSelection).toEqual(scope.filterData.featurePresentationFilterOptions[2]);
+      scope.setFeaturePresentationFilterSelection(scope.filterData.featurePresentationFilterOptions[0]);
+      expect(scope.filterData.featurePresentationFilterSelection).toEqual(scope.filterData.featurePresentationFilterOptions[0]);
+    });
+  });
+
+  describe('Function that sets the string for filtering based on flagged for resubmission.', function() {
+    it('Should change the scope.flaggedForResubmitFilterSelection from All to Wants to Not Flagged', function() {
+      expect(scope.filterData.flaggedForResubmitFilterSelection).toEqual(scope.filterData.flaggedForResubmitFilterOptions[0]);
+      scope.setFlaggedForResubmitFilterSelection(scope.filterData.flaggedForResubmitFilterOptions[2]);
+      expect(scope.filterData.flaggedForResubmitFilterSelection).toEqual(scope.filterData.flaggedForResubmitFilterOptions[2]);
+    });
+
+    it('Should change the scope.flaggedForResubmitFilterSelection from All to No desire to Flagged, to Not Flagged.', function() {
+      expect(scope.filterData.flaggedForResubmitFilterSelection).toEqual(scope.filterData.flaggedForResubmitFilterOptions[0]);
+      scope.setFlaggedForResubmitFilterSelection(scope.filterData.flaggedForResubmitFilterOptions[1]);
+      expect(scope.filterData.flaggedForResubmitFilterSelection).toEqual(scope.filterData.flaggedForResubmitFilterOptions[1]);
+      scope.setFlaggedForResubmitFilterSelection(scope.filterData.flaggedForResubmitFilterOptions[2]);
+      expect(scope.filterData.flaggedForResubmitFilterSelection).toEqual(scope.filterData.flaggedForResubmitFilterOptions[2]);
+    });
+  });
+
+  describe('Function that sets the string for filtering based on pending resubmission.', function() {
+    it('Should change the scope.pendingResubmissionsSelection from All to All', function() {
+      expect(scope.filterData.pendingResubmissionsSelection).toEqual(scope.filterData.pendingResubmissionsOptions[0]);
+      scope.setPendingResubmissionsSelection(scope.filterData.pendingResubmissionsOptions[0]);
+      expect(scope.filterData.pendingResubmissionsSelection).toEqual(scope.filterData.pendingResubmissionsOptions[0]);
+    });
+
+    it('Should change the scope.pendingResubmissionsSelection from All to Pending Resubmissions to Not Pending Resubmissions', function() {
+      expect(scope.filterData.pendingResubmissionsSelection).toEqual(scope.filterData.pendingResubmissionsOptions[0]);
+      scope.setPendingResubmissionsSelection(scope.filterData.pendingResubmissionsOptions[1]);
+      expect(scope.filterData.pendingResubmissionsSelection).toEqual(scope.filterData.pendingResubmissionsOptions[1]);
+      scope.setPendingResubmissionsSelection(scope.filterData.pendingResubmissionsOptions[2]);
+      expect(scope.filterData.pendingResubmissionsSelection).toEqual(scope.filterData.pendingResubmissionsOptions[2]);
+    });
+  });
 
 });
 
@@ -68,8 +182,9 @@ describe('Functions dealing with submissions...', function() {
             presenterTeeSize: "M",
             otherInfo: "Maybe",
             approval: true,
+            cc: false,
             rejection: false,
-            status: {strict: "Awaiting Adviser Approval", text: "Your adviser has yet to approve this submission."},
+            status: {strict: "Awaiting Adviser Approval", priority: -15, text: "Your adviser has yet to approve this submission."},
             timestamp: "Mon Oct 20 2014 1:48:54 GMT-0500 (CDT)",
             group: 3,
             resubmissionData: {comment: "Initial Submission", parentSubmission: "testIdForTesting", isPrimary: false, resubmitFlag: false},
@@ -105,8 +220,9 @@ describe('Functions dealing with submissions...', function() {
            presenterTeeSize: "M",
            otherInfo: "",
            approval: false,
+           cc: false,
            rejection: false,
-           status: {strict: "Revisions Needed", text: "Your URS submission has been flagged for revisions, and is in need of changes."},
+           status: {strict: "Revisions Needed", priority: 3, text: "Your URS submission has been flagged for revisions, and is in need of changes."},
            timestamp: "Tue Oct 21 2014 23:22:54 GMT-0500 (CDT)",
            group: 1,
            resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
@@ -408,12 +524,238 @@ describe('Functions dealing with submissions...', function() {
 
     describe('Testing for statuses in submissions...', function() {
         it('Status for submission 1 [0] should be "Awaiting Adviser Approval"...', function() {
-            expect(scope.submissions[0].status).toEqual({strict: 'Awaiting Adviser Approval', text: 'Your adviser has yet to approve this submission.'});
+            expect(scope.submissions[0].status).toEqual({strict: 'Awaiting Adviser Approval', priority: -15, text: 'Your adviser has yet to approve this submission.'});
         });
 
         it('Status for submission 2 [1] should be "Awaiting Adviser Approval"...', function() {
-            expect(scope.submissions[1].status).toEqual({strict: 'Revisions Needed', text: 'Your URS submission has been flagged for revisions, and is in need of changes.'});
+            expect(scope.submissions[1].status).toEqual({strict: 'Revisions Needed', priority: 3, text: 'Your URS submission has been flagged for revisions, and is in need of changes.'});
         });
 
+    });
+
+    describe('Function that verifies a submission is not in progress and still needs adviser approval (statusApprovalConflict)', function() {
+        it('Should return false if the submission argument is null.', function() {
+            expect(scope.statusApprovalConflict(null)).toEqual(false);
+        });
+
+        it('Should return true if the submission argument has false for adviser approval and priority is not -15', function() {
+           expect(scope.statusApprovalConflict(scope.submissions[1])).toEqual(true);
+        });
+
+        it('Should return false if the submission argument has true for adviser approval and priority is -15', function() {
+          expect(scope.statusApprovalConflict(scope.submissions[2])).toEqual(false);
+        });
+    });
+
+    describe('Functions that are used to check a users relation to a submission', function () {
+        it('isPresenter(submission) should return false if submission is null.', function () {
+            expect(scope.isPresenter(null)).toEqual(false);
+        });
+
+        it('isCoPresenter(submission) should return false if submission is null.', function () {
+          expect(scope.isCoPresenter(null)).toEqual(false);
+        });
+
+        it('isCoPresenter(submission) should return true if email is a copresenter.', function () {
+          scope.email = scope.submissions[1].copresenterOneInfo.email;
+          expect(scope.isCoPresenter(scope.submissions[1])).toEqual(true);
+        });
+
+        it('isCoPresenter(submission) should return false if email is not a copresenter.', function () {
+          scope.email = "crazyunrealemailthatwillneverhappen@morris.umn.edu";
+          expect(scope.isCoPresenter(scope.submissions[1])).toEqual(false);
+        });
+
+        it('isAdviser(submission) should return false if submission is null.', function () {
+          expect(scope.isAdviser(null)).toEqual(false);
+        });
+
+        it('isAdviser(submission) should return true if the email is a coadviser.', function () {
+          scope.email = scope.submissions[0].coadviserOneInfo.email;
+          expect(scope.isAdviser(scope.submissions[0])).toEqual(true);
+        });
+
+        it('isAdviser(submission) should return false if the email is not not any adviser of the submission', function () {
+          scope.email = "crazyunrealemailthatwillneverhappen@morris.umn.edu";
+          expect(scope.isAdviser(scope.submissions[0])).toEqual(false);
+        });
+
+        it('isPrimaryAdviser(submission) should return false if submission is null.', function () {
+          expect(scope.isPrimaryAdviser(null)).toEqual(false);
+        });
+
+        it('isPrimaryAdviser(submission) should return true for submission 0 if the correct primary adviser appears.', function () {
+          scope.email = scope.submissions[0].adviserInfo.email;
+          expect(scope.isPrimaryAdviser(scope.submissions[0])).toEqual(true);
+        });
+
+        it('isPrimaryAdviser(submission) should return false for submission 0 if the eamil doesnt match.', function () {
+          scope.email = "crazyunrealemailthatwillneverhappen@morris.umn.edu";
+          expect(scope.isPrimaryAdviser(scope.submissions[0])).toEqual(false);
+        });
+
+        it('isReviewerGroup(submission) should return false if submission is null.', function () {
+          expect(scope.isReviewerGroup(null)).toEqual(false);
+        });
+
+        it('isReviewerGroup(submission) should return true if group is same.', function () {
+          scope.group = scope.submissions[2].group;
+          expect(scope.isReviewerGroup(scope.submissions[2])).toEqual(true);
+        });
+
+        it('isReviewerGroup(submission) should return false if group is different.', function () {
+          scope.group = 100; //Non-existant review group.
+          expect(scope.isReviewerGroup(scope.submissions[2])).toEqual(false);
+        });
+    });
+
+    // THis test is experiencing issues since it attempts to use auth. Commented out for the time being.
+    //describe('Function that returns true if in any way a user should have permissions to see a submission', function () {
+    //
+    //    beforeEach(inject(function(Auth){Auth.setCurrentUser("admin@admin.com", null, 1)}));
+    //
+    //    it('User without a role should not have permissions', inject(function(Auth){Auth.setCurrentUser("admin@admin.com", null, 1)}) ,function() {
+    //      console.log(!Auth.isLoggedIn);
+    //      console.log(Auth.getCurrentUser().role);
+    //      expect(scope.hasPermissions(scope.submissions[0])).toEqual(false);
+    //    });
+    //});
+
+    describe('Functions that check the current filter selections are enabled and checks the submission to see if they should be shown.', function () {
+      describe('Functions that check the review group of a submission', function () {
+        it('reviewGroupFilter(submission) should return false if the filter doesnt match the submissions review group', function () {
+          scope.filterData.reviewGroupFilterSelection = "Unassigned";
+          expect(scope.reviewGroupFilter(scope.submissions[0])).toEqual(false);
+        });
+
+        it('reviewGroupFilter(submission) should return false if the filter doesnt match the submissions review group', function () {
+          scope.filterData.reviewGroupFilterSelection = "Review Group 1";
+          expect(scope.reviewGroupFilter(scope.submissions[0])).toEqual(false);
+        });
+
+        it('reviewGroupFilter(submission) should return true if the filter does match the submissions review group', function () {
+          scope.filterData.reviewGroupFilterSelection = "Review Group 2";
+          expect(scope.reviewGroupFilter(scope.submissions[3])).toEqual(true);
+        });
+
+        it('reviewGroupFilter(submission) should return true if the filter does match the submissions review group', function () {
+          scope.filterData.reviewGroupFilterSelection = "Review Group 3";
+          expect(scope.reviewGroupFilter(scope.submissions[0])).toEqual(true);
+        });
+
+        it('reviewGroupFilter(submission) should return false if the filter doesnt match the submissions review group', function () {
+          scope.filterData.reviewGroupFilterSelection = "Review Group 4";
+          expect(scope.reviewGroupFilter(scope.submissions[0])).toEqual(false);
+        });
+
+        it('reviewGroupFilter(submission) should return false if the filter doesnt match the submissions review group', function () {
+          scope.filterData.reviewGroupFilterSelection = "Review Group Not Going to Happen!";
+          expect(scope.reviewGroupFilter(scope.submissions[0])).toEqual(false);
+        });
+      });
+
+      describe('Functions that check if filters are selected for feature presentation and sees if they apply to submissions.', function() {
+        it('featurePresentationFilter(submission) should return true if selection is all.', function() {
+          scope.filterData.featurePresentationFilterSelection = "All";
+          expect(scope.featurePresentationFilter(scope.submissions[0])).toEqual(true);
+          expect(scope.featurePresentationFilter(scope.submissions[1])).toEqual(true);
+          expect(scope.featurePresentationFilter(scope.submissions[2])).toEqual(true);
+          expect(scope.featurePresentationFilter(scope.submissions[3])).toEqual(true);
+        });
+
+        it('featurePresentationFilter(submission) should return true if submission doesnt want to be featured and featured is false.', function() {
+          scope.filterData.featurePresentationFilterSelection = "No desire to be featured";
+          expect(scope.featurePresentationFilter(scope.submissions[0])).toEqual(true);
+        });
+
+        it('featurePresentationFilter(submission) should return false if submission doesnt want to be featured and featured is true.', function() {
+          scope.filterData.featurePresentationFilterSelection = "No desire to be featured";
+          expect(scope.featurePresentationFilter(scope.submissions[1])).toEqual(false);
+        });
+
+        it('featurePresentationFilter(submission) should return true if submission does want to be featured and featured is true.', function() {
+          scope.filterData.featurePresentationFilterSelection = "Wants to be featured";
+          expect(scope.featurePresentationFilter(scope.submissions[1])).toEqual(true);
+        });
+
+        it('featurePresentationFilter(submission) should return false if submission does want to be featured and featured is false.', function() {
+          scope.filterData.featurePresentationFilterSelection = "Wants to be featured";
+          expect(scope.featurePresentationFilter(scope.submissions[0])).toEqual(false);
+        });
+
+        it('featurePresentationFilter(submission) should return false if the selection is something ridiculous.', function() {
+          scope.filterData.featurePresentationFilterSelection = "Something Ridiculous.";
+          expect(scope.featurePresentationFilter(scope.submissions[0])).toEqual(false);
+          expect(scope.featurePresentationFilter(scope.submissions[1])).toEqual(false);
+          expect(scope.featurePresentationFilter(scope.submissions[2])).toEqual(false);
+          expect(scope.featurePresentationFilter(scope.submissions[3])).toEqual(false);
+        });
+      });
+
+      describe('Functions that check if filters are selected for resubmission flags and sees if they apply to submissions.', function () {
+        it('flaggedForResubmitFilter(submission) should return true if the All filter is selected.', function() {
+          scope.filterData.flaggedForResubmitFilterSelection = "All";
+          expect(scope.flaggedForResubmitFilter(scope.submissions[0])).toEqual(true);
+          expect(scope.flaggedForResubmitFilter(scope.submissions[1])).toEqual(true);
+          expect(scope.flaggedForResubmitFilter(scope.submissions[2])).toEqual(true);
+          expect(scope.flaggedForResubmitFilter(scope.submissions[3])).toEqual(true);
+        });
+
+        it('flaggedForResubmitFilter(submission) should return false if the Flagged filter is selected and the submission isnt flagged.', function() {
+          scope.filterData.flaggedForResubmitFilterSelection = "Flagged";
+          expect(scope.flaggedForResubmitFilter(scope.submissions[2])).toEqual(false);
+        });
+
+        it('flaggedForResubmitFilter(submission) should return true if the Not Flagged filter is selected and the submission isnt flagged.', function() {
+          scope.filterData.flaggedForResubmitFilterSelection = "Not Flagged";
+          expect(scope.flaggedForResubmitFilter(scope.submissions[1])).toEqual(true);
+        });
+
+        it('flaggedForResubmitFilter(submission) should return false if something ridiculous is selected.', function() {
+          scope.filterData.flaggedForResubmitFilterSelection = "A Crazy option That Won't Ever Happen.";
+          expect(scope.flaggedForResubmitFilter(scope.submissions[0])).toEqual(false);
+          expect(scope.flaggedForResubmitFilter(scope.submissions[1])).toEqual(false);
+          expect(scope.flaggedForResubmitFilter(scope.submissions[2])).toEqual(false);
+          expect(scope.flaggedForResubmitFilter(scope.submissions[3])).toEqual(false);
+        });
+      });
+
+      describe('Functions that check if filters are selected for pending resubmissions and sees if they apply to submissions.', function() {
+        it('pendingResubmissionsFilter(submission) should return true if the All filter is selected.', function() {
+          scope.filterData.pendingResubmissionsSelection = "All";
+          expect(scope.pendingResubmissionsFilter(scope.submissions[0])).toEqual(true);
+          expect(scope.pendingResubmissionsFilter(scope.submissions[1])).toEqual(true);
+          expect(scope.pendingResubmissionsFilter(scope.submissions[2])).toEqual(true);
+          expect(scope.pendingResubmissionsFilter(scope.submissions[3])).toEqual(true);
+        });
+
+        it('pendingResubmissionsFilter(submission) should return false if the Pending Resubmissions filter is selected and a submission has no resubmissions pending.', function() {
+          scope.filterData.pendingResubmissionsSelection = "Pending Resubmissions";
+          expect(scope.pendingResubmissionsFilter(scope.submissions[0])).toEqual(false);
+        });
+
+        it('pendingResubmissionsFilter(submission) should return true if the Pending Resubmissions filter is selected and a submission hasresubmissions pending.', function() {
+          scope.filterData.pendingResubmissionsSelection = "Pending Resubmissions";
+          expect(scope.pendingResubmissionsFilter(scope.submissions[1])).toEqual(true);
+        });
+
+        it('pendingResubmissionsFilter(submission) should return true if the Not Pending Resubmissions filter is selected and a submission has no resubmissions pending.', function() {
+          scope.filterData.pendingResubmissionsSelection = "Not Pending Resubmissions";
+          expect(scope.pendingResubmissionsFilter(scope.submissions[0])).toEqual(true);
+        });
+
+        it('pendingResubmissionsFilter(submission) should return false if the Not Pending Resubmissions filter is selected and a submission has resubmissions pending.', function() {
+          scope.filterData.pendingResubmissionsSelection = "Not Pending Resubmissions";
+          expect(scope.pendingResubmissionsFilter(scope.submissions[1])).toEqual(false);
+        });
+
+        it('pendingResubmissionsFilter(submission) should return false if something ridiculous is selected.', function() {
+          scope.filterData.pendingResubmissionsSelection = "This option will never happen unless someone sees this test and intentionally makes it break in which case it is their fault and they can fix it.";
+          expect(scope.pendingResubmissionsFilter(scope.submissions[0])).toEqual(false);
+          expect(scope.pendingResubmissionsFilter(scope.submissions[1])).toEqual(false);
+          expect(scope.pendingResubmissionsFilter(scope.submissions[2])).toEqual(false);
+          expect(scope.pendingResubmissionsFilter(scope.submissions[3])).toEqual(false);
+        });
+      });
     });
 });

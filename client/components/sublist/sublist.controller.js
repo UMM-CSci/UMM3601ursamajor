@@ -77,7 +77,7 @@ angular.module('umm3601ursamajorApp')
 
         // Returns true if a submission has a status that is not the default and it also does not have adviser approval.
         $scope.statusApprovalConflict = function(submission) {
-            console.log("submission");
+            //console.log("submission");
 
             if(submission == null) return false;
             return (submission.status.priority != -15 && !submission.approval);
