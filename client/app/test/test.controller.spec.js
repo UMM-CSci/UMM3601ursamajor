@@ -18,4 +18,9 @@ describe('Controller: TestCtrl', function () {
   it('should ...', function () {
     expect(1).toEqual(1);
   });
+/*
+  it('should add comment', function () {
+    var selection = window.getSelection();
+    expect(var commentText).toEqual(prompt("Comment"));
+  });*/
 });

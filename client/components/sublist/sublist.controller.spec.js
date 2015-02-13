@@ -330,6 +330,7 @@ describe('Functions dealing with submissions...', function() {
             expect(scope.hasAdminPrivs()).toEqual(true);
         });
 
+
 //        it('Should return true if featured is true, return false is featured is false', inject(['$filter', function(featurePresentationFilter) {
 //            var $scope.filterData.featurePresentationFilterSelection = "";
 //            scope.setFeaturePresentationFilterSelection("All");

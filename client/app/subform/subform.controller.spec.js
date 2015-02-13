@@ -97,6 +97,14 @@ describe('Controller: SubformCtrl', function () {
         expect(1).toEqual(1);
     });
 
+/*  it('Default review group filter should show ALL submissions...', inject(['$filter', function($filter) {
+    expect($filter('filter')(scope.submissions, scope.reviewGroupFilter).length == scope.submissions.length).toEqual(true);
+  }]));
+
+  it('User with admin role should have admin privs.', inject(function(Auth){Auth.setCurrentUser("admin@admin.com", "admin", 1)}), function() {
+    expect(scope.hasAdminPrivs()).toEqual(true);
+  });*/
+
     it('Updates $scope.flaggedSubmissions with any submissions owned by the user that have active resubmit flags', function(){
         scope.updateFlaggedSubmissions(scope.submissions);
         expect(scope.submissions[0].resubmissionData.resubmitFlag).toEqual(false);
