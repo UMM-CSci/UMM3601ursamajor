@@ -360,7 +360,20 @@ describe('Functions dealing with submissions...', function() {
                 expect(scope.filterData.tabFilter.isPresenter).toEqual(true);
             });
 
-            //TODO: more of these need to be written? Functions might need to be refactored to be more testable...
+          it('showMyCoSubmissions should set the isCoPresenter tab to true', function() {
+            scope.showMyCoSubmissions();
+            expect(scope.filterData.tabFilter.isCoPresenter).toEqual(true);
+          });
+
+          it('showMyAdviserSubmissions should set the isAdviser tab to true', function() {
+            scope.showMyAdviserSubmissions();
+            expect(scope.filterData.tabFilter.isAdviser).toEqual(true);
+          });
+
+          it('showMyReviewerSubmissions should set the isReviewer tab to true', function() {
+            scope.showMyReviewerSubmissions();
+            expect(scope.filterData.tabFilter.isReviewer).toEqual(true);
+          });
         });
 
 
@@ -756,6 +769,28 @@ describe('Functions dealing with submissions...', function() {
           expect(scope.pendingResubmissionsFilter(scope.submissions[1])).toEqual(false);
           expect(scope.pendingResubmissionsFilter(scope.submissions[2])).toEqual(false);
           expect(scope.pendingResubmissionsFilter(scope.submissions[3])).toEqual(false);
+        });
+      });
+
+      describe('Testing functions that return true if current user is listed on any submission, false otherwise.', function() {
+        it('isPresenterOnAnything should return true if the user is a presenter on any submission, false otherwise.', function () {
+          scope.filterData.tabFilter.isPresenter = false;
+          expect(scope.isPresenterOnAnything()).toEqual(false);
+        });
+
+        it('isCoPresenterOnAnything should return true if the user is a co-presenter on any submission, false otherwise.', function () {
+          scope.filterData.tabFilter.isCoPresenter = false;
+          expect(scope.isCoPresenterOnAnything()).toEqual(false);
+        });
+
+        it('isAdviserOfAnything should return true if the user is an adviser on any submission, false otherwise.', function () {
+          scope.filterData.tabFilter.isAdviser = false;
+          expect(scope.isAdviserOfAnything()).toEqual(true);
+        });
+
+        it('isReviewerOfAnything should return true if the user is a reviewer on any submission, false otherwise.', function () {
+          scope.filterData.tabFilter.isReviewer = false;
+          expect(scope.isReviewerOfAnything()).toEqual(false);
         });
       });
     });
