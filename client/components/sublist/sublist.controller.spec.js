@@ -623,17 +623,21 @@ describe('Functions dealing with submissions...', function() {
         });
     });
 
-    // THis test is experiencing issues since it attempts to use auth. Commented out for the time being.
-    //describe('Function that returns true if in any way a user should have permissions to see a submission', function () {
-    //
-    //    beforeEach(inject(function(Auth){Auth.setCurrentUser("admin@admin.com", null, 1)}));
-    //
-    //    it('User without a role should not have permissions', inject(function(Auth){Auth.setCurrentUser("admin@admin.com", null, 1)}) ,function() {
-    //      console.log(!Auth.isLoggedIn);
-    //      console.log(Auth.getCurrentUser().role);
-    //      expect(scope.hasPermissions(scope.submissions[0])).toEqual(false);
-    //    });
-    //});
+    //THis test is experiencing issues since it attempts to use auth. Commented out for the time being.
+    describe('Function that returns true if in any way a user should have permissions to see a submission (hasPermissions)', function () {
+
+        //beforeEach(inject(function(Auth){Auth.setCurrentUser("admin@admin.com", null, 1)}));
+        //
+        //it('User without a role should not have permissions', inject(function(Auth){Auth.setCurrentUser("admin@admin.com", null, 1)}) ,function() {
+        //  console.log(!Auth.isLoggedIn);
+        //  console.log(Auth.getCurrentUser().role);
+        //  expect(scope.hasPermissions(scope.submissions[0])).toEqual(false);
+        //});
+
+        it("Should return false if the submission is null.", function() {
+          expect(scope.hasPermissions(null)).toEqual(false);
+        });
+    });
 
     describe('Functions that check the current filter selections are enabled and checks the submission to see if they should be shown.', function () {
       describe('Functions that check the review group of a submission', function () {
@@ -794,35 +798,97 @@ describe('Functions dealing with submissions...', function() {
         });
       });
 
-      describe('Controlling selection of submission for detail view', function(){
-        it('testing is approved  ', function(){
-          expect(scope.isApproved(scope.submissions[2])).toEqual(true);
-          scope.submissions[2] = null;
-          expect(scope.isApproved(scope.submissions[2])).toEqual(false);
-        });
+    });
+
+    describe('Controlling selection of submission for detail view', function(){
+      it('testing is approved  ', function(){
+        expect(scope.isApproved(scope.submissions[2])).toEqual(true);
+        scope.submissions[2] = null;
+        expect(scope.isApproved(scope.submissions[2])).toEqual(false);
+      });
+    });
+
+    describe('Editing of status', function(){
+      it('testing vote hide ', function(){
+        expect(scope.voteHide(scope.submissions[0])).toEqual(true);
+        scope.submissions[0] = null;
+        expect(scope.voteHide(scope.submissions[0])).toEqual(true);
+        expect(scope.voteHide(scope.submissions[2])).toEqual(false);
+      });
+    });
+
+    describe('testing of review group things', function(){
+      it('testing get review group members ', function(){
+        expect(scope.approvalWordChange(scope.submissions[2].approval)).toEqual('Yes');
+        expect(scope.approvalWordChange(scope.submissions[1].approval)).toEqual('No');
+      });
+    });
+
+    describe('testing of review group things', function(){
+      it('testing get review group members ', function(){
+        expect(scope.approvalWordChange(scope.submissions[2].approval)).toEqual('Yes');
+        expect(scope.approvalWordChange(scope.submissions[1].approval)).toEqual('No');
+      });
+    });
+
+    describe('Testing the filter for searching for functions via an entered text.', function() {
+      beforeEach(function() {
+        scope.filterData.searchText = "";
       });
 
-      describe('Editing of status', function(){
-        it('testing vote hide ', function(){
-          expect(scope.voteHide(scope.submissions[0])).toEqual(true);
-          scope.submissions[0] = null;
-          expect(scope.voteHide(scope.submissions[0])).toEqual(true);
-          expect(scope.voteHide(scope.submissions[2])).toEqual(false);
-        });
+      it('should return true if the searchText matches the first name of the presenter.', function() {
+        scope.filterData.searchText = scope.submissions[0].presenterInfo.first;
+        expect(scope.searchFilter(scope.submissions[0])).toEqual(true);
       });
-
-        describe('testing of review group things', function(){
-          it('testing get review group members ', function(){
-            expect(scope.approvalWordChange(scope.submissions[2].approval)).toEqual('Yes');
-            expect(scope.approvalWordChange(scope.submissions[1].approval)).toEqual('No');
-          });
+      it('should return true if the searchText matches the last name of the presenter.', function() {
+        scope.filterData.searchText = scope.submissions[1].presenterInfo.last;
+        expect(scope.searchFilter(scope.submissions[1])).toEqual(true);
       });
-
-      describe('testing of review group things', function(){
-        it('testing get review group members ', function(){
-          expect(scope.approvalWordChange(scope.submissions[2].approval)).toEqual('Yes');
-          expect(scope.approvalWordChange(scope.submissions[1].approval)).toEqual('No');
-        });
+      it('should return true if the searchText matches the first name of the first copresenter.', function() {
+        scope.filterData.searchText = scope.submissions[0].copresenterOneInfo.first;
+        expect(scope.searchFilter(scope.submissions[0])).toEqual(true);
+      });
+      it('should return true if the searchText matches the last name of the first copresenter.', function() {
+        scope.filterData.searchText = scope.submissions[0].copresenterOneInfo.last;
+        expect(scope.searchFilter(scope.submissions[0])).toEqual(true);
+      });
+      it('should return true if the searchText matches the first name of the second copresenter.', function() {
+        scope.filterData.searchText = scope.submissions[0].copresenterTwoInfo.first;
+        expect(scope.searchFilter(scope.submissions[0])).toEqual(true);
+      });
+      it('should return true if the searchText matches the last name of the second copresenter.', function() {
+        scope.filterData.searchText = scope.submissions[0].copresenterTwoInfo.last;
+        expect(scope.searchFilter(scope.submissions[0])).toEqual(true);
+      });
+      it('should return true if the searchText matches the first name of the primary adviser.', function() {
+        scope.filterData.searchText = scope.submissions[0].adviserInfo.first;
+        expect(scope.searchFilter(scope.submissions[0])).toEqual(true);
+      });
+      it('should return true if the searchText matches the last name of the primary adviser.', function() {
+        scope.filterData.searchText = scope.submissions[1].adviserInfo.last;
+        expect(scope.searchFilter(scope.submissions[1])).toEqual(true);
+      });
+      it('should return true if the searchText matches the first name of the first coadviser.', function() {
+        scope.filterData.searchText = scope.submissions[2].coadviserOneInfo.first;
+        expect(scope.searchFilter(scope.submissions[2])).toEqual(true);
+      });
+      it('should return true if the searchText matches the last name of the first coadviser.', function() {
+        scope.filterData.searchText = scope.submissions[2].coadviserOneInfo.last;
+        expect(scope.searchFilter(scope.submissions[2])).toEqual(true);
+      });
+      it('should return true if the searchText matches the first name of the second coadviser.', function() {
+        scope.filterData.searchText = scope.submissions[3].coadviserTwoInfo.first;
+        expect(scope.searchFilter(scope.submissions[3])).toEqual(true);
+      });
+      it('should return true if the searchText matches the last name of the second coadviser.', function() {
+        scope.filterData.searchText = scope.submissions[3].coadviserTwoInfo.last;
+        expect(scope.searchFilter(scope.submissions[3])).toEqual(true);
+      });
+      it('should return false if the searchText doesnt matche and of the desired fields.', function() {
+        // Needed a search string that almost certainly wouldn't happen.
+        scope.filterData.searchText = "koijsfldsuhfjlisdhuflisudhf87634o837gh87gh33g";
+        expect(scope.searchFilter(scope.submissions[2])).toEqual(false);
+        expect(scope.searchFilter(scope.submissions[3])).toEqual(false);
       });
     });
 });
