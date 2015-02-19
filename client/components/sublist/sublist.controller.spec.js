@@ -793,5 +793,36 @@ describe('Functions dealing with submissions...', function() {
           expect(scope.isReviewerOfAnything()).toEqual(false);
         });
       });
+
+      describe('Controlling selection of submission for detail view', function(){
+        it('testing is approved  ', function(){
+          expect(scope.isApproved(scope.submissions[2])).toEqual(true);
+          scope.submissions[2] = null;
+          expect(scope.isApproved(scope.submissions[2])).toEqual(false);
+        });
+      });
+
+      describe('Editing of status', function(){
+        it('testing vote hide ', function(){
+          expect(scope.voteHide(scope.submissions[0])).toEqual(true);
+          scope.submissions[0] = null;
+          expect(scope.voteHide(scope.submissions[0])).toEqual(true);
+          expect(scope.voteHide(scope.submissions[2])).toEqual(false);
+        });
+      });
+
+        describe('testing of review group things', function(){
+          it('testing get review group members ', function(){
+            expect(scope.approvalWordChange(scope.submissions[2].approval)).toEqual('Yes');
+            expect(scope.approvalWordChange(scope.submissions[1].approval)).toEqual('No');
+          });
+      });
+
+      describe('testing of review group things', function(){
+        it('testing get review group members ', function(){
+          expect(scope.approvalWordChange(scope.submissions[2].approval)).toEqual('Yes');
+          expect(scope.approvalWordChange(scope.submissions[1].approval)).toEqual('No');
+        });
+      });
     });
 });
