@@ -76,6 +76,18 @@ describe('filterSelections', function() {
     };
   });
 
+  beforeEach(function() {
+    scope.statusEdit = {
+      editing: false,
+      options: [],
+      color: [],
+      subject: [],
+      body: [],
+      priority: [],
+      temp: {strict: "", text: ""}
+    };
+  });
+
   describe('Function that sets the string for filtering based on review group.', function() {
     it('Should change the scope.reviewGroupFilterSelection from All to Review Group 1', function() {
       expect(scope.filterData.reviewGroupFilterSelection).toEqual(scope.filterData.reviewGroupFilterOptions[0]);
@@ -374,8 +386,20 @@ describe('Functions dealing with submissions...', function() {
             scope.showMyReviewerSubmissions();
             expect(scope.filterData.tabFilter.isReviewer).toEqual(true);
           });
-        });
+          //Passing tests, but not clearing red from test coverage
+/*          it('tabFilters should check the filters based on current user', inject(function(Auth){Auth.setCurrentUser("zhoux616@morris.umn.edu", "user", 1)}), function() {
+            scope.filterData.tabFilter.isPresenter = true;
+            expect(scope.tabFilters(scope.submissions[0])).toEqual(scope.isPresenter(scope.submissions[0]));
+          });
 
+          it('tabFilters should check the filters based on current user', inject(function(Auth){Auth.setCurrentUser("marck018@morris.umn.edu", "user", 1)}), function() {
+            expect(scope.tabFilters(scope.submissions[0])).toEqual(true);
+          });
+
+          it('tabFilters should check the filters based on current user', inject(function(Auth){Auth.setCurrentUser("casal033@morris.umn.edu", "user", 3)}), function() {
+            expect(scope.tabFilters(scope.submissions[0])).toEqual(true);
+          });*/
+        });
 
     });
 
@@ -509,6 +533,25 @@ describe('Functions dealing with submissions...', function() {
 //        });
 
     });
+
+    //Passes tests, but doesn't get else case.
+/*  describe('Functions handling color coding...', function() {
+    it('status color tab', function () {
+      var index = 3;
+      scope.statusEdit.color[0] = {red: 255, green: 255, blue: 255, alpha: 1};
+      scope.statusEdit.options[0] = scope.submissions[0].strict;
+      scope.statusEdit.options[0] = scope.submissions[1].strict;
+      scope.statusEdit.options[0] = scope.submissions[2].strict;
+      scope.statusEdit.options[0] = scope.submissions[3].strict;
+      expect(scope.statusColorTab(scope.submissions[0].status.strict)).toEqual({'border-left': '4px solid rgba(255, 255, 255, 1)'});
+      scope.statusEdit.color[1] = {red: 0, green: 255, blue: 0, alpha: 1};
+      expect(scope.statusColorTab(scope.submissions[1].status.strict)).toEqual({'border-left': '4px solid rgba(255, 255, 255, 1)'});
+      expect(scope.statusColorTab(scope.submissions[2].status.strict)).toEqual({'border-left': '4px solid rgba(255, 255, 255, 1)'});
+      expect(scope.statusColorTab(scope.submissions[3].status.strict)).toEqual({'border-left': '4px solid rgba(255, 255, 255, 1)'});
+
+    });
+
+  });*/
 
     describe('Testing the that the additional advisers are indeed in a submission...', function() {
         it('coadviserOneInfo for submission 1 [0] should be Dalton Gusaas...', function() {

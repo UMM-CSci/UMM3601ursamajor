@@ -128,6 +128,7 @@ angular.module('umm3601ursamajorApp')
         };
 
         // Takes no arguments and returns true if the user provided by Auth is an admin, or is in the admin group, or is a chair.
+        //Not sure why we need first case of not empty and is Admin?
         $scope.hasAdminPrivs = function(){
             return (($scope.getCurrentUser.role != null && $scope.getCurrentUser.role == "Admin") || $scope.isAdmin() || $scope.isChair());
         };
