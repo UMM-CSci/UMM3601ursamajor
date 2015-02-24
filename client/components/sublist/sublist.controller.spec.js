@@ -934,4 +934,5 @@ describe('Functions dealing with submissions...', function() {
         expect(scope.searchFilter(scope.submissions[3])).toEqual(false);
       });
     });
+
 });
