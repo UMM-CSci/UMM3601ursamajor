@@ -90,7 +90,7 @@
     </div>
     </ul>
 
-    <!-- HTML for details view starts here. -->
+    <!-- HTML FOR THE DETAILS VIEW STARTS HERE!!!!! -->
 
     <div class="row">
         <div class="col-md-9" >
@@ -198,39 +198,47 @@
                             <h3>Abstract</h3>
                         </li>
                         <li class="list-group-item"><p ng-bind-html="selection.item.abstract"></p></li>
-                    <br>
+                    </ul>
+
                     <span class="subtext">You are seeing this submission because you are a(n):</span>
                     <ul class="list-group">
-                      <li class="subtext plainList" ng-show="isAdmin()">Admin</li>
-                      <li class="subtext plainList" ng-show="isChair()">Chair</li>
-                      <li class="subtext plainList" ng-show="isPresenter(selection.item)">Presenter of this submission</li>
-                      <li class="subtext plainList" ng-show="isCoPresenter(selection.item)">CoPresenter of this submission</li>
-                      <li class="subtext plainList" ng-show="isPrimaryAdviser(selection.item)">Adviser of this submission</li>
-                      <li class="subtext plainList" ng-show="(!isPrimaryAdviser(selection.item) && isAdviser(selection.item))">CoAdviser of this submission</li>
-                      <li class="subtext plainList" ng-show="isReviewerGroup(selection.item)">Reviewer in Review Group {{selection.item.group}}</li>
+                        <li class="subtext plainList" ng-show="isAdmin()">Admin</li>
+                        <li class="subtext plainList" ng-show="isChair()">Chair</li>
+                        <li class="subtext plainList" ng-show="isPresenter(selection.item)">Presenter of this submission</li>
+                        <li class="subtext plainList" ng-show="isCoPresenter(selection.item)">CoPresenter of this submission</li>
+                        <li class="subtext plainList" ng-show="isPrimaryAdviser(selection.item)">Adviser of this submission</li>
+                        <li class="subtext plainList" ng-show="(!isPrimaryAdviser(selection.item) && isAdviser(selection.item))">CoAdviser of this submission</li>
+                        <li class="subtext plainList" ng-show="isReviewerGroup(selection.item)">Reviewer in Review Group {{selection.item.group}}</li>
                     </ul>
-                    <div ng-show="isAdmin() || isChair()"><b>Currently Assigned Review Group:</b>
-                        <select ng-change="setReviewGroupConfirm(selection.item)" ng-model="selection.reviewGroup">
-                        <option ng-repeat="option in groupOptions" value={{option}}>{{option}}</option>
-                    </select>
-                    <br>
-                    <br>
-                        </div>
-                        <div ng-show="isReviewer()"><b>Currently Assigned Review Group:</b> {{selection.item.group}}</div>
-                        <div><b>Current Room Assignment:</b> {{selection.item.roomAssignment}}</div>
-                        <br>
-                        <div ng-show="isAdmin() || isChair()">
-                        <b>Edit Current Room Assignment:</b>
-                            <br>
-                            <!--<textarea class="roomTextArea" ng-model="selection.item.roomAssignment"  cols="20" rows="1" name="roomAssignment"></textarea>-->
-                            <input class="blah"  ng-model="selection.item.roomAssignment" name="selection.item.roomAssignment">
-                            <button class="btn btn-primary" ng-click="submitRoomAssignment(selection.item.roomAssignment)">Submit</button>
-                        </div>
 
-                    </ul>
+                    <div ng-show="isAdmin() || isChair()"><b>Currently Assigned Review Group:</b>
+                      <select ng-change="setReviewGroupConfirm(selection.item)" ng-model="selection.reviewGroup">
+                        <option ng-repeat="option in groupOptions" value={{option}}>{{option}}</option>
+                      </select>
+                      <br>
+                      <br>
+                    </div>
+                    <div ng-show="isReviewer()">
+                      <b>Currently Assigned Review Group:</b> {{selection.item.group}}
+                    </div>
+                    <div>
+                      <b>Current Room Assignment:</b> {{selection.item.roomAssignment}}
+                    </div>
+                    <br>
+                    <div ng-show="isAdmin() || isChair()">
+                      <b>Edit Current Room Assignment:</b>
+                      <br>
+                      <!--<textarea class="roomTextArea" ng-model="selection.item.roomAssignment"  cols="20" rows="1" name="roomAssignment"></textarea>-->
+                      <input class="blah"  ng-model="selection.item.roomAssignment" name="selection.item.roomAssignment">
+                      <button class="btn btn-primary" ng-click="submitRoomAssignment(selection.item.roomAssignment)">Submit</button>
+                    </div>
+
                 </li>
             </ul>
         </div>
+
+        <!-- THIS IS WHERE WE INCLUDE THE HTML PORTION OF ADDING COMMENTS!!!!!! -->
+
         <!--Button for adding a comment-->
         <div ng-show="selection.selected" class="col-md-3">
             <button class="btn btn-primary btn-block" ng-click="addComment(selection.item)">New Comment <span class="glyphicon glyphicon-pencil"></span></button>
@@ -271,7 +279,7 @@
     </div>
 
 
-<!-- Starts showing resubmissions in details view here. -->
+      <!-- STARTS SHOWING RESUBMISSION IN DETAILS VIEW HERE IF ONE IS PENDING. -->
 
         <ul class="list-group" ng-show="(selection.resubmission != null) && selection.selected">
             <li class="list-group-item">
