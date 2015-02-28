@@ -68,14 +68,14 @@
                         <span ng-show="sub.resubmissionData.resubmitFlag" title="Submission is flagged for resubmission" style="color: darkgoldenrod" class="glyphicon glyphicon-flag"></span>
                     </h3>
                     <button class="buttonL" ng-click="selectItem($index)">Details</button>
-                    <strong>Presenter: {{sub.presenterInfo.first}} {{sub.presenterInfo.last}}</strong>
-                    <p class="subtext">
+                    <p>Presenter: {{sub.presenterInfo.first}} {{sub.presenterInfo.last}}</p>
+                    <p>
                         {{sub.copresenterOneInfo.first | isntEmpty:"CoPresenter(s):":""}} {{sub.copresenterOneInfo.last | isntEmpty:"":""}}{{sub.copresenterTwoInfo.first | isntEmpty:",":""}} {{sub.copresenterTwoInfo.last | isntEmpty:"":""}}
                     </p>
                     <p>
                         Adviser: {{sub.adviserInfo.first}} {{sub.adviserInfo.last}}
                     </p>
-                    <p class="subtext">
+                    <p>
                         {{sub.coadviserOneInfo.first | isntEmpty:"CoAdviser(s):":""}} {{sub.coadviserOneInfo.last | isntEmpty:"":""}}{{sub.coadviserTwoInfo.first | isntEmpty:",":""}} {{sub.coadviserTwoInfo.last | isntEmpty:"":""}}
                     </p>
                     <p class="subtext">
