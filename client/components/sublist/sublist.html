@@ -67,7 +67,7 @@
                         <span ng-show="getResubmission(sub) != null" title="Submission has an unapproved resubmission" style="color: red" class="glyphicon glyphicon-warning-sign"></span>
                         <span ng-show="sub.resubmissionData.resubmitFlag" title="Submission is flagged for resubmission" style="color: darkgoldenrod" class="glyphicon glyphicon-flag"></span>
                     </h3>
-                    <button class="buttonL" ng-click="selectItem($index)">Details</button>
+                    <button class="buttonL" ng-click="selectItem($index)">Select</button>
                     <p>
                         Presenter: {{sub.presenterInfo.first}} {{sub.presenterInfo.last}}
                     </p>
@@ -95,6 +95,7 @@
     <div class="row">
         <div class="col-md-9" >
             <ul class="list-group" ng-show="selection.selected">
+
                 <li class="list-group-item overflowAuto">
                     <button class="btn btn-sm btn-block" ng-click="resetSelection()"><span class="glyphicon glyphicon-chevron-left"></span> Back to Submission List</button>
                     <br>
@@ -136,6 +137,7 @@
                     <br>
 
                 </li>
+
                 <li class="list-group-item" ng-style="statusColorTab(selection.item.status.strict)">
 
                     <div class="block alert clickable" ng-style="statusColorBody(selection.item.status.strict)" ng-click="editStatus(selection.item)">
@@ -163,6 +165,7 @@
                         <button class="btn btn-default" ng-click="editStatus()">Cancel</button>
                         <button class="btn btn-warning" ng-click="submitStatusEditConfirm()">Submit</button>
                     </div>
+
                     <h3 class="text">{{selection.item.title}}</h3>
                     <p>
                         Presenter: {{selection.item.presenterInfo.first}} {{selection.item.presenterInfo.last}}
@@ -176,7 +179,11 @@
                     <p>
                         {{selection.item.coadviserOneInfo.first | isntEmpty:"CoAdviser(s):":""}}{{selection.item.coadviserOneInfo.last | isntEmpty:"":""}}{{selection.item.coadviserTwoInfo.first | isntEmpty:",":""}} {{selection.item.coadviserTwoInfo.last | isntEmpty:"":""}}
                     </p>
-                    <hr>
+
+                  <button class="btn btn-m block detailsBtn detailsDropDown" ng-hide="showDetails" ng-click="showDetails = true">Show Details <span class="glyphicon glyphicon-chevron-down"></span></button>
+                  <button class="btn btn-m block detailsBtn detailsDropDown" ng-show="showDetails" ng-click="showDetails = false">Hide Details <span class="glyphicon glyphicon-chevron-up"></span></button>
+                  <br>
+                  <div ng-show="showDetails">
                     <ul class="list-group">
                         <li class="list-group-item">
                             <p>Discipline: {{selection.item.discipline}}</p>
@@ -193,6 +200,9 @@
                             <p>Date of submission: {{selection.item.timestamp}}</p>
                         </li>
                     </ul>
+                  </div>
+
+
                     <ul class="list-group">
                         <li class="list-group-item">
                             <h3>Abstract</h3>
@@ -233,7 +243,7 @@
                       <button class="btn btn-primary" ng-click="submitRoomAssignment(selection.item.roomAssignment)">Submit</button>
                     </div>
 
-                </li>
+                </li> <!-- End where the colored sidebar is -->
             </ul>
         </div>
 
@@ -283,14 +293,22 @@
 
         <ul class="list-group" ng-show="(selection.resubmission != null) && selection.selected">
             <li class="list-group-item">
-                <h1>Resubmission</h1>
-                <button type="button" ng-show="hasAdminPrivs()" class="btn btn-success resubbutton" ng-click="approveResubmitConfirm()">Approve Resubmission</button>
-                <button type="button" ng-show="isAdmin()" class="btn btn-danger" ng-click="deleteSubmissionConfirm(selection.resubmission)"><span class="glyphicon glyphicon-trash"></span></button>
+              <div class="row">
+
+                <div class="col-md-3">
+                  <h3>Resubmission</h3>
+                  <button type="button" ng-show="hasAdminPrivs()" class="btn btn-success resubbutton" ng-click="approveResubmitConfirm()">Approve Resubmission</button>
+                  <button type="button" ng-show="isAdmin()" class="btn btn-danger" ng-click="deleteSubmissionConfirm(selection.resubmission)"><span class="glyphicon glyphicon-trash"></span></button>
+                </div>
+
+                <div class="col-md-6">
+                  <h3>Comment</h3>
+                  <p>{{selection.resubmission.resubmissionData.comment}}</p>
+                </div>
+
+              </div>
             </li>
-            <li class="list-group-item">
-                <h2>Resubmission Comment</h2>
-                <p>{{selection.resubmission.resubmissionData.comment}}</p>
-            </li>
+
             <li class="list-group-item">
                 <h3 class="text">{{selection.resubmission.title}}</h3>
                 <strong>{{selection.resubmission.presenterInfo.first}} {{selection.resubmission.presenterInfo.last}}</strong>
