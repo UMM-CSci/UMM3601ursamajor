@@ -123,12 +123,14 @@
 .ResubButton {
     background-color: #7a0019;
     color: #ffcc33;
+    overflow: hidden;
 }
 
 /*Changes the resubmission button color on hover*/
 .ResubButton:hover {
     background-color: #ffcc33;
     color: #7a0019;
+    overflow: hidden;
 }
 
 
