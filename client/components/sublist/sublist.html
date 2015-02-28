@@ -199,14 +199,16 @@
                         </li>
                         <li class="list-group-item"><p ng-bind-html="selection.item.abstract"></p></li>
                     <br>
-                    <p ng-show="isAdmin()">You are seeing this submission because you are an:</p>
-                    <p ng-show="isAdmin()">admin</p>
-                    <p ng-show="!isAdmin()">You are seeing this submission because you are a:</p>
-                    <p ng-show="isChair()">chair</p>
-                    <p ng-show="isPresenter(selection.item)">presenter of this submission</p>
-                    <p ng-show="isCoPresenter(selection.item)">co-presenter of this submission</p>
-                    <p ng-show="isAdviser(selection.item)">adviser of this submission</p>
-                    <p ng-show="isReviewerGroup(selection.item)">reviewer in Reviewer Group {{selection.item.group}}</p>
+                    <span class="subtext">You are seeing this submission because you are a(n):</span>
+                    <ul class="list-group">
+                      <li class="subtext plainList" ng-show="isAdmin()">Admin</li>
+                      <li class="subtext plainList" ng-show="isChair()">Chair</li>
+                      <li class="subtext plainList" ng-show="isPresenter(selection.item)">Presenter of this submission</li>
+                      <li class="subtext plainList" ng-show="isCoPresenter(selection.item)">CoPresenter of this submission</li>
+                      <li class="subtext plainList" ng-show="isPrimaryAdviser(selection.item)">Adviser of this submission</li>
+                      <li class="subtext plainList" ng-show="(!isPrimaryAdviser(selection.item) && isAdviser(selection.item))">CoAdviser of this submission</li>
+                      <li class="subtext plainList" ng-show="isReviewerGroup(selection.item)">Reviewer in Review Group {{selection.item.group}}</li>
+                    </ul>
                     <div ng-show="isAdmin() || isChair()"><b>Currently Assigned Review Group:</b>
                         <select ng-change="setReviewGroupConfirm(selection.item)" ng-model="selection.reviewGroup">
                         <option ng-repeat="option in groupOptions" value={{option}}>{{option}}</option>
@@ -265,6 +267,7 @@
             <!--Creates the pagination for the displayed comments-->
             <pagination ng-show="selection.item.comments.length > 10" class="pagination-sm" total-items="selection.item.comments.length" ng-model="currentCommentPage"></pagination>
         </div>
+
     </div>
 
 
@@ -306,15 +309,6 @@
                     </li>
                     <li class="list-group-item"><p>{{selection.resubmission.abstract}}</p></li>
                 </ul>
-                <br>
-                <p ng-show="isAdmin()">You are seeing this submission because you are an:</p>
-                <p ng-show="isAdmin()">admin</p>first
-                <p ng-show="!isAdmin()">You are seeing this submission because you are a:</p>
-                <p ng-show="isChair()">chair</p>
-                <p ng-show="isPresenter(selection.resubmission)">presenter of this submission</p>
-                <p ng-show="isCoPresenter(selection.resubmission)">co-presenter of this submission</p>
-                <p ng-show="isAdviser(selection.resubmission)">adviser of this submission</p>
-                <p ng-show="isReviewerGroup(selection.resubmission)">reviewer in Reviewer Group {{selection.resubmission.group}}</p>
             </li>
         </ul>
 
