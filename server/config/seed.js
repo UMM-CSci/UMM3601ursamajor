@@ -441,7 +441,7 @@ Submission.find({}).remove(function(){
         mediaServicesEquipment: "Microphone for my sick rhymes, 5 laser stage lights with automated gimbals.",
         specialRequirements: "A whale suit.",
 //        presenterTeeSize: "XL",
-        otherInfo: "yes.",
+        otherInfo: "I was planning on bringing a 1/10 size scale blue whale inflatable. Are there any rooms with room for this?",
         approval: true,
         cc: false,
         rejection: false,

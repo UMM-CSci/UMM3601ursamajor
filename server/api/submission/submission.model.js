@@ -8,7 +8,7 @@ var SubmissionSchema = new Schema({
     format: String,
     abstract: String,
     presentationType: String,
-    formatChange: Boolean,
+    formatChange: Boolean, // Are people willing to give submission in another format.
     presenterInfo: {first: String, last: String, email: String},
     copresenterOneInfo: {first: String, last: String, email: String},
     copresenterTwoInfo: {first: String, last: String, email: String},
@@ -23,7 +23,7 @@ var SubmissionSchema = new Schema({
     otherInfo: String,
     approval: Boolean,
     cc: Boolean,
-    rejection: Boolean,
+    rejection: Boolean, // Rejection means a submission was entirely turned down.
     status: {strict: String, priority: Number, text: String},
     timestamp: String,
     group: Number,
