@@ -245,7 +245,57 @@
 
                 </li> <!-- End where the colored sidebar is -->
             </ul>
-        </div>
+
+            <!-- STARTS SHOWING RESUBMISSION IN DETAILS VIEW HERE IF ONE IS PENDING. -->
+
+            <ul class="list-group" ng-show="(selection.resubmission != null) && selection.selected">
+              <li class="list-group-item">
+                <div class="row">
+
+                  <div class="col-md-4">
+                    <h3>Resubmission</h3>
+                    <button type="button" ng-show="hasAdminPrivs()" class="btn btn-success resubbutton" ng-click="approveResubmitConfirm()">Approve Resubmission</button>
+                    <button type="button" ng-show="isAdmin()" class="btn btn-danger" ng-click="deleteSubmissionConfirm(selection.resubmission)"><span class="glyphicon glyphicon-trash"></span></button>
+                  </div>
+
+                  <div class="col-md-8">
+                    <h3>Comment</h3>
+                    <p>{{selection.resubmission.resubmissionData.comment}}</p>
+                  </div>
+
+                </div>
+              </li>
+
+              <li class="list-group-item">
+                <h3 class="text">{{selection.resubmission.title}}</h3>
+                <strong>{{selection.resubmission.presenterInfo.first}} {{selection.resubmission.presenterInfo.last}}</strong>
+                <hr>
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    <p>{{selection.resubmission.copresenterOneInfo.first | isntEmpty:"Co-Presenter(s):":""}} {{selection.resubmission.copresenterOneInfo.last | isntEmpty:"":""}}{{selection.resubmission.copresenterTwoInfo.first | isntEmpty:",":""}} {{selection.item.copresenterTwoInfo.last | isntEmpty:"":""}}
+                    </p>
+                    <p>Discipline: {{selection.resubmission.discipline}}</p>
+                    <p>Format:  {{selection.resubmission.format}}</p>
+                    <p>Type: {{selection.resubmission.presentationType}}</p>
+                    <p>Adviser: {{selection.resubmission.adviserInfo.first}} {{selection.resubmission.adviserInfo.last}}, email: {{selection.resubmission.adviserInfo.email}}</p>
+                    <p>Adviser Approved: {{approvalWordChange(selection.item.approval)}}</p>
+                    <p>{{selection.resubmission.sponsors | isntEmpty:"Sponsors:":""}}</p>
+                    <p>{{selection.resubmission.mediaServicesEquipment | isntEmpty:"Media Services Equipment:":""}}</p>
+                    <p>{{selection.resubmission.specialRequirements | isntEmpty:"Special Requirements:":""}}</p>
+                    <p>Willing to be Feature Presentation: {{approvalWordChange(selection.item.featured)}}</p>
+                    <p>Date of submission: {{selection.resubmission.timestamp}}</p>
+                  </li>
+                </ul>
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    <h3>Abstract</h3>
+                  </li>
+                  <li class="list-group-item"><p>{{selection.resubmission.abstract}}</p></li>
+                </ul>
+              </li>
+            </ul>
+
+        </div> <!-- End Column containing the submission and resubmission. -->
 
         <!-- THIS IS WHERE WE INCLUDE THE HTML PORTION OF ADDING COMMENTS!!!!!! -->
 
@@ -286,56 +336,6 @@
             <pagination ng-show="selection.item.comments.length > 10" class="pagination-sm" total-items="selection.item.comments.length" ng-model="currentCommentPage"></pagination>
         </div>
 
-    </div>
-
-
-      <!-- STARTS SHOWING RESUBMISSION IN DETAILS VIEW HERE IF ONE IS PENDING. -->
-
-        <ul class="list-group" ng-show="(selection.resubmission != null) && selection.selected">
-            <li class="list-group-item">
-              <div class="row">
-
-                <div class="col-md-3">
-                  <h3>Resubmission</h3>
-                  <button type="button" ng-show="hasAdminPrivs()" class="btn btn-success resubbutton" ng-click="approveResubmitConfirm()">Approve Resubmission</button>
-                  <button type="button" ng-show="isAdmin()" class="btn btn-danger" ng-click="deleteSubmissionConfirm(selection.resubmission)"><span class="glyphicon glyphicon-trash"></span></button>
-                </div>
-
-                <div class="col-md-6">
-                  <h3>Comment</h3>
-                  <p>{{selection.resubmission.resubmissionData.comment}}</p>
-                </div>
-
-              </div>
-            </li>
-
-            <li class="list-group-item">
-                <h3 class="text">{{selection.resubmission.title}}</h3>
-                <strong>{{selection.resubmission.presenterInfo.first}} {{selection.resubmission.presenterInfo.last}}</strong>
-                <hr>
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <p>{{selection.resubmission.copresenterOneInfo.first | isntEmpty:"Co-Presenter(s):":""}} {{selection.resubmission.copresenterOneInfo.last | isntEmpty:"":""}}{{selection.resubmission.copresenterTwoInfo.first | isntEmpty:",":""}} {{selection.item.copresenterTwoInfo.last | isntEmpty:"":""}}
-                        </p>
-                        <p>Discipline: {{selection.resubmission.discipline}}</p>
-                        <p>Format:  {{selection.resubmission.format}}</p>
-                        <p>Type: {{selection.resubmission.presentationType}}</p>
-                        <p>Adviser: {{selection.resubmission.adviserInfo.first}} {{selection.resubmission.adviserInfo.last}}, email: {{selection.resubmission.adviserInfo.email}}</p>
-                        <p>Adviser Approved: {{approvalWordChange(selection.item.approval)}}</p>
-                        <p>{{selection.resubmission.sponsors | isntEmpty:"Sponsors:":""}}</p>
-                        <p>{{selection.resubmission.mediaServicesEquipment | isntEmpty:"Media Services Equipment:":""}}</p>
-                        <p>{{selection.resubmission.specialRequirements | isntEmpty:"Special Requirements:":""}}</p>
-                        <p>Willing to be Feature Presentation: {{approvalWordChange(selection.item.featured)}}</p>
-                        <p>Date of submission: {{selection.resubmission.timestamp}}</p>
-                    </li>
-                </ul>
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <h3>Abstract</h3>
-                    </li>
-                    <li class="list-group-item"><p>{{selection.resubmission.abstract}}</p></li>
-                </ul>
-            </li>
-        </ul>
+    </div> <!-- End row containing the columns for comments and submissions.  -->
 
 </div>
