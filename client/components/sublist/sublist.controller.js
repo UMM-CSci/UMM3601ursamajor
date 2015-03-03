@@ -852,6 +852,13 @@ angular.module('umm3601ursamajorApp')
                         text: "Remove Resubmit Flag",
                         action: function(){$scope.removeResumitFlagConfirm();}
                     }
+                } else if ($scope.hasResubmissions($scope.selection.item)) {
+                  return {
+                    show: false,
+                    style: "btn-warning",
+                    text: "You shouldn't see this.",
+                    action: function(){alert('something has gone horribly wrong');}
+                  }
                 } else {
                     return {
                         show: true,
