@@ -101,8 +101,8 @@
                     <br>
 
                     <div ng-show="(hasAdminPrivs() || getCurrentUser().role == 'reviewer') && !voteHide(selection.item)">
-                            Vote on status
-                            <br>
+                        Vote on status
+                        <br>
                         <select  ng-model="voteOption">
                             <option selected = 'selected'>
                                 {{voteOption}}
@@ -111,10 +111,11 @@
                                 {{vote}}
                             </option>
                         </select>
+                        <span>&nbsp;</span> <!-- This adds white space between the dropdown and submit button using an escaped space. -->
                         <button class="btn btn-warning" ng-click="updateReviewVotingConfirm(voteOption)">Submit</button>
                         <br>
-                           <button class="btn btn-xs voteDropDown" ng-hide="showVotes" ng-click="showVotes = true">Show Votes <span class="glyphicon glyphicon-chevron-down"></span></button>
-                           <button class="btn btn-xs voteDropDown" ng-show="showVotes" ng-click="showVotes = false">Hide Votes <span class="glyphicon glyphicon-chevron-up"></span></button>
+                        <button class="btn btn-xs voteDropDown" ng-hide="showVotes" ng-click="showVotes = true">Show Votes <span class="glyphicon glyphicon-chevron-down"></span></button>
+                        <button class="btn btn-xs voteDropDown" ng-show="showVotes" ng-click="showVotes = false">Hide Votes <span class="glyphicon glyphicon-chevron-up"></span></button>
                         <br>
                         <div ng-show="showVotes">
                         <br>
