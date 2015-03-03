@@ -61,7 +61,9 @@ angular.module('umm3601ursamajorApp')
             subFormEditorToggle: false,
             userEditToggle: false,
             statusEditToggle: false,
-            abstractBookToggle: false
+            abstractBookToggle: false,
+            groupChangeToggle: false,
+            roomChangeToggle: false
 
         };
 
@@ -101,6 +103,16 @@ angular.module('umm3601ursamajorApp')
         $scope.toggleAbstractBook = function(){
             $scope.resetToggles();
             $scope.toggles.abstractBookToggle = true;
+        };
+
+        $scope.toggleGroupChange = function(){
+          $scope.resetToggles();
+          $scope.toggles.groupChangeToggle = true;
+        };
+
+        $scope.toggleRoomChange = function(){
+          $scope.resetToggles();
+          $scope.toggles.roomChangeToggle = true;
         };
 
 
