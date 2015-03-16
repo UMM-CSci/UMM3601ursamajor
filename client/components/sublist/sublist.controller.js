@@ -636,37 +636,55 @@ angular.module('umm3601ursamajorApp')
 
         $scope.voteOption = "";
 
+        //Sets the starting vote option for a reviewer when they go into a submission
         $scope.setVoteOptions = function(){
-            if($scope.selection.item.reviewVotes.Accepted.indexOf($scope.getCurrentUser().email) != -1){
+            if($scope.selection.item.reviewVotes.Accepted.indexOf($scope.getCurrentUser().name) != -1){
                 $scope.voteOption = 'Accepted without changes';
             }
-            else if($scope.selection.item.reviewVotes.Minor.indexOf($scope.getCurrentUser().email) != -1){
+            else if($scope.selection.item.reviewVotes.Minor.indexOf($scope.getCurrentUser().name) != -1){
                 $scope.voteOption = 'Minor revisions';
             }
-            else if($scope.selection.item.reviewVotes.Major.indexOf($scope.getCurrentUser().email) != -1){
+            else if($scope.selection.item.reviewVotes.Major.indexOf($scope.getCurrentUser().name) != -1){
                 $scope.voteOption = 'Major revisions';
             }
-            else if($scope.selection.item.reviewVotes.TotalRewrite.indexOf($scope.getCurrentUser().email) != -1){
+            else if($scope.selection.item.reviewVotes.TotalRewrite.indexOf($scope.getCurrentUser().name) != -1){
                 $scope.voteOption = 'Total rewrite';
             }
+        };
+
+
+        //Used for the vote on status, turns an array of names into a string
+        //Todo: Works, but produces an error when loading sublist page.
+        $scope.arrayToString = function(item){
+          var nameString = "";
+          for(var i = 0; i < item.length; i++){
+            if(i + 1 < item.length){
+              nameString += item[i];
+              nameString += ", ";
+            }
+            else{
+              nameString += item[i];
+            };
+          };
+          return nameString;
         };
 
         $scope.updateReviewVotingConfirm = function(item){
             Modal.confirm.info($scope.updateReviewVoting)('Are you sure you would like to vote on this?', item)
         };
-
+        //TODO: update arrays to hold objects containing names and emails instead of just names.
         $scope.updateReviewVoting = function(value){
-            if($scope.selection.item.reviewVotes.Accepted.indexOf($scope.getCurrentUser().email) != -1){
-                $scope.selection.item.reviewVotes.Accepted.splice($scope.selection.item.reviewVotes.Accepted.indexOf($scope.getCurrentUser().email), 1);
+            if($scope.selection.item.reviewVotes.Accepted.indexOf($scope.getCurrentUser().name) != -1){
+                $scope.selection.item.reviewVotes.Accepted.splice($scope.selection.item.reviewVotes.Accepted.indexOf($scope.getCurrentUser().name), 1);
             }
-            else if($scope.selection.item.reviewVotes.Minor.indexOf($scope.getCurrentUser().email) != -1){
-                $scope.selection.item.reviewVotes.Minor.splice($scope.selection.item.reviewVotes.Minor.indexOf($scope.getCurrentUser().email), 1);
+            else if($scope.selection.item.reviewVotes.Minor.indexOf($scope.getCurrentUser().name) != -1){
+                $scope.selection.item.reviewVotes.Minor.splice($scope.selection.item.reviewVotes.Minor.indexOf($scope.getCurrentUser().name), 1);
             }
-            else if($scope.selection.item.reviewVotes.Major.indexOf($scope.getCurrentUser().email) != -1){
-                $scope.selection.item.reviewVotes.Major.splice($scope.selection.item.reviewVotes.Major.indexOf($scope.getCurrentUser().email), 1);
+            else if($scope.selection.item.reviewVotes.Major.indexOf($scope.getCurrentUser().name) != -1){
+                $scope.selection.item.reviewVotes.Major.splice($scope.selection.item.reviewVotes.Major.indexOf($scope.getCurrentUser().name), 1);
             }
-            else if($scope.selection.item.reviewVotes.TotalRewrite.indexOf($scope.getCurrentUser().email) != -1){
-                $scope.selection.item.reviewVotes.TotalRewrite.splice($scope.selection.item.reviewVotes.TotalRewrite.indexOf($scope.getCurrentUser().email), 1);
+            else if($scope.selection.item.reviewVotes.TotalRewrite.indexOf($scope.getCurrentUser().name) != -1){
+                $scope.selection.item.reviewVotes.TotalRewrite.splice($scope.selection.item.reviewVotes.TotalRewrite.indexOf($scope.getCurrentUser().name), 1);
             } else {
 
                 console.log("This should appear first")
@@ -674,22 +692,22 @@ angular.module('umm3601ursamajorApp')
 
             switch(value){
                 case 'Accepted without changes':
-                    $scope.selection.item.reviewVotes.Accepted.splice($scope.selection.item.reviewVotes.Accepted.length, 0, $scope.getCurrentUser().email);
+                    $scope.selection.item.reviewVotes.Accepted.splice($scope.selection.item.reviewVotes.Accepted.length, 0, $scope.getCurrentUser().name);
                     console.log("This should appear Accepted");
                     $scope.submitVoting();
                     break;
                 case 'Minor revisions':
-                    $scope.selection.item.reviewVotes.Minor.splice($scope.selection.item.reviewVotes.Minor.length, 0, $scope.getCurrentUser().email);
+                    $scope.selection.item.reviewVotes.Minor.splice($scope.selection.item.reviewVotes.Minor.length, 0, $scope.getCurrentUser().name);
                     console.log("This should appear Minor");
                     $scope.submitVoting();
                     break;
                 case 'Major revisions':
-                    $scope.selection.item.reviewVotes.Major.splice($scope.selection.item.reviewVotes.Major.length, 0, $scope.getCurrentUser().email);
+                    $scope.selection.item.reviewVotes.Major.splice($scope.selection.item.reviewVotes.Major.length, 0, $scope.getCurrentUser().name);
                     console.log("This should appear Major");
                     $scope.submitVoting();
                     break;
                 case 'Total rewrite':
-                    $scope.selection.item.reviewVotes.TotalRewrite.splice($scope.selection.item.reviewVotes.TotalRewrite.length, 0, $scope.getCurrentUser().email);
+                    $scope.selection.item.reviewVotes.TotalRewrite.splice($scope.selection.item.reviewVotes.TotalRewrite.length, 0, $scope.getCurrentUser().name);
                     console.log("This should appear TotalRewrite");
                     $scope.submitVoting();
                     break;
