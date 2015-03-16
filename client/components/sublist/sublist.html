@@ -119,10 +119,10 @@
                         <br>
                         <div ng-show="showVotes">
                         <br>
-                        <p><b>Accepted without revisions votes</b>: {{selection.item.reviewVotes.Accepted.length}}</p>
-                        <p><b>Minor revisions votes</b>: {{selection.item.reviewVotes.Minor.length}}</p>
-                        <p><b>Major revisions votes</b>: {{selection.item.reviewVotes.Major.length}}</p>
-                        <p><b>Total Rewrite votes</b>: {{selection.item.reviewVotes.TotalRewrite.length}}</p>
+                        <p><b>Accepted without revisions votes</b>: {{arrayToString(selection.item.reviewVotes.Accepted)}}</p>
+                        <p><b>Minor revisions votes</b>: {{arrayToString(selection.item.reviewVotes.Minor)}}</p>
+                        <p><b>Major revisions votes</b>: {{arrayToString(selection.item.reviewVotes.Major)}}</p>
+                        <p><b>Total Rewrite votes</b>: {{arrayToString(selection.item.reviewVotes.TotalRewrite)}}</p>
                         </div>
                         <br>
                     </div>
