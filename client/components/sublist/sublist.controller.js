@@ -735,6 +735,7 @@ angular.module('umm3601ursamajorApp')
                 })
         };
 
+        // Todo: Update to include coadvisers...
         $scope.checkForConflict = function(submission) {
             console.log("checking for conflicts for: " + submission.title + " and review group " + $scope.selection.reviewGroup);
             if (
