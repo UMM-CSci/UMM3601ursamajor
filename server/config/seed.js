@@ -368,7 +368,7 @@ Submission.find({}).remove(function(){
         reviewVotes: {
             Accepted: [],
             Minor: [],
-            Major: ["reviewer@reviewer.com"],
+            Major: [],
             TotalRewrite: []
         }
 
@@ -406,7 +406,7 @@ Submission.find({}).remove(function(){
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
         comments:[],
         reviewVotes: {
-            Accepted: ["reviewer@reviewer.com"],
+            Accepted: [],
             Minor: [],
             Major: [],
             TotalRewrite: []
@@ -453,7 +453,7 @@ Submission.find({}).remove(function(){
         comments: [],
         reviewVotes: {
             Accepted: [],
-            Minor: ["reviewer@reviewer.com"],
+            Minor: [],
             Major: [],
             TotalRewrite: []
         }
@@ -494,7 +494,7 @@ Submission.find({}).remove(function(){
         reviewVotes: {
             Accepted: [],
             Minor: [],
-            Major: ["reviewer@reviewer.com"],
+            Major: [],
             TotalRewrite: []
         }
     }, {
@@ -534,7 +534,7 @@ Submission.find({}).remove(function(){
             Accepted: [],
             Minor: [],
             Major: [],
-            TotalRewrite: ["reviewer@reviewer.com"]
+            TotalRewrite: []
         }
     }, {
         title: "A Study of the Properties of a Paperclip in the Digestive System of a Sloth",
@@ -571,7 +571,7 @@ Submission.find({}).remove(function(){
             Accepted: [],
             Minor: [],
             Major: [],
-            TotalRewrite: ["reviewer@reviewer.com"]
+            TotalRewrite: []
         }
     });
 });
