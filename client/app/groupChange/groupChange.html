@@ -15,7 +15,7 @@
             </span>
 
             <div>
-                <select ng-model="selection.reviewGroup" placeholder="" required ng-required>
+                <select ng-model="submission.group" placeholder="" required ng-required>
                     <option value="{{submission.group}}" disabled selected>{{submission.group}}</option>
                     <option ng-repeat="option in reviewGroupOptions" value="{{option}}">{{option}}</option>
                 </select>
