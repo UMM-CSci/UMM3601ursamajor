@@ -43,10 +43,10 @@ var SubmissionSchema = new Schema({
         }
     ],
     reviewVotes: {
-        Accepted: [String],
-        Minor: [String],
-        Major: [String],
-        TotalRewrite: [String]
+        Accepted: [{name: String, email: String}],
+        Minor: [{name: String, email: String}],
+        Major: [{name: String, email: String}],
+        TotalRewrite: [{name: String, email: String}]
     }
 
 });
