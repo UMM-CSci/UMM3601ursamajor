@@ -242,7 +242,7 @@ describe('Functions dealing with submissions...', function() {
            reviewVotes: {
                 Accepted: [],
                 Minor: [],
-                Major: ["reviewer@reviewer.com"],
+                Major: [{name: "reviewer", email: "reviewer@reviewer.com"}],
                 TotalRewrite: []
            }
         }, {
@@ -282,7 +282,7 @@ describe('Functions dealing with submissions...', function() {
                reviewVotes: {
                    Accepted: [],
                    Minor: [],
-                   Major: ["reviewer@reviewer.com"],
+                   Major: [],
                    TotalRewrite: []
                }
            }, {
@@ -322,7 +322,7 @@ describe('Functions dealing with submissions...', function() {
                    Accepted: [],
                    Minor: [],
                    Major: [],
-                   TotalRewrite: ["reviewer@reviewer.com"]
+                   TotalRewrite: []
                }
            }
        ]
@@ -576,6 +576,25 @@ describe('Functions dealing with submissions...', function() {
         it('Accepted for submission 1 [0] should be blank...', function() {
             expect(scope.submissions[0].reviewVotes.Accepted.length).toEqual(0);
         });
+
+    });
+
+    describe('testing the functions that assist with modifying votes', function(){
+      it('indexOf on an empty array', function(){
+        expect(scope.indexOfJsonArray(scope.submissions[0].reviewVotes.Accepted, {name: "cats", email: "cats@cats.com"})).toEqual(-1);
+      });
+      it('indexOf for a non-existant item value', function(){
+        expect(scope.indexOfJsonArray(scope.submissions[1].reviewVotes.Major, {name: "cats", email: "cats@cats.com"})).toEqual(-1);
+      });
+      it('indexOf for a real value that exists in the array', function(){
+        expect(scope.indexOfJsonArray(scope.submissions[1].reviewVotes.Major, {name: "reviewer", email: "reviewer@reviewer.com"})).toEqual(0);
+      });
+      it('arrayToString for a non-empty array', function(){
+        expect(scope.arrayToString(scope.submissions[1].reviewVotes.Major)).toEqual("reviewer");
+      });
+      it('arrayToString for an empty array', function(){
+        expect(scope.arrayToString(scope.submissions[0].reviewVotes.Accepted)).toEqual("");
+      });
 
     });
 
