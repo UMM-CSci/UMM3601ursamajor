@@ -222,16 +222,6 @@
                         <li class="subtext plainList" ng-show="isReviewerGroup(selection.item)">Reviewer in Review Group {{selection.item.group}}</li>
                     </ul>
 
-                    <div ng-show="isAdmin() || isChair()"><b>Currently Assigned Review Group:</b>
-                      <select ng-change="setReviewGroupConfirm(selection.item)" ng-model="selection.reviewGroup">
-                        <option ng-repeat="option in groupOptions" value={{option}}>{{option}}</option>
-                      </select>
-                      <br>
-                      <br>
-                    </div>
-                    <div ng-show="isReviewer()">
-                      <b>Currently Assigned Review Group:</b> {{selection.item.group}}
-                    </div>
                     <div>
                       <b>Current Room Assignment:</b> {{selection.item.roomAssignment}}
                     </div>
