@@ -329,8 +329,7 @@ angular.module('umm3601ursamajorApp')
         };
 
         $scope.submitRoomAssignment = function(text){
-            console.log('got to function');
-            console.log(text);
+            //console.log(text);
             if(text != ""){
                 console.log("text isnt empty");
                 $http.patch('api/submissions/' + $scope.selection.item._id,
@@ -680,6 +679,20 @@ angular.module('umm3601ursamajorApp')
             }
           }
           return index;
+        };
+
+        $scope.subCompare = function(sub1, sub2){
+          if($scope.votingValue(sub1) < $scope.votingValue(sub2)){
+            return -1;
+          };
+          if($scope.votingValue(sub1) > $scope.votingValue(sub2)){
+            return 1;
+          };
+          return 0;
+        };
+
+        $scope.votingValue = function(submission){
+            return Math.pow(submission.reviewVotes.Accepted.length,2) + Math.pow(submission.reviewVotes.Minor.length,2) + Math.pow(submission.reviewVotes.Major.length,2) + Math.pow(submission.reviewVotes.TotalRewrite.length,2);
         };
 
         $scope.updateReviewVotingConfirm = function(item){
