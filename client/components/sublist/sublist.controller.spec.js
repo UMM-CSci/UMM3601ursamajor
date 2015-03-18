@@ -589,6 +589,12 @@ describe('Functions dealing with submissions...', function() {
       it('indexOf for a real value that exists in the array', function(){
         expect(scope.indexOfJsonArray(scope.submissions[1].reviewVotes.Major, {name: "reviewer", email: "reviewer@reviewer.com"})).toEqual(0);
       });
+      it('arrayToString for a non-empty array', function(){
+        expect(scope.arrayToString(scope.submissions[1].reviewVotes.Major)).toEqual("reviewer");
+      });
+      it('arrayToString for an empty array', function(){
+        expect(scope.arrayToString(scope.submissions[0].reviewVotes.Accepted)).toEqual("");
+      });
 
     });
 
