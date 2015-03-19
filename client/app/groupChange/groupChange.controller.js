@@ -15,18 +15,32 @@ angular.module('umm3601ursamajorApp')
         4
       ];
 
+    $scope.filterGroupOptions =
+      [ 'All',
+        0,
+        1,
+        2,
+        3,
+        4
+      ];
+
+    $scope.filterSelection = 'All';
+
     $scope.selection = {reviewGroup: 0};
 
+    // RE-direct if not an admin or chair.
     if(!Auth.isAdmin() && !Auth.isChair()) {
       $location.path('/');
     }
 
+    // Get submissions and put primary into submissions array.
     $http.get('/api/submissions').success(function(submissions) {
       $scope.allSubmissions = submissions;
       socket.syncUpdates('submission', $scope.allSubmissions);
       $scope.getPrimarySubmissions($scope.allSubmissions);
     });
 
+    // Gets users for purposes of finding conflicts between submission people and reviewers.
     $http.get('/api/users').success(function(users) {
       $scope.users = users;
       socket.syncUpdates('user', $scope.users);
@@ -42,6 +56,26 @@ angular.module('umm3601ursamajorApp')
       }
     };
 
+    // Filter so that the user can specify a review group to see submissions for.
+    $scope.filterByGroup = function(submission) {
+      if ($scope.filterSelection === 'All') {
+        return true;
+      } else if ($scope.filterSelection == 0) {
+        return submission.group == 0;
+      } else if ($scope.filterSelection == 1) {
+        return submission.group == 1;
+      } else if ($scope.filterSelection == 2) {
+        return submission.group == 2;
+      } else if ($scope.filterSelection == 3) {
+        return submission.group == 3;
+      } else if ($scope.filterSelection == 4) {
+        return submission.group == 4;
+      }
+
+    };
+
+    // ======= THE NEXT FOUR FUNCTIONS ARE ALL APART OF SUBMITTING A REVIEW GROUP CHANGE ======
+
     $scope.getReviewGroupMembers = function(group) {
       return $filter('filter')($scope.users,
         function(user) {
@@ -49,7 +83,6 @@ angular.module('umm3601ursamajorApp')
         })
     };
 
-    // Todo: Update to include coadvisers...
     $scope.checkForConflict = function(submission) {
       //console.log("checking for conflicts for: " + submission.title + " and review group " + $scope.selection.reviewGroup);
       if (

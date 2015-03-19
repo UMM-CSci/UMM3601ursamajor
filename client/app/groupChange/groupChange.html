@@ -1,7 +1,15 @@
 <div ng-controller="GroupChangeCtrl" class="container-fluid">
     <ul class="list-group">
 
-        <li class="list-group-item" ng-repeat="submission in submissions">
+      <label>
+          Filter submissions by their review groups:
+          <br>
+          <select ng-model="filterSelection">
+            <option ng-repeat="option in filterGroupOptions" ng-value="'{{option}}'">{{option}}</option>
+          </select>
+      </label>
+
+        <li class="list-group-item" ng-repeat="submission in submissions | filter:filterByGroup">
             <strong>{{submission.title}}</strong>
             <br>
 

@@ -38,6 +38,8 @@ angular.module('umm3601ursamajorApp')
                 'user'
             ];
 
+        // Leave 0 out despite it being the default review group.
+        // Don't want to be able to assign someone to that group.
         $scope.groupOptions =
             [   1,
                 2,
