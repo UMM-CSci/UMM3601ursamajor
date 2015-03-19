@@ -18,12 +18,12 @@ angular.module('umm3601ursamajorApp')
 
         // An array of possible tShirtSize's.
         $scope.tShirtSizeOptions =
-            [   'Small',
-                'Medium',
-                'Large',
-                'XLarge',
-                'XXLarge',
-                'XXXLarge'
+            [   "Small",
+                "Medium",
+                "Large",
+                "XLarge",
+                "XXLarge",
+                "XXXLarge"
             ];
 
         // Changes the tShirtSize designated to a user.
