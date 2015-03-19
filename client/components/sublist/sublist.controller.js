@@ -384,6 +384,7 @@ angular.module('umm3601ursamajorApp')
         $http.get('/api/submissions').success(function(submissions) {
             $scope.submissions = submissions;
             socket.syncUpdates('submission', $scope.submissions);
+            $scope.submissions.sort($scope.subCompare);
         });
 
         $http.get('/api/statuss').success(function(status) {
@@ -692,7 +693,10 @@ angular.module('umm3601ursamajorApp')
         };
 
         $scope.votingValue = function(submission){
-            return Math.pow(submission.reviewVotes.Accepted.length,2) + Math.pow(submission.reviewVotes.Minor.length,2) + Math.pow(submission.reviewVotes.Major.length,2) + Math.pow(submission.reviewVotes.TotalRewrite.length,2);
+            return Math.pow(submission.reviewVotes.Accepted.length,2) +
+                   Math.pow(submission.reviewVotes.Minor.length,2) +
+                   Math.pow(submission.reviewVotes.Major.length,2) +
+                   Math.pow(submission.reviewVotes.TotalRewrite.length,2);
         };
 
         $scope.updateReviewVotingConfirm = function(item){

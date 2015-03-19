@@ -302,10 +302,10 @@ Submission.find({}).remove(function(){
         specialRequirements: "",
 //        presenterTeeSize: "L",
         otherInfo: "",
-        approval: false,
+        approval: true,
         cc: false,
         rejection: false,
-        status:  {strict: "Awaiting Adviser Approval", priority: -15, text: "Your adviser has yet to approve this submission."},
+        status:  {strict: "Reviewing in Process", priority: 2, text: "Your URS submission has been approved by your adviser."},
         timestamp: "Sat Oct 18 2014 10:48:54 GMT-0500 (CDT)",
         group: 0,
         roomAssignment: "Science 2610",
@@ -366,7 +366,7 @@ Submission.find({}).remove(function(){
             }
         ],
         reviewVotes: {
-            Accepted: [],
+            Accepted: [{name: "Mark Lehet", email:"lehet005@morris.umn.edu"}],
             Minor: [],
             Major: [],
             TotalRewrite: []
@@ -407,9 +407,9 @@ Submission.find({}).remove(function(){
         comments:[],
         reviewVotes: {
             Accepted: [],
-            Minor: [],
-            Major: [],
-            TotalRewrite: []
+            Minor: [{name: "Mark Lehet", email:"lehet005@morris.umn.edu"}],
+            Major: [{name: "Jacob Opdahl", email:"opdah023@morris.umn.edu"}],
+            TotalRewrite: [{name: "Matthew Kangas", email:"kanga139@morris.umn.edu"}]
         }
 
     }, {
@@ -454,7 +454,7 @@ Submission.find({}).remove(function(){
         reviewVotes: {
             Accepted: [],
             Minor: [],
-            Major: [],
+            Major: [{name: "Mark Lehet", email:"lehet005@morris.umn.edu"}, {name: "Matthew Kangas", email:"kanga139@morris.umn.edu"}, {name: "Jacob Opdahl", email:"opdah023@morris.umn.edu"}],
             TotalRewrite: []
         }
     }, {
@@ -495,7 +495,7 @@ Submission.find({}).remove(function(){
             Accepted: [],
             Minor: [],
             Major: [],
-            TotalRewrite: []
+            TotalRewrite: [{name: "Matthew Kangas", email:"kanga139@morris.umn.edu"}, {name: "Jacob Opdahl", email:"opdah023@morris.umn.edu"}]
         }
     }, {
         title: "Margaret C. Anderson’s Little Review",
@@ -531,9 +531,9 @@ Submission.find({}).remove(function(){
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
         comments: [],
         reviewVotes: {
-            Accepted: [],
-            Minor: [],
-            Major: [],
+            Accepted: [{name: "Mark Lehet", email:"lehet005@morris.umn.edu"}],
+            Minor: [{name: "Matthew Kangas", email:"kanga139@morris.umn.edu"}],
+            Major: [{name: "Jacob Opdahl", email:"opdah023@morris.umn.edu"}],
             TotalRewrite: []
         }
     }, {
@@ -558,20 +558,20 @@ Submission.find({}).remove(function(){
         specialRequirements: "a sloth",
 //        presenterTeeSize: "M",
         otherInfo: "Maybe",
-        approval: false,
+        approval: true,
         rejection: false,
         cc: true,
-        status: {strict: "Awaiting Adviser Approval", priority: -15, text: "Your adviser has yet to approve this submission."},
+        status: {strict: "Reviewing in Process", priority: 2, text: "Your URS submission has been approved by your adviser."},
         timestamp: "Mon Oct 20 2014 1:48:54 GMT-0500 (CDT)",
         group: 3,
         roomAssignment: "HFA 6",
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
         comments: [],
         reviewVotes: {
-            Accepted: [],
+            Accepted: [{name: "Mark Lehet", email:"lehet005@morris.umn.edu"}, {name: "Matthew Kangas", email:"kanga139@morris.umn.edu"}],
             Minor: [],
             Major: [],
-            TotalRewrite: []
+            TotalRewrite: [{name: "Jacob Opdahl", email:"opdah023@morris.umn.edu"}]
         }
     });
 });
