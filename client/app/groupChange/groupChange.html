@@ -1,13 +1,26 @@
 <div ng-controller="GroupChangeCtrl" class="container-fluid">
     <ul class="list-group">
 
-      <label>
-          Filter submissions by their review groups:
-          <br>
-          <select ng-model="filterSelection">
-            <option ng-repeat="option in filterGroupOptions" ng-value="'{{option}}'">{{option}}</option>
-          </select>
-      </label>
+        <div class="row">
+            <div class="col-md-5">
+                <label>
+                    Choose which review group to assign submissions to:
+                    <br>
+                    <select ng-model="selection.reviewGroup">
+                      <option ng-repeat="group in reviewGroupOptions" ng-value="'{{group}}'">{{group}}</option>
+                    </select>
+                </label>
+            </div>
+            <div class="col-md-4">
+                <label>
+                    Filter submissions by their review groups:
+                    <br>
+                    <select ng-model="filterSelection">
+                      <option ng-repeat="option in filterGroupOptions" ng-value="'{{option}}'">{{option}}</option>
+                    </select>
+                </label>
+            </div>
+        </div>
 
         <li class="list-group-item" ng-repeat="submission in submissions | filter:filterByGroup">
             <strong>{{submission.title}}</strong>
@@ -23,11 +36,8 @@
             </span>
 
             <div>
-                <select ng-model="submission.group" placeholder="" required ng-required>
-                    <option value="{{submission.group}}" disabled selected>{{submission.group}}</option>
-                    <option ng-repeat="option in reviewGroupOptions" value="{{option}}">{{option}}</option>
-                </select>
-                <button class="buttonGroup" ng-click="setReviewGroupConfirm(submission)">Update Review Group</button>
+                <span>Assign to review group: {{selection.reviewGroup}}</span>
+                <button ng-hide="reviewGroupSelectionIsEmpty()" class="buttonGroup" ng-click="setReviewGroupConfirm(submission)">Update Review Group</button>
             </div>
         </li>
     </ul>

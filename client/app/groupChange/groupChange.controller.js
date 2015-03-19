@@ -7,8 +7,10 @@ angular.module('umm3601ursamajorApp')
     $scope.submissions = [];
     $scope.users = [];
 
+    // Empty is just for starting the drop-down with empty.
     $scope.reviewGroupOptions =
-      [ 0,
+      [ "",
+        0,
         1,
         2,
         3,
@@ -26,7 +28,8 @@ angular.module('umm3601ursamajorApp')
 
     $scope.filterSelection = 'All';
 
-    $scope.selection = {reviewGroup: 0};
+    // Assigned empty string at first so no option is displayed.
+    $scope.selection = {reviewGroup: ""};
 
     // RE-direct if not an admin or chair.
     if(!Auth.isAdmin() && !Auth.isChair()) {
@@ -71,7 +74,11 @@ angular.module('umm3601ursamajorApp')
       } else if ($scope.filterSelection == 4) {
         return submission.group == 4;
       }
+    };
 
+    // Simple function to hide submit button if the review group selection is "".
+    $scope.reviewGroupSelectionIsEmpty = function() {
+      return $scope.selection.reviewGroup === "";
     };
 
     // ======= THE NEXT FOUR FUNCTIONS ARE ALL APART OF SUBMITTING A REVIEW GROUP CHANGE ======
@@ -101,8 +108,8 @@ angular.module('umm3601ursamajorApp')
     };
 
     $scope.setReviewGroupConfirm = function(submission) {
-      $scope.selection.reviewGroup = submission.group;
-      Modal.confirm.info($scope.setReviewGroup)('Are you sure you want to change this submissions review group?', submission);
+      //$scope.selection.reviewGroup = submission.group;
+      Modal.confirm.info($scope.setReviewGroup)('Are you sure you want to change the review group for this submission to ' + $scope.selection.reviewGroup + '?', submission);
     };
 
     $scope.setReviewGroup = function(submission) {
