@@ -384,7 +384,7 @@ angular.module('umm3601ursamajorApp')
         $http.get('/api/submissions').success(function(submissions) {
             $scope.submissions = submissions;
             socket.syncUpdates('submission', $scope.submissions);
-            $scope.submissions.sort($scope.subCompare);
+            $scope.submissions.sort($scope.subCompareDates);
         });
 
         $http.get('/api/statuss').success(function(status) {
@@ -682,13 +682,26 @@ angular.module('umm3601ursamajorApp')
           return index;
         };
 
-        $scope.subCompare = function(sub1, sub2){
+        $scope.subCompareImportance = function(sub1, sub2){
           if($scope.votingValue(sub1) < $scope.votingValue(sub2)){
             return -1;
-          };
+          }
           if($scope.votingValue(sub1) > $scope.votingValue(sub2)){
             return 1;
-          };
+          }
+          return 0;
+        };
+
+        $scope.subCompareDates = function(sub1, sub2){
+          var date1 = new Date(sub1.timestamp);
+          var date2 = new Date(sub2.timestamp);
+
+          if(date1 < date2){
+            return -1;
+          }
+          if(date1 > date2){
+            return 1;
+          }
           return 0;
         };
 
