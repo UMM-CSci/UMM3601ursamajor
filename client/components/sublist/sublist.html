@@ -41,6 +41,18 @@
                             <option ng-repeat="option in filterData.pendingResubmissionsOptions" ng-value="'{{option}}'">{{option}}</option>
                         </select>
                     </label>
+
+                    <hr ng-show="isAdmin() || isChair() || isReviewerOfAnything()">
+
+                    <label ng-show="isAdmin() || isChair() || isReviewerOfAnything()">
+                        <ul>
+                          <li ng-repeat="method in filterData.sortOptions">
+                            <label>
+                              <input type = "radio" name = "sortMethod" ng-click = "sortSubmissions(method)">Sort by {{method}}
+                            </label>
+                          </li>
+                        </ul>
+                    </label>
                 </li>
             </ul>
         </div>
