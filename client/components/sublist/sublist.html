@@ -43,16 +43,13 @@
                     </label>
 
                     <hr ng-show="isAdmin() || isChair() || isReviewerOfAnything()">
-
-                    <label ng-show="isAdmin() || isChair() || isReviewerOfAnything()">
-                        <ul>
-                          <li ng-repeat="method in filterData.sortOptions">
-                            <label>
-                              <input type = "radio" name = "sortMethod" ng-click = "sortSubmissions(method)">Sort by {{method}}
-                            </label>
-                          </li>
-                        </ul>
-                    </label>
+                    <ul  ng-show="isAdmin() || isChair() || isReviewerOfAnything()">
+                      <li class = "plainList" ng-repeat="sortMethod in filterData.sortOptions">
+                        <label>
+                          <input type="radio" ng-model="filterData.sortOptionsSelection" ng-value="'sortMethod'" name="sortMethod" ng-click="sortSubmissions(sortMethod)">&nbsp;Sort by {{sortMethod}}
+                        </label>
+                      </li>
+                    </ul>
                 </li>
             </ul>
         </div>
