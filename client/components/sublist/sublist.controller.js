@@ -72,6 +72,12 @@ angular.module('umm3601ursamajorApp')
                 "All",
                 "Pending Resubmissions",
                 "Not Pending Resubmissions"
+            ],
+            sortOptionsSelection:"Importance",
+            sortOptions: [
+                "Importance",
+                "Newest",
+                "Oldest"
             ]
         };
 
@@ -384,7 +390,7 @@ angular.module('umm3601ursamajorApp')
         $http.get('/api/submissions').success(function(submissions) {
             $scope.submissions = submissions;
             socket.syncUpdates('submission', $scope.submissions);
-            $scope.submissions.sort($scope.subCompareDates);
+            $scope.submissions.sort($scope.subCompareImportance);
         });
 
         $http.get('/api/statuss').success(function(status) {
@@ -692,7 +698,7 @@ angular.module('umm3601ursamajorApp')
           return 0;
         };
 
-        $scope.subCompareDates = function(sub1, sub2){
+        $scope.subCompareDatesOldFirst = function(sub1, sub2){
           var date1 = new Date(sub1.timestamp);
           var date2 = new Date(sub2.timestamp);
 
@@ -703,6 +709,31 @@ angular.module('umm3601ursamajorApp')
             return 1;
           }
           return 0;
+        };
+
+        $scope.subCompareDatesNewFirst = function(sub1, sub2){
+          var date1 = new Date(sub1.timestamp);
+          var date2 = new Date(sub2.timestamp);
+
+          if(date1 < date2){
+            return 1;
+          }
+          if(date1 > date2){
+            return -1;
+          }
+          return 0;
+        };
+
+        $scope.sortSubmissions = function(sortName){
+          if(sortName === "Importance"){
+            $scope.submissions.sort($scope.subCompareImportance);
+          }
+          else if(sortName === "Oldest"){
+            $scope.submissions.sort($scope.subCompareDatesOldFirst);
+          }
+          else if(sortName === "Newest"){
+            $scope.submissions.sort($scope.subCompareDatesNewFirst);
+          }
         };
 
         $scope.votingValue = function(submission){
