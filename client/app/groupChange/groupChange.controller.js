@@ -76,6 +76,23 @@ angular.module('umm3601ursamajorApp')
       }
     };
 
+    // Filter to remove submissions that are in the review group that is going to be assigned to.
+    $scope.filterOutSameGroup = function(submission) {
+      if ($scope.selection.reviewGroup === "") {
+        return true;
+      } else if ($scope.selection.reviewGroup == 0) {
+        return submission.group != 0;
+      } else if ($scope.selection.reviewGroup == 1) {
+        return submission.group != 1;
+      } else if ($scope.selection.reviewGroup == 2) {
+        return submission.group != 2;
+      } else if ($scope.selection.reviewGroup == 3) {
+        return submission.group != 3;
+      } else if ($scope.selection.reviewGroup == 4) {
+        return submission.group != 4;
+      }
+    };
+
     // Simple function to hide submit button if the review group selection is "".
     $scope.reviewGroupSelectionIsEmpty = function() {
       return $scope.selection.reviewGroup === "";
