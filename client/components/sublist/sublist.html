@@ -212,7 +212,7 @@
                               <p>{{selection.item.otherInfo | isntEmpty:"Additional Information:":""}}</p>
                               <p>{{selection.item.roomAssignment | isntEmpty:"Room Assignment:":""}}</p>
                              <!--This needs a filter for not equal to zero vs isnt empty-->
-                             <!--<p>{{selection.item.group | isntEmpty:"Review Group:":""}}</p>-->
+                              <p>{{selection.item.group | isntEqualToZero:"Review Group:":""}}</p>
                               <p>Date of submission: {{selection.item.timestamp}}</p>
                           </li>
                       </ul>
@@ -274,18 +274,10 @@
 
               <li class="list-group-item">
                 <h3 class="text">{{selection.resubmission.title}}</h3>
-                <p>
-                  Presenter: {{selection.resubmission.presenterInfo.first}} {{selection.resubmission.presenterInfo.last}}
-                </p>
-                <p>
-                  {{selection.resubmission.copresenterOneInfo.first | isntEmpty:"CoPresenter(s):":""}} {{selection.resubmission.copresenterOneInfo.last | isntEmpty:"":""}}{{selection.resubmission.copresenterTwoInfo.first | isntEmpty:",":""}} {{selection.resubmission.copresenterTwoInfo.last | isntEmpty:"":""}}
-                </p>
-                <p>
-                  Adviser: {{selection.resubmission.adviserInfo.first}} {{selection.resubmission.adviserInfo.last}}
-                </p>
-                <p>
-                  {{selection.resubmission.coadviserOneInfo.first | isntEmpty:"CoAdviser(s):":""}}{{selection.resubmission.coadviserOneInfo.last | isntEmpty:"":""}}{{selection.resubmission.coadviserTwoInfo.first | isntEmpty:",":""}} {{selection.resubmission.coadviserTwoInfo.last | isntEmpty:"":""}}
-                </p>
+                <p>Presenter: {{selection.resubmission.presenterInfo.first}} {{selection.resubmission.presenterInfo.last}} </p>
+                <p>{{selection.resubmission.copresenterOneInfo.first | isntEmpty:"CoPresenter(s):":""}} {{selection.resubmission.copresenterOneInfo.last | isntEmpty:"":""}}{{selection.resubmission.copresenterTwoInfo.first | isntEmpty:",":""}} {{selection.resubmission.copresenterTwoInfo.last | isntEmpty:"":""}}</p>
+                <p>Adviser: {{selection.resubmission.adviserInfo.first}} {{selection.resubmission.adviserInfo.last}}</p>
+                <p>{{selection.resubmission.coadviserOneInfo.first | isntEmpty:"CoAdviser(s):":""}}{{selection.resubmission.coadviserOneInfo.last | isntEmpty:"":""}}{{selection.resubmission.coadviserTwoInfo.first | isntEmpty:",":""}} {{selection.resubmission.coadviserTwoInfo.last | isntEmpty:"":""}}</p>
 
                 <button class="btn btn-m block detailsBtn detailsDropDown" ng-hide="resubShowDetails" ng-click="resubShowDetails = true">Show Details <span class="glyphicon glyphicon-chevron-down"></span></button>
                 <button class="btn btn-m block detailsBtn detailsDropDown" ng-show="resubShowDetails" ng-click="resubShowDetails = false">Hide Details <span class="glyphicon glyphicon-chevron-up"></span></button>
@@ -293,6 +285,10 @@
                 <div ng-show="resubShowDetails">
                   <ul class="list-group">
                     <li class="list-group-item">
+                      <p>Presenter Email: {{selection.item.presenterInfo.email}}</p>
+                      <p> {{selection.item.copresenterOneInfo.email | isntEmpty:"CoPresenter(s) Email:":""}}{{selection.item.copresenterTwoInfo.email | isntEmpty:",":""}} </p>
+                      <p>Adviser Email: {{selection.item.adviserInfo.email}} </p>
+                      <p> {{selection.item.coadviserOneInfo.email | isntEmpty:"CoAdviser(s) Email:":""}}{{selection.item.coadviserTwoInfo.email | isntEmpty:",":""}}</p>
                       <p>Discipline: {{selection.resubmission.discipline}}</p>
                       <p>Type: {{selection.resubmission.presentationType}}</p>
                       <p>Format:  {{selection.resubmission.format}}</p>
