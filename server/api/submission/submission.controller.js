@@ -11,6 +11,35 @@ exports.index = function(req, res) {
   });
 };
 
+// Get list of submissions pertinent to the user
+exports.selectIndex = function(req, res) {
+  if(req.user.role == 'admin' || req.user.role == 'chair'){
+      Submission.find(function (err, submissions) {
+    if(err) { return handleError(res, err); }
+    return res.json(200, submissions);
+  });
+  } else {
+    var query = Submission.find();
+      query.or(
+        [
+          {'presenterInfo.email': req.user.email},
+          {'copresenterOneInfo.email': req.user.email},
+          {'copresenterTwoInfo.email': req.user.email},
+          {'advisorInfo.email': req.user.email},
+          {'coadviserOneInfo.email': req.user.email},
+          {'coadviserTwoInfo.email': req.user.email},
+          {group: req.user.group}
+        ]
+      );
+      query.exec(
+      function (err, submissions) {
+        if(err) { return handleError(res, err); }
+        return res.json(200, submissions);
+      }
+    );
+  }
+};
+
 // Get a single submission
 exports.show = function(req, res) {
   Submission.findById(req.params.id, function (err, submission) {

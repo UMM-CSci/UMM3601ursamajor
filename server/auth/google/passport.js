@@ -8,7 +8,7 @@ exports.setup = function (User, config) {
             callbackURL: config.google.callbackURL
         },
         function (accessToken, refreshToken, profile, done) {
-            if (profile._json.hd === "morris.umn.edu") {
+         //   if (profile._json.hd === "morris.umn.edu") {
                 User.findOne({
                     'google.id': profile.id
                 }, function (err, user) {
@@ -29,10 +29,10 @@ exports.setup = function (User, config) {
                         return done(err, user);
                     }
                 });
-            } else {
+        //    } else {
                 //$location.path('/login');
-                done("Please go back a page to log in again with your UMM X-500. If using the Google+ button please go to your google account and log in with your X-500. You will need to go to Google to logout.");
-            }
+        //        done("Please go back a page to log in again with your UMM X-500. If using the Google+ button please go to your google account and log in with your X-500. You will need to go to Google to logout.");
+       //     }
         }
     ));
 };
