@@ -196,6 +196,10 @@
                     <div ng-show="showDetails">
                       <ul class="list-group">
                           <li class="list-group-item">
+                              <p>Presenter Email: {{selection.item.presenterInfo.email}}</p>
+                              <p> {{selection.item.copresenterOneInfo.email | isntEmpty:"CoPresenter(s) Email:":""}}{{selection.item.copresenterTwoInfo.email | isntEmpty:",":""}} </p>
+                              <p>Adviser Email: {{selection.item.adviserInfo.email}} </p>
+                              <p> {{selection.item.coadviserOneInfo.email | isntEmpty:"CoAdviser(s) Email:":""}}{{selection.item.coadviserTwoInfo.email | isntEmpty:",":""}}</p>
                               <p>Discipline: {{selection.item.discipline}}</p>
                               <p>Type: {{selection.item.presentationType}}</p>
                               <p>Format:  {{selection.item.format}}</p>
@@ -207,6 +211,8 @@
                               <p>{{selection.item.specialRequirements | isntEmpty:"Special Requirements:":""}}</p>
                               <p>{{selection.item.otherInfo | isntEmpty:"Additional Information:":""}}</p>
                               <p>{{selection.item.roomAssignment | isntEmpty:"Room Assignment:":""}}</p>
+                             <!--This needs a filter for not equal to zero vs isnt empty-->
+                             <!--<p>{{selection.item.group | isntEmpty:"Review Group:":""}}</p>-->
                               <p>Date of submission: {{selection.item.timestamp}}</p>
                           </li>
                       </ul>
