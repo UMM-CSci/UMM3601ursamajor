@@ -21,8 +21,9 @@
                 </label>
             </div>
         </div>
+        <br>
 
-        <li class="list-group-item" ng-repeat="submission in submissions | filter:filterByGroup">
+        <li class="list-group-item" ng-repeat="submission in submissions | filter:filterByGroup | filter:filterOutSameGroup">
             <strong>{{submission.title}}</strong>
             <br>
 
@@ -32,13 +33,14 @@
             <br>
 
             <span>
-                Current review group: {{submission.group}}
+                Review group: {{submission.group}}
             </span>
 
             <div>
-                <span>Assign to review group: {{selection.reviewGroup}}</span>
-                <button ng-hide="reviewGroupSelectionIsEmpty()" class="buttonGroup" ng-click="setReviewGroupConfirm(submission)">Update Review Group</button>
+                <button ng-hide="reviewGroupSelectionIsEmpty()" class="buttonGroup" ng-click="setReviewGroupConfirm(submission)">Assign to review group: {{selection.reviewGroup}}</button>
             </div>
         </li>
+
+        <alert ng-show="selection.reviewGroup == filterSelection" type="danger"> You are trying to assign submissions to a review group that they are already members of. </alert>
     </ul>
 </div>
