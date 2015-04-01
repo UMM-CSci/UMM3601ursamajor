@@ -20,6 +20,17 @@ angular.module('umm3601ursamajorApp')
         }
     })
 
+  //Filter for checking if a submission's review group number is equal to 0, if not, display it.
+    .filter('isntEqualToZero', function(){
+        return function(input, title, altTitle){
+            if(input !== 0){
+                return title + " " + input;
+            } else {
+                return altTitle;
+            }
+        }
+    })
+
     .filter('fancyLimitTo', function(){
         return function(input, limit){
             return input.substring(0, limit) + "[...]";
