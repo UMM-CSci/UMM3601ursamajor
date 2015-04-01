@@ -136,7 +136,7 @@
                         <br>
                     </div>
 
-                    <button ng-show="isAdmin()" class="btn btn-md btn-danger" ng-click="deleteSubmissionConfirm(selection.item)"><span class="glyphicon glyphicon-trash"></span></button>
+                    <!--<button ng-show="isAdmin()" class="btn btn-md btn-danger" ng-click="deleteSubmissionConfirm(selection.item)"><span class="glyphicon glyphicon-trash"></span></button>-->
 
                     <button ng-show="showResubmitButton().show" class="btn btn-md sideMargins moveRight {{showResubmitButton().style}}" ng-click="showResubmitButton().action()">{{showResubmitButton().text}}</button>
 
@@ -247,8 +247,8 @@
                       <!--<textarea class="roomTextArea" ng-model="selection.item.roomAssignment"  cols="20" rows="1" name="roomAssignment"></textarea>-->
                       <input class="blah"  ng-model="selection.item.roomAssignment" name="selection.item.roomAssignment">
                       <button class="btn btn-primary" ng-click="submitRoomAssignment(selection.item.roomAssignment)">Submit</button>
+                      <button ng-show="isAdmin()" class="btn btn-md btn-danger sideMargins moveRight " ng-click="deleteSubmissionConfirm(selection.item)"><span class="glyphicon glyphicon-trash"></span></button>
                     </div>
-
                 </li> <!-- End where the colored sidebar is -->
             </ul>
 
@@ -262,6 +262,7 @@
                     <h3>Resubmission</h3>
                     <button type="button" ng-show="hasAdminPrivs()" class="btn btn-success resubbutton" ng-click="approveResubmitConfirm()">Approve Resubmission</button>
                     <button type="button" ng-show="isAdmin()" class="btn btn-danger" ng-click="deleteSubmissionConfirm(selection.resubmission)"><span class="glyphicon glyphicon-trash"></span></button>
+
                   </div>
 
                   <div class="col-md-8">
