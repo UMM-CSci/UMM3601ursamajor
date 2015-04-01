@@ -1,3 +1,46 @@
-<div class="col-md-12">
-This is the groupChange view.
+<div ng-controller="GroupChangeCtrl" class="container-fluid">
+    <ul class="list-group">
+
+        <div class="row">
+            <div class="col-md-5">
+                <label>
+                    Choose which review group to assign submissions to:
+                    <br>
+                    <select ng-model="selection.reviewGroup">
+                      <option ng-repeat="group in reviewGroupOptions" ng-value="'{{group}}'">{{group}}</option>
+                    </select>
+                </label>
+            </div>
+            <div class="col-md-4">
+                <label>
+                    Filter submissions by their review groups:
+                    <br>
+                    <select ng-model="filterSelection">
+                      <option ng-repeat="option in filterGroupOptions" ng-value="'{{option}}'">{{option}}</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+        <br>
+
+        <li class="list-group-item" ng-repeat="submission in submissions | filter:filterByGroup | filter:filterOutSameGroup">
+            <strong>{{submission.title}}</strong>
+            <br>
+
+            <span class="text-muted">
+                {{submission.presenterInfo.first}} {{submission.presenterInfo.last}}
+            </span>
+            <br>
+
+            <span>
+                Review group: {{submission.group}}
+            </span>
+
+            <div>
+                <button ng-hide="reviewGroupSelectionIsEmpty()" class="buttonGroup" ng-click="setReviewGroupConfirm(submission)">Assign to review group: {{selection.reviewGroup}}</button>
+            </div>
+        </li>
+
+        <alert ng-show="selection.reviewGroup == filterSelection" type="danger"> You are trying to assign submissions to a review group that they are already members of. </alert>
+    </ul>
 </div>

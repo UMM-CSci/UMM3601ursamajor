@@ -4,6 +4,7 @@ describe('Controller: GroupChangeCtrl', function () {
 
   // load the controller's module
   beforeEach(module('umm3601ursamajorApp'));
+  beforeEach(module('socketMock'));
 
   var GroupChangeCtrl, scope;
 

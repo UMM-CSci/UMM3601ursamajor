@@ -72,6 +72,12 @@ angular.module('umm3601ursamajorApp')
                 "All",
                 "Pending Resubmissions",
                 "Not Pending Resubmissions"
+            ],
+            sortOptionsSelection:"Importance",
+            sortOptions: [
+                "Importance",
+                "Newest",
+                "Oldest"
             ]
         };
 
@@ -329,8 +335,7 @@ angular.module('umm3601ursamajorApp')
         };
 
         $scope.submitRoomAssignment = function(text){
-            console.log('got to function');
-            console.log(text);
+            //console.log(text);
             if(text != ""){
                 console.log("text isnt empty");
                 $http.patch('api/submissions/' + $scope.selection.item._id,
@@ -385,6 +390,7 @@ angular.module('umm3601ursamajorApp')
         $http.get('/api/submissions').success(function(submissions) {
             $scope.submissions = submissions;
             socket.syncUpdates('submission', $scope.submissions);
+            $scope.submissions.sort($scope.subCompareImportance);
         });
 
         $http.get('/api/statuss').success(function(status) {
@@ -638,35 +644,103 @@ angular.module('umm3601ursamajorApp')
 
         //Sets the starting vote option for a reviewer when they go into a submission
         $scope.setVoteOptions = function(){
-            if($scope.selection.item.reviewVotes.Accepted.indexOf($scope.getCurrentUser().name) != -1){
+            var userIdent = {name: $scope.getCurrentUser().name, email: $scope.getCurrentUser().email};
+            if($scope.indexOfJsonArray($scope.selection.item.reviewVotes.Accepted, userIdent) != -1){
                 $scope.voteOption = 'Accepted without changes';
             }
-            else if($scope.selection.item.reviewVotes.Minor.indexOf($scope.getCurrentUser().name) != -1){
+            else if($scope.indexOfJsonArray($scope.selection.item.reviewVotes.Minor, userIdent) != -1){
                 $scope.voteOption = 'Minor revisions';
             }
-            else if($scope.selection.item.reviewVotes.Major.indexOf($scope.getCurrentUser().name) != -1){
+            else if($scope.indexOfJsonArray($scope.selection.item.reviewVotes.Major, userIdent) != -1){
                 $scope.voteOption = 'Major revisions';
             }
-            else if($scope.selection.item.reviewVotes.TotalRewrite.indexOf($scope.getCurrentUser().name) != -1){
+            else if($scope.indexOfJsonArray($scope.selection.item.reviewVotes.TotalRewrite, userIdent) != -1){
                 $scope.voteOption = 'Total rewrite';
             }
         };
 
 
         //Used for the vote on status, turns an array of names into a string
-        //Todo: Works, but produces an error when loading sublist page.
-        $scope.arrayToString = function(item){
+        $scope.arrayToString = function(arr){
+          if(arr == null){
+            return "";
+          }
           var nameString = "";
-          for(var i = 0; i < item.length; i++){
-            if(i + 1 < item.length){
-              nameString += item[i];
+          for(var i = 0; i < arr.length; i++){
+            if(i + 1 < arr.length){
+              nameString += arr[i].name;
               nameString += ", ";
             }
             else{
-              nameString += item[i];
+              nameString += arr[i].name;
             };
           };
           return nameString;
+        };
+
+        $scope.indexOfJsonArray = function(arr, item){
+          var index = -1;
+          for(var i = 0; i < arr.length; i++){
+            if(arr[i].email == item.email){
+              index = i;
+            }
+          }
+          return index;
+        };
+
+        $scope.subCompareImportance = function(sub1, sub2){
+          if($scope.votingValue(sub1) < $scope.votingValue(sub2)){
+            return -1;
+          }
+          if($scope.votingValue(sub1) > $scope.votingValue(sub2)){
+            return 1;
+          }
+          return 0;
+        };
+
+        $scope.subCompareDatesOldFirst = function(sub1, sub2){
+          var date1 = new Date(sub1.timestamp);
+          var date2 = new Date(sub2.timestamp);
+
+          if(date1 < date2){
+            return -1;
+          }
+          if(date1 > date2){
+            return 1;
+          }
+          return 0;
+        };
+
+        $scope.subCompareDatesNewFirst = function(sub1, sub2){
+          var date1 = new Date(sub1.timestamp);
+          var date2 = new Date(sub2.timestamp);
+
+          if(date1 < date2){
+            return 1;
+          }
+          if(date1 > date2){
+            return -1;
+          }
+          return 0;
+        };
+
+        $scope.sortSubmissions = function(sortName){
+          if(sortName === "Importance"){
+            $scope.submissions.sort($scope.subCompareImportance);
+          }
+          else if(sortName === "Oldest"){
+            $scope.submissions.sort($scope.subCompareDatesOldFirst);
+          }
+          else if(sortName === "Newest"){
+            $scope.submissions.sort($scope.subCompareDatesNewFirst);
+          }
+        };
+
+        $scope.votingValue = function(submission){
+            return Math.pow(submission.reviewVotes.Accepted.length,2) +
+                   Math.pow(submission.reviewVotes.Minor.length,2) +
+                   Math.pow(submission.reviewVotes.Major.length,2) +
+                   Math.pow(submission.reviewVotes.TotalRewrite.length,2);
         };
 
         $scope.updateReviewVotingConfirm = function(item){
@@ -674,40 +748,42 @@ angular.module('umm3601ursamajorApp')
         };
         //TODO: update arrays to hold objects containing names and emails instead of just names.
         $scope.updateReviewVoting = function(value){
-            if($scope.selection.item.reviewVotes.Accepted.indexOf($scope.getCurrentUser().name) != -1){
-                $scope.selection.item.reviewVotes.Accepted.splice($scope.selection.item.reviewVotes.Accepted.indexOf($scope.getCurrentUser().name), 1);
+            var userIdent = {name: $scope.getCurrentUser().name, email: $scope.getCurrentUser().email};
+            if($scope.indexOfJsonArray($scope.selection.item.reviewVotes.Accepted, userIdent) != -1){
+                console.log("accepted detected");
+                $scope.selection.item.reviewVotes.Accepted.splice($scope.indexOfJsonArray($scope.selection.item.reviewVotes.Accepted, userIdent), 1);
             }
-            else if($scope.selection.item.reviewVotes.Minor.indexOf($scope.getCurrentUser().name) != -1){
-                $scope.selection.item.reviewVotes.Minor.splice($scope.selection.item.reviewVotes.Minor.indexOf($scope.getCurrentUser().name), 1);
+            else if($scope.indexOfJsonArray($scope.selection.item.reviewVotes.Minor, userIdent) != -1){
+                $scope.selection.item.reviewVotes.Minor.splice($scope.indexOfJsonArray($scope.selection.item.reviewVotes.Minor, userIdent), 1);
             }
-            else if($scope.selection.item.reviewVotes.Major.indexOf($scope.getCurrentUser().name) != -1){
-                $scope.selection.item.reviewVotes.Major.splice($scope.selection.item.reviewVotes.Major.indexOf($scope.getCurrentUser().name), 1);
+            else if($scope.indexOfJsonArray($scope.selection.item.reviewVotes.Major, userIdent) != -1){
+                $scope.selection.item.reviewVotes.Major.splice($scope.indexOfJsonArray($scope.selection.item.reviewVotes.Major, userIdent), 1);
             }
-            else if($scope.selection.item.reviewVotes.TotalRewrite.indexOf($scope.getCurrentUser().name) != -1){
-                $scope.selection.item.reviewVotes.TotalRewrite.splice($scope.selection.item.reviewVotes.TotalRewrite.indexOf($scope.getCurrentUser().name), 1);
+            else if($scope.indexOfJsonArray($scope.selection.item.reviewVotes.TotalRewrite, userIdent) != -1){
+                $scope.selection.item.reviewVotes.TotalRewrite.splice($scope.indexOfJsonArray($scope.selection.item.reviewVotes.TotalRewrite, userIdent), 1);
             } else {
 
                 console.log("This should appear first")
             }
 
             switch(value){
-                case 'Accepted without changes':
-                    $scope.selection.item.reviewVotes.Accepted.splice($scope.selection.item.reviewVotes.Accepted.length, 0, $scope.getCurrentUser().name);
+              case 'Accepted without changes':
+                    $scope.selection.item.reviewVotes.Accepted.splice($scope.selection.item.reviewVotes.Accepted.length, 0, userIdent);
                     console.log("This should appear Accepted");
                     $scope.submitVoting();
                     break;
                 case 'Minor revisions':
-                    $scope.selection.item.reviewVotes.Minor.splice($scope.selection.item.reviewVotes.Minor.length, 0, $scope.getCurrentUser().name);
+                    $scope.selection.item.reviewVotes.Minor.splice($scope.selection.item.reviewVotes.Minor.length, 0, userIdent);
                     console.log("This should appear Minor");
                     $scope.submitVoting();
                     break;
                 case 'Major revisions':
-                    $scope.selection.item.reviewVotes.Major.splice($scope.selection.item.reviewVotes.Major.length, 0, $scope.getCurrentUser().name);
+                    $scope.selection.item.reviewVotes.Major.splice($scope.selection.item.reviewVotes.Major.length, 0, userIdent);
                     console.log("This should appear Major");
                     $scope.submitVoting();
                     break;
                 case 'Total rewrite':
-                    $scope.selection.item.reviewVotes.TotalRewrite.splice($scope.selection.item.reviewVotes.TotalRewrite.length, 0, $scope.getCurrentUser().name);
+                    $scope.selection.item.reviewVotes.TotalRewrite.splice($scope.selection.item.reviewVotes.TotalRewrite.length, 0, userIdent);
                     console.log("This should appear TotalRewrite");
                     $scope.submitVoting();
                     break;
@@ -725,42 +801,6 @@ angular.module('umm3601ursamajorApp')
             }).success(function(){
                     console.log("Updated Votes")
                 })
-        };
-
-
-        $scope.getReviewGroupMembers = function(group) {
-            return $filter('filter')($scope.users,
-                function(user) {
-                    return user.group == group;
-                })
-        };
-
-        $scope.checkForConflict = function(submission) {
-            console.log("checking for conflicts for: " + submission.title + " and review group " + $scope.selection.reviewGroup);
-            if (
-                $filter('filter')($scope.getReviewGroupMembers($scope.selection.reviewGroup),
-                    function(user) {
-                        return user.email === submission.copresenterOneInfo.email || user.email === submission.presenterInfo.email || user.email === submission.adviserInfo.email || user.email === submission.copresenterTwoInfo.email;
-                    }
-                ).length > 0
-                ) {
-                console.log("Conflict with submission and review group.");
-                Modal.confirm.warning()('Conflict with submission and review group.');
-            }
-        };
-
-        $scope.setReviewGroupConfirm = function(submission) {
-            Modal.confirm.info($scope.setReviewGroup)('Are you sure you want to change this submissions review group?', submission);
-        };
-
-        $scope.setReviewGroup = function(submission) {
-            $scope.checkForConflict(submission);
-                $http.patch('api/submissions/' + submission._id,
-                    {group: $scope.selection.reviewGroup}
-                ).success(function(){
-                        console.log("Successfully updated status of submission");
-                        submission.group = $scope.selection.reviewGroup;
-                    });
         };
 
         $scope.resetTemps = function() {

@@ -242,7 +242,7 @@ describe('Functions dealing with submissions...', function() {
            reviewVotes: {
                 Accepted: [],
                 Minor: [],
-                Major: ["reviewer@reviewer.com"],
+                Major: [{name: "reviewer", email: "reviewer@reviewer.com"}],
                 TotalRewrite: []
            }
         }, {
@@ -282,7 +282,7 @@ describe('Functions dealing with submissions...', function() {
                reviewVotes: {
                    Accepted: [],
                    Minor: [],
-                   Major: ["reviewer@reviewer.com"],
+                   Major: [],
                    TotalRewrite: []
                }
            }, {
@@ -319,10 +319,10 @@ describe('Functions dealing with submissions...', function() {
                resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: true},
                comments: [],
                reviewVotes: {
-                   Accepted: [],
+                   Accepted: [{name: "reviewer1", email: "reviewer1@reviewer.com"},{name: "reviewer2", email: "reviewer2@reviewer.com"},{name: "reviewer3", email: "reviewer3@reviewer.com"},{name: "reviewer4", email: "reviewer4@reviewer.com"}],
                    Minor: [],
                    Major: [],
-                   TotalRewrite: ["reviewer@reviewer.com"]
+                   TotalRewrite: []
                }
            }
        ]
@@ -576,6 +576,56 @@ describe('Functions dealing with submissions...', function() {
         it('Accepted for submission 1 [0] should be blank...', function() {
             expect(scope.submissions[0].reviewVotes.Accepted.length).toEqual(0);
         });
+
+    });
+
+    describe('Testing comparison functions for reviewer voting...', function() {
+      it('submission 0 and 2 should have the same date with new first...', function(){
+          expect(scope.subCompareDatesNewFirst(scope.submissions[0],scope.submissions[2])).toEqual(0);
+      });
+      it('submission 0 and 2 should have the same date with old first...', function(){
+        expect(scope.subCompareDatesOldFirst(scope.submissions[0],scope.submissions[2])).toEqual(0);
+      });
+      it('submission 0 and 2 should have the same importance...', function(){
+        expect(scope.subCompareImportance(scope.submissions[0],scope.submissions[2])).toEqual(0);
+      });
+      it('submission 1 should be earlier than submission 3 with new first...', function(){
+        expect(scope.subCompareDatesNewFirst(scope.submissions[1],scope.submissions[3])).toEqual(1);
+      });
+      it('submission 1 should be earlier than submission 3 with old first...', function(){
+        expect(scope.subCompareDatesOldFirst(scope.submissions[1],scope.submissions[3])).toEqual(-1);
+      });
+      it('submission 3 should be earlier than submission 1 with new first...', function(){
+        expect(scope.subCompareDatesNewFirst(scope.submissions[3],scope.submissions[1])).toEqual(-1);
+      });
+      it('submission 3 should be earlier than submission 1 with old first...', function(){
+        expect(scope.subCompareDatesOldFirst(scope.submissions[3],scope.submissions[1])).toEqual(1);
+      });
+      it('submission 1 is more important than submission 3...', function(){
+        expect(scope.subCompareImportance(scope.submissions[1],scope.submissions[3])).toEqual(-1);
+      });
+      it('submission 3 is less important than submission 1...', function(){
+        expect(scope.subCompareImportance(scope.submissions[3],scope.submissions[1])).toEqual(1);
+      });
+
+    });
+
+    describe('testing the functions that assist with modifying votes', function(){
+      it('indexOf on an empty array', function(){
+        expect(scope.indexOfJsonArray(scope.submissions[0].reviewVotes.Accepted, {name: "cats", email: "cats@cats.com"})).toEqual(-1);
+      });
+      it('indexOf for a non-existant item value', function(){
+        expect(scope.indexOfJsonArray(scope.submissions[1].reviewVotes.Major, {name: "cats", email: "cats@cats.com"})).toEqual(-1);
+      });
+      it('indexOf for a real value that exists in the array', function(){
+        expect(scope.indexOfJsonArray(scope.submissions[1].reviewVotes.Major, {name: "reviewer", email: "reviewer@reviewer.com"})).toEqual(0);
+      });
+      it('arrayToString for a non-empty array', function(){
+        expect(scope.arrayToString(scope.submissions[1].reviewVotes.Major)).toEqual("reviewer");
+      });
+      it('arrayToString for an empty array', function(){
+        expect(scope.arrayToString(scope.submissions[0].reviewVotes.Accepted)).toEqual("");
+      });
 
     });
 

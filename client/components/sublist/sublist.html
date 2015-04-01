@@ -41,6 +41,15 @@
                             <option ng-repeat="option in filterData.pendingResubmissionsOptions" ng-value="'{{option}}'">{{option}}</option>
                         </select>
                     </label>
+
+                    <hr ng-show="isAdmin() || isChair() || isReviewerOfAnything()">
+                    <ul  ng-show="isAdmin() || isChair() || isReviewerOfAnything()">
+                      <li class = "plainList" ng-repeat="sortMethod in filterData.sortOptions">
+                        <label>
+                          <input type="radio" ng-model="filterData.sortOptionsSelection" ng-value="'sortMethod'" name="sortMethod" ng-click="sortSubmissions(sortMethod)">&nbsp;Sort by {{sortMethod}}
+                        </label>
+                      </li>
+                    </ul>
                 </li>
             </ul>
         </div>
@@ -222,16 +231,6 @@
                         <li class="subtext plainList" ng-show="isReviewerGroup(selection.item)">Reviewer in Review Group {{selection.item.group}}</li>
                     </ul>
 
-                    <div ng-show="isAdmin() || isChair()"><b>Currently Assigned Review Group:</b>
-                      <select ng-change="setReviewGroupConfirm(selection.item)" ng-model="selection.reviewGroup">
-                        <option ng-repeat="option in groupOptions" value={{option}}>{{option}}</option>
-                      </select>
-                      <br>
-                      <br>
-                    </div>
-                    <div ng-show="isReviewer()">
-                      <b>Currently Assigned Review Group:</b> {{selection.item.group}}
-                    </div>
                     <div>
                       <b>Current Room Assignment:</b> {{selection.item.roomAssignment}}
                     </div>
