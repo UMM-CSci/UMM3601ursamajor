@@ -85,7 +85,7 @@ angular.module('umm3601ursamajorApp')
             });
             var threshold = item.priority;
             for (var j = 0; j < $scope.statusArray.length; j++) {
-                if ($scope.statusArray[j].priority != 15 && $scope.statusArray[j].priority != -15) {
+                if ($scope.statusArray[j].priority != 15 && $scope.statusArray[j].priority != -15 && $scope.statusArray[j].priority != 14) {
                     if ($scope.statusArray[j].priority > threshold) {
                         $scope.statusArray[j].priority--;
                         $http.patch('/api/statuss/' + $scope.statusArray[j]._id,
