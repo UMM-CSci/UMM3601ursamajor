@@ -59,6 +59,14 @@ angular.module('umm3601ursamajorApp')
       }
     };
 
+    $scope.hasCoadviser = function(submission){
+      if(submission.coadviserOneInfo.first === "" && submission.coadviserTwoInfo.first === ""){
+          return false;
+      }else{
+          return true;
+      }
+    }
+
     // Filter so that the user can specify a review group to see submissions for.
     $scope.filterByGroup = function(submission) {
       if ($scope.filterSelection === 'All') {

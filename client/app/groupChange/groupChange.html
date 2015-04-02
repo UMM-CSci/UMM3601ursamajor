@@ -30,10 +30,13 @@
             <span class="text-muted">
                 Presenter: {{submission.presenterInfo.first}} {{submission.presenterInfo.last}}
             <br>
-                Adviser: {{submission.adviserInfo.first}} {{submission.adviserInfo.last}} &nbsp; &nbsp;
-                  {{submission.coadviserOneInfo.first | isntEmpty: "CoAdviser(s):":""}}{{submission.coadviserOneInfo.last | isntEmpty:"":""}}{{submission.coadviserTwoInfo.first | isntEmpty:",":""}} {{submission.coadviserTwoInfo.last | isntEmpty:"":""}}
+                Adviser: {{submission.adviserInfo.first}} {{submission.adviserInfo.last}}
             </span>
+          <span class="text-muted" ng-show="hasCoadviser(submission)">
             <br>
+                  {{submission.coadviserOneInfo.first | isntEmpty: "CoAdviser(s):":""}}{{submission.coadviserOneInfo.last | isntEmpty:"":""}}{{submission.coadviserTwoInfo.first | isntEmpty:",":""}} {{submission.coadviserTwoInfo.last | isntEmpty:"":""}}
+          </span>
+          <br>
             <span>
                 Review group: {{submission.group}}
             </span>
