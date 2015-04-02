@@ -145,14 +145,14 @@ User.find({}).remove(function() {
               hd: "morris.umn.edu",
               locale: "en",
               gender: "male",
-              picture: "",
-              link: "https://plus.google.com/102737466880551658774",
+              picture: "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg?sz=50",
+              link: "https://plus.google.com/1126393061163463407484",
               family_name: "Finzel",
-              given_name: "<itchell",
+              given_name: "Mitchell",
               name: "Mitchell Finzel",
               verified_email: true,
               email: "finze008@morris.umn.edu",
-              id: "102737466880551658774"
+              id: "112639306116346340748"
             },
             group: -1,
             role: "user",
