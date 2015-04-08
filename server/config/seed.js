@@ -556,6 +556,256 @@ Submission.find({}).remove(function(){
             Major: [{name: "Jacob Opdahl", email:"opdah023@morris.umn.edu"}],
             TotalRewrite: []
         }
+    },{
+      title: "1,2,3,...Pull! Which Parachute Materials",
+      format: "Science or Social Science Abstract",
+      abstract: "The purpose of this investigation is to determine, from the samples that were given to me by several companies, which parachute will descend at the slowest rate. " +
+          "Making it the safest. I plan to make three parachutes out of the 9 materials given to me. That will give me 27 parachutes. " +
+          "They will be wing-shaped and will be 39cm in width and 20cm in length. Then I will cut 108 pieces of kite string that are going to be 40cm a piece. " +
+          "Now tape 4 strings to the four corners, then tie the ends together. Then take 2 pennies and tape them to the tied ends. Now do the same for the other parachutes. " +
+          "Find a high place off the ground like a stairway or ladder so you can drop the parachutes. Now measure out 8 feet. Make sure the area at the bottom is flat. " +
+          "Take your first parachute drop it, and time it as it descends. Stop when it hits the ground. Repeat this step ten times a piece for each parachute. So you can validate your results. " +
+          "Record the data. Previously, I have found that a parachute by the name of Tandem Icarus seemed to descend at the slowest rate. " +
+          "But this year I have added three more parachutes to my research. So far, a parachute by the name of Prima is descending at the slower rate. " +
+          "I hope that this will enable my project to produce more accurate data. ",
+      presentationType: "Poster or Visual Display",
+      formatChange: true,
+      presenterInfo: {first: "Savannah", last: "Farm", email: "farmx009@morris.umn.edu"},
+      copresenterOneInfo: {first: "", last: "", email: ""},
+      copresenterTwoInfo: {first: "", last: "", email: ""},
+      discipline: "Biology",
+      sponsors: [], //Might need to worry about if this is static for the DB later.
+      adviserInfo: {first: "Otto", last: "Marckell", email: "marck018@morris.umn.edu"},
+      coadviserOneInfo: {first: "", last: "", email: ""},
+      coadviserTwoInfo: {first: "", last: "", email: ""},
+      featured: true,
+      mediaServicesEquipment: "",
+      specialRequirements: "A small space to make the presentation personal.",
+//        presenterTeeSize: "S",
+      otherInfo: "yes.",
+      approval: true,
+      cc: false,
+      rejection: false,
+      status: {strict: "Accepted", priority: 15, text: "Your URS submission has been approved, congratulations!"},
+      timestamp: "Thur Oct 23 2014 1:48:54 GMT-0500 (CDT)",
+      group: 2,
+      roomAssignment: "Science 2610",
+      resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+      comments: [],
+      reviewVotes: {
+        Accepted: [{name: "Mark Lehet", email:"lehet005@morris.umn.edu"}],
+        Minor: [{name: "Matthew Kangas", email:"kanga139@morris.umn.edu"}],
+        Major: [{name: "Jacob Opdahl", email:"opdah023@morris.umn.edu"}],
+        TotalRewrite: []
+      }
+    },{
+      title: "Development by Design and Testing of a Miniature to Harness Kinetic Energy from Airflow Around a Moving Automobile",
+      format: "Science or Social Science Abstract",
+      abstract: "This project presents a summary of a successful design, fabrication and testing of wind turbines mounted on a car roof for the purpose of extracting power from the kinetic energy (dynamic pressure) contained in the wind flow around the car. " +
+          "The placement of the turbine was based on aerodynamic considerations. Various design concepts were tested and evaluated. Drag tests were conducted that showed the turbine did not negatively impact vehicle performance. " +
+          "NACA (National Advisory Committee for Aeronautics) ducts were evaluated and shown to offer additional choice for turbine design and placement. " +
+          "The results obtained from the tests conducted in this research demonstrate the feasibility for the efficient extraction of energy from wind flow around an automobile. " +
+          "Literature research consisting mainly of a review of NACA reports supported the findings of this study.",
+      presentationType: "Poster or Visual Display",
+      formatChange: true,
+      presenterInfo: {first: "Savannah", last: "Farm", email: "farmx009@morris.umn.edu"},
+      copresenterOneInfo: {first: "", last: "", email: ""},
+      copresenterTwoInfo: {first: "", last: "", email: ""},
+      discipline: "Biology",
+      sponsors: [], //Might need to worry about if this is static for the DB later.
+      adviserInfo: {first: "Otto", last: "Marckell", email: "marck018@morris.umn.edu"},
+      coadviserOneInfo: {first: "", last: "", email: ""},
+      coadviserTwoInfo: {first: "", last: "", email: ""},
+      featured: true,
+      mediaServicesEquipment: "",
+      specialRequirements: "A small space to make the presentation personal.",
+//        presenterTeeSize: "S",
+      otherInfo: "yes.",
+      approval: true,
+      cc: false,
+      rejection: false,
+      status: {strict: "Accepted", priority: 15, text: "Your URS submission has been approved, congratulations!"},
+      timestamp: "Thur Oct 23 2014 1:48:54 GMT-0500 (CDT)",
+      group: 2,
+      roomAssignment: "Science 2610",
+      resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+      comments: [],
+      reviewVotes: {
+        Accepted: [{name: "Mark Lehet", email:"lehet005@morris.umn.edu"}],
+        Minor: [{name: "Matthew Kangas", email:"kanga139@morris.umn.edu"}],
+        Major: [{name: "Jacob Opdahl", email:"opdah023@morris.umn.edu"}],
+        TotalRewrite: []
+      }
+    },{
+      title: "Continued Fractions of Quadratic Laurent Series",
+      format: "Science or Social Science Abstract",
+      abstract: "It is both natural and interesting to replace the ring of integers and field of real numbers with the ring F[x] and the field F((1/x))for a field F, " +
+          "and to try to use continued fractions in F((1/x))to solve Pell’s equation in F[x]. " +
+          "I hypothesized that the solvability of Pell’s equation in this context is equivalent to the eventual periodicity of the associated continued fraction " +
+          "(a non-trivial constraint for infinite F) and that such periodicity exhibits symmetry properties analogous to the classically studied case. " +
+          "I proved my hypothesis, overcoming numerous obstacles not seen in the classical case, such as non-trivial units and lack of order structure. " +
+          "The method applies in characteristic 2, using a generalized form of Pell’s equation. The technique of proof is a mixture of non-Archimedean methods and polynomial algebra, " +
+          "the central breakthrough being a close study of the properties of a concept that I call a “reduced quadratic surd”. " +
+          "After proving some importance technical properties of reduced surd, I show that eventual periodicity of continued fractions implies the specific periodic and symmetric structure analogous to the classical case. " +
+          "I then use this result to prove that Pell’s equation has solutions if and only if the associated continued fraction is periodic – a result not seen in the classical theory. " +
+          "As a result, the problem of Pell’s equation in F[x] and the periodicity structure of quadratic surds in F((1/x)) is solved for arbitrary coefficient fields F, " +
+          "giving us interesting insight into the classical case.",
+      presentationType: "Poster or Visual Display",
+      formatChange: true,
+      presenterInfo: {first: "Savannah", last: "Farm", email: "farmx009@morris.umn.edu"},
+      copresenterOneInfo: {first: "", last: "", email: ""},
+      copresenterTwoInfo: {first: "", last: "", email: ""},
+      discipline: "Biology",
+      sponsors: [], //Might need to worry about if this is static for the DB later.
+      adviserInfo: {first: "Otto", last: "Marckell", email: "marck018@morris.umn.edu"},
+      coadviserOneInfo: {first: "", last: "", email: ""},
+      coadviserTwoInfo: {first: "", last: "", email: ""},
+      featured: true,
+      mediaServicesEquipment: "",
+      specialRequirements: "A small space to make the presentation personal.",
+//        presenterTeeSize: "S",
+      otherInfo: "yes.",
+      approval: true,
+      cc: false,
+      rejection: false,
+      status: {strict: "Accepted", priority: 15, text: "Your URS submission has been approved, congratulations!"},
+      timestamp: "Thur Oct 23 2014 1:48:54 GMT-0500 (CDT)",
+      group: 2,
+      roomAssignment: "Science 2610",
+      resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+      comments: [],
+      reviewVotes: {
+        Accepted: [{name: "Mark Lehet", email:"lehet005@morris.umn.edu"}],
+        Minor: [{name: "Matthew Kangas", email:"kanga139@morris.umn.edu"}],
+        Major: [{name: "Jacob Opdahl", email:"opdah023@morris.umn.edu"}],
+        TotalRewrite: []
+      }
+    },{
+      title: "Synthesis and Evaluation of a Moleculary Imprinted Polymer for the Enantiomeric Resolution of L- and-D- Phenylalanine",
+      format: "Science or Social Science Abstract",
+      abstract: "Molecularly imprinted polymers (MIPs) are synthesis network polymers that contain recognition sited for specific molecules. " +
+          "MIPs are designed to bind the molecule that they have been imprinted with over other structurally similar molecules. " +
+          "The goal of this project was to create a beta- Cyclodextrin (BCD) based MIP imprinted with the amino acid L-Phenylalanine (L-Phe) MIPs, " +
+          "which are prepared based on relatively weak intermolecular attractions between the template molecule and pre-polymer components, have decreased binding abilities in polar solvents. " +
+          "However, to be used in many practical applications in the future, MIPs will need to be able to function in polar solvents such as water. " +
+          "In this project, the goal was to synthesize a MIP that could bind L-Phe in an aqueous solution by using the hydrophobic attraction provided by the B-CD cavity. " +
+          "MIPs were formed by polymerizing (crosslinking) B-CD with m-xylylene disocyanate (XDI) in the presence of L-Phe (template molecule). " +
+          "CuCl2 was used to increase the solubility of L-Phe in DMSO (dimethyl sulfoxide, solvent). Control polymers were formed in the same way, but in the absence of L-Phe and CuCl2. " +
+          "All polymers were thoroughly washed and dried to prepare them for rebinding studies and analysis. The polymer obtained from the synthesis described was analyzed with IR spectroscopy, " +
+          "and the structure of the polymer was proposed. Due to difficulties in removing background UV-V is absorption caused by the polymer or other contaminants in rebinding study solutions, " +
+          "the efficacy of the polymer in binding L-Phe over D-Phe in aqueous media was not confirmed, and will be the focus of future studies.",
+      presentationType: "Poster or Visual Display",
+      formatChange: true,
+      presenterInfo: {first: "Savannah", last: "Farm", email: "farmx009@morris.umn.edu"},
+      copresenterOneInfo: {first: "", last: "", email: ""},
+      copresenterTwoInfo: {first: "", last: "", email: ""},
+      discipline: "Biology",
+      sponsors: [], //Might need to worry about if this is static for the DB later.
+      adviserInfo: {first: "Otto", last: "Marckell", email: "marck018@morris.umn.edu"},
+      coadviserOneInfo: {first: "", last: "", email: ""},
+      coadviserTwoInfo: {first: "", last: "", email: ""},
+      featured: true,
+      mediaServicesEquipment: "",
+      specialRequirements: "A small space to make the presentation personal.",
+//        presenterTeeSize: "S",
+      otherInfo: "yes.",
+      approval: true,
+      cc: false,
+      rejection: false,
+      status: {strict: "Accepted", priority: 15, text: "Your URS submission has been approved, congratulations!"},
+      timestamp: "Thur Oct 23 2014 1:48:54 GMT-0500 (CDT)",
+      group: 2,
+      roomAssignment: "Science 2610",
+      resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+      comments: [],
+      reviewVotes: {
+        Accepted: [{name: "Mark Lehet", email:"lehet005@morris.umn.edu"}],
+        Minor: [{name: "Matthew Kangas", email:"kanga139@morris.umn.edu"}],
+        Major: [{name: "Jacob Opdahl", email:"opdah023@morris.umn.edu"}],
+        TotalRewrite: []
+      }
+    },{
+      title: "The Effect of Motor Oil on Daphnia magna",
+      format: "Humanities Proposal",
+      abstract: "The purpose of my project was to model how motor oil released to a lake impacts the organisms that live there. " +
+          "Whole effluent toxicity (WET) testing is used by regulatory agencies to determine how clean an effluent must be before release to the environment. " +
+          "In a WET test, aquatic animals are exposed to an effluent to determine if the effluent harms the animals. " +
+          "I conducted eight experiments using the organism Daphnia magna. I added oxygenated, dechlorinated water to sample containers, " +
+          "then added varying concentrations of motor oil. For each experiment, two replicates were prepared. " +
+          "To each sample, I added Daphnia magna and then recorded the number of organisms alive after 24 and 48 hours. " +
+          "Great care was taken to properly maintain the Daphnia magna culture for the experiments. I maintained optimal temperature and lighting and followed the appropriate schedule for feeding and water changes. " +
+          "I initially tested motor oil concentrations of 0.2% and higher. When all the Daphnia magna neonates died, I conducted two experiments using NaCl, " +
+          "since their response to NaCl is known. When the Daphnia magna reacted as expected, I continued the experiments, eventually using motor oil concentrations as low as 0.00017%. " +
+          "Using data from Replicate #1 Experiment #8 24-hour observations, I was able to generate a graph which revealed a motor oil LC50 of 30 mg/l. " +
+          "This is the concentration at which 50% of the organisms die. This very low concentration confirms how only a little bit of oil can cause serious damage to the environment.",
+      presentationType: "Poster or Visual Display",
+      formatChange: true,
+      presenterInfo: {first: "Savannah", last: "Farm", email: "farmx009@morris.umn.edu"},
+      copresenterOneInfo: {first: "", last: "", email: ""},
+      copresenterTwoInfo: {first: "", last: "", email: ""},
+      discipline: "Biology",
+      sponsors: [], //Might need to worry about if this is static for the DB later.
+      adviserInfo: {first: "Otto", last: "Marckell", email: "marck018@morris.umn.edu"},
+      coadviserOneInfo: {first: "", last: "", email: ""},
+      coadviserTwoInfo: {first: "", last: "", email: ""},
+      featured: true,
+      mediaServicesEquipment: "",
+      specialRequirements: "A small space to make the presentation personal.",
+//        presenterTeeSize: "S",
+      otherInfo: "yes.",
+      approval: true,
+      cc: false,
+      rejection: false,
+      status: {strict: "Accepted", priority: 15, text: "Your URS submission has been approved, congratulations!"},
+      timestamp: "Thur Oct 23 2014 1:48:54 GMT-0500 (CDT)",
+      group: 2,
+      roomAssignment: "Science 2610",
+      resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+      comments: [],
+      reviewVotes: {
+        Accepted: [{name: "Mark Lehet", email:"lehet005@morris.umn.edu"}],
+        Minor: [{name: "Matthew Kangas", email:"kanga139@morris.umn.edu"}],
+        Major: [{name: "Jacob Opdahl", email:"opdah023@morris.umn.edu"}],
+        TotalRewrite: []
+      }
+    },{
+      title: "English as the Medium of Instruction for Non-Native English Speakers",
+      format: "Artisit Statement",
+      abstract: "The world is slowly turning into a global village and borders that once stood between cultures now serve as bridges for the enjoyment of diversity between people of different races and ethnicities. " +
+          "At the forefront of this change is English, which stands as the global medium of communication. " +
+          "This modern renaissance of human interaction may bring about a lot in terms of economics and trade, but adopting English as the national medium of instruction in the grade school and high school levels, " +
+          "just to ride this economic wave of change, poses several dangers to the culture of non-native English speakers. " +
+          "Apart from inefficiency and stunted cognition, non-native English speaking students are at risk of losing their cultural identity.",
+      presentationType: "Poster or Visual Display",
+      formatChange: true,
+      presenterInfo: {first: "Savannah", last: "Farm", email: "farmx009@morris.umn.edu"},
+      copresenterOneInfo: {first: "", last: "", email: ""},
+      copresenterTwoInfo: {first: "", last: "", email: ""},
+      discipline: "English",
+      sponsors: [], //Might need to worry about if this is static for the DB later.
+      adviserInfo: {first: "Otto", last: "Marckell", email: "marck018@morris.umn.edu"},
+      coadviserOneInfo: {first: "", last: "", email: ""},
+      coadviserTwoInfo: {first: "", last: "", email: ""},
+      featured: true,
+      mediaServicesEquipment: "",
+      specialRequirements: "A small space to make the presentation personal.",
+//        presenterTeeSize: "S",
+      otherInfo: "yes.",
+      approval: true,
+      cc: false,
+      rejection: false,
+      status: {strict: "Accepted", priority: 15, text: "Your URS submission has been approved, congratulations!"},
+      timestamp: "Thur Oct 23 2014 1:48:54 GMT-0500 (CDT)",
+      group: 2,
+      roomAssignment: "Science 2610",
+      resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+      comments: [],
+      reviewVotes: {
+        Accepted: [{name: "Mark Lehet", email:"lehet005@morris.umn.edu"}],
+        Minor: [{name: "Matthew Kangas", email:"kanga139@morris.umn.edu"}],
+        Major: [{name: "Jacob Opdahl", email:"opdah023@morris.umn.edu"}],
+        TotalRewrite: []
+      }
     }, {
         title: "A Study of the Properties of a Paperclip in the Digestive System of a Sloth",
         format: "Artist Statement",
