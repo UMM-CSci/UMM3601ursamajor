@@ -138,6 +138,26 @@ User.find({}).remove(function() {
             role: "reviewer",
             __v: 0
         }, {
+            name: "Mitchell Finzel",
+            email: "finze008@morris.umn.edu",
+            provider: "google",
+            google: {
+              hd: "morris.umn.edu",
+              locale: "en",
+              gender: "male",
+              picture: "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg?sz=50",
+              link: "https://plus.google.com/1126393061163463407484",
+              family_name: "Finzel",
+              given_name: "Mitchell",
+              name: "Mitchell Finzel",
+              verified_email: true,
+              email: "finze008@morris.umn.edu",
+              id: "112639306116346340748"
+            },
+            group: -1,
+            role: "user",
+           __v: 0
+        }, {
             name: "Mark Lehet",
             email: "lehet005@morris.umn.edu",
             provider: "google",

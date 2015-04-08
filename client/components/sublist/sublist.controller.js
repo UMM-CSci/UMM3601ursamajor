@@ -20,6 +20,17 @@ angular.module('umm3601ursamajorApp')
         }
     })
 
+  //Filter for checking if a submission's review group number is equal to 0, if not, display it.
+    .filter('isntEqualToZero', function(){
+        return function(input, title, altTitle){
+            if(input !== 0){
+                return title + " " + input;
+            } else {
+                return altTitle;
+            }
+        }
+    })
+
     .filter('fancyLimitTo', function(){
         return function(input, limit){
             return input.substring(0, limit) + "[...]";
@@ -78,7 +89,9 @@ angular.module('umm3601ursamajorApp')
                 "Importance",
                 "Newest",
                 "Oldest"
-            ]
+            ],
+            statusOptionsSelection:"All",
+            statusOptions: ["All"]
         };
 
         // Returns true if a submission has a status that is not the default and it also does not have adviser approval.
@@ -280,6 +293,16 @@ angular.module('umm3601ursamajorApp')
                 )
         };
 
+        $scope.statusFilter = function(submission){
+          if($scope.filterData.statusOptionsSelection === "All"){
+            return true;
+          }
+          else {
+            return submission.status.strict === $scope.filterData.statusOptionsSelection;
+          }
+        };
+
+
         //Returns true if the current user is listed as a presenter on ANY submission, false otherwise.
         $scope.isPresenterOnAnything = function(){
             return ($filter('filter')($scope.submissions, $scope.isPresenter).length > 0)
@@ -384,6 +407,7 @@ angular.module('umm3601ursamajorApp')
                 $scope.statusEdit.subject.push($scope.status[x].emailSubject);
                 $scope.statusEdit.body.push($scope.status[x].emailBody);
                 $scope.statusEdit.priority.push($scope.status[x].priority);
+                $scope.filterData.statusOptions.push($scope.status[x+1].strict);
             }
         };
 

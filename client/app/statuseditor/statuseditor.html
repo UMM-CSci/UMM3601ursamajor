@@ -1,14 +1,16 @@
 <div ng-controller="StatuseditorCtrl" ng-show="isAdmin() || isChair()" class="container-fluid">
-    <ul class="list-group">
-        <li class="list-group-item"><h1>Status Option Editor</h1></li>
-        <button class="btn btn-primary padded" ng-click="addStatusConfirm()">Add New Status  <span class="glyphicon glyphicon-plus"></span></button>
-        <li class="list-group-item" ng-repeat="status in statusArray" ng-style="statusEditorColor(status)">
-            <div class="center">
-                <h2>{{status.strict}}</h2>
+    <button class="btn btn-primary padded" ng-click="addStatusConfirm()">Add New Status  <span class="glyphicon glyphicon-plus"></span></button>
+    <accordion class="list-group" ng-repeat="status in statusArray">
+        <!--<li class="list-group-item"><h1>Status Option Editor</h1></li>-->
+        <accordion-group class="" ng-style="statusEditorColor(status)">
+            <accordion-heading>
+              {{status.strict}} &nbsp; {{status.priority}}
+            </accordion-heading>
+            <div class="">
                 <h3 ng-hide="requiredStatus(status)">Priority:
                     <input class="centerBox" type="number" ng-model="status.priority" max="14" min="2" name="priority" required>
                 </h3>
-                <h3 ng-show="requiredStatus(status)">Required Status</h3>
+                <h4 ng-show="requiredStatus(status)">Required Status</h4>
 
                 <br>
             </div>
@@ -79,6 +81,6 @@
                     <br>
 
                 </div>
-            </li>
-        </ul>
-    </div>
+        </accordion-group>
+    </accordion>
+</div>

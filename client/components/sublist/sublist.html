@@ -42,6 +42,14 @@
                         </select>
                     </label>
 
+                    <label ng-show="isAdmin() || isChair() || isReviewerOfAnything()">
+                      Filter by status:
+                      <br>
+                      <select ng-model="filterData.statusOptionsSelection">
+                        <option ng-repeat="option in filterData.statusOptions" ng-value="'{{option}}'">{{option}}</option>
+                      </select>
+                    </label>
+
                     <hr ng-show="isAdmin() || isChair() || isReviewerOfAnything()">
                     <ul  ng-show="isAdmin() || isChair() || isReviewerOfAnything()">
                       <li class = "plainList" ng-repeat="sortMethod in filterData.sortOptions">
@@ -71,7 +79,7 @@
                     <img class="loadingImage" src="assets/images/hourglass-gif.gif">
                 </li>
 
-                <li class="list-group-item" ng-style="statusColorTab(sub.status.strict)" ng-repeat="sub in submissions | filter:hasPermissions | filter:tabFilters | filter:reviewGroupFilter | filter:featurePresentationFilter | filter:flaggedForResubmitFilter | filter:pendingResubmissionsFilter | filter:searchFilter" ng-hide="isResubmission(sub)">
+                <li class="list-group-item" ng-style="statusColorTab(sub.status.strict)" ng-repeat="sub in submissions | filter:hasPermissions | filter:tabFilters | filter:reviewGroupFilter | filter:featurePresentationFilter | filter:flaggedForResubmitFilter | filter:pendingResubmissionsFilter | filter:statusFilter | filter:searchFilter" ng-hide="isResubmission(sub)">
                     <h3 class="text">{{sub.title}}
                         <span ng-show="getResubmission(sub) != null" title="Submission has an unapproved resubmission" style="color: red" class="glyphicon glyphicon-warning-sign"></span>
                         <span ng-show="sub.resubmissionData.resubmitFlag" title="Submission is flagged for resubmission" style="color: darkgoldenrod" class="glyphicon glyphicon-flag"></span>
@@ -136,7 +144,7 @@
                         <br>
                     </div>
 
-                    <button ng-show="isAdmin()" class="btn btn-md btn-danger" ng-click="deleteSubmissionConfirm(selection.item)"><span class="glyphicon glyphicon-trash"></span></button>
+                    <!--<button ng-show="isAdmin()" class="btn btn-md btn-danger" ng-click="deleteSubmissionConfirm(selection.item)"><span class="glyphicon glyphicon-trash"></span></button>-->
 
                     <button ng-show="showResubmitButton().show" class="btn btn-md sideMargins moveRight {{showResubmitButton().style}}" ng-click="showResubmitButton().action()">{{showResubmitButton().text}}</button>
 
@@ -196,6 +204,10 @@
                     <div ng-show="showDetails">
                       <ul class="list-group">
                           <li class="list-group-item">
+                              <p>Presenter Email: {{selection.item.presenterInfo.email}}</p>
+                              <p> {{selection.item.copresenterOneInfo.email | isntEmpty:"CoPresenter(s) Email:":""}}{{selection.item.copresenterTwoInfo.email | isntEmpty:",":""}} </p>
+                              <p>Adviser Email: {{selection.item.adviserInfo.email}} </p>
+                              <p> {{selection.item.coadviserOneInfo.email | isntEmpty:"CoAdviser(s) Email:":""}}{{selection.item.coadviserTwoInfo.email | isntEmpty:",":""}}</p>
                               <p>Discipline: {{selection.item.discipline}}</p>
                               <p>Type: {{selection.item.presentationType}}</p>
                               <p>Format:  {{selection.item.format}}</p>
@@ -207,6 +219,8 @@
                               <p>{{selection.item.specialRequirements | isntEmpty:"Special Requirements:":""}}</p>
                               <p>{{selection.item.otherInfo | isntEmpty:"Additional Information:":""}}</p>
                               <p>{{selection.item.roomAssignment | isntEmpty:"Room Assignment:":""}}</p>
+                             <!--This needs a filter for not equal to zero vs isnt empty-->
+                              <p>{{selection.item.group | isntEqualToZero:"Review Group:":""}}</p>
                               <p>Date of submission: {{selection.item.timestamp}}</p>
                           </li>
                       </ul>
@@ -241,8 +255,8 @@
                       <!--<textarea class="roomTextArea" ng-model="selection.item.roomAssignment"  cols="20" rows="1" name="roomAssignment"></textarea>-->
                       <input class="blah"  ng-model="selection.item.roomAssignment" name="selection.item.roomAssignment">
                       <button class="btn btn-primary" ng-click="submitRoomAssignment(selection.item.roomAssignment)">Submit</button>
+                      <button ng-show="isAdmin()" class="btn btn-md btn-danger sideMargins moveRight " ng-click="deleteSubmissionConfirm(selection.item)"><span class="glyphicon glyphicon-trash"></span></button>
                     </div>
-
                 </li> <!-- End where the colored sidebar is -->
             </ul>
 
@@ -256,6 +270,7 @@
                     <h3>Resubmission</h3>
                     <button type="button" ng-show="hasAdminPrivs()" class="btn btn-success resubbutton" ng-click="approveResubmitConfirm()">Approve Resubmission</button>
                     <button type="button" ng-show="isAdmin()" class="btn btn-danger" ng-click="deleteSubmissionConfirm(selection.resubmission)"><span class="glyphicon glyphicon-trash"></span></button>
+
                   </div>
 
                   <div class="col-md-8">
@@ -268,18 +283,10 @@
 
               <li class="list-group-item">
                 <h3 class="text">{{selection.resubmission.title}}</h3>
-                <p>
-                  Presenter: {{selection.resubmission.presenterInfo.first}} {{selection.resubmission.presenterInfo.last}}
-                </p>
-                <p>
-                  {{selection.resubmission.copresenterOneInfo.first | isntEmpty:"CoPresenter(s):":""}} {{selection.resubmission.copresenterOneInfo.last | isntEmpty:"":""}}{{selection.resubmission.copresenterTwoInfo.first | isntEmpty:",":""}} {{selection.resubmission.copresenterTwoInfo.last | isntEmpty:"":""}}
-                </p>
-                <p>
-                  Adviser: {{selection.resubmission.adviserInfo.first}} {{selection.resubmission.adviserInfo.last}}
-                </p>
-                <p>
-                  {{selection.resubmission.coadviserOneInfo.first | isntEmpty:"CoAdviser(s):":""}}{{selection.resubmission.coadviserOneInfo.last | isntEmpty:"":""}}{{selection.resubmission.coadviserTwoInfo.first | isntEmpty:",":""}} {{selection.resubmission.coadviserTwoInfo.last | isntEmpty:"":""}}
-                </p>
+                <p>Presenter: {{selection.resubmission.presenterInfo.first}} {{selection.resubmission.presenterInfo.last}} </p>
+                <p>{{selection.resubmission.copresenterOneInfo.first | isntEmpty:"CoPresenter(s):":""}} {{selection.resubmission.copresenterOneInfo.last | isntEmpty:"":""}}{{selection.resubmission.copresenterTwoInfo.first | isntEmpty:",":""}} {{selection.resubmission.copresenterTwoInfo.last | isntEmpty:"":""}}</p>
+                <p>Adviser: {{selection.resubmission.adviserInfo.first}} {{selection.resubmission.adviserInfo.last}}</p>
+                <p>{{selection.resubmission.coadviserOneInfo.first | isntEmpty:"CoAdviser(s):":""}}{{selection.resubmission.coadviserOneInfo.last | isntEmpty:"":""}}{{selection.resubmission.coadviserTwoInfo.first | isntEmpty:",":""}} {{selection.resubmission.coadviserTwoInfo.last | isntEmpty:"":""}}</p>
 
                 <button class="btn btn-m block detailsBtn detailsDropDown" ng-hide="resubShowDetails" ng-click="resubShowDetails = true">Show Details <span class="glyphicon glyphicon-chevron-down"></span></button>
                 <button class="btn btn-m block detailsBtn detailsDropDown" ng-show="resubShowDetails" ng-click="resubShowDetails = false">Hide Details <span class="glyphicon glyphicon-chevron-up"></span></button>
@@ -287,6 +294,10 @@
                 <div ng-show="resubShowDetails">
                   <ul class="list-group">
                     <li class="list-group-item">
+                      <p>Presenter Email: {{selection.item.presenterInfo.email}}</p>
+                      <p> {{selection.item.copresenterOneInfo.email | isntEmpty:"CoPresenter(s) Email:":""}}{{selection.item.copresenterTwoInfo.email | isntEmpty:",":""}} </p>
+                      <p>Adviser Email: {{selection.item.adviserInfo.email}} </p>
+                      <p> {{selection.item.coadviserOneInfo.email | isntEmpty:"CoAdviser(s) Email:":""}}{{selection.item.coadviserTwoInfo.email | isntEmpty:",":""}}</p>
                       <p>Discipline: {{selection.resubmission.discipline}}</p>
                       <p>Type: {{selection.resubmission.presentationType}}</p>
                       <p>Format:  {{selection.resubmission.format}}</p>

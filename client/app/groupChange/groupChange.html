@@ -28,10 +28,15 @@
             <br>
 
             <span class="text-muted">
-                {{submission.presenterInfo.first}} {{submission.presenterInfo.last}}
-            </span>
+                Presenter: {{submission.presenterInfo.first}} {{submission.presenterInfo.last}}
             <br>
-
+                Adviser: {{submission.adviserInfo.first}} {{submission.adviserInfo.last}}
+            </span>
+          <span class="text-muted" ng-show="hasCoadviser(submission)">
+            <br>
+                  {{submission.coadviserOneInfo.first | isntEmpty: "CoAdviser(s):":""}}{{submission.coadviserOneInfo.last | isntEmpty:"":""}}{{submission.coadviserTwoInfo.first | isntEmpty:",":""}} {{submission.coadviserTwoInfo.last | isntEmpty:"":""}}
+          </span>
+          <br>
             <span>
                 Review group: {{submission.group}}
             </span>
@@ -41,6 +46,6 @@
             </div>
         </li>
 
-        <alert ng-show="selection.reviewGroup == filterSelection" type="danger"> You are trying to assign submissions to a review group that they are already members of. </alert>
+        <alert ng-show="selection.reviewGroup == filterSelection" type="danger"> You are trying to assign submissions to a review group that they are already assigned to. </alert>
     </ul>
 </div>
