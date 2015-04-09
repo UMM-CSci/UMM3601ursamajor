@@ -58,7 +58,7 @@ angular.module('umm3601ursamajorApp')
             return user.role === "user";
         };
 
-
+        // Filter so that the user can specify a user type to see users for.
         $scope.filterByUser = function(user){
             console.log("user");
             if($scope.filterSelection === "All"){
@@ -97,7 +97,7 @@ angular.module('umm3601ursamajorApp')
 
         // Checks if there is a conflict between the user and the group they are being assigned to.
         // Currently not working, have too many stories to worry about this right now.
-        $scope.checkForConflict = function(user) {
+/*        $scope.checkForConflict = function(user) {
             if (
                 $filter('filter')($scope.submissions,
                     function(submission) {
@@ -107,9 +107,9 @@ angular.module('umm3601ursamajorApp')
                     }
                 ).length > 0
                 ) {
-                Modal.confirm.warning()('Conflict with user and role.');
+                Modal.confirm.warning()('There is a conflict with the user and the review group you are assigning them to. You are attempting to assign this user to a review group where they are either a (co)presenter or (co)adviser for a submission in that group. This change is allowed, but cautioned.');
             }
-        };
+        };*/
 
 
         $scope.updateInfoConfirm = function(user) {
