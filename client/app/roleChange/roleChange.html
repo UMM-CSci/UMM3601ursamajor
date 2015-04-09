@@ -1,45 +1,57 @@
 <div ng-controller="RoleChangeCtrl" class="container-fluid">
     <!--<p>The delete user and user index api routes are restricted to users with the 'admin' role.</p>-->
     <ul class="list-group">
-        <label>
-            Filter users by their roles:
-            <br>
-            <select ng-model="filterSelection">
-                <option ng-repeat="option in filterRoleOptions" ng-value="'{{option}}'" >{{option}}</option>
-            </select>
-        </label>
+        <div class="row">
+          <div class="col-md-5">
+            <label>
+              Choose which role to assign users to:
+              <br>
+              <select ng-model="roleSelection">
+                <option ng-repeat="option in roleOptions" ng-value="'{{option}}'" >{{option}}</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="col-md-4">
+            <label>
+                Filter users by their roles:
+                <br>
+                <select ng-model="filterSelection">
+                    <option ng-repeat="option in filterRoleOptions" ng-value="'{{option}}'" >{{option}}</option>
+                </select>
+            </label>
+          </div>
+        </div>
 
         <li class="list-group-item" ng-repeat="user in users | filter:filterByUser">
-            <strong>{{user.name}}:</strong><br>
-
-            <span class="text-muted">
-                {{user.email}} <br>
-            </span>
+            <strong>
+              {{user.name}}:
+            </strong>
+            <br>
 
             <button ng-click="deleteUserConfirm(user)" class="btn btn-md btn-danger pull-right" >
-                <span class="glyphicon glyphicon-trash"></span>
+              <span class="glyphicon glyphicon-trash"></span>
             </button>
 
-            <div>
-                <!--Selector for user role-->
-                <select ng-model="user.role"  placeholder="" required ng-required>
-                    <option value="{{user.role}}" disabled selected>{{user.role}}</option>
-                    <option ng-repeat="option in roleOptions" value="{{option}}">{{option}}</option>
-                </select>
-                <button class="buttonRole" ng-click="updateInfoConfirm(user)">Update User Info</button>
-            </div>
+            <span class="text-muted">
+                {{user.email}}
+            </span>
+            <br>
 
-            <!--Stylistic change for making users with and without groups to be spaced evenly-->
-            <div ng-hide="userIsReviewer(user)">
-                <br>
-            </div>
+            <span>
+              User Role: {{user.role}} <span ng-show="userIsReviewer(user)">of group {{user.group}}</span>
+            </span>
 
             <!--Selector for reviewer group-->
-            <div ng-show="userIsReviewer(user)">
-                <select ng-model="user.group"  placeholder="" required ng-required>
-                    <option value="{{user.group}}" disabled selected>{{user.group}}</option>
-                    <option ng-repeat="option in groupOptions" value="{{option}}">{{option}}</option>
-                </select>
+            <div ng-show="roleSelection === 'reviewer'">
+              <select ng-model="user.group"  placeholder="" required ng-required>
+                <option value="{{user.group}}" disabled selected>{{user.group}}</option>
+                <option ng-repeat="option in groupOptions" value="{{option}}">{{option}}</option>
+              </select>
+            </div>
+
+            <div>
+              <button ng-hide="roleSelectionIsEmpty()" class="buttonGroup addMarginToBottomOfButton" ng-click="updateInfoConfirm(user)">Change role to:&nbsp; {{roleSelection}}</button>
             </div>
         </li>
     </ul>

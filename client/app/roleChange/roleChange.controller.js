@@ -15,7 +15,8 @@ angular.module('umm3601ursamajorApp')
         $scope.isAdmin = Auth.isAdmin;
         $scope.isChair = Auth.isChair();
 
-        $scope.filterSelection = "All";
+        $scope.filterSelection = 'All';
+        $scope.roleSelection = '';
 
         $http.get('/api/submissions').success(function(submissions) {
             $scope.submissions = submissions;
@@ -32,7 +33,8 @@ angular.module('umm3601ursamajorApp')
             ];
 
         $scope.roleOptions =
-            [   'chair',
+            [   '',
+                'chair',
                 'reviewer',
                 'admin',
                 'user'
@@ -48,14 +50,8 @@ angular.module('umm3601ursamajorApp')
             ];
 
         // Functions return true if current user is of a specific type, false otherwise.
-        $scope.userIsAdmin = function(user){
-            return user.role === "admin";
-        };
         $scope.userIsReviewer = function(user){
             return user.role === "reviewer";
-        };
-        $scope.userIsUser = function(user){
-            return user.role === "user";
         };
 
         // Filter so that the user can specify a user type to see users for.
@@ -74,6 +70,12 @@ angular.module('umm3601ursamajorApp')
             } else {
                 return false;
             }
+        };
+
+
+    // Simple function to hide submit button if the selected role is "".
+        $scope.roleSelectionIsEmpty = function() {
+          return $scope.roleSelection === '';
         };
 
         //Delete user modal
@@ -122,10 +124,12 @@ angular.module('umm3601ursamajorApp')
 
         // Updates a users role as long as the user being changed isn't the one doing the changing.
         $scope.updateInfo = function(user) {
-            if(user.role != 'reviewer') {
-                Auth.updateInfo(user.role, -1, user);
+            if($scope.roleSelection != 'reviewer') {
+                Auth.updateInfo($scope.roleSelection, -1, user);
+                user.role = $scope.roleSelection;
             } else {
-                Auth.updateInfo(user.role, user.group, user);
+                Auth.updateInfo($scope.roleSelection, user.group, user);
+                user.role = $scope.roleSelection;
             }
         };
     });
