@@ -37,7 +37,7 @@ angular.module('umm3601ursamajorApp')
         }
     })
 
-    .controller('SublistCtrl', function($scope, $http, socket, $modal, Modal, Auth, $window, $filter, $location) {
+    .controller('SublistCtrl', function($scope, $http, socket, $modal, Modal, Auth, $window, $filter, $location, $timeout) {
         $scope.submissions = [];
         $scope.status = [];
 
@@ -49,6 +49,10 @@ angular.module('umm3601ursamajorApp')
         $scope.isChair = Auth.isChair;
         $scope.showVotes = false;
 
+
+        //--------------------- Function to measure time for the loading icon. ------------------------
+        $scope.timeoutBoolean = true; // Should be true when delay is not reached yet.
+        $timeout(function () { $scope.timeoutBoolean = false }, 7500);
 
 
         //--------------------- Filter Functions -----------------------
@@ -407,7 +411,7 @@ angular.module('umm3601ursamajorApp')
                 $scope.statusEdit.subject.push($scope.status[x].emailSubject);
                 $scope.statusEdit.body.push($scope.status[x].emailBody);
                 $scope.statusEdit.priority.push($scope.status[x].priority);
-                $scope.filterData.statusOptions.push($scope.status[x+1].strict);
+                $scope.filterData.statusOptions.push($scope.status[x].strict);
             }
         };
 
