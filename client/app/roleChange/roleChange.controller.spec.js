@@ -126,5 +126,10 @@ describe('Controller: RoleChangeCtrl', function () {
       scope.filterSelection = "Something that would never ever really be chosen for a filter.";
       expect(scope.filterByUser(scope.users[0])).toEqual(false);
     });
+
+    it('roleSelectionIsEmpty should return true if empty', function () {
+      scope.roleSelection = '';
+      expect(scope.roleSelectionIsEmpty()).toEqual(true);
+    });
   });
 })
