@@ -18,10 +18,11 @@ angular.module('umm3601ursamajorApp')
         $scope.filterSelection = 'All';
         $scope.roleSelection = '';
 
-        $http.get('/api/submissions').success(function(submissions) {
+    //Needed if you want to check conflicts between a user's review group # and a submission in the review group.
+/*        $http.get('/api/submissions').success(function(submissions) {
             $scope.submissions = submissions;
             socket.syncUpdates('submission', $scope.submissions);
-        });
+        });*/
 
 
         $scope.filterRoleOptions =
@@ -98,7 +99,6 @@ angular.module('umm3601ursamajorApp')
         };
 
         // Checks if there is a conflict between the user and the group they are being assigned to.
-        // Currently not working, have too many stories to worry about this right now.
 /*        $scope.checkForConflict = function(user) {
             if (
                 $filter('filter')($scope.submissions,
