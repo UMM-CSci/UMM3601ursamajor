@@ -8,4 +8,8 @@ angular.module('umm3601ursamajorApp')
     $scope.getCurrentUser = Auth.getCurrentUser;
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.getCurrentEmail = Auth.email;
+
+    $scope.hasUMNEmail = function(){
+      return Auth.getCurrentUser().email.indexOf("umn.edu") != -1;
+    };
   });

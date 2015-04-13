@@ -9,8 +9,14 @@
   </div>
 </header>
 
-<div ng-show="isLoggedIn()" class="container">
+<div ng-show="isLoggedIn() && hasUMNEmail()"  class="container">
     <a ng-href="/subform" class="buttonMain">Create a submission</a>
+</div>
+
+<div ng-show="!hasUMNEmail() && isLoggedIn()">
+    <alert type="danger"  class="nonUMNWarning">
+      You must have a valid University of Minnesota email to use this website.
+    </alert>
 </div>
 
 <div ng-hide="isLoggedIn()">
@@ -38,6 +44,6 @@
             to reviews, to the organizing of the entire event.
         </p>
     </div>
-    
+
 </div>
 
