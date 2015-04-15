@@ -361,23 +361,6 @@ angular.module('umm3601ursamajorApp')
             $scope.filterData.tabFilter.isReviewer = true;
         };
 
-        $scope.submitRoomAssignment = function(text){
-            //console.log(text);
-            if(text != ""){
-                console.log("text isnt empty");
-                $http.patch('api/submissions/' + $scope.selection.item._id,
-                    {
-                        roomAssignment: text
-                    }
-                ).success(function () {
-                        console.log("patch successful");
-                        $scope.selection.item.roomAssignment = text;
-                        console.log("changed local array");
-                        console.log("resubmission set as new primary")
-                    });
-            };
-        };
-
         $scope.tabFilters = function(submission){
             if($scope.filterData.tabFilter.isPresenter){
                 return $scope.isPresenter(submission);
@@ -1027,9 +1010,7 @@ angular.module('umm3601ursamajorApp')
             Modal.confirm.info($scope.approveResubmit)('Are you sure you want to approve this resubmission?');
         };
 
-        //TODO: Right now anyone that can see a resubmission can approve a resubmission, so that needs to get fixed. Should wait to fix until the permissions system is sorted out.
         $scope.approveResubmit = function(){
-            var roomAssignment = $scope.selection.item.roomAssignment;
             var reviewGroup = $scope.selection.item.group;
                 console.log("Attempting to approve resubmission.");
                 $http.patch('api/submissions/' + $scope.selection.item._id,
@@ -1041,7 +1022,6 @@ angular.module('umm3601ursamajorApp')
                         $http.patch('api/submissions/' + $scope.selection.resubmission._id,
                             {
                                 resubmissionData: {isPrimary: true, comment: $scope.selection.resubmission.resubmissionData.comment, parentSubmission: $scope.selection.resubmission.resubmissionData.parentSubmission, resubmitFlag: false},
-                                roomAssignment: roomAssignment,
                                 group: reviewGroup
                             }
                         ).success(function () {
@@ -1049,7 +1029,6 @@ angular.module('umm3601ursamajorApp')
                                 $scope.selection.resubmission.resubmissionData.isPrimary = true;
                                 $scope.selection.item = $scope.selection.resubmission;
                                 $scope.selection.resubmission = null;
-                                $scope.selection.item.roomAssignment = roomAssignment;
                                 $scope.selection.item.group = reviewGroup;
                                 console.log("resubmission set as new primary")
                             });

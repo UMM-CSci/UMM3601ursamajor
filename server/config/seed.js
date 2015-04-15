@@ -175,7 +175,7 @@ User.find({}).remove(function() {
                 id: "102737466880551658774"
             },
             group: -1,
-            role: "chair",
+            role: "user",
             __v: 0
       }, {
             name: "Maggie Casale",
@@ -487,8 +487,8 @@ Submission.find({}).remove(function(){
         presentationType: "Poster or Visual Display",
         formatChange: false,
         presenterInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
-        copresenterOneInfo: {first: "Brandon", last: "Moody", email: "moody107@morris.umn.edu"},
-        copresenterTwoInfo: {first: "", last: "", email: ""},
+        copresenterOneInfo: {first: "Maggie",last: "Casale", email: "casal033@morris.umn.edu"},
+        copresenterTwoInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
         discipline: "History",
         sponsors: [], //Might need to worry about if this is static for the DB later.
         adviserInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
@@ -560,7 +560,7 @@ Submission.find({}).remove(function(){
           "The results of this experiment will be revealed and discussed.",
       presentationType: "Poster or Visual Display",
       formatChange: false,
-      presenterInfo: {first: "Joseph", last: "Thelen", email: "thele116@morris.umn.edu"},
+      presenterInfo: {first: "Maggie",last: "Casale", email: "casal033@morris.umn.edu"},
       copresenterOneInfo: {first: "", last: "", email: ""},
       copresenterTwoInfo: {first: "", last: "", email: ""},
       discipline: "Chemistry",
@@ -644,8 +644,8 @@ Submission.find({}).remove(function(){
       copresenterTwoInfo: {first: "", last: "", email: ""},
       discipline: "Biology",
       sponsors: [], //Might need to worry about if this is static for the DB later.
-      adviserInfo: {first: "Maggie",last: "Casale", email: "casal033@morris.umn.edu"},
-      coadviserOneInfo: {first: "Otto", last: "Marckell", email: "marck018@morris.umn.edu"},
+      adviserInfo: {first: "Otto", last: "Marckell", email: "marck018@morris.umn.edu"},
+      coadviserOneInfo: {first: "Maggie",last: "Casale", email: "casal033@morris.umn.edu"},
       coadviserTwoInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
       featured: false,
       mediaServicesEquipment: "",
@@ -732,7 +732,7 @@ Submission.find({}).remove(function(){
       formatChange: true,
       presenterInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
       copresenterOneInfo: {first: "Brandon", last: "Moody", email: "moody107@morris.umn.edu"},
-      copresenterTwoInfo: {first: "", last: "", email: ""},
+      copresenterTwoInfo: {first: "Maggie",last: "Casale", email: "casal033@morris.umn.edu"},
       discipline: "History",
       sponsors: [], //Might need to worry about if this is static for the DB later.
       adviserInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
@@ -808,8 +808,8 @@ Submission.find({}).remove(function(){
       discipline: "Chemistry",
       sponsors: [], //Might need to worry about if this is static for the DB later.
       adviserInfo: {first: "Hongya", last: "Zhou", email: "zhou616@morris.umn.edu"},
-      coadviserOneInfo: {first: "", last: "", email: ""},
-      coadviserTwoInfo: {first: "", last: "", email: ""},
+      coadviserOneInfo: {first: "Joseph", last: "Thelen", email: "thele116@morris.umn.edu"},
+      coadviserTwoInfo: {first: "Maggie",last: "Casale", email: "casal033@morris.umn.edu"},
       featured: true,
       mediaServicesEquipment: "",
       specialRequirements: "A small space to make the presentation personal.",
