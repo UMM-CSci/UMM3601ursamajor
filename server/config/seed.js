@@ -175,7 +175,7 @@ User.find({}).remove(function() {
                 id: "102737466880551658774"
             },
             group: -1,
-            role: "user",
+            role: "chair",
             __v: 0
       }, {
             name: "Maggie Casale",
@@ -320,14 +320,13 @@ Submission.find({}).remove(function(){
         featured: false,
         mediaServicesEquipment: "",
         specialRequirements: "",
-//        presenterTeeSize: "L",
         otherInfo: "",
         approval: true,
         cc: false,
         rejection: false,
         status:  {strict: "Reviewing in Process", priority: 2, text: "Your URS submission has been approved by your adviser."},
         timestamp: "Sat Oct 18 2014 10:48:54 GMT-0500 (CDT)",
-        group: 0,
+        group: 1,
         roomAssignment: "Science 2610",
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
         comments: [
@@ -414,14 +413,13 @@ Submission.find({}).remove(function(){
         featured: true,
         mediaServicesEquipment: "",
         specialRequirements: "A space to perform with three people.",
-//        presenterTeeSize: "M",
         otherInfo: "",
         approval: true,
         cc: false,
         rejection: false,
         status: {strict: "Revisions Needed", priority: 3, text: "Your URS submission has been flagged for revisions, and is in need of changes."},
-        timestamp: "Tue Oct 21 2014 23:22:54 GMT-0500 (CDT)",
-        group: 1,
+        timestamp: "Tue Oct 19 2014 23:22:54 GMT-0500 (CDT)",
+        group: 2,
         roomAssignment: "Imholte 109",
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
         comments:[],
@@ -460,14 +458,13 @@ Submission.find({}).remove(function(){
         featured: true,
         mediaServicesEquipment: "Microphone for my sick rhymes, 5 laser stage lights with automated gimbals.",
         specialRequirements: "A whale suit.",
-//        presenterTeeSize: "XL",
         otherInfo: "I was planning on bringing a 1/10 size scale blue whale inflatable. Are there any rooms with room for this?",
         approval: true,
         cc: false,
         rejection: false,
-        status: {strict: "Reviewing in Process", priority: 2, text: "Your URS submission has been approved by your adviser."},
+        status: {strict: "Revisions Needed", priority: 3, text: "Your URS submission has been flagged for revisions, and is in need of changes."},
         timestamp: "Mon Sept 2 2014 1:48:54 GMT-0500 (CDT)",
-        group: 1,
+        group: 3,
         roomAssignment: "Science 2610",
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
         comments: [],
@@ -487,7 +484,7 @@ Submission.find({}).remove(function(){
             "attempted to use the American Revolution to bolster their claims by citing speeches from Founding Fathers. " +
             "Through showing that the American Revolution lives on in memory, " +
             "this research highlights the importance of the revolution in shaping the actions of the United States government.",
-        presentationType: "Performance",
+        presentationType: "Poster or Visual Display",
         formatChange: false,
         presenterInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
         copresenterOneInfo: {first: "Brandon", last: "Moody", email: "moody107@morris.umn.edu"},
@@ -497,17 +494,16 @@ Submission.find({}).remove(function(){
         adviserInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
         coadviserOneInfo: {first: "", last: "", email: ""},
         coadviserTwoInfo: {first: "", last: "", email: ""},
-        featured: true,
+        featured: false,
         mediaServicesEquipment: "A way to show images, either a projector or a warning so I can print them.",
         specialRequirements: "",
-//        presenterTeeSize: "XL",
         otherInfo: "yes.",
-        approval: true,
+        approval: false,
         cc: false,
         rejection: false,
-        status: {strict: "Reviewing in Process", priority: 2, text: "Your URS submission has been approved by your adviser"},
-        timestamp: "Mon Oct 20 2014 1:48:54 GMT-0500 (CDT)",
-        group: 3,
+        status: {strict: "Awaiting Adviser Approval", priority: -15, text: "Your URS submission is pending approval from your adviser."},
+        timestamp: "Mon Oct 23 2014 1:48:54 GMT-0500 (CDT)",
+        group: 0,
         roomAssignment: "Science 2610",
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
         comments: [],
@@ -518,8 +514,82 @@ Submission.find({}).remove(function(){
             TotalRewrite: [{name: "Matthew Kangas", email:"kanga139@morris.umn.edu"}, {name: "Jacob Opdahl", email:"opdah023@morris.umn.edu"}]
         }
     }, {
+      title: "Woman Writers and the Fantastic: Subversion and Liberty",
+      format: "Humanities Proposal",
+      abstract: "This project explains how fantastic literature can serve as an instrument to deconstruct and reconstruct a new world; how in a fantastic world, " +
+          "a woman may construct her own identity outside of the rigid roles imposed upon her in a patriarchal society. It discusses how through fantastic literature, " +
+          "women writers expose the limits of male-dominated society and construct a new world in which women may be free from these restrictions. " +
+          "Two examples of women's fantastic literature used for this discussion will be The Youngest Doll and When Women Love Men by Rosario Ferre. " +
+          "In her stories, Ferre and other women writers create a world in which they are free to express their discontent in a world in which they are trapped.",
+      presentationType: "Performance",
+      formatChange: false,
+      presenterInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
+      copresenterOneInfo: {first: "Brandon", last: "Moody", email: "moody107@morris.umn.edu"},
+      copresenterTwoInfo: {first: "", last: "", email: ""},
+      discipline: "History",
+      sponsors: [], //Might need to worry about if this is static for the DB later.
+      adviserInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
+      coadviserOneInfo: {first: "", last: "", email: ""},
+      coadviserTwoInfo: {first: "", last: "", email: ""},
+      featured: false,
+      mediaServicesEquipment: "A way to show images, either a projector or a warning so I can print them.",
+      specialRequirements: "",
+      otherInfo: "yes.",
+      approval: true,
+      cc: false,
+      rejection: false,
+      status: {strict: "Reviewing in Process", priority: 2, text: "Your URS submission has been approved by your adviser"},
+      timestamp: "Mon Oct 22 2014 1:48:54 GMT-0500 (CDT)",
+      group: 1,
+      roomAssignment: "Science 2610",
+      resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+      comments: [],
+      reviewVotes: {
+        Accepted: [],
+        Minor: [],
+        Major: [],
+        TotalRewrite: [{name: "Matthew Kangas", email:"kanga139@morris.umn.edu"}, {name: "Jacob Opdahl", email:"opdah023@morris.umn.edu"}]
+      }
+    }, {
+      title: "Inhibition of MAP Kinase Kinase by U0126 Blocks 2, 4-D-induced MAP Kinase Phosphorylation but not Coming in Xenopus oocytes",
+      format: "Science or Social Science Abstract",
+      abstract: "This project shows how the activation of the MAPK pathway leads to maturation in Xenopus oocytes, and how that pathway is initiated by progesterone, " +
+          "which activates a signal transduction pathway that leads to the phosphorylation of MAPK through MAPKK and the activation of MRF which induces GVBD. " +
+          "It will explain how 2, 4-D, a herbicide that has been shown to block progesterone-induced maturation and GVBD, induces MAPK phosphorylation and causes an abnormal coning morphotype. " +
+          "U0126, a specific inhibitor of MAPKK, was used to determine the mechanism by which 2, 4-D induces MAPK phosphorylation and coning. " +
+          "The results of this experiment will be revealed and discussed.",
+      presentationType: "Poster or Visual Display",
+      formatChange: false,
+      presenterInfo: {first: "Joseph", last: "Thelen", email: "thele116@morris.umn.edu"},
+      copresenterOneInfo: {first: "", last: "", email: ""},
+      copresenterTwoInfo: {first: "", last: "", email: ""},
+      discipline: "Chemistry",
+      sponsors: [], //Might need to worry about if this is static for the DB later.
+      adviserInfo: {first: "Hongya", last: "Zhou", email: "zhou616@morris.umn.edu"},
+      coadviserOneInfo: {first: "", last: "", email: ""},
+      coadviserTwoInfo: {first: "", last: "", email: ""},
+      featured: false,
+      mediaServicesEquipment: "A way to show images, either a projector or a warning so I can print them.",
+      specialRequirements: "",
+      otherInfo: "yes.",
+      approval: true,
+      cc: false,
+      rejection: false,
+      status: {strict: "Reviewing in Process", priority: 2, text: "Your URS submission has been approved by your adviser"},
+      timestamp: "Mon Oct 20 2014 1:48:54 GMT-0500 (CDT)",
+      group: 2,
+      roomAssignment: "Science 2610",
+      resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+      comments: [],
+      reviewVotes: {
+        Accepted: [],
+        Minor: [],
+        Major: [],
+        TotalRewrite: [{name: "Matthew Kangas", email:"kanga139@morris.umn.edu"}, {name: "Jacob Opdahl", email:"opdah023@morris.umn.edu"}]
+      }
+    }, {
         title: "Margaret C. Anderson’s Little Review",
-        format: "Social Science",
+        format: "Science or Social Science Abstract",
         abstract: "This research looks at the work of Margaret C. Anderson, the editor of the Little Review.  " +
             "The review published first works by Sherwood Anderson, James Joyce, Wyndham Lewis, and Ezra Pound.  " +
             "This research draws upon mostly primary sources including memoirs, published letters, and a complete collection of the Little Review. " +
@@ -528,25 +598,24 @@ Submission.find({}).remove(function(){
             "This case example shows how little magazine publishing is arguably a literary art.",
         presentationType: "Poster or Visual Display",
         formatChange: true,
-        presenterInfo: {first: "Savannah", last: "Farm", email: "farmx009@morris.umn.edu"},
-        copresenterOneInfo: {first: "", last: "", email: ""},
+        presenterInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
+        copresenterOneInfo: {first: "Joseph", last: "Thelen", email: "thele116@morris.umn.edu"},
         copresenterTwoInfo: {first: "", last: "", email: ""},
-        discipline: "English",
-        sponsors: [], //Might need to worry about if this is static for the DB later.
-        adviserInfo: {first: "Otto", last: "Marckell", email: "marck018@morris.umn.edu"},
+        discipline: "Art History",
+        sponsors: [],
+        adviserInfo: {first: "Matt", last: "Kangas", email: "kanga139@morris.umn.edu"},
         coadviserOneInfo: {first: "", last: "", email: ""},
         coadviserTwoInfo: {first: "", last: "", email: ""},
         featured: true,
         mediaServicesEquipment: "",
         specialRequirements: "A small space to make the presentation personal.",
-//        presenterTeeSize: "S",
         otherInfo: "yes.",
-        approval: true,
+        approval: false,
         cc: false,
         rejection: false,
-        status: {strict: "Accepted", priority: 15, text: "Your URS submission has been approved, congratulations!"},
-        timestamp: "Thur Oct 23 2014 1:48:54 GMT-0500 (CDT)",
-        group: 2,
+        status: {strict: "Awaiting Adviser Approval", priority: -15, text: "Your URS submission is pending approval from your adviser."},
+        timestamp: "Thur Oct 22 2014 1:48:54 GMT-0500 (CDT)",
+        group: 0,
         roomAssignment: "Science 2610",
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
         comments: [],
@@ -556,6 +625,635 @@ Submission.find({}).remove(function(){
             Major: [{name: "Jacob Opdahl", email:"opdah023@morris.umn.edu"}],
             TotalRewrite: []
         }
+    },{
+      title: "1,2,3,...Pull! Which Parachute Materials",
+      format: "Science or Social Science Abstract",
+      abstract: "The purpose of this investigation is to determine, from the samples that were given to me by several companies, which parachute will descend at the slowest rate. " +
+          "Making it the safest. I plan to make three parachutes out of the 9 materials given to me. That will give me 27 parachutes. " +
+          "They will be wing-shaped and will be 39cm in width and 20cm in length. Then I will cut 108 pieces of kite string that are going to be 40cm a piece. " +
+          "Now tape 4 strings to the four corners, then tie the ends together. Then take 2 pennies and tape them to the tied ends. Now do the same for the other parachutes. " +
+          "Find a high place off the ground like a stairway or ladder so you can drop the parachutes. Now measure out 8 feet. Make sure the area at the bottom is flat. " +
+          "Take your first parachute drop it, and time it as it descends. Stop when it hits the ground. Repeat this step ten times a piece for each parachute. So you can validate your results. " +
+          "Record the data. Previously, I have found that a parachute by the name of Tandem Icarus seemed to descend at the slowest rate. " +
+          "But this year I have added three more parachutes to my research. So far, a parachute by the name of Prima is descending at the slower rate. " +
+          "I hope that this will enable my project to produce more accurate data. ",
+      presentationType: "Poster or Visual Display",
+      formatChange: true,
+      presenterInfo: {first: "Jacob", last: "Opdahl", email: "opdah023@morris.umn.edu"},
+      copresenterOneInfo: {first: "", last: "", email: ""},
+      copresenterTwoInfo: {first: "", last: "", email: ""},
+      discipline: "Biology",
+      sponsors: [], //Might need to worry about if this is static for the DB later.
+      adviserInfo: {first: "Maggie",last: "Casale", email: "casal033@morris.umn.edu"},
+      coadviserOneInfo: {first: "Otto", last: "Marckell", email: "marck018@morris.umn.edu"},
+      coadviserTwoInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
+      featured: false,
+      mediaServicesEquipment: "",
+      specialRequirements: "A small space to make the presentation personal.",
+      otherInfo: "yes.",
+      approval: true,
+      cc: false,
+      rejection: false,
+      status: {strict: "Revisions Needed", priority: 3, text: "Your URS submission has been flagged for revisions, and is in need of changes."},
+      timestamp: "Thur Oct 23 2014 1:48:54 GMT-0500 (CDT)",
+      group: 3,
+      roomAssignment: "Science 2610",
+      resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+      comments: [
+        {
+          beginner: 0,
+          ender: 64,
+          commentText:"You don't need to restate the title of the submission...",
+          commenter: "Hongya Zhou",
+          selectionText : "The title of my project is called On Your March, Get Set, Rust! ",
+          indicator : 0,
+          timestamp : "Mon Dec 08 2014 18:41:16 GMT-0600 (CST)",
+          origin : "5486429c6adf9b0859cb58c7",
+          responses: []
+        }, {
+          beginner: 245 ,
+          ender: 284 ,
+          commentText: "Why were they sanded?" ,
+          commenter: "Hongya Zhou" ,
+          selectionText: "sanding ten galvanized and common nails" ,
+          indicator: 0 ,
+          timestamp: "Mon Dec 08 2014 18:42:05 GMT-0600 (CST)" ,
+          origin: "5486429c6adf9b0859cb58c7" ,
+          responses: [
+            {
+              "response": "Obviously to release the magical nail spirits.",
+              "responder": "Hongya Zhou",
+              "timestamp": "Mon Dec 08 2014 19:03:17 GMT-0600 (CST)"
+            }
+          ]
+        }, {
+          beginner: 161 ,
+          ender: 222 ,
+          commentText: "Poorly worded. Should be \"more quickly\" ?" ,
+          commenter: "Hongya Zhou" ,
+          selectionText: " which type of nails, galvanized or common will rust quickly." ,
+          indicator: 0 ,
+          timestamp: "Mon Dec 08 2014 18:43:43 GMT-0600 (CST)" ,
+          origin: "5486429c6adf9b0859cb58c7" ,
+          responses: [ ]
+        }, {
+          beginner: 536 ,
+          ender: 678 ,
+          commentText: "Big portion needs re-write..." ,
+          commenter: "Hongya Zhou" ,
+          selectionText: "My results of my data resolves that galvanized and common nails in freshwater had a higher average or rust than the other nails in salt water." ,
+          indicator: 0 ,
+          timestamp: "Mon Dec 08 2014 18:44:47 GMT-0600 (CST)" ,
+          origin: "5486429c6adf9b0859cb58c7" ,
+          responses: [
+            {
+              response: "But WHYYYYY?" ,
+              responder: "Hongya Zhou" ,
+              timestamp: "Mon Dec 08 2014 18:52:18 GMT-0600 (CST)"
+            }
+          ]
+        }
+      ],
+      reviewVotes: {
+        Accepted: [{name: "Mark Lehet", email:"lehet005@morris.umn.edu"}],
+        Minor: [{name: "Matthew Kangas", email:"kanga139@morris.umn.edu"}],
+        Major: [{name: "Jacob Opdahl", email:"opdah023@morris.umn.edu"}],
+        TotalRewrite: []
+      }
+    },{
+      title: "Communal Chimney Roosting of Migrating Vaux's Swifts (Chaetura Vauxi) near Salem, Oregon",
+      format: "Science or Social Science Abstract",
+      abstract: "Vaux's swifts are neotropical migrants that breed in western North America. Their natural roosts are in large, hollow trees, " +
+          "especially in old-growth forests. Due to the depletion of old-growth forest habitats, these birds have adapted to roosting and nesting in human-made structures, " +
+          "particularly in chimneys. The purpose of this study was to locate and monitor major chimney roosting sites of migrating Vaux's swifts in or near Salem, Oregon. " +
+          "The number of swifts peaked in mid-September, declined rapidly for a few days, and then tapered off at a slower rate. " +
+          "This and other results of the study will be discussed.",
+      presentationType: "Poster or Visual Display",
+      formatChange: true,
+      presenterInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
+      copresenterOneInfo: {first: "Brandon", last: "Moody", email: "moody107@morris.umn.edu"},
+      copresenterTwoInfo: {first: "", last: "", email: ""},
+      discipline: "History",
+      sponsors: [], //Might need to worry about if this is static for the DB later.
+      adviserInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
+      coadviserOneInfo: {first: "", last: "", email: ""},
+      coadviserTwoInfo: {first: "", last: "", email: ""},
+      featured: false,
+      mediaServicesEquipment: "",
+      specialRequirements: "A small space to make the presentation personal.",
+      otherInfo: "yes.",
+      approval: true,
+      cc: false,
+      rejection: false,
+      status: {strict: "Accepted", priority: 15, text: "Your URS submission has been approved, congratulations!"},
+      timestamp: "Thur Oct 19 2014 1:48:54 GMT-0500 (CDT)",
+      group: 1,
+      roomAssignment: "Science 2610",
+      resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+      comments: [],
+      reviewVotes: {
+        Accepted: [{name: "Mark Lehet", email:"lehet005@morris.umn.edu"}],
+        Minor: [{name: "Matthew Kangas", email:"kanga139@morris.umn.edu"}],
+        Major: [{name: "Jacob Opdahl", email:"opdah023@morris.umn.edu"}],
+        TotalRewrite: []
+      }
+    },{
+      title: "Katie Pierce",
+      format: "Science or Social Science Abstract",
+      abstract: "This project explores how paternalistic decision making by coaches often conflicts with the athlete's right to autonomy; that is, " +
+          "freedom in self-regarding actions. The complexity of the conflict will be addressed using exemplars including the special case of children, drug use in sports, " +
+          "and returning to play after an injury. A compromise in the form of a morally-decent trusting relationship between coach and athlete, based on the model of informed consent " +
+          "and grounded in open and effective communication, will be explained.",
+      presentationType: "Poster or Visual Display",
+      formatChange: true,
+      presenterInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
+      copresenterOneInfo: {first: "Brandon", last: "Moody", email: "moody107@morris.umn.edu"},
+      copresenterTwoInfo: {first: "", last: "", email: ""},
+      discipline: "History",
+      sponsors: [], //Might need to worry about if this is static for the DB later.
+      adviserInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
+      coadviserOneInfo: {first: "", last: "", email: ""},
+      coadviserTwoInfo: {first: "", last: "", email: ""},
+      featured: false,
+      mediaServicesEquipment: "",
+      specialRequirements: "A small space to make the presentation personal.",
+      otherInfo: "yes.",
+      approval: true,
+      cc: false,
+      rejection: false,
+      status: {strict: "Revisions Needed", priority: 3, text: "Your URS submission has been flagged for revisions, and is in need of changes."},
+      timestamp: "Thur Oct 22 2014 1:48:54 GMT-0500 (CDT)",
+      group: 2,
+      roomAssignment: "Science 2610",
+      resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+      comments: [],
+      reviewVotes: {
+        Accepted: [{name: "Mark Lehet", email:"lehet005@morris.umn.edu"}],
+        Minor: [{name: "Matthew Kangas", email:"kanga139@morris.umn.edu"}],
+        Major: [{name: "Jacob Opdahl", email:"opdah023@morris.umn.edu"}],
+        TotalRewrite: []
+      }
+    },{
+      title: "Unequal Exposure: A GIS Analysis of Race, Poverty, and Environmental Hazards in Oregon's Capital",
+      format: "Science or Social Science Abstract",
+      abstract: "The purpose of this project is to measure environmental equity in Salem, Oregon, with an aim to contribute to a growing body of literature " +
+          "concerned with the unequal distribution of environmental hazards. The project analyzes important previous studies and then conducts an investigation that centers " +
+          "around a series of GIs maps that revel correlations between environmental hazards and demographics, such as race and income level. " +
+          "The results will be revealed and discussed.",
+      presentationType: "Poster or Visual Display",
+      formatChange: true,
+      presenterInfo: {first: "Joseph", last: "Thelen", email: "thele116@morris.umn.edu"},
+      copresenterOneInfo: {first: "", last: "", email: ""},
+      copresenterTwoInfo: {first: "", last: "", email: ""},
+      discipline: "Chemistry",
+      sponsors: [], //Might need to worry about if this is static for the DB later.
+      adviserInfo: {first: "Hongya", last: "Zhou", email: "zhou616@morris.umn.edu"},
+      coadviserOneInfo: {first: "", last: "", email: ""},
+      coadviserTwoInfo: {first: "", last: "", email: ""},
+      featured: true,
+      mediaServicesEquipment: "",
+      specialRequirements: "A small space to make the presentation personal.",
+      otherInfo: "yes.",
+      approval: true,
+      cc: false,
+      rejection: false,
+      status: {strict: "Accepted", priority: 15, text: "Your URS submission has been approved, congratulations!"},
+      timestamp: "Thur Oct 23 2014 1:48:54 GMT-0500 (CDT)",
+      group: 3,
+      roomAssignment: "Science 2610",
+      resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+      comments: [],
+      reviewVotes: {
+        Accepted: [{name: "Mark Lehet", email:"lehet005@morris.umn.edu"}],
+        Minor: [{name: "Matthew Kangas", email:"kanga139@morris.umn.edu"}],
+        Major: [{name: "Jacob Opdahl", email:"opdah023@morris.umn.edu"}],
+        TotalRewrite: []
+      }
+    },{
+      title: "The Stadium Proposal",
+      format: "Science or Social Science Abstract",
+      abstract: "The master developer of the southwest urban renewal district of downtown Colorado Springs is considering purchasing the Colorado Rockies Triple-A affiliate, " +
+          "the Sky Sox and constructing a brand new stadium for them in downtown. The purpose of this thesis is to gain an in depth understanding of exactly what role Triple-A baseball " +
+          "stadiums can play in their host community, and how the relocation of the stadium might effect the urban renewal area. Furthermore based on other cities successes and failures " +
+          "with Triple-A affiliates make recommendations as to the likelihood that the relocation of Sky Sox stadium to downtown would be a success or not. In order to gain the in depth " +
+          "knowledge required for the thesis a case study methodology will be utilized with interviews with individuals who have a bearing on the possible purchase of the team and the consequent " +
+          "relocation of the stadium. The purpose of this case is to gain an understanding of what the relocation of the stadium could mean for Colorado Springs.",
+      presentationType: "Poster or Visual Display",
+      formatChange: true,
+      presenterInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
+      copresenterOneInfo: {first: "Joseph", last: "Thelen", email: "thele116@morris.umn.edu"},
+      copresenterTwoInfo: {first: "", last: "", email: ""},
+      discipline: "Art History",
+      sponsors: [],
+      adviserInfo: {first: "Matt", last: "Kangas", email: "kanga139@morris.umn.edu"},
+      coadviserOneInfo: {first: "", last: "", email: ""},
+      coadviserTwoInfo: {first: "", last: "", email: ""},
+      featured: false,
+      mediaServicesEquipment: "",
+      specialRequirements: "A small space to make the presentation personal.",
+      otherInfo: "yes.",
+      approval: false,
+      cc: false,
+      rejection: false,
+      status: {strict: "Awaiting Adviser Approval", priority: -15, text: "Your URS submission is pending approval from your adviser."},
+      timestamp: "Thur Oct 23 2014 1:48:54 GMT-0500 (CDT)",
+      group: 0,
+      roomAssignment: "Science 2610",
+      resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+      comments: [],
+      reviewVotes: {
+        Accepted: [],
+        Minor: [],
+        Major: [],
+        TotalRewrite: []
+      }
+    },{
+      title: "Do Voles Select Dense Vegetation for Movement Pathways at the Microhabitat Level?",
+      format: "Science or Social Science Abstract",
+      abstract: "The relationship between habitat use by voles (Rodentia: Microtus) and the density of vegetative cover was studied to determine if voles select forage areas at the microhabitat level.  " +
+          "Using live traps, I trapped, powdered, and released voles at 10 sites.  At each trap site I analyzed the type and height of the vegetation in the immediate area.  " +
+          "Using a black light, I followed the trails left by powdered voles through the vegetation.  I mapped the trails using a compass to ascertain the tortuosity, or amount the trail twisted and turned, " +
+          "and visually checked the trails to determine obstruction of the movement path by vegetation.  I also checked vegetative obstruction on 4 random paths near the actual trail, " +
+          "to compare the cover on the trail with other nearby alternative pathways.  There was not a statistically significant difference between the amount of cover on a vole trail and the cover " +
+          "off to the sides of the trail when completely covered; there was a significant difference between on and off the trail when the path was completely open.  " +
+          "These results indicate that voles are selectively avoiding bare areas, while not choosing among dense patches at a fine microhabitat scale.",
+      presentationType: "Poster or Visual Display",
+      formatChange: true,
+      presenterInfo: {first: "Jacob", last: "Opdahl", email: "opdah023@morris.umn.edu"},
+      copresenterOneInfo: {first: "", last: "", email: ""},
+      copresenterTwoInfo: {first: "", last: "", email: ""},
+      discipline: "Biology",
+      sponsors: [], //Might need to worry about if this is static for the DB later.
+      adviserInfo: {first: "Maggie",last: "Casale", email: "casal033@morris.umn.edu"},
+      coadviserOneInfo: {first: "Otto", last: "Marckell", email: "marck018@morris.umn.edu"},
+      coadviserTwoInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
+      featured: false,
+      mediaServicesEquipment: "",
+      specialRequirements: "A small space to make the presentation personal.",
+      otherInfo: "yes.",
+      approval: true,
+      cc: false,
+      rejection: false,
+      status: {strict: "Reviewing in Process", priority: 2, text: "Your URS submission has been approved by your adviser."},
+      timestamp: "Thur Oct 21 2014 1:48:54 GMT-0500 (CDT)",
+      group: 1,
+      roomAssignment: "Science 2610",
+      resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+      comments: [],
+      reviewVotes: {
+        Accepted: [{name: "Mark Lehet", email:"lehet005@morris.umn.edu"}],
+        Minor: [],
+        Major: [{name: "Jacob Opdahl", email:"opdah023@morris.umn.edu"},{name: "Matthew Kangas", email:"kanga139@morris.umn.edu"}],
+        TotalRewrite: []
+      }
+    },{
+      title: "Vision Training: Effects on Motor Skills and Visual Ability in Experience Racquetball Players",
+      format: "Science or Social Science Abstract",
+      abstract: "This study investigates the effects of vision training on visual ability and motor skills in racquetball players. " +
+          "Fourteen participants were randomly assigned to either a treatment using visual training and traditional racquetball practice, " +
+          "or a control group with practice only. Stereopsis (depth-perception), oculomotor skill (hand-eye coordination), and a sport-specific motor performance (a wall-volley test) " +
+          "were measured before and after four weeks of training. The results of these studies will be revealed, and the conclusion that vision " +
+          "training leads to no significant improvements in visual ability or in the transfer to motor performance for racquetball players will be discussed.",
+      presentationType: "Poster or Visual Display",
+      formatChange: true,
+      presenterInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
+      copresenterOneInfo: {first: "Brandon", last: "Moody", email: "moody107@morris.umn.edu"},
+      copresenterTwoInfo: {first: "", last: "", email: ""},
+      discipline: "History",
+      sponsors: [], //Might need to worry about if this is static for the DB later.
+      adviserInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
+      coadviserOneInfo: {first: "", last: "", email: ""},
+      coadviserTwoInfo: {first: "", last: "", email: ""},
+      featured: false,
+      mediaServicesEquipment: "",
+      specialRequirements: "A small space to make the presentation personal.",
+      otherInfo: "yes.",
+      approval: true,
+      cc: false,
+      rejection: false,
+      status: {strict: "Accepted", priority: 15, text: "Your URS submission has been approved, congratulations!"},
+      timestamp: "Thur Oct 19 2014 1:48:54 GMT-0500 (CDT)",
+      group: 2,
+      roomAssignment: "Science 2610",
+      resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+      comments: [],
+      reviewVotes: {
+        Accepted: [{name: "Mark Lehet", email:"lehet005@morris.umn.edu"}],
+        Minor: [{name: "Matthew Kangas", email:"kanga139@morris.umn.edu"}],
+        Major: [{name: "Jacob Opdahl", email:"opdah023@morris.umn.edu"}],
+        TotalRewrite: []
+      }
+    },{
+      title: "Development by Design and Testing of a Miniature to Harness Kinetic Energy from Airflow Around a Moving Automobile",
+      format: "Science or Social Science Abstract",
+      abstract: "This project presents a summary of a successful design, fabrication and testing of wind turbines mounted on a car roof for the purpose of extracting power from the kinetic energy (dynamic pressure) contained in the wind flow around the car. " +
+          "The placement of the turbine was based on aerodynamic considerations. Various design concepts were tested and evaluated. Drag tests were conducted that showed the turbine did not negatively impact vehicle performance. " +
+          "NACA (National Advisory Committee for Aeronautics) ducts were evaluated and shown to offer additional choice for turbine design and placement. " +
+          "The results obtained from the tests conducted in this research demonstrate the feasibility for the efficient extraction of energy from wind flow around an automobile. " +
+          "Literature research consisting mainly of a review of NACA reports supported the findings of this study.",
+      presentationType: "Poster or Visual Display",
+      formatChange: true,
+      presenterInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
+      copresenterOneInfo: {first: "Brandon", last: "Moody", email: "moody107@morris.umn.edu"},
+      copresenterTwoInfo: {first: "", last: "", email: ""},
+      discipline: "History",
+      sponsors: [], //Might need to worry about if this is static for the DB later.
+      adviserInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
+      coadviserOneInfo: {first: "", last: "", email: ""},
+      coadviserTwoInfo: {first: "", last: "", email: ""},
+      featured: true,
+      mediaServicesEquipment: "",
+      specialRequirements: "A small space to make the presentation personal.",
+      otherInfo: "yes.",
+      approval: true,
+      cc: false,
+      rejection: false,
+      status: {strict: "Reviewing in Process", priority: 2, text: "Your URS submission has been approved by your adviser."},
+      timestamp: "Thur Oct 21 2014 1:48:54 GMT-0500 (CDT)",
+      group: 3,
+      roomAssignment: "Science 2610",
+      resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+      comments: [
+        {
+          beginner: 0,
+          ender: 64,
+          commentText:"You don't need to restate the title of the submission...",
+          commenter: "Hongya Zhou",
+          selectionText : "The title of my project is called On Your March, Get Set, Rust! ",
+          indicator : 0,
+          timestamp : "Mon Dec 08 2014 18:41:16 GMT-0600 (CST)",
+          origin : "5486429c6adf9b0859cb58c7",
+          responses: []
+        }, {
+          beginner: 245 ,
+          ender: 284 ,
+          commentText: "Why were they sanded?" ,
+          commenter: "Hongya Zhou" ,
+          selectionText: "sanding ten galvanized and common nails" ,
+          indicator: 0 ,
+          timestamp: "Mon Dec 08 2014 18:42:05 GMT-0600 (CST)" ,
+          origin: "5486429c6adf9b0859cb58c7" ,
+          responses: [
+            {
+              "response": "Obviously to release the magical nail spirits.",
+              "responder": "Hongya Zhou",
+              "timestamp": "Mon Dec 08 2014 19:03:17 GMT-0600 (CST)"
+            }
+          ]
+        }, {
+          beginner: 161 ,
+          ender: 222 ,
+          commentText: "Poorly worded. Should be \"more quickly\" ?" ,
+          commenter: "Hongya Zhou" ,
+          selectionText: " which type of nails, galvanized or common will rust quickly." ,
+          indicator: 0 ,
+          timestamp: "Mon Dec 08 2014 18:43:43 GMT-0600 (CST)" ,
+          origin: "5486429c6adf9b0859cb58c7" ,
+          responses: [ ]
+        }, {
+          beginner: 536 ,
+          ender: 678 ,
+          commentText: "Big portion needs re-write..." ,
+          commenter: "Hongya Zhou" ,
+          selectionText: "My results of my data resolves that galvanized and common nails in freshwater had a higher average or rust than the other nails in salt water." ,
+          indicator: 0 ,
+          timestamp: "Mon Dec 08 2014 18:44:47 GMT-0600 (CST)" ,
+          origin: "5486429c6adf9b0859cb58c7" ,
+          responses: [
+            {
+              response: "But WHYYYYY?" ,
+              responder: "Hongya Zhou" ,
+              timestamp: "Mon Dec 08 2014 18:52:18 GMT-0600 (CST)"
+            }
+          ]
+        }
+      ],
+      reviewVotes: {
+        Accepted: [{name: "Mark Lehet", email:"lehet005@morris.umn.edu"}],
+        Minor: [],
+        Major: [{name: "Jacob Opdahl", email:"opdah023@morris.umn.edu"}, {name: "Matthew Kangas", email:"kanga139@morris.umn.edu"}],
+        TotalRewrite: []
+      }
+    },{
+      title: "Continued Fractions of Quadratic Laurent Series",
+      format: "Science or Social Science Abstract",
+      abstract: "It is both natural and interesting to replace the ring of integers and field of real numbers with the ring F[x] and the field F((1/x))for a field F, " +
+          "and to try to use continued fractions in F((1/x))to solve Pell’s equation in F[x]. " +
+          "I hypothesized that the solvability of Pell’s equation in this context is equivalent to the eventual periodicity of the associated continued fraction " +
+          "(a non-trivial constraint for infinite F) and that such periodicity exhibits symmetry properties analogous to the classically studied case. " +
+          "I proved my hypothesis, overcoming numerous obstacles not seen in the classical case, such as non-trivial units and lack of order structure. " +
+          "The method applies in characteristic 2, using a generalized form of Pell’s equation. The technique of proof is a mixture of non-Archimedean methods and polynomial algebra, " +
+          "the central breakthrough being a close study of the properties of a concept that I call a “reduced quadratic surd”. " +
+          "After proving some importance technical properties of reduced surd, I show that eventual periodicity of continued fractions implies the specific periodic and symmetric structure analogous to the classical case. " +
+          "I then use this result to prove that Pell’s equation has solutions if and only if the associated continued fraction is periodic – a result not seen in the classical theory. " +
+          "As a result, the problem of Pell’s equation in F[x] and the periodicity structure of quadratic surds in F((1/x)) is solved for arbitrary coefficient fields F, " +
+          "giving us interesting insight into the classical case.",
+      presentationType: "Poster or Visual Display",
+      formatChange: false,
+      presenterInfo: {first: "Joseph", last: "Thelen", email: "thele116@morris.umn.edu"},
+      copresenterOneInfo: {first: "", last: "", email: ""},
+      copresenterTwoInfo: {first: "", last: "", email: ""},
+      discipline: "Chemistry",
+      sponsors: [], //Might need to worry about if this is static for the DB later.
+      adviserInfo: {first: "Hongya", last: "Zhou", email: "zhou616@morris.umn.edu"},
+      coadviserOneInfo: {first: "", last: "", email: ""},
+      coadviserTwoInfo: {first: "", last: "", email: ""},
+      featured: false,
+      mediaServicesEquipment: "",
+      specialRequirements: "A small space to make the presentation personal.",
+      otherInfo: "yes.",
+      approval: false,
+      cc: false,
+      rejection: false,
+      status: {strict: "Awaiting Adviser Approval", priority: -15, text: "Your URS submission is pending approval from your adviser."},
+      timestamp: "Thur Oct 22 2014 1:48:54 GMT-0500 (CDT)",
+      group: 0,
+      roomAssignment: "Science 2610",
+      resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+      comments: [],
+      reviewVotes: {
+        Accepted: [],
+        Minor: [],
+        Major: [],
+        TotalRewrite: []
+      }
+    },{
+      title: "Synthesis and Evaluation of a Moleculary Imprinted Polymer for the Enantiomeric Resolution of L- and-D- Phenylalanine",
+      format: "Science or Social Science Abstract",
+      abstract: "Molecularly imprinted polymers (MIPs) are synthesis network polymers that contain recognition sited for specific molecules. " +
+          "MIPs are designed to bind the molecule that they have been imprinted with over other structurally similar molecules. " +
+          "The goal of this project was to create a beta- Cyclodextrin (BCD) based MIP imprinted with the amino acid L-Phenylalanine (L-Phe) MIPs, " +
+          "which are prepared based on relatively weak intermolecular attractions between the template molecule and pre-polymer components, have decreased binding abilities in polar solvents. " +
+          "However, to be used in many practical applications in the future, MIPs will need to be able to function in polar solvents such as water. " +
+          "In this project, the goal was to synthesize a MIP that could bind L-Phe in an aqueous solution by using the hydrophobic attraction provided by the B-CD cavity. " +
+          "MIPs were formed by polymerizing (crosslinking) B-CD with m-xylylene disocyanate (XDI) in the presence of L-Phe (template molecule). " +
+          "CuCl2 was used to increase the solubility of L-Phe in DMSO (dimethyl sulfoxide, solvent). Control polymers were formed in the same way, but in the absence of L-Phe and CuCl2. " +
+          "All polymers were thoroughly washed and dried to prepare them for rebinding studies and analysis. The polymer obtained from the synthesis described was analyzed with IR spectroscopy, " +
+          "and the structure of the polymer was proposed. Due to difficulties in removing background UV-V is absorption caused by the polymer or other contaminants in rebinding study solutions, " +
+          "the efficacy of the polymer in binding L-Phe over D-Phe in aqueous media was not confirmed, and will be the focus of future studies.",
+      presentationType: "Poster or Visual Display",
+      formatChange: true,
+      presenterInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
+      copresenterOneInfo: {first: "Joseph", last: "Thelen", email: "thele116@morris.umn.edu"},
+      copresenterTwoInfo: {first: "", last: "", email: ""},
+      discipline: "Art History",
+      sponsors: [],
+      adviserInfo: {first: "Matt", last: "Kangas", email: "kanga139@morris.umn.edu"},
+      coadviserOneInfo: {first: "", last: "", email: ""},
+      coadviserTwoInfo: {first: "", last: "", email: ""},
+      featured: false,
+      mediaServicesEquipment: "",
+      specialRequirements: "A small space to make the presentation personal.",
+      otherInfo: "yes.",
+      approval: true,
+      cc: false,
+      rejection: false,
+      status: {strict: "Accepted", priority: 15, text: "Your URS submission has been approved, congratulations!"},
+      timestamp: "Thur Oct 19 2014 1:48:54 GMT-0500 (CDT)",
+      group: 1,
+      roomAssignment: "Science 2610",
+      resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+      comments: [],
+      reviewVotes: {
+        Accepted: [{name: "Mark Lehet", email:"lehet005@morris.umn.edu"}],
+        Minor: [{name: "Matthew Kangas", email:"kanga139@morris.umn.edu"}],
+        Major: [{name: "Jacob Opdahl", email:"opdah023@morris.umn.edu"}],
+        TotalRewrite: []
+      }
+    },{
+      title: "The Effect of Motor Oil on Daphnia magna",
+      format: "Humanities Proposal",
+      abstract: "The purpose of my project was to model how motor oil released to a lake impacts the organisms that live there. " +
+          "Whole effluent toxicity (WET) testing is used by regulatory agencies to determine how clean an effluent must be before release to the environment. " +
+          "In a WET test, aquatic animals are exposed to an effluent to determine if the effluent harms the animals. " +
+          "I conducted eight experiments using the organism Daphnia magna. I added oxygenated, dechlorinated water to sample containers, " +
+          "then added varying concentrations of motor oil. For each experiment, two replicates were prepared. " +
+          "To each sample, I added Daphnia magna and then recorded the number of organisms alive after 24 and 48 hours. " +
+          "Great care was taken to properly maintain the Daphnia magna culture for the experiments. I maintained optimal temperature and lighting and followed the appropriate schedule for feeding and water changes. " +
+          "I initially tested motor oil concentrations of 0.2% and higher. When all the Daphnia magna neonates died, I conducted two experiments using NaCl, " +
+          "since their response to NaCl is known. When the Daphnia magna reacted as expected, I continued the experiments, eventually using motor oil concentrations as low as 0.00017%. " +
+          "Using data from Replicate #1 Experiment #8 24-hour observations, I was able to generate a graph which revealed a motor oil LC50 of 30 mg/l. " +
+          "This is the concentration at which 50% of the organisms die. This very low concentration confirms how only a little bit of oil can cause serious damage to the environment.",
+      presentationType: "Poster or Visual Display",
+      formatChange: true,
+      presenterInfo: {first: "Jacob", last: "Opdahl", email: "opdah023@morris.umn.edu"},
+      copresenterOneInfo: {first: "", last: "", email: ""},
+      copresenterTwoInfo: {first: "", last: "", email: ""},
+      discipline: "Biology",
+      sponsors: [], //Might need to worry about if this is static for the DB later.
+      adviserInfo: {first: "Maggie",last: "Casale", email: "casal033@morris.umn.edu"},
+      coadviserOneInfo: {first: "Otto", last: "Marckell", email: "marck018@morris.umn.edu"},
+      coadviserTwoInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
+      featured: false,
+      mediaServicesEquipment: "",
+      specialRequirements: "A small space to make the presentation personal.",
+      otherInfo: "yes.",
+      approval: true,
+      cc: false,
+      rejection: false,
+      status: {strict: "Reviewing in Process", priority: 2, text: "Your URS submission has been approved by your adviser."},
+      timestamp: "Thur Oct 31 2014 1:48:54 GMT-0500 (CDT)",
+      group: 2,
+      roomAssignment: "Science 2610",
+      resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+      comments: [
+        {
+          beginner: 0,
+          ender: 64,
+          commentText:"You don't need to restate the title of the submission...",
+          commenter: "Hongya Zhou",
+          selectionText : "The title of my project is called On Your March, Get Set, Rust! ",
+          indicator : 0,
+          timestamp : "Mon Dec 08 2014 18:41:16 GMT-0600 (CST)",
+          origin : "5486429c6adf9b0859cb58c7",
+          responses: []
+        }, {
+          beginner: 245 ,
+          ender: 284 ,
+          commentText: "Why were they sanded?" ,
+          commenter: "Hongya Zhou" ,
+          selectionText: "sanding ten galvanized and common nails" ,
+          indicator: 0 ,
+          timestamp: "Mon Dec 08 2014 18:42:05 GMT-0600 (CST)" ,
+          origin: "5486429c6adf9b0859cb58c7" ,
+          responses: [
+            {
+              "response": "Obviously to release the magical nail spirits.",
+              "responder": "Hongya Zhou",
+              "timestamp": "Mon Dec 08 2014 19:03:17 GMT-0600 (CST)"
+            }
+          ]
+        }, {
+          beginner: 161 ,
+          ender: 222 ,
+          commentText: "Poorly worded. Should be \"more quickly\" ?" ,
+          commenter: "Hongya Zhou" ,
+          selectionText: " which type of nails, galvanized or common will rust quickly." ,
+          indicator: 0 ,
+          timestamp: "Mon Dec 08 2014 18:43:43 GMT-0600 (CST)" ,
+          origin: "5486429c6adf9b0859cb58c7" ,
+          responses: [ ]
+        }, {
+          beginner: 536 ,
+          ender: 678 ,
+          commentText: "Big portion needs re-write..." ,
+          commenter: "Hongya Zhou" ,
+          selectionText: "My results of my data resolves that galvanized and common nails in freshwater had a higher average or rust than the other nails in salt water." ,
+          indicator: 0 ,
+          timestamp: "Mon Dec 08 2014 18:44:47 GMT-0600 (CST)" ,
+          origin: "5486429c6adf9b0859cb58c7" ,
+          responses: [
+            {
+              response: "But WHYYYYY?" ,
+              responder: "Hongya Zhou" ,
+              timestamp: "Mon Dec 08 2014 18:52:18 GMT-0600 (CST)"
+            }
+          ]
+        }
+      ],
+      reviewVotes: {
+        Accepted: [{name: "Mark Lehet", email:"lehet005@morris.umn.edu"}],
+        Minor: [{name: "Matthew Kangas", email:"kanga139@morris.umn.edu"}],
+        Major: [{name: "Jacob Opdahl", email:"opdah023@morris.umn.edu"}],
+        TotalRewrite: []
+      }
+    },{
+      title: "English as the Medium of Instruction for Non-Native English Speakers",
+      format: "Artisit Statement",
+      abstract: "The world is slowly turning into a global village and borders that once stood between cultures now serve as bridges for the enjoyment of diversity between people of different races and ethnicities. " +
+          "At the forefront of this change is English, which stands as the global medium of communication. " +
+          "This modern renaissance of human interaction may bring about a lot in terms of economics and trade, but adopting English as the national medium of instruction in the grade school and high school levels, " +
+          "just to ride this economic wave of change, poses several dangers to the culture of non-native English speakers. " +
+          "Apart from inefficiency and stunted cognition, non-native English speaking students are at risk of losing their cultural identity.",
+      presentationType: "Poster or Visual Display",
+      formatChange: true,
+      presenterInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
+      copresenterOneInfo: {first: "Brandon", last: "Moody", email: "moody107@morris.umn.edu"},
+      copresenterTwoInfo: {first: "", last: "", email: ""},
+      discipline: "History",
+      sponsors: [], //Might need to worry about if this is static for the DB later.
+      adviserInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
+      coadviserOneInfo: {first: "", last: "", email: ""},
+      coadviserTwoInfo: {first: "", last: "", email: ""},
+      featured: false,
+      mediaServicesEquipment: "",
+      specialRequirements: "A small space to make the presentation personal.",
+      otherInfo: "yes.",
+      approval: true,
+      cc: false,
+      rejection: false,
+      status: {strict: "Accepted", priority: 15, text: "Your URS submission has been approved, congratulations!"},
+      timestamp: "Thur Oct 23 2014 1:48:54 GMT-0500 (CDT)",
+      group: 3,
+      roomAssignment: "Science 2610",
+      resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+      comments: [],
+      reviewVotes: {
+        Accepted: [{name: "Mark Lehet", email:"lehet005@morris.umn.edu"}],
+        Minor: [{name: "Matthew Kangas", email:"kanga139@morris.umn.edu"}],
+        Major: [{name: "Jacob Opdahl", email:"opdah023@morris.umn.edu"}],
+        TotalRewrite: []
+      }
     }, {
         title: "A Study of the Properties of a Paperclip in the Digestive System of a Sloth",
         format: "Artist Statement",
@@ -565,18 +1263,17 @@ Submission.find({}).remove(function(){
             " which we use to prove that redundancy and replication can interfere to achieve this aim. ",
         presentationType: "Oral Presentation",
         formatChange: false,
-        presenterInfo: {first: "Hongya", last: "Zhou", email: "zhoux616@morris.umn.edu"},
-        copresenterOneInfo: {first: "Otto", last: "Marckel II", email: "marck018@morris.umn.edu"},
-        copresenterTwoInfo: {first: "Dalton", last: "Gusaas", email: "gusaa004@morris.umn.edu"},
-        discipline: "Biology",
+        presenterInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
+        copresenterOneInfo: {first: "Brandon", last: "Moody", email: "moody107@morris.umn.edu"},
+        copresenterTwoInfo: {first: "", last: "", email: ""},
+        discipline: "History",
         sponsors: [], //Might need to worry about if this is static for the DB later.
-        adviserInfo: {first: "Otto", last: "Marckell", email: "marck018@morris.umn.edu"},
+        adviserInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
         coadviserOneInfo: {first: "", last: "", email: ""},
         coadviserTwoInfo: {first: "", last: "", email: ""},
         featured: false,
         mediaServicesEquipment: "",
         specialRequirements: "a sloth",
-//        presenterTeeSize: "M",
         otherInfo: "Maybe",
         approval: true,
         rejection: false,

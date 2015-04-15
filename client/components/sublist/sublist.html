@@ -75,7 +75,7 @@
                     <!--<button type="button" class="btn btn-default" ng-click="filterData.orderByPredicate='timestamp'">Order by timestamp</button>-->
                 </li>
 
-                <li class="list-group-item" ng-show="submissions.length < 1">
+                <li class="list-group-item" ng-show="submissions.length == 0 && timeoutBoolean">
                     <img class="loadingImage" src="assets/images/hourglass-gif.gif">
                 </li>
 

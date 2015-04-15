@@ -76,3 +76,8 @@ a:active {
 .buttonMain:hover {
     background: #e5b72d;
 }
+
+.nonUMNWarning{
+  font-size: 30px;
+  text-align: center;
+}

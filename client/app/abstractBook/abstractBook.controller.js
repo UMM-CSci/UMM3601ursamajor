@@ -21,15 +21,19 @@ angular.module('umm3601ursamajorApp')
                 }
             });
 
-                $scope.submissions = [];
-                $scope.status = [];
+        if(!Auth.isAdmin() && !Auth.isChair()) {
+            $location.path('/');
+        }
 
-                $scope.getCurrentUser = Auth.getCurrentUser;
-                $scope.group = Auth.getCurrentUser().group;
-                $scope.email = Auth.getCurrentUser().email;
-                $scope.isReviewer = Auth.isReviewer;
-                $scope.isAdmin = Auth.isAdmin;
-                $scope.isChair = Auth.isChair;
+        $scope.submissions = [];
+        $scope.status = [];
+
+        $scope.getCurrentUser = Auth.getCurrentUser;
+        $scope.group = Auth.getCurrentUser().group;
+        $scope.email = Auth.getCurrentUser().email;
+        $scope.isReviewer = Auth.isReviewer;
+        $scope.isAdmin = Auth.isAdmin;
+        $scope.isChair = Auth.isChair;
 
         $http.get('/api/submissions').success(function(submissions) {
             $scope.submissions = submissions;
@@ -46,4 +50,6 @@ angular.module('umm3601ursamajorApp')
         $scope.isAccepted = function(submission){
             return submission.status.priority === 15;
         };
+
+
   });

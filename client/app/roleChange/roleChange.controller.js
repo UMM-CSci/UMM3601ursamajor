@@ -15,12 +15,14 @@ angular.module('umm3601ursamajorApp')
         $scope.isAdmin = Auth.isAdmin;
         $scope.isChair = Auth.isChair();
 
-        $scope.filterSelection = "All";
+        $scope.filterSelection = 'All';
+        $scope.roleSelection = '';
 
-        $http.get('/api/submissions').success(function(submissions) {
+    //Needed if you want to check conflicts between a user's review group # and a submission in the review group.
+/*        $http.get('/api/submissions').success(function(submissions) {
             $scope.submissions = submissions;
             socket.syncUpdates('submission', $scope.submissions);
-        });
+        });*/
 
 
         $scope.filterRoleOptions =
@@ -32,7 +34,8 @@ angular.module('umm3601ursamajorApp')
             ];
 
         $scope.roleOptions =
-            [   'chair',
+            [   '',
+                'chair',
                 'reviewer',
                 'admin',
                 'user'
@@ -48,17 +51,11 @@ angular.module('umm3601ursamajorApp')
             ];
 
         // Functions return true if current user is of a specific type, false otherwise.
-        $scope.userIsAdmin = function(user){
-            return user.role === "admin";
-        };
         $scope.userIsReviewer = function(user){
             return user.role === "reviewer";
         };
-        $scope.userIsUser = function(user){
-            return user.role === "user";
-        };
 
-
+        // Filter so that the user can specify a user type to see users for.
         $scope.filterByUser = function(user){
             console.log("user");
             if($scope.filterSelection === "All"){
@@ -74,6 +71,12 @@ angular.module('umm3601ursamajorApp')
             } else {
                 return false;
             }
+        };
+
+
+    // Simple function to hide submit button if the selected role is "".
+        $scope.roleSelectionIsEmpty = function() {
+          return $scope.roleSelection === '';
         };
 
         //Delete user modal
@@ -96,8 +99,7 @@ angular.module('umm3601ursamajorApp')
         };
 
         // Checks if there is a conflict between the user and the group they are being assigned to.
-        // Currently not working, have too many stories to worry about this right now.
-        $scope.checkForConflict = function(user) {
+/*        $scope.checkForConflict = function(user) {
             if (
                 $filter('filter')($scope.submissions,
                     function(submission) {
@@ -107,9 +109,9 @@ angular.module('umm3601ursamajorApp')
                     }
                 ).length > 0
                 ) {
-                Modal.confirm.warning()('Conflict with user and role.');
+                Modal.confirm.warning()('There is a conflict with the user and the review group you are assigning them to. You are attempting to assign this user to a review group where they are either a (co)presenter or (co)adviser for a submission in that group. This change is allowed, but cautioned.');
             }
-        };
+        };*/
 
 
         $scope.updateInfoConfirm = function(user) {
@@ -122,10 +124,12 @@ angular.module('umm3601ursamajorApp')
 
         // Updates a users role as long as the user being changed isn't the one doing the changing.
         $scope.updateInfo = function(user) {
-            if(user.role != 'reviewer') {
-                Auth.updateInfo(user.role, -1, user);
+            if($scope.roleSelection != 'reviewer') {
+                Auth.updateInfo($scope.roleSelection, -1, user);
+                user.role = $scope.roleSelection;
             } else {
-                Auth.updateInfo(user.role, user.group, user);
+                Auth.updateInfo($scope.roleSelection, user.group, user);
+                user.role = $scope.roleSelection;
             }
         };
     });

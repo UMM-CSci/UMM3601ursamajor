@@ -98,24 +98,11 @@ describe('Controller: RoleChangeCtrl', function () {
   });
 
   describe('role change functions', function(){
-    it('check is admin' ,function(){
-      expect(scope.userIsAdmin(scope.users[0])).toEqual(false);
-      scope.users[0].role = "admin";
-      expect(scope.userIsAdmin(scope.users[0])).toEqual(true);
-
-    });
 
     it('check is reviewer' ,function(){
       expect(scope.userIsReviewer(scope.users[1])).toEqual(false);
       scope.users[1].role = "reviewer";
       expect(scope.userIsReviewer(scope.users[1])).toEqual(true);
-
-    });
-
-    it('check is user' ,function(){
-      expect(scope.userIsUser(scope.users[0])).toEqual(true);
-      expect(scope.userIsUser(scope.users[1])).toEqual(false);
-
     });
 
     it('testing filters depending on role' ,function(){
@@ -138,6 +125,11 @@ describe('Controller: RoleChangeCtrl', function () {
       expect(scope.filterByUser(scope.users[0])).toEqual(true);
       scope.filterSelection = "Something that would never ever really be chosen for a filter.";
       expect(scope.filterByUser(scope.users[0])).toEqual(false);
+    });
+
+    it('roleSelectionIsEmpty should return true if empty', function () {
+      scope.roleSelection = '';
+      expect(scope.roleSelectionIsEmpty()).toEqual(true);
     });
   });
 })
