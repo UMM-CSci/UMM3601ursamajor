@@ -12,7 +12,6 @@
                   <p><b>Adviser(s):</b> {{sub.adviserInfo.first}} {{sub.adviserInfo.last}}{{sub.coadviserOneInfo.first | isntEmpty:",":""}}{{sub.coadviserOneInfo.last | isntEmpty:"":""}}{{sub.coadviserTwoInfo.first | isntEmpty:",":""}} {{sub.coadviserTwoInfo.last | isntEmpty:"":""}}</p>
                   </p>
                   <!--<p><b>Willing to be Feature Presentation:</b> {{approvalWordChange(sub.featured)}}</p>-->
-                  <div><b>Room Assignment:</b> {{sub.roomAssignment}}</div>
                   <h3>Abstract</h3>
                   <p ng-bind-html="sub.abstract"></p>
             </li>
