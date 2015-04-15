@@ -1,7 +1,7 @@
 <div ng-controller="AbstractbookCtrl" class="container-fluid">
     <div>Note: only fully accepted submissions will show here</div>
     <br>
-    <div ng-repeat="sub in submissions" ng-show="isAccepted(sub)">
+    <div ng-repeat="sub in submissions  | filter:currentYearFilter" ng-show="isAccepted(sub)">
         <li class="list-group-item">
                   <hr class="hrThickness">
                   <b>Presenter(s):</b> {{sub.presenterInfo.first}} {{sub.presenterInfo.last}}{{sub.copresenterOneInfo.first | isntEmpty:", ":""}} {{sub.copresenterOneInfo.last | isntEmpty:"":""}}{{sub.copresenterTwoInfo.first | isntEmpty:",":""}} {{sub.copresenterTwoInfo.last | isntEmpty:"":""}}

@@ -47,6 +47,13 @@ angular.module('umm3601ursamajorApp')
             socket.syncUpdates('status', $scope.status);
         });
 
+        //For filtering submissions with current year
+        $scope.currentYearFilter = function(submission){
+          var date = new Date();
+          var year = date.getFullYear();
+          return submission.timestamp.indexOf(year) != -1;
+        };
+
         $scope.isAccepted = function(submission){
             return submission.status.priority === 15;
         };

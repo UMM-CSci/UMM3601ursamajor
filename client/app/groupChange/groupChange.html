@@ -23,7 +23,7 @@
         </div>
         <br>
 
-        <li class="list-group-item" ng-repeat="submission in submissions | filter:filterByGroup | filter:filterOutSameGroup">
+        <li class="list-group-item" ng-repeat="submission in submissions | filter:currentYearFilter | filter:filterByGroup | filter:filterOutSameGroup">
             <strong>{{submission.title}}</strong>
             <br>
 
