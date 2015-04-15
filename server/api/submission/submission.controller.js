@@ -25,7 +25,7 @@ exports.selectIndex = function(req, res) {
           {'presenterInfo.email': req.user.email},
           {'copresenterOneInfo.email': req.user.email},
           {'copresenterTwoInfo.email': req.user.email},
-          {'advisorInfo.email': req.user.email},
+          {'adviserInfo.email': req.user.email},
           {'coadviserOneInfo.email': req.user.email},
           {'coadviserTwoInfo.email': req.user.email},
           {group: req.user.group}
