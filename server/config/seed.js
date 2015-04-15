@@ -175,7 +175,7 @@ User.find({}).remove(function() {
                 id: "102737466880551658774"
             },
             group: -1,
-            role: "user",
+            role: "chair",
             __v: 0
       }, {
             name: "Maggie Casale",
