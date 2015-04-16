@@ -195,8 +195,8 @@ User.find({}).remove(function() {
                 email: "casal033@morris.umn.edu",
                 id: "116234824364241021424"
             },
-            group: -1,
-            role: "chair",
+            group: 2,
+            role: "reviewer",
             __v: 0
         }, {
             name: "Jacob Opdahl",

@@ -498,26 +498,29 @@ angular.module('umm3601ursamajorApp')
         $scope.selectItem = function(itemIndex){
             var filteredSubmissions =
                 $filter('filter')(
+                  $filter('filter')(
                     $filter('filter')(
+                      $filter('filter')(
                         $filter('filter')(
+                          $filter('filter')(
                             $filter('filter')(
-                                $filter('filter')(
-                                    $filter('filter')(
-                                        $filter('filter')(
-                                            $scope.submissions,
-                                            $scope.hasPermissions
-                                        ),
-                                        $scope.tabFilters
-                                    ),
-                                    $scope.reviewGroupFilter
-                                ),
-                                $scope.featurePresentationFilter
+                              $filter('filter')(
+                                $scope.submissions,
+                                $scope.currentYearFilter
+                              ),
+                              $scope.tabFilters
                             ),
-                            $scope.flaggedForResubmitFilter
+                            $scope.reviewGroupFilter
+                          ),
+                          $scope.featurePresentationFilter
                         ),
-                        $scope.pendingResubmissionsFilter
+                        $scope.flaggedForResubmitFilter
+                      ),
+                      $scope.pendingResubmissionsFilter
                     ),
-                    $scope.searchFilter
+                    $scope.statusFilter
+                  ),
+                  $scope.searchFilter
                 );
 
             $scope.selection.selected = true;
