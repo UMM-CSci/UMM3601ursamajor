@@ -199,28 +199,32 @@ angular.module('umm3601ursamajorApp')
             return $scope.group === submission.group;
         };
 
+
+        //-----------Not Needed-------------
+        // Was taken out because it appears to not do anything with how we are implementing things.
+        //----------------------------------
         // Takes a submission and returns true if the user provided by Auth has permission to see that submission.
         // True if user has admin permissions
         // True if user is presenter or co-presenter of submission
         // True if user is the adviser of the submission
         // True if the user is in the review group that the submission is assigned to.
         // False if the submission is null, or if one of the above conditions is not met.
-        $scope.hasPermissions = function(submission) {
-            if(submission == null) return false;
-            if(!Auth.isLoggedIn){
-                console.log("Not logged in!");
-                return false;
-            }
-
-            if($scope.hasAdminPrivs()){
-                return true;
-            } else {
-                return $scope.isPresenter(submission) ||
-                    $scope.isCoPresenter(submission) ||
-                    $scope.isAdviser(submission) ||
-                    $scope.isReviewerGroup(submission)
-            }
-        };
+        //$scope.hasPermissions = function(submission) {
+        //    if(submission == null) return false;
+        //    if(!Auth.isLoggedIn){
+        //        console.log("Not logged in!");
+        //        return false;
+        //    }
+        //
+        //    if($scope.hasAdminPrivs()){
+        //        return true;
+        //    } else {
+        //        return $scope.isPresenter(submission) ||
+        //            $scope.isCoPresenter(submission) ||
+        //            $scope.isAdviser(submission) ||
+        //            $scope.isReviewerGroup(submission)
+        //    }
+        //};
 
         // Takes a submission as an argument and returns a boolean based on which review group filter is applied.
         // Always returns true if filter selection is "All"
@@ -409,11 +413,11 @@ angular.module('umm3601ursamajorApp')
             $scope.statusGet();
             socket.syncUpdates('status', $scope.status);
         });
-
-        $http.get('/api/users').success(function(users) {
-            $scope.users = users;
-            socket.syncUpdates('user', $scope.users)
-        });
+        //Isn't used anywhere, was returning an error.
+        //$http.get('/api/users').success(function(users) {
+        //    $scope.users = users;
+        //    socket.syncUpdates('user', $scope.users)
+        //});
 
         var sendGmail = function(opts){
             var str = 'http://mail.google.com/mail/?view=cm&fs=1'+
