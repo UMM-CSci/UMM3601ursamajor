@@ -80,7 +80,7 @@ describe('Controller: AbstractbookCtrl', function () {
                 approval: false,
                 rejection: false,
                 status: {strict: "Revisions Needed", text: "Your URS submission has been flagged for revisions, and is in need of changes.", priority: 11},
-                timestamp: "Tue Oct 21 2014 23:22:54 GMT-0500 (CDT)",
+                timestamp: "Tue Oct 21 2015 23:22:54 GMT-0500 (CDT)",
                 group: 1,
                 resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
                 comments:[]
@@ -96,7 +96,12 @@ describe('Controller: AbstractbookCtrl', function () {
        it('something', inject(function(){
            expect(scope.isAccepted(scope.submissions[0])).toEqual(true);
            expect(scope.isAccepted(scope.submissions[1])).toEqual(false);
-       })) ;
+        }));
+
+        it('currentYearFilter should filter out non 2015 submissions', function () {
+          expect(scope.currentYearFilter(scope.submissions[0])).toEqual(false);
+          expect(scope.currentYearFilter(scope.submissions[1])).toEqual(true);
+        });
     });
 
 });

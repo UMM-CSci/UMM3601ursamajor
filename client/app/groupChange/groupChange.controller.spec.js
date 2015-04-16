@@ -45,7 +45,7 @@ describe('Controller: GroupChangeCtrl', function () {
         cc: false,
         rejection: false,
         status: {strict: "Awaiting Adviser Approval", priority: -15, text: "Your adviser has yet to approve this submission."},
-        timestamp: "Mon Oct 20 2014 1:48:54 GMT-0500 (CDT)",
+        timestamp: "Mon Oct 20 2015 1:48:54 GMT-0500 (CDT)",
         group: 3,
         resubmissionData: {comment: "Initial Submission", parentSubmission: "testIdForTesting", isPrimary: false, resubmitFlag: false},
         comments: [],
@@ -83,7 +83,7 @@ describe('Controller: GroupChangeCtrl', function () {
         cc: false,
         rejection: false,
         status: {strict: "Revisions Needed", priority: 3, text: "Your URS submission has been flagged for revisions, and is in need of changes."},
-        timestamp: "Tue Oct 21 2014 23:22:54 GMT-0500 (CDT)",
+        timestamp: "Tue Oct 21 2015 23:22:54 GMT-0500 (CDT)",
         group: 1,
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
         comments:[],
@@ -161,7 +161,7 @@ describe('Controller: GroupChangeCtrl', function () {
         cc: false,
         rejection: false,
         status: {strict: "Accepted", priority: 15, text: "Your URS submission has been approved, congratulations!"},
-        timestamp: "Thur Oct 23 2014 1:48:54 GMT-0500 (CDT)",
+        timestamp: "Thur Oct 23 2015 1:48:54 GMT-0500 (CDT)",
         group: 2,
         roomAssignment: "Science 2610",
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: true},
@@ -173,7 +173,7 @@ describe('Controller: GroupChangeCtrl', function () {
           TotalRewrite: []
         }
       }
-    ]
+    ];
 
     scope.submissionsPrimary = [
       {
@@ -204,7 +204,7 @@ describe('Controller: GroupChangeCtrl', function () {
         cc: false,
         rejection: false,
         status: {strict: "Revisions Needed", priority: 3, text: "Your URS submission has been flagged for revisions, and is in need of changes."},
-        timestamp: "Tue Oct 21 2014 23:22:54 GMT-0500 (CDT)",
+        timestamp: "Tue Oct 21 2015 23:22:54 GMT-0500 (CDT)",
         group: 1,
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
         comments:[],
@@ -282,7 +282,7 @@ describe('Controller: GroupChangeCtrl', function () {
         cc: false,
         rejection: false,
         status: {strict: "Accepted", priority: 15, text: "Your URS submission has been approved, congratulations!"},
-        timestamp: "Thur Oct 23 2014 1:48:54 GMT-0500 (CDT)",
+        timestamp: "Thur Oct 23 2015 1:48:54 GMT-0500 (CDT)",
         group: 2,
         roomAssignment: "Science 2610",
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: true},
@@ -299,6 +299,11 @@ describe('Controller: GroupChangeCtrl', function () {
 
   it('should ...', function () {
     expect(1).toEqual(1);
+  });
+
+  it('currentYearFilter should filter out non 2015 submissions', function () {
+    expect(scope.currentYearFilter(scope.submissionsAll[0])).toEqual(true);
+    expect(scope.currentYearFilter(scope.submissionsAll[2])).toEqual(false);
   });
 
   it('getPrimarySubmissions on submissionsAll should return submissionsPrimary', function () {
