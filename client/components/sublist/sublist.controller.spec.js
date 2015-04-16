@@ -727,9 +727,9 @@ describe('Functions dealing with submissions...', function() {
         //  expect(scope.hasPermissions(scope.submissions[0])).toEqual(false);
         //});
 
-        it("Should return false if the submission is null.", function() {
+       /* it("Should return false if the submission is null.", function() {
           expect(scope.hasPermissions(null)).toEqual(false);
-        });
+        });*/
     });
 
     describe('Functions that check the current filter selections are enabled and checks the submission to see if they should be shown.', function () {
