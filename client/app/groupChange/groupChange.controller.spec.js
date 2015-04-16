@@ -295,6 +295,9 @@ describe('Controller: GroupChangeCtrl', function () {
         }
       }
     ]
+
+    scope.submissionsAll[0].timestamp = Date();
+
   });
 
   it('should ...', function () {

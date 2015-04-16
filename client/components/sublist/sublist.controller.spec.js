@@ -325,7 +325,7 @@ describe('Functions dealing with submissions...', function() {
                    TotalRewrite: []
                }
            }
-       ]
+       ];
     });
 
     it('1 should equal 1...', function () {
@@ -473,6 +473,14 @@ describe('Functions dealing with submissions...', function() {
         });
 
         describe('Testing logic for displaying resubmit button...', function(){
+            beforeEach(function() {
+              // Need this so filter functions don't start failing as the year changes.
+              scope.submissions[0].timestamp = Date();
+              scope.submissions[1].timestamp = Date();
+              scope.submissions[2].timestamp = Date();
+              scope.submissions[3].timestamp = Date();
+            });
+
             describe('Should show correct buttons for admin...', function() {
                 beforeEach(inject(function(Auth){Auth.setCurrentUser("admin@admin.com", "admin", 1)}));
 

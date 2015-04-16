@@ -85,8 +85,12 @@ describe('Controller: AbstractbookCtrl', function () {
                 resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
                 comments:[]
             }
-        ]
+        ];
+
+      scope.submissions[1].timestamp = Date();
+
     });
+
 
     it('1 should equal 1...', function () {
         expect(1).toEqual(1);

@@ -67,7 +67,7 @@ describe('Controller for Admin Page...', function() {
                 otherInfo: "",
                 approval: true,
                 status: {strict: "Revisions Needed", text: "Your URS submission has been flagged for revisions, and is in need of changes."},
-                timestamp: "Tue Oct 21 2015 23:22:54 GMT-0500 (CDT)",
+                timestamp: "",
                 group: 1,
                 resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
                 comments:[]
@@ -99,12 +99,15 @@ describe('Controller for Admin Page...', function() {
                 otherInfo: "",
                 approval: true,
                 status: {strict: "Revisions Needed", text: "Your URS submission has been flagged for revisions, and is in need of changes."},
-                timestamp: "Tue Oct 21 2015 23:22:54 GMT-0500 (CDT)",
+                timestamp: "",
                 group: 1,
                 resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
                 comments:[]
               }
         ];
+
+        scope.yearSubmissions[0].timestamp = Date();
+        scope.submissions[1].timestamp = scope.yearSubmissions[0].timestamp;
 
         scope.users = [
             {email: "admin@admin.com", role: "admin", group: -1},
@@ -118,6 +121,7 @@ describe('Controller for Admin Page...', function() {
             {email: "user_0@user.com", role: "reviewer", group: 2},
             {email: "user_1@user.com", role: "reviewer", group: 3}
         ]
+
     });
 
     it('1 should equal 1...', function () {
