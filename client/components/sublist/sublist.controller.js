@@ -69,7 +69,7 @@ angular.module('umm3601ursamajorApp')
                 "Review Group 3",
                 "Review Group 4"
             ],
-            tabFilter: {isPresenter:false, isCoPresenter:false, isReviewer:false, isAdviser:false},
+            tabFilter: {isPresenter:false, isCoPresenter:false, isReviewer:false, isAdviser:false, oldSubmissions:false},
             featurePresentationFilterSelection: "All",
             featurePresentationFilterOptions: [
                 "All",
@@ -310,6 +310,24 @@ angular.module('umm3601ursamajorApp')
           }
         };
 
+        //For filtering submissions with current year
+        $scope.currentYearFilter = function(submission){
+          var date = new Date();
+          var year = date.getFullYear();
+          if (!$scope.filterData.tabFilter.oldSubmissions) {
+            return submission.timestamp.indexOf(year) != -1;
+          } else {
+            return submission.timestamp.indexOf(year) == -1;
+          }
+        };
+
+        // Used to check if a pesron has any past submissions.
+        $scope.isPastSubmission = function(submission){
+          var date = new Date();
+          var year = date.getFullYear();
+          return submission.timestamp.indexOf(year) == -1;
+        };
+
 
         //Returns true if the current user is listed as a presenter on ANY submission, false otherwise.
         $scope.isPresenterOnAnything = function(){
@@ -329,6 +347,11 @@ angular.module('umm3601ursamajorApp')
         //Returns true if the current user's review group matches that of ANY submission, false otherwise.
         $scope.isReviewerOfAnything = function(){
             return ($filter('filter')($scope.submissions, $scope.isReviewerGroup).length > 0)
+        };
+
+        //Returns true if user has any submission that aren't from the current year.
+        $scope.hasAnyPastSubmissions = function(){
+            return ($filter('filter')($scope.submissions, $scope.isPastSubmission).length > 0)
         };
 
         // --- Controlling the Tabs ---
@@ -363,6 +386,11 @@ angular.module('umm3601ursamajorApp')
         $scope.showMyReviewerSubmissions = function(){
             $scope.resetTabs();
             $scope.filterData.tabFilter.isReviewer = true;
+        };
+
+        $scope.showMyOldSubmissions = function(){
+            $scope.resetTabs();
+            $scope.filterData.tabFilter.oldSubmissions = true;
         };
 
         $scope.tabFilters = function(submission){
