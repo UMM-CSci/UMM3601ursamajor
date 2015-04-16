@@ -3,6 +3,7 @@
 
     <!-- HTML for list view -->
 
+    <!-- Start HTML FOR FILTERS HERE!!!!  -->
     <div class="row container-fluid" ng-hide="selection.selected">
         <div class="col-lg-3">
             <ul class="list-group">
@@ -61,7 +62,12 @@
                 </li>
             </ul>
         </div>
+
+        <!-- END HTML FOR FILTERS HERE. -->
+
         <div class="col-lg-9">
+
+            <!-- START HTML FOR TABS!!!! -->
             <tabset ng-hide="selection.selected">
                 <tab heading="All Submissions" ng-click="showAllSubmissions()"></tab>
                 <tab ng-show="isPresenterOnAnything()" heading="Presenter Submissions" ng-click="showMySubmissions()"></tab>
@@ -69,10 +75,11 @@
                 <tab ng-show="isAdviserOfAnything()" heading="Adviser Submissions" ng-click="showMyAdviserSubmissions()"></tab>
                 <tab ng-show="isReviewerOfAnything()" heading="Reviewer Submissions" ng-click="showMyReviewerSubmissions()"></tab>
             </tabset>
+            <!-- END HTML FOR TABS!!!! -->
+
             <ul class="list-group">
                 <li class="list-group-item noTopBorder text">
                     <h2>Submissions </h2>
-                    <!--<button type="button" class="btn btn-default" ng-click="filterData.orderByPredicate='timestamp'">Order by timestamp</button>-->
                 </li>
 
                 <li class="list-group-item" ng-show="submissions.length == 0 && timeoutBoolean">
@@ -103,9 +110,9 @@
                     <br>
                 </li>
             </ul>
+
         </div>
     </div>
-    </ul>
 
     <!-- HTML FOR THE DETAILS VIEW STARTS HERE!!!!! -->
 

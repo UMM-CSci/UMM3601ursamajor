@@ -21,7 +21,8 @@
                 </label>
             </div>
         </div>
-        <br>
+
+        <span class="text-muted">Note:  Group 0 is for unassigned submissions.</span>
 
         <li class="list-group-item" ng-repeat="submission in submissions | filter:currentYearFilter | filter:filterByGroup | filter:filterOutSameGroup">
             <strong>{{submission.title}}</strong>
