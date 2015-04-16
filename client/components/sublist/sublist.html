@@ -54,7 +54,7 @@
                     <ul  ng-show="isAdmin() || isChair() || isReviewerOfAnything()">
                       <li class = "plainList" ng-repeat="sortMethod in filterData.sortOptions">
                         <label>
-                          <input type="radio" ng-model="filterData.sortOptionsSelection" ng-value="'sortMethod'" name="sortMethod" ng-click="sortSubmissions(sortMethod)">&nbsp;Sort by {{sortMethod}}
+                          <input type="radio" ng-model="filterData.sortOptionsSelection" ng-value="filterData.sortOptionsSelected" name="sortMethod" ng-click="sortSubmissions(sortMethod)">&nbsp;Sort by {{sortMethod}}
                         </label>
                       </li>
                     </ul>

@@ -407,7 +407,7 @@ angular.module('umm3601ursamajorApp')
                 $scope.statusEdit.subject.push($scope.status[x].emailSubject);
                 $scope.statusEdit.body.push($scope.status[x].emailBody);
                 $scope.statusEdit.priority.push($scope.status[x].priority);
-                $scope.filterData.statusOptions.push($scope.status[x+1].strict);
+                $scope.filterData.statusOptions.push($scope.status[x].strict);
             }
         };
 
