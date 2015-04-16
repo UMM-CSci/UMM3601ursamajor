@@ -89,15 +89,15 @@ describe('Controller for Admin Page...', function() {
 
     describe('system info functions...', function() {
         it('Total # of tracked submissions', function() {
-          expect(scope.trackedSubmissions()).toEqual(1);
+          expect(scope.trackedSubmissions(scope.submissions)).toEqual(1);
         });
 
         it('Total # of submissions in system should be accurate', function() {
-           expect(scope.totalSubmissions()).toEqual(2);
+           expect(scope.totalSubmissions(scope.submissions)).toEqual(2);
         });
 
        it('Total percentage of tracked submissions', function() {
-          expect(scope.precentageTracked()).toEqual(50);
+          expect(scope.precentageTracked(scope.submissions)).toEqual(50);
         });
 
         it('Total # of registered users should be accurate', function() {
@@ -105,11 +105,7 @@ describe('Controller for Admin Page...', function() {
         });
 
         it('Total # of resubmitflags', function() {
-          expect(scope.resubmitFlags()).toEqual(0);
-        });
-
-        it('Total # of resubmitflags', function() {
-          expect(scope.unapprovedResubmits()).toEqual(1);
+          expect(scope.resubmitFlags(scope.submissions)).toEqual(0);
         });
     });
 

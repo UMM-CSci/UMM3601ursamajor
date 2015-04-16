@@ -10,6 +10,7 @@ angular.module('umm3601ursamajorApp')
         });
 
         $scope.submissions = [];
+        $scope.currentYearSubmissions = [];
         $scope.users = [];
         $scope.isAdmin = Auth.isAdmin;
 
@@ -18,6 +19,7 @@ angular.module('umm3601ursamajorApp')
         $scope.getSubmissionData = function(){
             $http.get('/api/submissions').success(function(submissions){
                 $scope.submissions = submissions;
+                $scope.createCurrentYearSubmissions();
                 socket.syncUpdates('submission', $scope.submissions);
             });
         };
@@ -29,28 +31,55 @@ angular.module('umm3601ursamajorApp')
         });
 
         //-------------------------- Stats view functions -------------------------------
-       $scope.trackedSubmissions = function(){
-          return $filter('filter')($scope.submissions, function(sub){return sub.resubmissionData.isPrimary}).length;
+       $scope.trackedSubmissions = function(submissions){
+          return $filter('filter')(submissions, function(sub){return sub.resubmissionData.isPrimary}).length;
        };
 
-       $scope.totalSubmissions = function(){
-           return $scope.submissions.length;
+       $scope.totalSubmissions = function(submissions){
+           return submissions.length;
        };
 
-       $scope.precentageTracked = function(){
-           return Math.round(($scope.trackedSubmissions() / $scope.totalSubmissions()) * 100);
+       $scope.precentageTracked = function(submissions){
+           return Math.round(($scope.trackedSubmissions(submissions) / $scope.totalSubmissions(submissions)) * 100);
        };
 
        $scope.totalUsers = function(){
            return $scope.users.length;
        };
 
-      $scope.resubmitFlags = function(){
-          return $filter('filter')($scope.submissions, function(sub){return sub.resubmissionData.resubmitFlag}).length
+      $scope.totalAdmins = function() {
+        return $filter('filter')($scope.users, function(user){return user.role === "admin"}).length
       };
 
-      $scope.unapprovedResubmits = function(){
-          return $filter('filter')($scope.submissions, function(sub){return !sub.resubmissionData.isPrimary}).length;
+      $scope.totalChairs = function() {
+        return $filter('filter')($scope.users, function(user){return user.role === "chair"}).length
+      };
+
+      $scope.totalReviewers = function(group) {
+        return $filter('filter')($scope.users, function(user){return user.role === "reviewer" && user.group == group}).length
+      };
+
+      $scope.totalBasicUsers = function(group) {
+        return $filter('filter')($scope.users, function(user){return user.role === "user"}).length
+      };
+
+      $scope.resubmitFlags = function(submissions){
+          return $filter('filter')(submissions, function(sub){return sub.resubmissionData.resubmitFlag}).length
+      };
+
+      $scope.createCurrentYearSubmissions = function(){
+          for(var i = 0; i < $scope.submissions.length; i++){
+              if($scope.currentYearFilter($scope.submissions[i])){
+                  $scope.currentYearSubmissions.push($scope.submissions[i]);
+              }
+          }
+      };
+
+      //For filtering submissions with current year
+      $scope.currentYearFilter = function(submission){
+        var date = new Date();
+        var year = date.getFullYear();
+        return submission.timestamp.indexOf(year) != -1;
       };
 
       //---------------------------- Admin Nav Control ----------------------------------

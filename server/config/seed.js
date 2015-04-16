@@ -603,7 +603,7 @@ Submission.find({}).remove(function(){
         copresenterTwoInfo: {first: "", last: "", email: ""},
         discipline: "Art History",
         sponsors: [],
-        adviserInfo: {first: "Matt", last: "Kangas", email: "kanga139@morris.umn.edu"},
+        adviserInfo: {first: "Maggie", last: "Casale", email: "casal033@morris.umn.edu"},
         coadviserOneInfo: {first: "", last: "", email: ""},
         coadviserTwoInfo: {first: "", last: "", email: ""},
         featured: true,
