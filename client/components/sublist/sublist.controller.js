@@ -367,7 +367,7 @@ angular.module('umm3601ursamajorApp')
             }  else if ($scope.filterData.tabFilter.isCoPresenter) {
                 return $scope.isCoPresenter(submission);
             } else if ($scope.filterData.tabFilter.isReviewer) {
-                return $scope.reviewGroupFilter(submission);
+                return $scope.isReviewerGroup(submission);
             } else if ($scope.filterData.tabFilter.isAdviser) {
                 return $scope.isAdviser(submission);
             } else {
