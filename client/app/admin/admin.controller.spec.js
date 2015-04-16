@@ -67,17 +67,56 @@ describe('Controller for Admin Page...', function() {
                 otherInfo: "",
                 approval: true,
                 status: {strict: "Revisions Needed", text: "Your URS submission has been flagged for revisions, and is in need of changes."},
-                timestamp: "Tue Oct 21 2014 23:22:54 GMT-0500 (CDT)",
+                timestamp: "Tue Oct 21 2015 23:22:54 GMT-0500 (CDT)",
                 group: 1,
                 resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
                 comments:[]
             }
         ];
 
+        scope.yearSubmissions = [
+              {
+                _id: "testIdForTesting",
+                title: "Blind Construction: Mixed Media",
+                format: "Artist Statement",
+                abstract: "The basis of this project was to create a garment using mixed media in order to mimic the human body. " +
+                "The materials we used to create this piece include: buckram, copper wire, spray paint, fabric paint, a variety of novelty fabrics, and chains.  " +
+                "The techniques we created in order to manipulate the piece include: fabric branding and burning, grid painting, sewing, draping, molding buckram, and coiling.  " +
+                "Our overall approach was to create a theatrical wearable art piece. " +
+                "Upon completion of the assignment we found the piece aesthetically pleasing because of the way it molds to the human body, but can be a piece all on its own.",
+                presentationType: "Performance",
+                formatChange: false,
+                presenterInfo: {first: "Jacob", last: "Opdahl", email: "opdah023@morris.umn.edu"},
+                copresenterOneInfo: {first: "Savannah", last: "Farm", email: "farmx009@morris.umn.edu"},
+                copresenterTwoInfo: {first: "Maggie", last: "Casale", email: "casal033@morris.umn.edu"},
+                discipline: "Art History",
+                sponsors: [],
+                adviserInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
+                featured: true,
+                mediaServicesEquipment: "",
+                specialRequirements: "A space to perform with three people.",
+                presenterTeeSize: "M",
+                otherInfo: "",
+                approval: true,
+                status: {strict: "Revisions Needed", text: "Your URS submission has been flagged for revisions, and is in need of changes."},
+                timestamp: "Tue Oct 21 2015 23:22:54 GMT-0500 (CDT)",
+                group: 1,
+                resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+                comments:[]
+              }
+        ];
+
         scope.users = [
-            {email: "admin@admin.com", role: "admin", group: 1},
-            {email: "user_0@user.com", role: "chair", group: 3},
-            {email: "user_1@user.com", role: "user", group: 2}
+            {email: "admin@admin.com", role: "admin", group: -1},
+            {email: "user_0@user.com", role: "chair", group: -1},
+            {email: "user_1@user.com", role: "user", group: -1},
+            {email: "admin@admin.com", role: "admin", group: -1},
+            {email: "user_0@user.com", role: "chair", group: -1},
+            {email: "user_1@user.com", role: "user", group: -1},
+            {email: "user_1@user.com", role: "reviewer", group: 1},
+            {email: "admin@admin.com", role: "reviewer", group: 2},
+            {email: "user_0@user.com", role: "reviewer", group: 2},
+            {email: "user_1@user.com", role: "reviewer", group: 3}
         ]
     });
 
@@ -100,12 +139,46 @@ describe('Controller for Admin Page...', function() {
           expect(scope.precentageTracked(scope.submissions)).toEqual(50);
         });
 
-        it('Total # of registered users should be accurate', function() {
-            expect(scope.totalUsers()).toEqual(3);
-        });
-
         it('Total # of resubmitflags', function() {
           expect(scope.resubmitFlags(scope.submissions)).toEqual(0);
+        });
+
+        it('totalUsers should return 10', function() {
+          expect(scope.totalUsers()).toEqual(10);
+        });
+
+        it('totalAdmins should return 2', function() {
+          expect(scope.totalAdmins()).toEqual(2);
+        });
+
+        it('totalChairs should return 2', function() {
+          expect(scope.totalChairs()).toEqual(2);
+        });
+
+        it('totalReviewers(1) should return 1', function() {
+          expect(scope.totalReviewers(1)).toEqual(1);
+        });
+
+        it('totalReviewers(2) should return 2', function() {
+          expect(scope.totalReviewers(2)).toEqual(2);
+        });
+
+        it('totalReviewers(3) should return 1', function() {
+          expect(scope.totalReviewers(3)).toEqual(1);
+        });
+
+        it('totalReviewers(4) should return 0', function() {
+          expect(scope.totalReviewers(4)).toEqual(0);
+        });
+
+        it('totalBasicUsers should return 10', function() {
+          expect(scope.totalBasicUsers()).toEqual(2);
+        });
+
+        it('createCurrentYearSubmissions should ', function() {
+          scope.currentYearSubmissions = [];
+          scope.createCurrentYearSubmissions();
+          expect(scope.currentYearSubmissions).toEqual(scope.yearSubmissions);
         });
     });
 
