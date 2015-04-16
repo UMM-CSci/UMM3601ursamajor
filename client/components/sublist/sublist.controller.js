@@ -37,7 +37,7 @@ angular.module('umm3601ursamajorApp')
         }
     })
 
-    .controller('SublistCtrl', function($scope, $http, socket, $modal, Modal, Auth, $window, $filter, $location) {
+    .controller('SublistCtrl', function($scope, $http, socket, $modal, Modal, Auth, $window, $filter, $location, $timeout) {
         $scope.submissions = [];
         $scope.status = [];
 
@@ -49,6 +49,10 @@ angular.module('umm3601ursamajorApp')
         $scope.isChair = Auth.isChair;
         $scope.showVotes = false;
 
+
+        //--------------------- Function to measure time for the loading icon. ------------------------
+        $scope.timeoutBoolean = true; // Should be true when delay is not reached yet.
+        $timeout(function () { $scope.timeoutBoolean = false }, 7500);
 
 
         //--------------------- Filter Functions -----------------------
@@ -357,30 +361,13 @@ angular.module('umm3601ursamajorApp')
             $scope.filterData.tabFilter.isReviewer = true;
         };
 
-        $scope.submitRoomAssignment = function(text){
-            //console.log(text);
-            if(text != ""){
-                console.log("text isnt empty");
-                $http.patch('api/submissions/' + $scope.selection.item._id,
-                    {
-                        roomAssignment: text
-                    }
-                ).success(function () {
-                        console.log("patch successful");
-                        $scope.selection.item.roomAssignment = text;
-                        console.log("changed local array");
-                        console.log("resubmission set as new primary")
-                    });
-            };
-        };
-
         $scope.tabFilters = function(submission){
             if($scope.filterData.tabFilter.isPresenter){
                 return $scope.isPresenter(submission);
             }  else if ($scope.filterData.tabFilter.isCoPresenter) {
                 return $scope.isCoPresenter(submission);
             } else if ($scope.filterData.tabFilter.isReviewer) {
-                return $scope.reviewGroupFilter(submission);
+                return $scope.isReviewerGroup(submission);
             } else if ($scope.filterData.tabFilter.isAdviser) {
                 return $scope.isAdviser(submission);
             } else {
@@ -1023,9 +1010,7 @@ angular.module('umm3601ursamajorApp')
             Modal.confirm.info($scope.approveResubmit)('Are you sure you want to approve this resubmission?');
         };
 
-        //TODO: Right now anyone that can see a resubmission can approve a resubmission, so that needs to get fixed. Should wait to fix until the permissions system is sorted out.
         $scope.approveResubmit = function(){
-            var roomAssignment = $scope.selection.item.roomAssignment;
             var reviewGroup = $scope.selection.item.group;
                 console.log("Attempting to approve resubmission.");
                 $http.patch('api/submissions/' + $scope.selection.item._id,
@@ -1037,7 +1022,6 @@ angular.module('umm3601ursamajorApp')
                         $http.patch('api/submissions/' + $scope.selection.resubmission._id,
                             {
                                 resubmissionData: {isPrimary: true, comment: $scope.selection.resubmission.resubmissionData.comment, parentSubmission: $scope.selection.resubmission.resubmissionData.parentSubmission, resubmitFlag: false},
-                                roomAssignment: roomAssignment,
                                 group: reviewGroup
                             }
                         ).success(function () {
@@ -1045,7 +1029,6 @@ angular.module('umm3601ursamajorApp')
                                 $scope.selection.resubmission.resubmissionData.isPrimary = true;
                                 $scope.selection.item = $scope.selection.resubmission;
                                 $scope.selection.resubmission = null;
-                                $scope.selection.item.roomAssignment = roomAssignment;
                                 $scope.selection.item.group = reviewGroup;
                                 console.log("resubmission set as new primary")
                             });

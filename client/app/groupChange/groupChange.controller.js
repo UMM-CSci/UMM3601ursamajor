@@ -59,13 +59,21 @@ angular.module('umm3601ursamajorApp')
       }
     };
 
+    //For formatting with coadvisers in group change
     $scope.hasCoadviser = function(submission){
       if(submission.coadviserOneInfo.first === "" && submission.coadviserTwoInfo.first === ""){
           return false;
       }else{
           return true;
       }
-    }
+    };
+
+    //For filtering submissions with current year
+    $scope.currentYearFilter = function(submission){
+      var date = new Date();
+      var year = date.getFullYear();
+      return submission.timestamp.indexOf(year) != -1;
+    };
 
     // Filter so that the user can specify a review group to see submissions for.
     $scope.filterByGroup = function(submission) {

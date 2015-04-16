@@ -325,7 +325,7 @@ Submission.find({}).remove(function(){
         cc: false,
         rejection: false,
         status:  {strict: "Reviewing in Process", priority: 2, text: "Your URS submission has been approved by your adviser."},
-        timestamp: "Sat Oct 18 2014 10:48:54 GMT-0500 (CDT)",
+        timestamp: "Sat Oct 18 2015 10:48:54 GMT-0500 (CDT)",
         group: 1,
         roomAssignment: "Science 2610",
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
@@ -337,7 +337,7 @@ Submission.find({}).remove(function(){
                 commenter: "Hongya Zhou",
                 selectionText : "The title of my project is called On Your March, Get Set, Rust! ",
                 indicator : 0,
-                timestamp : "Mon Dec 08 2014 18:41:16 GMT-0600 (CST)",
+                timestamp : "Mon Dec 08 2015 18:41:16 GMT-0600 (CST)",
                 origin : "5486429c6adf9b0859cb58c7",
                 responses: []
             }, {
@@ -347,13 +347,13 @@ Submission.find({}).remove(function(){
                 commenter: "Hongya Zhou" ,
                 selectionText: "sanding ten galvanized and common nails" ,
                 indicator: 0 ,
-                timestamp: "Mon Dec 08 2014 18:42:05 GMT-0600 (CST)" ,
+                timestamp: "Mon Dec 08 2015 18:42:05 GMT-0600 (CST)" ,
                 origin: "5486429c6adf9b0859cb58c7" ,
                 responses: [
                     {
                         "response": "Obviously to release the magical nail spirits.",
                         "responder": "Hongya Zhou",
-                        "timestamp": "Mon Dec 08 2014 19:03:17 GMT-0600 (CST)"
+                        "timestamp": "Mon Dec 08 2015 19:03:17 GMT-0600 (CST)"
                     }
                 ]
             }, {
@@ -363,7 +363,7 @@ Submission.find({}).remove(function(){
                 commenter: "Hongya Zhou" ,
                 selectionText: " which type of nails, galvanized or common will rust quickly." ,
                 indicator: 0 ,
-                timestamp: "Mon Dec 08 2014 18:43:43 GMT-0600 (CST)" ,
+                timestamp: "Mon Dec 08 2015 18:43:43 GMT-0600 (CST)" ,
                 origin: "5486429c6adf9b0859cb58c7" ,
                 responses: [ ]
             }, {
@@ -373,13 +373,13 @@ Submission.find({}).remove(function(){
                 commenter: "Hongya Zhou" ,
                 selectionText: "My results of my data resolves that galvanized and common nails in freshwater had a higher average or rust than the other nails in salt water." ,
                 indicator: 0 ,
-                timestamp: "Mon Dec 08 2014 18:44:47 GMT-0600 (CST)" ,
+                timestamp: "Mon Dec 08 2015 18:44:47 GMT-0600 (CST)" ,
                 origin: "5486429c6adf9b0859cb58c7" ,
                 responses: [
                     {
                         response: "But WHYYYYY?" ,
                         responder: "Hongya Zhou" ,
-                        timestamp: "Mon Dec 08 2014 18:52:18 GMT-0600 (CST)"
+                        timestamp: "Mon Dec 08 2015 18:52:18 GMT-0600 (CST)"
                     }
                 ]
             }
@@ -418,7 +418,7 @@ Submission.find({}).remove(function(){
         cc: false,
         rejection: false,
         status: {strict: "Revisions Needed", priority: 3, text: "Your URS submission has been flagged for revisions, and is in need of changes."},
-        timestamp: "Tue Oct 19 2014 23:22:54 GMT-0500 (CDT)",
+        timestamp: "Tue Oct 19 2015 23:22:54 GMT-0500 (CDT)",
         group: 2,
         roomAssignment: "Imholte 109",
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
@@ -463,7 +463,7 @@ Submission.find({}).remove(function(){
         cc: false,
         rejection: false,
         status: {strict: "Revisions Needed", priority: 3, text: "Your URS submission has been flagged for revisions, and is in need of changes."},
-        timestamp: "Mon Sept 2 2014 1:48:54 GMT-0500 (CDT)",
+        timestamp: "Mon Sept 2 2015 1:48:54 GMT-0500 (CDT)",
         group: 3,
         roomAssignment: "Science 2610",
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
@@ -484,11 +484,11 @@ Submission.find({}).remove(function(){
             "attempted to use the American Revolution to bolster their claims by citing speeches from Founding Fathers. " +
             "Through showing that the American Revolution lives on in memory, " +
             "this research highlights the importance of the revolution in shaping the actions of the United States government.",
-        presentationType: "Poster or Visual Display",
+        presentationType: "Poster or visual display",
         formatChange: false,
         presenterInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
-        copresenterOneInfo: {first: "Brandon", last: "Moody", email: "moody107@morris.umn.edu"},
-        copresenterTwoInfo: {first: "", last: "", email: ""},
+        copresenterOneInfo: {first: "Maggie",last: "Casale", email: "casal033@morris.umn.edu"},
+        copresenterTwoInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
         discipline: "History",
         sponsors: [], //Might need to worry about if this is static for the DB later.
         adviserInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
@@ -502,7 +502,7 @@ Submission.find({}).remove(function(){
         cc: false,
         rejection: false,
         status: {strict: "Awaiting Adviser Approval", priority: -15, text: "Your URS submission is pending approval from your adviser."},
-        timestamp: "Mon Oct 23 2014 1:48:54 GMT-0500 (CDT)",
+        timestamp: "Mon Oct 23 2015 1:48:54 GMT-0500 (CDT)",
         group: 0,
         roomAssignment: "Science 2610",
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
@@ -539,7 +539,7 @@ Submission.find({}).remove(function(){
       cc: false,
       rejection: false,
       status: {strict: "Reviewing in Process", priority: 2, text: "Your URS submission has been approved by your adviser"},
-      timestamp: "Mon Oct 22 2014 1:48:54 GMT-0500 (CDT)",
+      timestamp: "Mon Oct 22 2015 1:48:54 GMT-0500 (CDT)",
       group: 1,
       roomAssignment: "Science 2610",
       resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
@@ -558,9 +558,9 @@ Submission.find({}).remove(function(){
           "It will explain how 2, 4-D, a herbicide that has been shown to block progesterone-induced maturation and GVBD, induces MAPK phosphorylation and causes an abnormal coning morphotype. " +
           "U0126, a specific inhibitor of MAPKK, was used to determine the mechanism by which 2, 4-D induces MAPK phosphorylation and coning. " +
           "The results of this experiment will be revealed and discussed.",
-      presentationType: "Poster or Visual Display",
+      presentationType: "Poster or visual display",
       formatChange: false,
-      presenterInfo: {first: "Joseph", last: "Thelen", email: "thele116@morris.umn.edu"},
+      presenterInfo: {first: "Maggie",last: "Casale", email: "casal033@morris.umn.edu"},
       copresenterOneInfo: {first: "", last: "", email: ""},
       copresenterTwoInfo: {first: "", last: "", email: ""},
       discipline: "Chemistry",
@@ -576,7 +576,7 @@ Submission.find({}).remove(function(){
       cc: false,
       rejection: false,
       status: {strict: "Reviewing in Process", priority: 2, text: "Your URS submission has been approved by your adviser"},
-      timestamp: "Mon Oct 20 2014 1:48:54 GMT-0500 (CDT)",
+      timestamp: "Mon Oct 20 2015 1:48:54 GMT-0500 (CDT)",
       group: 2,
       roomAssignment: "Science 2610",
       resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
@@ -596,7 +596,7 @@ Submission.find({}).remove(function(){
             "Most prior research on Anderson focsal033@morris.umn.eduuses on her connection to the famous writers and personalities that she published and associated with.  " +
             "This focus undermines her role as the dominant creative force behind one of the most influential little magazines published in the 20th Century. " +
             "This case example shows how little magazine publishing is arguably a literary art.",
-        presentationType: "Poster or Visual Display",
+        presentationType: "Poster or visual display",
         formatChange: true,
         presenterInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
         copresenterOneInfo: {first: "Joseph", last: "Thelen", email: "thele116@morris.umn.edu"},
@@ -614,7 +614,7 @@ Submission.find({}).remove(function(){
         cc: false,
         rejection: false,
         status: {strict: "Awaiting Adviser Approval", priority: -15, text: "Your URS submission is pending approval from your adviser."},
-        timestamp: "Thur Oct 22 2014 1:48:54 GMT-0500 (CDT)",
+        timestamp: "Thur Oct 22 2015 1:48:54 GMT-0500 (CDT)",
         group: 0,
         roomAssignment: "Science 2610",
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
@@ -637,15 +637,15 @@ Submission.find({}).remove(function(){
           "Record the data. Previously, I have found that a parachute by the name of Tandem Icarus seemed to descend at the slowest rate. " +
           "But this year I have added three more parachutes to my research. So far, a parachute by the name of Prima is descending at the slower rate. " +
           "I hope that this will enable my project to produce more accurate data. ",
-      presentationType: "Poster or Visual Display",
+      presentationType: "Poster or visual display",
       formatChange: true,
       presenterInfo: {first: "Jacob", last: "Opdahl", email: "opdah023@morris.umn.edu"},
       copresenterOneInfo: {first: "", last: "", email: ""},
       copresenterTwoInfo: {first: "", last: "", email: ""},
       discipline: "Biology",
       sponsors: [], //Might need to worry about if this is static for the DB later.
-      adviserInfo: {first: "Maggie",last: "Casale", email: "casal033@morris.umn.edu"},
-      coadviserOneInfo: {first: "Otto", last: "Marckell", email: "marck018@morris.umn.edu"},
+      adviserInfo: {first: "Otto", last: "Marckell", email: "marck018@morris.umn.edu"},
+      coadviserOneInfo: {first: "Maggie",last: "Casale", email: "casal033@morris.umn.edu"},
       coadviserTwoInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
       featured: false,
       mediaServicesEquipment: "",
@@ -655,7 +655,7 @@ Submission.find({}).remove(function(){
       cc: false,
       rejection: false,
       status: {strict: "Revisions Needed", priority: 3, text: "Your URS submission has been flagged for revisions, and is in need of changes."},
-      timestamp: "Thur Oct 23 2014 1:48:54 GMT-0500 (CDT)",
+      timestamp: "Thur Oct 23 2015 1:48:54 GMT-0500 (CDT)",
       group: 3,
       roomAssignment: "Science 2610",
       resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
@@ -667,7 +667,7 @@ Submission.find({}).remove(function(){
           commenter: "Hongya Zhou",
           selectionText : "The title of my project is called On Your March, Get Set, Rust! ",
           indicator : 0,
-          timestamp : "Mon Dec 08 2014 18:41:16 GMT-0600 (CST)",
+          timestamp : "Mon Dec 08 2015 18:41:16 GMT-0600 (CST)",
           origin : "5486429c6adf9b0859cb58c7",
           responses: []
         }, {
@@ -677,13 +677,13 @@ Submission.find({}).remove(function(){
           commenter: "Hongya Zhou" ,
           selectionText: "sanding ten galvanized and common nails" ,
           indicator: 0 ,
-          timestamp: "Mon Dec 08 2014 18:42:05 GMT-0600 (CST)" ,
+          timestamp: "Mon Dec 08 2015 18:42:05 GMT-0600 (CST)" ,
           origin: "5486429c6adf9b0859cb58c7" ,
           responses: [
             {
               "response": "Obviously to release the magical nail spirits.",
               "responder": "Hongya Zhou",
-              "timestamp": "Mon Dec 08 2014 19:03:17 GMT-0600 (CST)"
+              "timestamp": "Mon Dec 08 2015 19:03:17 GMT-0600 (CST)"
             }
           ]
         }, {
@@ -693,7 +693,7 @@ Submission.find({}).remove(function(){
           commenter: "Hongya Zhou" ,
           selectionText: " which type of nails, galvanized or common will rust quickly." ,
           indicator: 0 ,
-          timestamp: "Mon Dec 08 2014 18:43:43 GMT-0600 (CST)" ,
+          timestamp: "Mon Dec 08 2015 18:43:43 GMT-0600 (CST)" ,
           origin: "5486429c6adf9b0859cb58c7" ,
           responses: [ ]
         }, {
@@ -703,13 +703,13 @@ Submission.find({}).remove(function(){
           commenter: "Hongya Zhou" ,
           selectionText: "My results of my data resolves that galvanized and common nails in freshwater had a higher average or rust than the other nails in salt water." ,
           indicator: 0 ,
-          timestamp: "Mon Dec 08 2014 18:44:47 GMT-0600 (CST)" ,
+          timestamp: "Mon Dec 08 2015 18:44:47 GMT-0600 (CST)" ,
           origin: "5486429c6adf9b0859cb58c7" ,
           responses: [
             {
               response: "But WHYYYYY?" ,
               responder: "Hongya Zhou" ,
-              timestamp: "Mon Dec 08 2014 18:52:18 GMT-0600 (CST)"
+              timestamp: "Mon Dec 08 2015 18:52:18 GMT-0600 (CST)"
             }
           ]
         }
@@ -728,11 +728,11 @@ Submission.find({}).remove(function(){
           "particularly in chimneys. The purpose of this study was to locate and monitor major chimney roosting sites of migrating Vaux's swifts in or near Salem, Oregon. " +
           "The number of swifts peaked in mid-September, declined rapidly for a few days, and then tapered off at a slower rate. " +
           "This and other results of the study will be discussed.",
-      presentationType: "Poster or Visual Display",
+      presentationType: "Poster or visual display",
       formatChange: true,
       presenterInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
       copresenterOneInfo: {first: "Brandon", last: "Moody", email: "moody107@morris.umn.edu"},
-      copresenterTwoInfo: {first: "", last: "", email: ""},
+      copresenterTwoInfo: {first: "Maggie",last: "Casale", email: "casal033@morris.umn.edu"},
       discipline: "History",
       sponsors: [], //Might need to worry about if this is static for the DB later.
       adviserInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
@@ -764,7 +764,7 @@ Submission.find({}).remove(function(){
           "freedom in self-regarding actions. The complexity of the conflict will be addressed using exemplars including the special case of children, drug use in sports, " +
           "and returning to play after an injury. A compromise in the form of a morally-decent trusting relationship between coach and athlete, based on the model of informed consent " +
           "and grounded in open and effective communication, will be explained.",
-      presentationType: "Poster or Visual Display",
+      presentationType: "Poster or visual display",
       formatChange: true,
       presenterInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
       copresenterOneInfo: {first: "Brandon", last: "Moody", email: "moody107@morris.umn.edu"},
@@ -782,7 +782,7 @@ Submission.find({}).remove(function(){
       cc: false,
       rejection: false,
       status: {strict: "Revisions Needed", priority: 3, text: "Your URS submission has been flagged for revisions, and is in need of changes."},
-      timestamp: "Thur Oct 22 2014 1:48:54 GMT-0500 (CDT)",
+      timestamp: "Thur Oct 22 2015 1:48:54 GMT-0500 (CDT)",
       group: 2,
       roomAssignment: "Science 2610",
       resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
@@ -800,7 +800,7 @@ Submission.find({}).remove(function(){
           "concerned with the unequal distribution of environmental hazards. The project analyzes important previous studies and then conducts an investigation that centers " +
           "around a series of GIs maps that revel correlations between environmental hazards and demographics, such as race and income level. " +
           "The results will be revealed and discussed.",
-      presentationType: "Poster or Visual Display",
+      presentationType: "Poster or visual display",
       formatChange: true,
       presenterInfo: {first: "Joseph", last: "Thelen", email: "thele116@morris.umn.edu"},
       copresenterOneInfo: {first: "", last: "", email: ""},
@@ -808,8 +808,8 @@ Submission.find({}).remove(function(){
       discipline: "Chemistry",
       sponsors: [], //Might need to worry about if this is static for the DB later.
       adviserInfo: {first: "Hongya", last: "Zhou", email: "zhou616@morris.umn.edu"},
-      coadviserOneInfo: {first: "", last: "", email: ""},
-      coadviserTwoInfo: {first: "", last: "", email: ""},
+      coadviserOneInfo: {first: "Joseph", last: "Thelen", email: "thele116@morris.umn.edu"},
+      coadviserTwoInfo: {first: "Maggie",last: "Casale", email: "casal033@morris.umn.edu"},
       featured: true,
       mediaServicesEquipment: "",
       specialRequirements: "A small space to make the presentation personal.",
@@ -838,7 +838,7 @@ Submission.find({}).remove(function(){
           "with Triple-A affiliates make recommendations as to the likelihood that the relocation of Sky Sox stadium to downtown would be a success or not. In order to gain the in depth " +
           "knowledge required for the thesis a case study methodology will be utilized with interviews with individuals who have a bearing on the possible purchase of the team and the consequent " +
           "relocation of the stadium. The purpose of this case is to gain an understanding of what the relocation of the stadium could mean for Colorado Springs.",
-      presentationType: "Poster or Visual Display",
+      presentationType: "Poster or visual display",
       formatChange: true,
       presenterInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
       copresenterOneInfo: {first: "Joseph", last: "Thelen", email: "thele116@morris.umn.edu"},
@@ -856,7 +856,7 @@ Submission.find({}).remove(function(){
       cc: false,
       rejection: false,
       status: {strict: "Awaiting Adviser Approval", priority: -15, text: "Your URS submission is pending approval from your adviser."},
-      timestamp: "Thur Oct 23 2014 1:48:54 GMT-0500 (CDT)",
+      timestamp: "Thur Oct 23 2015 1:48:54 GMT-0500 (CDT)",
       group: 0,
       roomAssignment: "Science 2610",
       resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
@@ -877,7 +877,7 @@ Submission.find({}).remove(function(){
           "to compare the cover on the trail with other nearby alternative pathways.  There was not a statistically significant difference between the amount of cover on a vole trail and the cover " +
           "off to the sides of the trail when completely covered; there was a significant difference between on and off the trail when the path was completely open.  " +
           "These results indicate that voles are selectively avoiding bare areas, while not choosing among dense patches at a fine microhabitat scale.",
-      presentationType: "Poster or Visual Display",
+      presentationType: "Poster or visual display",
       formatChange: true,
       presenterInfo: {first: "Jacob", last: "Opdahl", email: "opdah023@morris.umn.edu"},
       copresenterOneInfo: {first: "", last: "", email: ""},
@@ -895,7 +895,7 @@ Submission.find({}).remove(function(){
       cc: false,
       rejection: false,
       status: {strict: "Reviewing in Process", priority: 2, text: "Your URS submission has been approved by your adviser."},
-      timestamp: "Thur Oct 21 2014 1:48:54 GMT-0500 (CDT)",
+      timestamp: "Thur Oct 21 2015 1:48:54 GMT-0500 (CDT)",
       group: 1,
       roomAssignment: "Science 2610",
       resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
@@ -914,7 +914,7 @@ Submission.find({}).remove(function(){
           "or a control group with practice only. Stereopsis (depth-perception), oculomotor skill (hand-eye coordination), and a sport-specific motor performance (a wall-volley test) " +
           "were measured before and after four weeks of training. The results of these studies will be revealed, and the conclusion that vision " +
           "training leads to no significant improvements in visual ability or in the transfer to motor performance for racquetball players will be discussed.",
-      presentationType: "Poster or Visual Display",
+      presentationType: "Poster or visual display",
       formatChange: true,
       presenterInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
       copresenterOneInfo: {first: "Brandon", last: "Moody", email: "moody107@morris.umn.edu"},
@@ -932,7 +932,7 @@ Submission.find({}).remove(function(){
       cc: false,
       rejection: false,
       status: {strict: "Accepted", priority: 15, text: "Your URS submission has been approved, congratulations!"},
-      timestamp: "Thur Oct 19 2014 1:48:54 GMT-0500 (CDT)",
+      timestamp: "Thur Oct 19 2015 1:48:54 GMT-0500 (CDT)",
       group: 2,
       roomAssignment: "Science 2610",
       resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
@@ -951,7 +951,7 @@ Submission.find({}).remove(function(){
           "NACA (National Advisory Committee for Aeronautics) ducts were evaluated and shown to offer additional choice for turbine design and placement. " +
           "The results obtained from the tests conducted in this research demonstrate the feasibility for the efficient extraction of energy from wind flow around an automobile. " +
           "Literature research consisting mainly of a review of NACA reports supported the findings of this study.",
-      presentationType: "Poster or Visual Display",
+      presentationType: "Poster or visual display",
       formatChange: true,
       presenterInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
       copresenterOneInfo: {first: "Brandon", last: "Moody", email: "moody107@morris.umn.edu"},
@@ -969,7 +969,7 @@ Submission.find({}).remove(function(){
       cc: false,
       rejection: false,
       status: {strict: "Reviewing in Process", priority: 2, text: "Your URS submission has been approved by your adviser."},
-      timestamp: "Thur Oct 21 2014 1:48:54 GMT-0500 (CDT)",
+      timestamp: "Thur Oct 21 2015 1:48:54 GMT-0500 (CDT)",
       group: 3,
       roomAssignment: "Science 2610",
       resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
@@ -981,7 +981,7 @@ Submission.find({}).remove(function(){
           commenter: "Hongya Zhou",
           selectionText : "The title of my project is called On Your March, Get Set, Rust! ",
           indicator : 0,
-          timestamp : "Mon Dec 08 2014 18:41:16 GMT-0600 (CST)",
+          timestamp : "Mon Dec 08 2015 18:41:16 GMT-0600 (CST)",
           origin : "5486429c6adf9b0859cb58c7",
           responses: []
         }, {
@@ -991,13 +991,13 @@ Submission.find({}).remove(function(){
           commenter: "Hongya Zhou" ,
           selectionText: "sanding ten galvanized and common nails" ,
           indicator: 0 ,
-          timestamp: "Mon Dec 08 2014 18:42:05 GMT-0600 (CST)" ,
+          timestamp: "Mon Dec 08 2015 18:42:05 GMT-0600 (CST)" ,
           origin: "5486429c6adf9b0859cb58c7" ,
           responses: [
             {
               "response": "Obviously to release the magical nail spirits.",
               "responder": "Hongya Zhou",
-              "timestamp": "Mon Dec 08 2014 19:03:17 GMT-0600 (CST)"
+              "timestamp": "Mon Dec 08 2015 19:03:17 GMT-0600 (CST)"
             }
           ]
         }, {
@@ -1007,7 +1007,7 @@ Submission.find({}).remove(function(){
           commenter: "Hongya Zhou" ,
           selectionText: " which type of nails, galvanized or common will rust quickly." ,
           indicator: 0 ,
-          timestamp: "Mon Dec 08 2014 18:43:43 GMT-0600 (CST)" ,
+          timestamp: "Mon Dec 08 2015 18:43:43 GMT-0600 (CST)" ,
           origin: "5486429c6adf9b0859cb58c7" ,
           responses: [ ]
         }, {
@@ -1017,13 +1017,13 @@ Submission.find({}).remove(function(){
           commenter: "Hongya Zhou" ,
           selectionText: "My results of my data resolves that galvanized and common nails in freshwater had a higher average or rust than the other nails in salt water." ,
           indicator: 0 ,
-          timestamp: "Mon Dec 08 2014 18:44:47 GMT-0600 (CST)" ,
+          timestamp: "Mon Dec 08 2015 18:44:47 GMT-0600 (CST)" ,
           origin: "5486429c6adf9b0859cb58c7" ,
           responses: [
             {
               response: "But WHYYYYY?" ,
               responder: "Hongya Zhou" ,
-              timestamp: "Mon Dec 08 2014 18:52:18 GMT-0600 (CST)"
+              timestamp: "Mon Dec 08 2015 18:52:18 GMT-0600 (CST)"
             }
           ]
         }
@@ -1048,7 +1048,7 @@ Submission.find({}).remove(function(){
           "I then use this result to prove that Pell’s equation has solutions if and only if the associated continued fraction is periodic – a result not seen in the classical theory. " +
           "As a result, the problem of Pell’s equation in F[x] and the periodicity structure of quadratic surds in F((1/x)) is solved for arbitrary coefficient fields F, " +
           "giving us interesting insight into the classical case.",
-      presentationType: "Poster or Visual Display",
+      presentationType: "Poster or visual display",
       formatChange: false,
       presenterInfo: {first: "Joseph", last: "Thelen", email: "thele116@morris.umn.edu"},
       copresenterOneInfo: {first: "", last: "", email: ""},
@@ -1066,7 +1066,7 @@ Submission.find({}).remove(function(){
       cc: false,
       rejection: false,
       status: {strict: "Awaiting Adviser Approval", priority: -15, text: "Your URS submission is pending approval from your adviser."},
-      timestamp: "Thur Oct 22 2014 1:48:54 GMT-0500 (CDT)",
+      timestamp: "Thur Oct 22 2015 1:48:54 GMT-0500 (CDT)",
       group: 0,
       roomAssignment: "Science 2610",
       resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
@@ -1091,7 +1091,7 @@ Submission.find({}).remove(function(){
           "All polymers were thoroughly washed and dried to prepare them for rebinding studies and analysis. The polymer obtained from the synthesis described was analyzed with IR spectroscopy, " +
           "and the structure of the polymer was proposed. Due to difficulties in removing background UV-V is absorption caused by the polymer or other contaminants in rebinding study solutions, " +
           "the efficacy of the polymer in binding L-Phe over D-Phe in aqueous media was not confirmed, and will be the focus of future studies.",
-      presentationType: "Poster or Visual Display",
+      presentationType: "Poster or visual display",
       formatChange: true,
       presenterInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
       copresenterOneInfo: {first: "Joseph", last: "Thelen", email: "thele116@morris.umn.edu"},
@@ -1109,7 +1109,7 @@ Submission.find({}).remove(function(){
       cc: false,
       rejection: false,
       status: {strict: "Accepted", priority: 15, text: "Your URS submission has been approved, congratulations!"},
-      timestamp: "Thur Oct 19 2014 1:48:54 GMT-0500 (CDT)",
+      timestamp: "Thur Oct 19 2015 1:48:54 GMT-0500 (CDT)",
       group: 1,
       roomAssignment: "Science 2610",
       resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
@@ -1134,7 +1134,7 @@ Submission.find({}).remove(function(){
           "since their response to NaCl is known. When the Daphnia magna reacted as expected, I continued the experiments, eventually using motor oil concentrations as low as 0.00017%. " +
           "Using data from Replicate #1 Experiment #8 24-hour observations, I was able to generate a graph which revealed a motor oil LC50 of 30 mg/l. " +
           "This is the concentration at which 50% of the organisms die. This very low concentration confirms how only a little bit of oil can cause serious damage to the environment.",
-      presentationType: "Poster or Visual Display",
+      presentationType: "Poster or visual display",
       formatChange: true,
       presenterInfo: {first: "Jacob", last: "Opdahl", email: "opdah023@morris.umn.edu"},
       copresenterOneInfo: {first: "", last: "", email: ""},
@@ -1152,7 +1152,7 @@ Submission.find({}).remove(function(){
       cc: false,
       rejection: false,
       status: {strict: "Reviewing in Process", priority: 2, text: "Your URS submission has been approved by your adviser."},
-      timestamp: "Thur Oct 31 2014 1:48:54 GMT-0500 (CDT)",
+      timestamp: "Thur Oct 31 2015 1:48:54 GMT-0500 (CDT)",
       group: 2,
       roomAssignment: "Science 2610",
       resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
@@ -1164,7 +1164,7 @@ Submission.find({}).remove(function(){
           commenter: "Hongya Zhou",
           selectionText : "The title of my project is called On Your March, Get Set, Rust! ",
           indicator : 0,
-          timestamp : "Mon Dec 08 2014 18:41:16 GMT-0600 (CST)",
+          timestamp : "Mon Dec 08 2015 18:41:16 GMT-0600 (CST)",
           origin : "5486429c6adf9b0859cb58c7",
           responses: []
         }, {
@@ -1174,13 +1174,13 @@ Submission.find({}).remove(function(){
           commenter: "Hongya Zhou" ,
           selectionText: "sanding ten galvanized and common nails" ,
           indicator: 0 ,
-          timestamp: "Mon Dec 08 2014 18:42:05 GMT-0600 (CST)" ,
+          timestamp: "Mon Dec 08 2015 18:42:05 GMT-0600 (CST)" ,
           origin: "5486429c6adf9b0859cb58c7" ,
           responses: [
             {
               "response": "Obviously to release the magical nail spirits.",
               "responder": "Hongya Zhou",
-              "timestamp": "Mon Dec 08 2014 19:03:17 GMT-0600 (CST)"
+              "timestamp": "Mon Dec 08 2015 19:03:17 GMT-0600 (CST)"
             }
           ]
         }, {
@@ -1190,7 +1190,7 @@ Submission.find({}).remove(function(){
           commenter: "Hongya Zhou" ,
           selectionText: " which type of nails, galvanized or common will rust quickly." ,
           indicator: 0 ,
-          timestamp: "Mon Dec 08 2014 18:43:43 GMT-0600 (CST)" ,
+          timestamp: "Mon Dec 08 2015 18:43:43 GMT-0600 (CST)" ,
           origin: "5486429c6adf9b0859cb58c7" ,
           responses: [ ]
         }, {
@@ -1200,13 +1200,13 @@ Submission.find({}).remove(function(){
           commenter: "Hongya Zhou" ,
           selectionText: "My results of my data resolves that galvanized and common nails in freshwater had a higher average or rust than the other nails in salt water." ,
           indicator: 0 ,
-          timestamp: "Mon Dec 08 2014 18:44:47 GMT-0600 (CST)" ,
+          timestamp: "Mon Dec 08 2015 18:44:47 GMT-0600 (CST)" ,
           origin: "5486429c6adf9b0859cb58c7" ,
           responses: [
             {
               response: "But WHYYYYY?" ,
               responder: "Hongya Zhou" ,
-              timestamp: "Mon Dec 08 2014 18:52:18 GMT-0600 (CST)"
+              timestamp: "Mon Dec 08 2015 18:52:18 GMT-0600 (CST)"
             }
           ]
         }
@@ -1225,7 +1225,7 @@ Submission.find({}).remove(function(){
           "This modern renaissance of human interaction may bring about a lot in terms of economics and trade, but adopting English as the national medium of instruction in the grade school and high school levels, " +
           "just to ride this economic wave of change, poses several dangers to the culture of non-native English speakers. " +
           "Apart from inefficiency and stunted cognition, non-native English speaking students are at risk of losing their cultural identity.",
-      presentationType: "Poster or Visual Display",
+      presentationType: "Poster or visual display",
       formatChange: true,
       presenterInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
       copresenterOneInfo: {first: "Brandon", last: "Moody", email: "moody107@morris.umn.edu"},
@@ -1243,7 +1243,7 @@ Submission.find({}).remove(function(){
       cc: false,
       rejection: false,
       status: {strict: "Accepted", priority: 15, text: "Your URS submission has been approved, congratulations!"},
-      timestamp: "Thur Oct 23 2014 1:48:54 GMT-0500 (CDT)",
+      timestamp: "Thur Oct 23 2015 1:48:54 GMT-0500 (CDT)",
       group: 3,
       roomAssignment: "Science 2610",
       resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
@@ -1279,7 +1279,7 @@ Submission.find({}).remove(function(){
         rejection: false,
         cc: true,
         status: {strict: "Reviewing in Process", priority: 2, text: "Your URS submission has been approved by your adviser."},
-        timestamp: "Mon Oct 20 2014 1:48:54 GMT-0500 (CDT)",
+        timestamp: "Mon Oct 20 2015 1:48:54 GMT-0500 (CDT)",
         group: 3,
         roomAssignment: "HFA 6",
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},

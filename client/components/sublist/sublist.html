@@ -75,7 +75,7 @@
                     <!--<button type="button" class="btn btn-default" ng-click="filterData.orderByPredicate='timestamp'">Order by timestamp</button>-->
                 </li>
 
-                <li class="list-group-item" ng-show="submissions.length < 1">
+                <li class="list-group-item" ng-show="submissions.length == 0 && timeoutBoolean">
                     <img class="loadingImage" src="assets/images/hourglass-gif.gif">
                 </li>
 
@@ -245,16 +245,7 @@
                         <li class="subtext plainList" ng-show="isReviewerGroup(selection.item)">Reviewer in Review Group {{selection.item.group}}</li>
                     </ul>
 
-                    <div>
-                      <b>Current Room Assignment:</b> {{selection.item.roomAssignment}}
-                    </div>
-                    <br>
                     <div ng-show="isAdmin() || isChair()">
-                      <b>Edit Current Room Assignment:</b>
-                      <br>
-                      <!--<textarea class="roomTextArea" ng-model="selection.item.roomAssignment"  cols="20" rows="1" name="roomAssignment"></textarea>-->
-                      <input class="blah"  ng-model="selection.item.roomAssignment" name="selection.item.roomAssignment">
-                      <button class="btn btn-primary" ng-click="submitRoomAssignment(selection.item.roomAssignment)">Submit</button>
                       <button ng-show="isAdmin()" class="btn btn-md btn-danger sideMargins moveRight " ng-click="deleteSubmissionConfirm(selection.item)"><span class="glyphicon glyphicon-trash"></span></button>
                     </div>
                 </li> <!-- End where the colored sidebar is -->
