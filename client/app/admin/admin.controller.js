@@ -59,7 +59,7 @@ angular.module('umm3601ursamajorApp')
         return $filter('filter')($scope.users, function(user){return user.role === "reviewer" && user.group == group}).length
       };
 
-      $scope.totalBasicUsers = function(group) {
+      $scope.totalBasicUsers = function() {
         return $filter('filter')($scope.users, function(user){return user.role === "user"}).length
       };
 
@@ -81,6 +81,12 @@ angular.module('umm3601ursamajorApp')
         var year = date.getFullYear();
         return submission.timestamp.indexOf(year) != -1;
       };
+
+      //For gathering all of the t0shirt info.
+      $scope.totalShirts = function(size) {
+        return $filter('filter')($scope.users, function(user){return user.tShirtSize == size}).length
+      };
+
 
       //---------------------------- Admin Nav Control ----------------------------------
 

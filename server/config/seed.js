@@ -140,6 +140,7 @@ User.find({}).remove(function() {
         }, {
             name: "Mitchell Finzel",
             email: "finze008@morris.umn.edu",
+            tShirtSize: "XLarge",
             provider: "google",
             google: {
               hd: "morris.umn.edu",
@@ -160,6 +161,7 @@ User.find({}).remove(function() {
         }, {
             name: "Mark Lehet",
             email: "lehet005@morris.umn.edu",
+            tShirtSize: "Large",
             provider: "google",
             google: {
                 hd: "morris.umn.edu",
