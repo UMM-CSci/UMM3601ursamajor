@@ -215,12 +215,13 @@ angular.module('umm3601ursamajorApp')
             if($scope.attemptEmail){
                 sendGmail({
                     to: [$scope.submissionData.adviserInfo.email, $scope.submissionData.coadviserOneInfo.email, $scope.submissionData.coadviserTwoInfo.email],
-                    subject: 'URS Submission requires approval',
+                    subject: 'A URS Submission Requires Your Approval',
                     message: $scope.submissionData.presenterInfo.first + " " + $scope.submissionData.presenterInfo.last +
                         ' has submitted a URS submission that requires your approval. ' +
-                        'By approving the submission, you are authorizing the student(s) to submit this abstract for consideration for the URS, ' +
-                        'not approving the final abstract; the student(s) will have the opportunity to further revise, improve, and finalize their submission. '+
-                        'Please go to https://ursa-major.herokuapp.com/ to log in and approve (or reject) the submission.'
+                        'By approving the submission, you are authorizing the student(s) to submit this abstract for consideration by the Undergraduate Research Symposium. ' +
+                        'This is not approving the final abstract; the student(s) will have the opportunity to further revise, improve, and finalize their submission. '+
+                        'Please go to https://ursa-major.herokuapp.com/ and login with your X500 UMN email. Once there, navigate to the "Submissions List" tab to approve (or reject) ' +
+                        'the submission.'
                 });
             }
         };

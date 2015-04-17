@@ -44,32 +44,34 @@
                 </li>
                 <li class="list-group-item">
                     <h4>Current Year Submission Statistics</h4>
-                    <p>Total number of primary submissions: {{trackedSubmissions(currentYearSubmissions)}}</p>
-                    <p>Total number of submissions stored: {{totalSubmissions(currentYearSubmissions)}}</p>
+                    <p>Primary Submissions: {{trackedSubmissions(currentYearSubmissions)}}</p>
+                    <p>Submissions stored: {{totalSubmissions(currentYearSubmissions)}}</p>
                     <p>Percentage of stored submissions that are primary submissions: {{precentageTracked(currentYearSubmissions)}}%</p>
                     <p>Number of submissions currently flagged for re-submission: {{resubmitFlags(currentYearSubmissions)}}</p>
                     <hr>
                     <h4>All Submission Statistics</h4>
-                    <p>Total number of primary submissions: {{trackedSubmissions(submissions)}}</p>
-                    <p>Total number of submissions stored: {{totalSubmissions(submissions)}}</p>
+                    <p>Total number of Primary Submissions: {{trackedSubmissions(submissions)}}</p>
+                    <p>Total number of Submissions stored: {{totalSubmissions(submissions)}}</p>
                     <hr>
                     <h4>User Statistics</h4>
                     <p>Total number of registered users: {{totalUsers()}}</p>
-                    <p>Total number of Admins: {{totalAdmins()}}</p>
-                    <p>Total number of Chairs: {{totalChairs()}}</p>
-                    <p>Total number of Reviewers in Group 1: {{totalReviewers(1)}}</p>
-                    <p>Total number of Reviewers in Group 2: {{totalReviewers(2)}}</p>
-                    <p>Total number of Reviewers in Group 3: {{totalReviewers(3)}}</p>
-                    <p>Total number of Reviewers in Group 4: {{totalReviewers(4)}}</p>
-                    <p>Total number of basic users (Advisers/Presenters): {{totalBasicUsers()}}</p>
+                    <p>Admins: {{totalAdmins()}}</p>
+                    <p>Chairs: {{totalChairs()}}</p>
+                    <p>Reviewers in Group 1: {{totalReviewers(1)}}</p>
+                    <p>Reviewers in Group 2: {{totalReviewers(2)}}</p>
+                    <p>Reviewers in Group 3: {{totalReviewers(3)}}</p>
+                    <p>Reviewers in Group 4: {{totalReviewers(4)}}</p>
+                    <p>Basic users (Advisers/Presenters): {{totalBasicUsers()}}</p>
                     <hr>
                     <h4>T-Shirt Statistics</h4>
-                    <p>Total number of Small T-Shirts: {{totalShirts("Small")}}</p>
-                    <p>Total number of Medium T-Shirts: {{totalShirts("Medium")}}</p>
-                    <p>Total number of Large T-Shirts: {{totalShirts("Large")}}</p>
-                    <p>Total number of XLarge T-Shirts: {{totalShirts("XLarge")}}</p>
-                    <p>Total number of XXLarge T-Shirts: {{totalShirts("XXLarge")}}</p>
-                    <p>Total number of XXXLarge T-Shirts: {{totalShirts("XXXLarge")}}</p>
+                    <p class="text-muted"> Note: If users from past years have not been removed from the system, their shirt sizes will still show here. </p>
+                    <p>Small T-Shirts: {{totalShirts("Small")}}</p>
+                    <p>Medium T-Shirts: {{totalShirts("Medium")}}</p>
+                    <p>Large T-Shirts: {{totalShirts("Large")}}</p>
+                    <p>XLarge T-Shirts: {{totalShirts("XLarge")}}</p>
+                    <p>XXLarge T-Shirts: {{totalShirts("XXLarge")}}</p>
+                    <p>XXXLarge T-Shirts: {{totalShirts("XXXLarge")}}</p>
+
                 </li>
             </ul>
         </div>
