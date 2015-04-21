@@ -316,10 +316,11 @@ angular.module('umm3601ursamajorApp')
           var year = date.getFullYear();
           if (!$scope.filterData.tabFilter.oldSubmissions) {
             return submission.timestamp.indexOf(year) != -1;
-          } else {
+          } else if ($scope.filterData.tabFilter.oldSubmissions) {
             return submission.timestamp.indexOf(year) == -1;
           }
         };
+
 
         // Used to check if a pesron has any past submissions.
         $scope.isPastSubmission = function(submission){
