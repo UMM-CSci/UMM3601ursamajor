@@ -49,9 +49,22 @@ angular.module('umm3601ursamajorApp')
 
         //For filtering submissions with current year
         $scope.currentYearFilter = function(submission){
-          var date = new Date();
-          var year = date.getFullYear();
-          return submission.timestamp.indexOf(year) != -1;
+          var currentDate = new Date();
+          var currentYear = currentDate.getFullYear();
+          var prevYear = currentYear - 1;
+          var subDate = new Date(submission.timestamp);
+
+          if (currentDate.getMonth() <= 6) {   // If it is Spring Semester (6 is July).
+            if (subDate.getFullYear() == currentYear) { // We care about any spring semester submissions from the current year.
+              return true;
+            } else if ((subDate.getFullYear() == prevYear) && (subDate.getMonth() > 6)) { // We also care about submissions from last fall.
+              return true;
+            } else {
+              return false;
+            }
+          } else {   // Else it is Fall Semester.
+            return ((subDate.getFullYear() == currentYear) && (subDate.getMonth() > 6)); // In the fall, we only care about this year's submissions from fall.
+          }
         };
 
         $scope.isAccepted = function(submission){
