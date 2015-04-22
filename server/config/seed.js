@@ -327,7 +327,7 @@ Submission.find({}).remove(function(){
         cc: false,
         rejection: false,
         status:  {strict: "Reviewing in Process", priority: 2, text: "Your URS submission has been approved by your adviser."},
-        timestamp: "Sat Oct 18 2015 10:48:54 GMT-0500 (CDT)",
+        timestamp: "Sat May 18 2015 10:48:54 GMT-0500 (CDT)",
         group: 1,
         roomAssignment: "Science 2610",
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
@@ -420,7 +420,7 @@ Submission.find({}).remove(function(){
         cc: false,
         rejection: false,
         status: {strict: "Revisions Needed", priority: 3, text: "Your URS submission has been flagged for revisions, and is in need of changes."},
-        timestamp: "Tue Oct 19 2015 23:22:54 GMT-0500 (CDT)",
+        timestamp: "Tue Jun 19 2015 23:22:54 GMT-0500 (CDT)",
         group: 2,
         roomAssignment: "Imholte 109",
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
@@ -465,7 +465,7 @@ Submission.find({}).remove(function(){
         cc: false,
         rejection: false,
         status: {strict: "Revisions Needed", priority: 3, text: "Your URS submission has been flagged for revisions, and is in need of changes."},
-        timestamp: "Mon Sept 2 2015 1:48:54 GMT-0500 (CDT)",
+        timestamp: "Mon Feb 2 2015 1:48:54 GMT-0500 (CDT)",
         group: 3,
         roomAssignment: "Science 2610",
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
@@ -504,7 +504,7 @@ Submission.find({}).remove(function(){
         cc: false,
         rejection: false,
         status: {strict: "Awaiting Adviser Approval", priority: -15, text: "Your URS submission is pending approval from your adviser."},
-        timestamp: "Mon Oct 23 2015 1:48:54 GMT-0500 (CDT)",
+        timestamp: "Mon Mar 23 2015 1:48:54 GMT-0500 (CDT)",
         group: 0,
         roomAssignment: "Science 2610",
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
@@ -541,7 +541,7 @@ Submission.find({}).remove(function(){
       cc: false,
       rejection: false,
       status: {strict: "Reviewing in Process", priority: 2, text: "Your URS submission has been approved by your adviser"},
-      timestamp: "Mon Oct 22 2015 1:48:54 GMT-0500 (CDT)",
+      timestamp: "Mon Feb 22 2015 1:48:54 GMT-0500 (CDT)",
       group: 1,
       roomAssignment: "Science 2610",
       resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
@@ -578,7 +578,7 @@ Submission.find({}).remove(function(){
       cc: false,
       rejection: false,
       status: {strict: "Reviewing in Process", priority: 2, text: "Your URS submission has been approved by your adviser"},
-      timestamp: "Mon Oct 20 2015 1:48:54 GMT-0500 (CDT)",
+      timestamp: "Mon Mar 20 2015 1:48:54 GMT-0500 (CDT)",
       group: 2,
       roomAssignment: "Science 2610",
       resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
@@ -616,7 +616,7 @@ Submission.find({}).remove(function(){
         cc: false,
         rejection: false,
         status: {strict: "Awaiting Adviser Approval", priority: -15, text: "Your URS submission is pending approval from your adviser."},
-        timestamp: "Thur Oct 22 2015 1:48:54 GMT-0500 (CDT)",
+        timestamp: "Thur Jan 22 2015 1:48:54 GMT-0500 (CDT)",
         group: 0,
         roomAssignment: "Science 2610",
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
@@ -657,7 +657,7 @@ Submission.find({}).remove(function(){
       cc: false,
       rejection: false,
       status: {strict: "Revisions Needed", priority: 3, text: "Your URS submission has been flagged for revisions, and is in need of changes."},
-      timestamp: "Thur Oct 23 2015 1:48:54 GMT-0500 (CDT)",
+      timestamp: "Thur Jan 23 2015 1:48:54 GMT-0500 (CDT)",
       group: 3,
       roomAssignment: "Science 2610",
       resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
@@ -748,7 +748,7 @@ Submission.find({}).remove(function(){
       cc: false,
       rejection: false,
       status: {strict: "Accepted", priority: 15, text: "Your URS submission has been approved, congratulations!"},
-      timestamp: "Thur Oct 19 2014 1:48:54 GMT-0500 (CDT)",
+      timestamp: "Thur Aug 19 2014 1:48:54 GMT-0500 (CDT)",
       group: 1,
       roomAssignment: "Science 2610",
       resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
@@ -784,7 +784,7 @@ Submission.find({}).remove(function(){
       cc: false,
       rejection: false,
       status: {strict: "Revisions Needed", priority: 3, text: "Your URS submission has been flagged for revisions, and is in need of changes."},
-      timestamp: "Thur Oct 22 2015 1:48:54 GMT-0500 (CDT)",
+      timestamp: "Thur Apr 22 2015 1:48:54 GMT-0500 (CDT)",
       group: 2,
       roomAssignment: "Science 2610",
       resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
@@ -820,7 +820,7 @@ Submission.find({}).remove(function(){
       cc: false,
       rejection: false,
       status: {strict: "Accepted", priority: 15, text: "Your URS submission has been approved, congratulations!"},
-      timestamp: "Thur Oct 23 2014 1:48:54 GMT-0500 (CDT)",
+      timestamp: "Thur Sep 23 2014 1:48:54 GMT-0500 (CDT)",
       group: 3,
       roomAssignment: "Science 2610",
       resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
@@ -858,7 +858,7 @@ Submission.find({}).remove(function(){
       cc: false,
       rejection: false,
       status: {strict: "Awaiting Adviser Approval", priority: -15, text: "Your URS submission is pending approval from your adviser."},
-      timestamp: "Thur Oct 23 2015 1:48:54 GMT-0500 (CDT)",
+      timestamp: "Thur Jan 23 2015 1:48:54 GMT-0500 (CDT)",
       group: 0,
       roomAssignment: "Science 2610",
       resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
@@ -897,7 +897,7 @@ Submission.find({}).remove(function(){
       cc: false,
       rejection: false,
       status: {strict: "Reviewing in Process", priority: 2, text: "Your URS submission has been approved by your adviser."},
-      timestamp: "Thur Oct 21 2015 1:48:54 GMT-0500 (CDT)",
+      timestamp: "Thur Oct 21 2014 1:48:54 GMT-0500 (CDT)",
       group: 1,
       roomAssignment: "Science 2610",
       resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
@@ -934,7 +934,7 @@ Submission.find({}).remove(function(){
       cc: false,
       rejection: false,
       status: {strict: "Accepted", priority: 15, text: "Your URS submission has been approved, congratulations!"},
-      timestamp: "Thur Oct 19 2015 1:48:54 GMT-0500 (CDT)",
+      timestamp: "Thur Nov 19 2014 1:48:54 GMT-0500 (CDT)",
       group: 2,
       roomAssignment: "Science 2610",
       resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
@@ -971,7 +971,7 @@ Submission.find({}).remove(function(){
       cc: false,
       rejection: false,
       status: {strict: "Reviewing in Process", priority: 2, text: "Your URS submission has been approved by your adviser."},
-      timestamp: "Thur Oct 21 2015 1:48:54 GMT-0500 (CDT)",
+      timestamp: "Thur Dec 21 2014 1:48:54 GMT-0500 (CDT)",
       group: 3,
       roomAssignment: "Science 2610",
       resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
@@ -983,7 +983,7 @@ Submission.find({}).remove(function(){
           commenter: "Hongya Zhou",
           selectionText : "The title of my project is called On Your March, Get Set, Rust! ",
           indicator : 0,
-          timestamp : "Mon Dec 08 2015 18:41:16 GMT-0600 (CST)",
+          timestamp : "Mon Feb 08 2014 18:41:16 GMT-0600 (CST)",
           origin : "5486429c6adf9b0859cb58c7",
           responses: []
         }, {
@@ -993,13 +993,13 @@ Submission.find({}).remove(function(){
           commenter: "Hongya Zhou" ,
           selectionText: "sanding ten galvanized and common nails" ,
           indicator: 0 ,
-          timestamp: "Mon Dec 08 2015 18:42:05 GMT-0600 (CST)" ,
+          timestamp: "Mon Feb 08 2014 18:42:05 GMT-0600 (CST)" ,
           origin: "5486429c6adf9b0859cb58c7" ,
           responses: [
             {
               "response": "Obviously to release the magical nail spirits.",
               "responder": "Hongya Zhou",
-              "timestamp": "Mon Dec 08 2015 19:03:17 GMT-0600 (CST)"
+              "timestamp": "Mon Feb 08 2014 19:03:17 GMT-0600 (CST)"
             }
           ]
         }, {
@@ -1009,7 +1009,7 @@ Submission.find({}).remove(function(){
           commenter: "Hongya Zhou" ,
           selectionText: " which type of nails, galvanized or common will rust quickly." ,
           indicator: 0 ,
-          timestamp: "Mon Dec 08 2015 18:43:43 GMT-0600 (CST)" ,
+          timestamp: "Mon Feb 08 2014 18:43:43 GMT-0600 (CST)" ,
           origin: "5486429c6adf9b0859cb58c7" ,
           responses: [ ]
         }, {
@@ -1019,13 +1019,13 @@ Submission.find({}).remove(function(){
           commenter: "Hongya Zhou" ,
           selectionText: "My results of my data resolves that galvanized and common nails in freshwater had a higher average or rust than the other nails in salt water." ,
           indicator: 0 ,
-          timestamp: "Mon Dec 08 2015 18:44:47 GMT-0600 (CST)" ,
+          timestamp: "Mon Feb 08 2014 18:44:47 GMT-0600 (CST)" ,
           origin: "5486429c6adf9b0859cb58c7" ,
           responses: [
             {
               response: "But WHYYYYY?" ,
               responder: "Hongya Zhou" ,
-              timestamp: "Mon Dec 08 2015 18:52:18 GMT-0600 (CST)"
+              timestamp: "Mon Feb 08 2014 18:52:18 GMT-0600 (CST)"
             }
           ]
         }
@@ -1068,7 +1068,7 @@ Submission.find({}).remove(function(){
       cc: false,
       rejection: false,
       status: {strict: "Awaiting Adviser Approval", priority: -15, text: "Your URS submission is pending approval from your adviser."},
-      timestamp: "Thur Oct 22 2015 1:48:54 GMT-0500 (CDT)",
+      timestamp: "Thur Feb 22 2014 1:48:54 GMT-0500 (CDT)",
       group: 0,
       roomAssignment: "Science 2610",
       resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
@@ -1111,7 +1111,7 @@ Submission.find({}).remove(function(){
       cc: false,
       rejection: false,
       status: {strict: "Accepted", priority: 15, text: "Your URS submission has been approved, congratulations!"},
-      timestamp: "Thur Oct 19 2015 1:48:54 GMT-0500 (CDT)",
+      timestamp: "Thur Jan 19 2014 1:48:54 GMT-0500 (CDT)",
       group: 1,
       roomAssignment: "Science 2610",
       resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
@@ -1154,7 +1154,7 @@ Submission.find({}).remove(function(){
       cc: false,
       rejection: false,
       status: {strict: "Reviewing in Process", priority: 2, text: "Your URS submission has been approved by your adviser."},
-      timestamp: "Thur Oct 31 2015 1:48:54 GMT-0500 (CDT)",
+      timestamp: "Thur Jan 31 2013 1:48:54 GMT-0500 (CDT)",
       group: 2,
       roomAssignment: "Science 2610",
       resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
@@ -1166,7 +1166,7 @@ Submission.find({}).remove(function(){
           commenter: "Hongya Zhou",
           selectionText : "The title of my project is called On Your March, Get Set, Rust! ",
           indicator : 0,
-          timestamp : "Mon Dec 08 2015 18:41:16 GMT-0600 (CST)",
+          timestamp : "Mon Feb 08 2014 18:41:16 GMT-0600 (CST)",
           origin : "5486429c6adf9b0859cb58c7",
           responses: []
         }, {
@@ -1176,13 +1176,13 @@ Submission.find({}).remove(function(){
           commenter: "Hongya Zhou" ,
           selectionText: "sanding ten galvanized and common nails" ,
           indicator: 0 ,
-          timestamp: "Mon Dec 08 2015 18:42:05 GMT-0600 (CST)" ,
+          timestamp: "Mon Feb 08 2014 18:42:05 GMT-0600 (CST)" ,
           origin: "5486429c6adf9b0859cb58c7" ,
           responses: [
             {
               "response": "Obviously to release the magical nail spirits.",
               "responder": "Hongya Zhou",
-              "timestamp": "Mon Dec 08 2015 19:03:17 GMT-0600 (CST)"
+              "timestamp": "Mon Feb 08 2014 19:03:17 GMT-0600 (CST)"
             }
           ]
         }, {
@@ -1192,7 +1192,7 @@ Submission.find({}).remove(function(){
           commenter: "Hongya Zhou" ,
           selectionText: " which type of nails, galvanized or common will rust quickly." ,
           indicator: 0 ,
-          timestamp: "Mon Dec 08 2015 18:43:43 GMT-0600 (CST)" ,
+          timestamp: "Mon Feb 08 2014 18:43:43 GMT-0600 (CST)" ,
           origin: "5486429c6adf9b0859cb58c7" ,
           responses: [ ]
         }, {
@@ -1202,13 +1202,13 @@ Submission.find({}).remove(function(){
           commenter: "Hongya Zhou" ,
           selectionText: "My results of my data resolves that galvanized and common nails in freshwater had a higher average or rust than the other nails in salt water." ,
           indicator: 0 ,
-          timestamp: "Mon Dec 08 2015 18:44:47 GMT-0600 (CST)" ,
+          timestamp: "Mon Feb 08 2014 18:44:47 GMT-0600 (CST)" ,
           origin: "5486429c6adf9b0859cb58c7" ,
           responses: [
             {
               response: "But WHYYYYY?" ,
               responder: "Hongya Zhou" ,
-              timestamp: "Mon Dec 08 2015 18:52:18 GMT-0600 (CST)"
+              timestamp: "Mon Feb 08 2014 18:52:18 GMT-0600 (CST)"
             }
           ]
         }
@@ -1245,7 +1245,7 @@ Submission.find({}).remove(function(){
       cc: false,
       rejection: false,
       status: {strict: "Accepted", priority: 15, text: "Your URS submission has been approved, congratulations!"},
-      timestamp: "Thur Oct 23 2015 1:48:54 GMT-0500 (CDT)",
+      timestamp: "Thur Feb 23 2012 1:48:54 GMT-0500 (CDT)",
       group: 3,
       roomAssignment: "Science 2610",
       resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
@@ -1281,7 +1281,7 @@ Submission.find({}).remove(function(){
         rejection: false,
         cc: true,
         status: {strict: "Reviewing in Process", priority: 2, text: "Your URS submission has been approved by your adviser."},
-        timestamp: "Mon Oct 20 2015 1:48:54 GMT-0500 (CDT)",
+        timestamp: "Mon Sep 20 2001 1:48:54 GMT-0500 (CDT)",
         group: 3,
         roomAssignment: "HFA 6",
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
