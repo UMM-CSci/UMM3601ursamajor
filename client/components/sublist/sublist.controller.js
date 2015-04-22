@@ -317,7 +317,7 @@ angular.module('umm3601ursamajorApp')
           var prevYear = currentYear - 1;
           var subDate = new Date(submission.timestamp);
 
-          if (!$scope.filterData.tabFilter.oldSubmissions) {
+          if (!$scope.filterData.tabFilter.oldSubmissions) { // If not viewing old submissions (so current submissions).
 
             if (currentDate.getMonth() <= 6) {   // If it is Spring Semester (6 is July).
               if (subDate.getFullYear() == currentYear) { // We care about any spring semester submissions from the current year.
@@ -331,7 +331,7 @@ angular.module('umm3601ursamajorApp')
               return ((subDate.getFullYear() == currentYear) && (subDate.getMonth() > 6)); // In the fall, we only care about this year's submissions from fall.
             }
 
-          } else if ($scope.filterData.tabFilter.oldSubmissions) {
+          } else if ($scope.filterData.tabFilter.oldSubmissions) { // Just want the reverse of above for past submissions.
 
             if (currentDate.getMonth() <= 6) {   // If it is Spring Semester (6 is July).
               if (subDate.getFullYear() == currentYear) { // We care about any spring semester submissions from the current year.
@@ -339,10 +339,22 @@ angular.module('umm3601ursamajorApp')
               } else if ((subDate.getFullYear() == prevYear) && (subDate.getMonth() > 6)) { // We also care about submissions from last fall.
                 return false;
               } else {
-                return true;
+                if ($scope.isAdviser(submission) || $scope.isPresenter(submission) || $scope.isCoPresenter(submission) || $scope.hasAdminPrivs()) {
+                  return true;
+                } else {
+                  return false;
+                }
               }
             } else {   // Else it is Fall Semester.
-              return !((subDate.getFullYear() == currentYear) && (subDate.getMonth() > 6)); // In the fall, we only care about this year's submissions from fall.
+              if (((subDate.getFullYear() == currentYear) && (subDate.getMonth() > 6))) {
+                return false;
+              } else {
+                if ($scope.isAdviser(submission) || $scope.isPresenter(submission) || $scope.isCoPresenter(submission) || $scope.hasAdminPrivs()) {
+                  return true;
+                } else {
+                  return false;
+                }
+              }
             }
 
           }
