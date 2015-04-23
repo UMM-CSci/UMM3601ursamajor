@@ -702,7 +702,7 @@ angular.module('umm3601ursamajorApp')
                 to: $scope.selection.item.presenterInfo.email +" "+ $scope.selection.item.copresenterOneInfo.email +" "+ $scope.selection.item.copresenterTwoInfo.email,
                 cc: "ursadmin@morris.umn.edu",
                 subject: "["+ $scope.selection.item.title + "] " + "URS submission has been rejected",
-                message: $scope.selection.item.presenterInfo.first + ", unfortunately, your URS submission has been rejected."
+                message: $scope.selection.item.presenterInfo.first + ", your URS submission has been rejected by the adviser listed on the submission. If you believe this was done by mistake, please contact your adviser."
             });
         };
 
@@ -711,7 +711,7 @@ angular.module('umm3601ursamajorApp')
             sendGmail({
                 to: "ursadmin@morris.umn.edu",
                 subject: "["+ $scope.selection.item.title + "] " + "URS submission has been rejected",
-                message: $scope.selection.item.presenterInfo.first + " submitted an abstract for consideration to the URS. Unfortunately, I, as the adviser, have rejected this submission."
+                message: $scope.selection.item.presenterInfo.first + " submitted an abstract for consideration to the URS. I, as the adviser, have rejected this submission."
             });
         };
 
