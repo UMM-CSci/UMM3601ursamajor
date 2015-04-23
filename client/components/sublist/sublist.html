@@ -251,11 +251,10 @@
                         <li class="subtext plainList" ng-show="isPrimaryAdviser(selection.item)">Adviser of this submission</li>
                         <li class="subtext plainList" ng-show="(!isPrimaryAdviser(selection.item) && isAdviser(selection.item))">CoAdviser of this submission</li>
                         <li class="subtext plainList" ng-show="isReviewerGroup(selection.item)">Reviewer in Review Group {{selection.item.group}}</li>
+                        <li ng-show="isAdmin() || isChair()">
+                        <button ng-show="isAdmin()" class="btn btn-md btn-danger sideMargins moveRight " ng-click="deleteSubmissionConfirm(selection.item)"><span class="glyphicon glyphicon-trash"></span></button>
+                        </li>
                     </ul>
-
-                    <div ng-show="isAdmin() || isChair()">
-                      <button ng-show="isAdmin()" class="btn btn-md btn-danger sideMargins moveRight " ng-click="deleteSubmissionConfirm(selection.item)"><span class="glyphicon glyphicon-trash"></span></button>
-                    </div>
                 </li> <!-- End where the colored sidebar is -->
             </ul>
 

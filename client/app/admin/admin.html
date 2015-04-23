@@ -13,7 +13,15 @@
         </div>
     </div>
 
+
+
     <div class="col-lg-8">
+
+        <div ng-show="toggles.abstractBookToggle">
+          <button class="btn btn-primary padded" ng-click="abstractBookRedirect()">Go to Abstract Book Page</button>
+          <p>Click the button above to display the abstract book information in a clean view.</p>
+        </div>
+
         <div ng-show="toggles.subFormEditorToggle">
             <div ng-include="'app/subformeditor/subformeditor.html'"></div>
         </div>
