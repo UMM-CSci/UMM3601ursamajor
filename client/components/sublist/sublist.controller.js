@@ -1166,6 +1166,16 @@ angular.module('umm3601ursamajorApp')
             return index == $scope.selectedCommentIndex;
         };
 
+        //A check to see if the user made the comment.
+        $scope.isCommenter = function(comment) {
+            return comment.commenter === $scope.getCurrentUser().name;
+        };
+
+        //A check to see if the user made the response.
+        $scope.isResponder = function(response) {
+          return response.responder === $scope.getCurrentUser().name;
+        };
+
         //Controls and restricts the number of comments to display
         $scope.displayedComments = function() {
             if($scope.selection.item == null) return [];
