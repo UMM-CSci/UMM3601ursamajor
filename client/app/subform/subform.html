@@ -58,12 +58,10 @@
 
         <label class="padded mobileCompatable">
             <pre class="preStyle">{{submissionText.submissionFormat}}</pre>
-            <div>
-                <select  ng-model="submissionData.format" placeholder="select one" required ng-required>
-                    <option value="" disabled selected>Select One </option>
+                <select  ng-model="submissionData.format" placeholder="select one" required>
+                    <option value="" disabled selected>Select One</option>
                     <option ng-repeat="option in formatOptions" value="{{option}}">{{option}}</option>
                 </select>
-            </div>
         </label>
         <br>
 
@@ -164,13 +162,11 @@
                 <input ng-model="submissionData.featuredPresentation" type="radio" name="featuredPresentation" value="no" ng-value="false" required> No
             </label>
         </div>
-        <br>
 
         <div class="padded mobileCompatable">
             <b><pre class="preStyle">{{submissionText.submissionMediaServices}}</pre></b>
             <textarea class="mobileCompatable" cols="50" name="mediaServices" ng-model="submissionData.mediaServicesEquipment" placeholder="Explain in detail." maxlength="1000"></textarea>
         </div>
-        <br>
 
         <div class="padded mobileCompatable">
             <b><pre class="preStyle">{{submissionText.submissionSpecialRequirements}}</pre></b>

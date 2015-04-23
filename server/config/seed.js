@@ -93,14 +93,14 @@ Subformtext.find({}).remove(function() {
         submissionAbstract: "Artist Statement / Proposal / Abstract ",
         submissionAbstractNotes: "Paste your text in the box below. Figures and special characters will need to be submitted as a separate document. Please e-mail as a Word or PDF document to sferrian@morris.umn.edu" +
             "\n1000 character limit, approx. 250 words.",
-        submissionPresentationType: "Type of Presentation",
+        submissionPresentationType: "Type of Presentation: ",
         submissionFormatChange: "Because of space constraints, we may not be able to have everyone do their preferred type of presentation." +
             "\nIf necessary, would you be willing to give your presentation in another format?",
         submissionChangeNotes: "No change in format will be made without first contacting the presenter first.",
         submissionPresenter: "Primary Presenter:",
         submissionCopresenterOne: "Secondary Presenter #1:",
         submissionCopresenterTwo: "Secondary Presenter #2:",
-        submissionSponsors: "Sponsoring Organization or Fund",
+        submissionSponsors: "Sponsoring Organization or Fund:",
         submissionSponsorsNotes: "Choose any applicable. If funded by faculty grant, specify under 'other' ",
         submissionAdviser: "Primary Faculty Sponsor / Project Adviser Information",
         submissionAdviserNotes: "Every submitted project is required to have at least one faculty sponsor or project adviser identified.",
