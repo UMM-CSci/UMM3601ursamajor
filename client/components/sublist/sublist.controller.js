@@ -312,21 +312,88 @@ angular.module('umm3601ursamajorApp')
 
         //For filtering submissions with current year
         $scope.currentYearFilter = function(submission){
-          var date = new Date();
-          var year = date.getFullYear();
-          if (!$scope.filterData.tabFilter.oldSubmissions) {
-            return submission.timestamp.indexOf(year) != -1;
-          } else if ($scope.filterData.tabFilter.oldSubmissions) {
-            return submission.timestamp.indexOf(year) == -1;
+          var currentDate = new Date();
+          var currentYear = currentDate.getFullYear();
+          var prevYear = currentYear - 1;
+          var subDate = new Date(submission.timestamp);
+
+          if (!$scope.filterData.tabFilter.oldSubmissions) { // If not viewing old submissions (so current submissions).
+
+            if (currentDate.getMonth() <= 6) {   // If it is Spring Semester (6 is July).
+              if (subDate.getFullYear() == currentYear) { // We care about any spring semester submissions from the current year.
+                return true;
+              } else if ((subDate.getFullYear() == prevYear) && (subDate.getMonth() > 6)) { // We also care about submissions from last fall.
+                return true;
+              } else {
+                return false;
+              }
+            } else {   // Else it is Fall Semester.
+              return ((subDate.getFullYear() == currentYear) && (subDate.getMonth() > 6)); // In the fall, we only care about this year's submissions from fall.
+            }
+
+          } else if ($scope.filterData.tabFilter.oldSubmissions) { // Just want the reverse of above for past submissions.
+
+            if (currentDate.getMonth() <= 6) {   // If it is Spring Semester (6 is July).
+              if (subDate.getFullYear() == currentYear) { // We don't want ones from the current year.
+                return false;
+              } else if ((subDate.getFullYear() == prevYear) && (subDate.getMonth() > 6)) { // We also don't want submissions from fall oof the current academic year.
+                return false;
+              } else { // Once we get here, we know it is an old submission.
+                if ($scope.isAdviser(submission) || $scope.isPresenter(submission) || $scope.isCoPresenter(submission) || $scope.hasAdminPrivs()) { // Check to make sure the user should see it.
+                  return true;
+                } else { // Should really only not see it if you're a reviewer because you don't want to see past review group submissions.
+                  return false;
+                }
+              }
+            } else {   // Else it is Fall Semester.
+              if (((subDate.getFullYear() == currentYear) && (subDate.getMonth() > 6))) { // If a submission is from the current fall semester, we don't want to see it.
+                return false;
+              } else { // Otherwise, we want to check based on the user's role again.
+                if ($scope.isAdviser(submission) || $scope.isPresenter(submission) || $scope.isCoPresenter(submission) || $scope.hasAdminPrivs()) {
+                  return true;
+                } else {
+                  return false;
+                }
+              }
+            }
+
           }
         };
 
 
-        // Used to check if a pesron has any past submissions.
+        // Used to check if a person has any past submissions.
+        // NOTE!!!! THIS WILL RETURN FALSE FOR PAST SUBMISSIONS IF THE USER'S ONLY
+        // WAY OF SEEING A SUBMISSION IS THROUGH THEIR REVIEWER ROLE. THIS IS INTENDED
+        // BEHAVIOR!!!!! (Same behavior applies to filter above.)
         $scope.isPastSubmission = function(submission){
-          var date = new Date();
-          var year = date.getFullYear();
-          return submission.timestamp.indexOf(year) == -1;
+          var currentDate = new Date();
+          var currentYear = currentDate.getFullYear();
+          var prevYear = currentYear - 1;
+          var subDate = new Date(submission.timestamp);
+
+          if (currentDate.getMonth() <= 6) {   // If it is Spring Semester (6 is July).
+            if (subDate.getFullYear() == currentYear) { // We care about any spring semester submissions from the current year.
+              return false;
+            } else if ((subDate.getFullYear() == prevYear) && (subDate.getMonth() > 6)) { // We also care about submissions from last fall.
+              return false;
+            } else {
+              if ($scope.isAdviser(submission) || $scope.isPresenter(submission) || $scope.isCoPresenter(submission) || $scope.hasAdminPrivs()) { // Check to make sure the user should see it.
+                return true;
+              } else { // Should really only not see it if you're a reviewer because you don't want to see past review group submissions.
+                return false;
+              }
+            }
+          } else {   // Else it is Fall Semester.
+            if (((subDate.getFullYear() == currentYear) && (subDate.getMonth() > 6))) { // If a submission is from the current fall semester, we don't want to see it.
+              return false;
+            } else { // Otherwise, we want to check based on the user's role again.
+              if ($scope.isAdviser(submission) || $scope.isPresenter(submission) || $scope.isCoPresenter(submission) || $scope.hasAdminPrivs()) {
+                return true;
+              } else {
+                return false;
+              }
+            }
+          }
         };
 
 

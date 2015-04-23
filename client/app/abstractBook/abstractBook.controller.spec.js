@@ -51,7 +51,7 @@ describe('Controller: AbstractbookCtrl', function () {
                 otherInfo: "Maybe",
                 approval: false,
                 status: {strict: "Accepted", text: "Your adviser has yet to approve this submission.", priority: 15},
-                timestamp: "Mon Oct 20 2014 1:48:54 GMT-0500 (CDT)",
+                timestamp: "Mon Jul 20 2014 1:48:54 GMT-0500 (CDT)",
                 group: 3,
                 resubmissionData: {comment: "Initial Submission", parentSubmission: "testIdForTesting", isPrimary: false, resubmitFlag: false},
                 comments: []
