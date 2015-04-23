@@ -334,21 +334,21 @@ angular.module('umm3601ursamajorApp')
           } else if ($scope.filterData.tabFilter.oldSubmissions) { // Just want the reverse of above for past submissions.
 
             if (currentDate.getMonth() <= 6) {   // If it is Spring Semester (6 is July).
-              if (subDate.getFullYear() == currentYear) { // We care about any spring semester submissions from the current year.
+              if (subDate.getFullYear() == currentYear) { // We don't want ones from the current year.
                 return false;
-              } else if ((subDate.getFullYear() == prevYear) && (subDate.getMonth() > 6)) { // We also care about submissions from last fall.
+              } else if ((subDate.getFullYear() == prevYear) && (subDate.getMonth() > 6)) { // We also don't want submissions from fall oof the current academic year.
                 return false;
-              } else {
-                if ($scope.isAdviser(submission) || $scope.isPresenter(submission) || $scope.isCoPresenter(submission) || $scope.hasAdminPrivs()) {
+              } else { // Once we get here, we know it is an old submission.
+                if ($scope.isAdviser(submission) || $scope.isPresenter(submission) || $scope.isCoPresenter(submission) || $scope.hasAdminPrivs()) { // Check to make sure the user should see it.
                   return true;
-                } else {
+                } else { // Should really only not see it if you're a reviewer because you don't want to see past review group submissions.
                   return false;
                 }
               }
             } else {   // Else it is Fall Semester.
-              if (((subDate.getFullYear() == currentYear) && (subDate.getMonth() > 6))) {
+              if (((subDate.getFullYear() == currentYear) && (subDate.getMonth() > 6))) { // If a submission is from the current fall semester, we don't want to see it.
                 return false;
-              } else {
+              } else { // Otherwise, we want to check based on the user's role again.
                 if ($scope.isAdviser(submission) || $scope.isPresenter(submission) || $scope.isCoPresenter(submission) || $scope.hasAdminPrivs()) {
                   return true;
                 } else {
@@ -361,7 +361,10 @@ angular.module('umm3601ursamajorApp')
         };
 
 
-        // Used to check if a pesron has any past submissions.
+        // Used to check if a person has any past submissions.
+        // NOTE!!!! THIS WILL RETURN FALSE FOR PAST SUBMISSIONS IF THE USER'S ONLY
+        // WAY OF SEEING A SUBMISSION IS THROUGH THEIR REVIEWER ROLE. THIS IS INTENDED
+        // BEHAVIOR!!!!! (Same behavior applies to filter above.)
         $scope.isPastSubmission = function(submission){
           var currentDate = new Date();
           var currentYear = currentDate.getFullYear();
@@ -374,10 +377,22 @@ angular.module('umm3601ursamajorApp')
             } else if ((subDate.getFullYear() == prevYear) && (subDate.getMonth() > 6)) { // We also care about submissions from last fall.
               return false;
             } else {
-              return true;
+              if ($scope.isAdviser(submission) || $scope.isPresenter(submission) || $scope.isCoPresenter(submission) || $scope.hasAdminPrivs()) { // Check to make sure the user should see it.
+                return true;
+              } else { // Should really only not see it if you're a reviewer because you don't want to see past review group submissions.
+                return false;
+              }
             }
           } else {   // Else it is Fall Semester.
-            return !((subDate.getFullYear() == currentYear) && (subDate.getMonth() > 6)); // In the fall, we only care about this year's submissions from fall.
+            if (((subDate.getFullYear() == currentYear) && (subDate.getMonth() > 6))) { // If a submission is from the current fall semester, we don't want to see it.
+              return false;
+            } else { // Otherwise, we want to check based on the user's role again.
+              if ($scope.isAdviser(submission) || $scope.isPresenter(submission) || $scope.isCoPresenter(submission) || $scope.hasAdminPrivs()) {
+                return true;
+              } else {
+                return false;
+              }
+            }
           }
         };
 
