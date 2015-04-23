@@ -87,6 +87,12 @@ angular.module('umm3601ursamajorApp')
         return $filter('filter')($scope.users, function(user){return user.tShirtSize == size}).length
       };
 
+      // For button to redirect to abstractBook page
+      $scope.abstractBookRedirect = function(){
+        $location.path('/abstractBook');
+      };
+
+
 
       //---------------------------- Admin Nav Control ----------------------------------
 

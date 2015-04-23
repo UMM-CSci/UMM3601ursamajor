@@ -1,5 +1,5 @@
 <div ng-controller="AbstractbookCtrl" class="container-fluid">
-    <div>Note: only fully accepted submissions will show here</div>
+
     <br>
     <div ng-repeat="sub in submissions  | filter:currentYearFilter" ng-show="isAccepted(sub)">
         <li class="list-group-item">
