@@ -216,8 +216,8 @@ User.find({}).remove(function() {
                 email: "opdah023@morris.umn.edu",
                 id: "111717955914079275928"
             },
-            group: 2,
-            role: "reviewer",
+            group: -1,
+            role: "admin",
             __v: 0
         }, {
             name: "Joseph Thelen",

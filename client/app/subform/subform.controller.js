@@ -276,8 +276,8 @@ angular.module('umm3601ursamajorApp')
                 for(var key in $scope.submissionData.adviserInfo){
                     if($scope.submissionData.adviserInfo.hasOwnProperty(key)){
                         if($scope.submissionData.adviserInfo[key] != $scope.resubmitParent.adviserInfo[key]){
-                            console.log("Adviser difference!");
-                            console.log($scope.submissionData.adviserInfo[key] + " | " + $scope.resubmitParent.adviserInfo[key]);
+                            //console.log("Adviser difference!");
+                            //console.log($scope.submissionData.adviserInfo[key] + " | " + $scope.resubmitParent.adviserInfo[key]);
                             same = false;
                             break;
                         }
@@ -492,10 +492,10 @@ angular.module('umm3601ursamajorApp')
 
             // if the user IS resubmitting, transfers the comments from the parent submission into submissionData for inclusion in the resubmission.
             if($scope.isResubmitting){
-                console.log("saving comments from original submission");
-                console.log("original comments: " + $scope.resubmitParent.comments);
+                //console.log("saving comments from original submission");
+                //console.log("original comments: " + $scope.resubmitParent.comments);
                 $scope.submissionData.comments = $scope.resubmitParent.comments;
-                console.log($scope.submissionData.comments);
+                //console.log($scope.submissionData.comments);
             }
 
             $http.post('/api/submissions/',

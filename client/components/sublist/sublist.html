@@ -251,9 +251,10 @@
                         <li class="subtext plainList" ng-show="isPrimaryAdviser(selection.item)">Adviser of this submission</li>
                         <li class="subtext plainList" ng-show="(!isPrimaryAdviser(selection.item) && isAdviser(selection.item))">CoAdviser of this submission</li>
                         <li class="subtext plainList" ng-show="isReviewerGroup(selection.item)">Reviewer in Review Group {{selection.item.group}}</li>
-                        <li ng-show="isAdmin() || isChair()">
-                        <button ng-show="isAdmin()" class="btn btn-md btn-danger sideMargins moveRight " ng-click="deleteSubmissionConfirm(selection.item)"><span class="glyphicon glyphicon-trash"></span></button>
+                        <li class="plainList" ng-show="isAdmin() || isChair()">
+                        <button ng-show="isAdmin()" class="btn btn-md btn-danger sideMargins moveRight" ng-click="deleteSubmissionConfirm(selection.item)"><span class="glyphicon glyphicon-trash"></span></button>
                         </li>
+                        <br>
                     </ul>
                 </li> <!-- End where the colored sidebar is -->
             </ul>
@@ -292,16 +293,16 @@
                 <div ng-show="resubShowDetails">
                   <ul class="list-group">
                     <li class="list-group-item">
-                      <p>Presenter Email: {{selection.item.presenterInfo.email}}</p>
-                      <p> {{selection.item.copresenterOneInfo.email | isntEmpty:"CoPresenter(s) Email:":""}}{{selection.item.copresenterTwoInfo.email | isntEmpty:",":""}} </p>
-                      <p>Adviser Email: {{selection.item.adviserInfo.email}} </p>
-                      <p> {{selection.item.coadviserOneInfo.email | isntEmpty:"CoAdviser(s) Email:":""}}{{selection.item.coadviserTwoInfo.email | isntEmpty:",":""}}</p>
+                      <p>Presenter Email: {{selection.resubmission.presenterInfo.email}}</p>
+                      <p> {{selection.resubmission.copresenterOneInfo.email | isntEmpty:"CoPresenter(s) Email:":""}}{{selection.resubmission.copresenterTwoInfo.email | isntEmpty:",":""}} </p>
+                      <p>Adviser Email: {{selection.resubmission.adviserInfo.email}} </p>
+                      <p> {{selection.resubmission.coadviserOneInfo.email | isntEmpty:"CoAdviser(s) Email:":""}}{{selection.resubmission.coadviserTwoInfo.email | isntEmpty:",":""}}</p>
                       <p>Discipline: {{selection.resubmission.discipline}}</p>
                       <p>Type: {{selection.resubmission.presentationType}}</p>
                       <p>Format:  {{selection.resubmission.format}}</p>
                       <p>Willing to Change Format: {{approvalWordChange(selection.resubmission.formatChange)}}</p>
                       <p>Willing to be Feature Presentation: {{approvalWordChange(selection.resubmission.featured)}}</p>
-                      <p>Adviser Approved: {{approvalWordChange(selection.resubmission.approval)}} <span class="glyphicon glyphicon-info-sign" style="color:red" ng-show="statusApprovalConflict(selection.item)" title="This submission does not have adviser approval yet, but it has moved forward with the submission process."></span></p>
+                      <p>Adviser Approved: {{approvalWordChange(selection.resubmission.approval)}} <span class="glyphicon glyphicon-info-sign" style="color:red" ng-show="statusApprovalConflict(selection.resubmission)" title="This submission does not have adviser approval yet, but it has moved forward with the submission process."></span></p>
                       <p>{{selection.resubmission.sponsors | isntEmpty:"Sponsors:":""}}</p>
                       <p>{{selection.resubmission.mediaServicesEquipment | isntEmpty:"Media Services Equipment:":""}}</p>
                       <p>{{selection.resubmission.specialRequirements | isntEmpty:"Special Requirements:":""}}</p>
