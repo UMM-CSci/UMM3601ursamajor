@@ -239,6 +239,46 @@ User.find({}).remove(function() {
             role: "user",
             __v: 0
         }, {
+            name: "Stephanie Ferrian",
+            email: "sferrian@morris.umn.edu",
+            tShirtSize: "Large",
+            provider: "google",
+            google: {
+              hd: "morris.umn.edu",
+              locale: "en",
+              gender: "female",
+              picture: "https://lh5.googleusercontent.com/-w_7hQ2PKqAo/AAAAAAAAAAI/AAAAAAAAARM/t9RnyqfpT80/photo.jpg?sz=50",
+              family_name: "Ferrian",
+              given_name: "Stephanie",
+              name: "Stephanie Ferrian",
+              verified_email: true,
+              email: "sferrian@morris.umn.edu",
+              id: "102349907094786489155"
+        },
+            group: -1,
+            role: "admin",
+            __v: 0
+        }, {
+            name: "Peter Bremer",
+            email: "pbremer@morris.umn.edu",
+            tShirtSize: "Large",
+            provider: "google",
+            google: {
+              hd: "morris.umn.edu",
+              locale: "en",
+              gender: "male",
+              picture: "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg?sz=50",
+              family_name: "Bremer",
+              given_name: "Peter",
+              name: "Peter Bremer",
+              verified_email: true,
+              email: "pbremer@morris.umn.edu",
+              id: "106150886447474589553"
+        },
+            group: -1,
+            role: "admin",
+            __v: 0
+      }, {
             name: "Kristin Lamberty",
             email: "lamberty@morris.umn.edu",
             tShirtSize: "Medium",
@@ -1291,6 +1331,38 @@ Submission.find({}).remove(function(){
             Minor: [],
             Major: [],
             TotalRewrite: [{name: "Jacob Opdahl", email:"opdah023@morris.umn.edu"}]
+        }
+    }, {
+        title: "Testing, Testing, Testing",
+        format: "This is a testing abstract, test test test.",
+        presentationType: "Poster or visual display",
+        formatChange: true,
+        presenterInfo: {first: "Maggie", last: "Casale", email: "casal033@morris.umn.edu"},
+        copresenterOneInfo: {first: "", last: "", email: ""},
+        copresenterTwoInfo: {first: "", last: "", email: ""},
+        discipline: "Computer Sciences",
+        sponsors: [], //Might need to worry about if this is static for the DB later.
+        adviserInfo: {first: "Peter", last: "Dolan", email: "dolan118@morris.umn.edu"},
+        coadviserOneInfo: {first: "", last: "", email: ""},
+        coadviserTwoInfo: {first: "", last: "", email: ""},
+        featured: false,
+        mediaServicesEquipment: "",
+        specialRequirements: "A small space to make the presentation personal.",
+        otherInfo: "yes.",
+        approval: true,
+        cc: false,
+        rejection: false,
+        status: {strict: "Awaiting Adviser Approval", priority: -15, text: "Your URS submission is pending approval from your adviser."},
+        timestamp: "Thur Feb 23 2015 1:48:54 GMT-0500 (CDT)",
+        group: 3,
+        roomAssignment: "Science 2610",
+        resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+        comments: [],
+        reviewVotes: {
+          Accepted: [],
+          Minor: [],
+          Major: [],
+          TotalRewrite: []
         }
     });
 });
