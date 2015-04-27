@@ -308,6 +308,7 @@
                       <p>{{selection.resubmission.specialRequirements | isntEmpty:"Special Requirements:":""}}</p>
                       <p>{{selection.resubmission.otherInfo | isntEmpty:"Additional Information:":""}}</p>
                       <p>{{selection.resubmission.roomAssignment | isntEmpty:"Room Assignment:":""}}</p>
+                      <p>{{selection.resubmission.group | isntEqualToZero:"Review Group:":""}}</p>
                       <p>Date of submission: {{selection.resubmission.timestamp}}</p>
                     </li>
                   </ul>

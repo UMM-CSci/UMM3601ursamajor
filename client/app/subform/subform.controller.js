@@ -26,6 +26,7 @@ angular.module('umm3601ursamajorApp')
         $scope.flaggedSubmissions = [];
         $scope.resubmitParent = null;
         $scope.isResubmitting = false;
+        $scope.adviserChanged = false;
 
         // Misc. Stuff
         $scope.timestamp = Date();
@@ -220,7 +221,7 @@ angular.module('umm3601ursamajorApp')
                         ' has submitted a URS submission that requires your approval. ' +
                         'By approving the submission, you are authorizing the student(s) to submit this abstract for consideration by the Undergraduate Research Symposium. ' +
                         'This is not approving the final abstract; the student(s) will have the opportunity to further revise, improve, and finalize their submission. '+
-                        'Please go to https://ursa-major-project.herokuapp.com/ and login with your X500 UMN email. Once there, navigate to the "Submissions List" tab and choose your advisees ' +
+                        'Please go to the URS website and login with your X500 UMN email. Once there, navigate to the "Submissions List" tab and choose your advisees ' +
                         'submission to approve (or reject) it. You will have the option to be included in future emails pertaining to the submission, please read carefully.'
                 });
             }
@@ -286,8 +287,9 @@ angular.module('umm3601ursamajorApp')
 
                 if(!same){
                     $scope.submissionData.approval = false;
-                    Modal.confirm.info($scope.sendAdviserEmail)("You have changed your primary adviser from " + $scope.resubmitParent.adviserInfo.last + ", " + $scope.resubmitParent.adviserInfo.first + " [" + $scope.resubmitParent.adviserInfo.email + "] to " +
-                       $scope.submissionData.adviserInfo.last + ", " + $scope.submissionData.adviserInfo.first + " [" + $scope.submissionData.adviserInfo.email + "]. " + " Your submission will now require the approval of this new adviser. Send email to new adviser?");
+                    $scope.adviserChanged = true;
+                    Modal.confirm.info($scope.sendSpecialAdviserEmail)("You have changed your primary adviser from " + $scope.resubmitParent.adviserInfo.first + " " + $scope.resubmitParent.adviserInfo.last + " [" + $scope.resubmitParent.adviserInfo.email + "] to " +
+                       $scope.submissionData.adviserInfo.first + " " + $scope.submissionData.adviserInfo.last + " [" + $scope.submissionData.adviserInfo.email + "]. " + " Your submission will now require the approval of this new adviser. Send email to new adviser?");
                 }
             }
         };
@@ -549,13 +551,8 @@ angular.module('umm3601ursamajorApp')
                 Modal.confirm.warning($scope.sendSpecialAdviserEmail)("If you do not send the email that will be automatically generated, your adviser will not receive a notification to approve your submission.");
             };
 
-            if($scope.isResubmitting) {
-              $scope.resetData();
-              console.log('reseting data');
-              if($scope.attemptRedirect){
-                $location.path('/submissionpage');
-                console.log('redirecting');
-              };
+            if($scope.isResubmitting && !$scope.adviserChanged) {
+              $scope.resetAndRedirect();
             };
 
         };
@@ -574,38 +571,38 @@ angular.module('umm3601ursamajorApp')
             $scope.resetAndRedirect();
         };
 
-        /**
-         * Helper function for adminAutoSubmit.
-         *
-         * @returns {number}  -random number that serves as a valid index in $scope.submissions
-         */
-        $scope.randomSubmissionIndex = function(){
-            return Math.floor(($scope.submissions.length - 1) * Math.random());;
-        };
-
-        /**
-         * Selects a random submission from the existing submissions in the database and submits it as a new submission. (n times)
-         * Used to test system performance with large numbers of submissions.
-         *
-         * @param n  - The number of random submissions to make.
-         */
-        $scope.adminAutoSubmit = function(n){
-            if(n > 1){$scope.attemptRedirect = false;}
-            for(var i=0; i<=n; i++){
-                $scope.getResubmitData($scope.submissions[$scope.randomSubmissionIndex()]);
-
-                $scope.submissionData.resubmitFlag = false;
-
-                $scope.isResubmitting = false;
-
-                $scope.submissionData.title = $scope.submissionData.title + " [FILLER SUBMISSION]";
-
-                $scope.attemptEmail = false;
-
-                console.log("auto submitting admin auto generated submission!");
-
-                $scope.submitSubmission();
-            }
-        }
+        ///**
+        // * Helper function for adminAutoSubmit.
+        // *
+        // * @returns {number}  -random number that serves as a valid index in $scope.submissions
+        // */
+        //$scope.randomSubmissionIndex = function(){
+        //    return Math.floor(($scope.submissions.length - 1) * Math.random());;
+        //};
+        //
+        ///**
+        // * Selects a random submission from the existing submissions in the database and submits it as a new submission. (n times)
+        // * Used to test system performance with large numbers of submissions.
+        // *
+        // * @param n  - The number of random submissions to make.
+        // */
+        //$scope.adminAutoSubmit = function(n){
+        //    if(n > 1){$scope.attemptRedirect = false;}
+        //    for(var i=0; i<=n; i++){
+        //        $scope.getResubmitData($scope.submissions[$scope.randomSubmissionIndex()]);
+        //
+        //        $scope.submissionData.resubmitFlag = false;
+        //
+        //        $scope.isResubmitting = false;
+        //
+        //        $scope.submissionData.title = $scope.submissionData.title + " [FILLER SUBMISSION]";
+        //
+        //        $scope.attemptEmail = false;
+        //
+        //        console.log("auto submitting admin auto generated submission!");
+        //
+        //        $scope.submitSubmission();
+        //    }
+        //}
 
     });
