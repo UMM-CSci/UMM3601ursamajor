@@ -609,13 +609,24 @@ angular.module('umm3601ursamajorApp')
         };
 
         $scope.deleteSubmissionConfirm = function(item) {
+          if ($scope.getResubmission(item) != null) {
+            Modal.confirm.delete($scope.deleteSubmission)(item.title + " and its pending resubmission", item);
+          } else {
             Modal.confirm.delete($scope.deleteSubmission)(item.title, item);
+          }
         };
 
-        $scope.deleteSubmission = function(item){
+        $scope.deleteSubmission = function(item) {
+          var resub = $scope.getResubmission(item);
+          if (resub != null) {
+            $http.delete('/api/submissions/' + resub._id);
+            $http.delete('/api/submissions/' + item._id);
+            $scope.resetSelection();
+          } else {
             console.log("Deleting submission: " + item.title);
             $http.delete('/api/submissions/' + item._id);
             $scope.resetSelection();
+          }
         };
 
         $scope.isApproved = function(submission) {

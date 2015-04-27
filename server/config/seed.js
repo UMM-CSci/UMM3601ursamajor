@@ -1334,7 +1334,8 @@ Submission.find({}).remove(function(){
         }
     }, {
         title: "Testing, Testing, Testing",
-        format: "This is a testing abstract, test test test.",
+        format: "Artist Statement",
+        abstract: "Abstract abstract abstract Abstract abstract abstract ",
         presentationType: "Poster or visual display",
         formatChange: true,
         presenterInfo: {first: "Maggie", last: "Casale", email: "casal033@morris.umn.edu"},
@@ -1349,7 +1350,7 @@ Submission.find({}).remove(function(){
         mediaServicesEquipment: "",
         specialRequirements: "A small space to make the presentation personal.",
         otherInfo: "yes.",
-        approval: true,
+        approval: false,
         cc: false,
         rejection: false,
         status: {strict: "Awaiting Adviser Approval", priority: -15, text: "Your URS submission is pending approval from your adviser."},
