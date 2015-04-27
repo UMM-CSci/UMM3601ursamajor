@@ -235,25 +235,25 @@ describe('Controller: SubformCtrl', function () {
         expect(scope.checkEmailsAreMorris()).toEqual(false);
     });
 
-    it('Should generate a valid random index # for use in adminAutoSubmit', function() {
-        var testRand = scope.randomSubmissionIndex();
-        expect((testRand < scope.submissions.length) && (testRand >= 0)).toEqual(true);
-    });
+    //it('Should generate a valid random index # for use in adminAutoSubmit', function() {
+    //    var testRand = scope.randomSubmissionIndex();
+    //    expect((testRand < scope.submissions.length) && (testRand >= 0)).toEqual(true);
+    //});
 
-    it('resetData should actually reset the data', function() {
-        //using small samples of data from submissionData...
-        expect(scope.submissionData.title).toBe("");
-        expect(scope.submissionData.formatChange).toBe(Boolean);
-        expect(scope.submissionData.sponsors.length).toBe(0);
-        scope.getResubmitData(scope.submissions[scope.randomSubmissionIndex()]);
-        expect(scope.submissionData.title != "").toEqual(true);
-        expect(scope.submissionData.formatChange || !scope.submissionData.formatChange).toEqual(true);
-        expect(scope.submissionData.sponsors.length > 0).toEqual(true);
-        scope.resetData();
-        expect(scope.submissionData.title).toBe("");
-        expect(scope.submissionData.formatChange).toBe(Boolean);
-        expect(scope.submissionData.sponsors.length).toBe(0);
-    });
+    //it('resetData should actually reset the data', function() {
+    //    //using small samples of data from submissionData...
+    //    expect(scope.submissionData.title).toBe("");
+    //    expect(scope.submissionData.formatChange).toBe(Boolean);
+    //    expect(scope.submissionData.sponsors.length).toBe(0);
+    //    scope.getResubmitData(scope.submissions[scope.randomSubmissionIndex()]);
+    //    expect(scope.submissionData.title != "").toEqual(true);
+    //    expect(scope.submissionData.formatChange || !scope.submissionData.formatChange).toEqual(true);
+    //    expect(scope.submissionData.sponsors.length > 0).toEqual(true);
+    //    scope.resetData();
+    //    expect(scope.submissionData.title).toBe("");
+    //    expect(scope.submissionData.formatChange).toBe(Boolean);
+    //    expect(scope.submissionData.sponsors.length).toBe(0);
+    //});
 
     it('Returns the number of chatacters the user has left for their abstract.', function() {
         expect(scope.charsRemaining()).toEqual(1000 - scope.submissionData.abstract.length);
