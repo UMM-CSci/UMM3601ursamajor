@@ -542,7 +542,7 @@ angular.module('umm3601ursamajorApp')
                         resubmissionData: {comment: $scope.resubmitParent.resubmissionData.comment, parentSubmission: $scope.resubmitParent.resubmissionData.parentSubmission, resubmitFlag: false, isPrimary: true}
                     }
                 ).success(function () {
-                        console.log("Successfully unflagged the original submission for resbumission.");
+                        //console.log("Successfully unflagged the original submission for resbumission.");
                     });
             }
 
@@ -559,10 +559,10 @@ angular.module('umm3601ursamajorApp')
 
         $scope.resetAndRedirect = function(){
                 $scope.resetData();
-                console.log('reseting data');
+                //console.log('reseting data');
             if($scope.attemptRedirect){
                 $location.path('/submissionpage');
-                console.log('redirecting');
+               //console.log('redirecting');
             };
         };
 

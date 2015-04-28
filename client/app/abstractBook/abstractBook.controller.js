@@ -38,7 +38,7 @@ angular.module('umm3601ursamajorApp')
         $http.get('/api/submissions').success(function(submissions) {
             $scope.submissions = submissions;
             socket.syncUpdates('submission', $scope.submissions);
-            console.log('loaded submissions');
+            //console.log('loaded submissions');
         });
 
         $http.get('/api/statuss').success(function(status) {

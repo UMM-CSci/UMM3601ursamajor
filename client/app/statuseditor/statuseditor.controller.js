@@ -128,7 +128,7 @@ angular.module('umm3601ursamajorApp')
                     priority: $scope.findEmptyPriority($scope.statusArray),
                     required: false
                 }).success(function () {
-                    console.log("Successfully added new status");
+                    //console.log("Successfully added new status");
                     $scope.getStatuses();
                 });
 
@@ -183,7 +183,7 @@ angular.module('umm3601ursamajorApp')
                         $location.path('/admin');
                         for (var j = 0; j < $scope.submissions.length; j++) {
                             if ($scope.submissions[j].status.strict == strict) {
-                                console.log("things were detected to be different");
+                                //console.log("things were detected to be different");
                                 $scope.submissions[j].status.strict = $scope.statusArray[x].strict;
                                 $http.patch('/api/submissions/' + $scope.submissions[j]._id, {
                                     status: {strict: $scope.statusArray[x].strict, priority: $scope.statusArray[x].priority, text: $scope.submissions[j].status.text}
