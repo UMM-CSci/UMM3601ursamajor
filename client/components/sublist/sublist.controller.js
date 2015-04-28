@@ -498,6 +498,13 @@ angular.module('umm3601ursamajorApp')
             }
         };
 
+        // Returns the status' color in a format that angular css bootstrap can use.
+        $scope.statusBoxColor = function(color){
+          return {'background-color': 'rgb(' + color.red   + ','
+          + color.green + ','
+          + color.blue  + ')'};
+        };
+
         $http.get('/api/submissions').success(function(submissions) {
             $scope.submissions = submissions;
             socket.syncUpdates('submission', $scope.submissions);

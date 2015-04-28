@@ -12,17 +12,17 @@
                     <hr ng-show="isAdmin() || isChair()">
 
                     <label ng-show="isAdmin() || isChair()">
-                        Filter by review group:
+                        Filter by review group: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <!-- Extra spaces need to make drop-downs same width. -->
                         <br>
-                        <select  ng-model="filterData.reviewGroupFilterSelection">
+                        <select ng-model="filterData.reviewGroupFilterSelection"  style="width:100%;">
                             <option ng-repeat="option in filterData.reviewGroupFilterOptions" ng-value="'{{option}}'">{{option}}</option>
                         </select>
                     </label>
 
                     <label ng-show="isAdmin() || isChair() || isReviewerOfAnything()">
-                        Filter by feature presentation:
+                        Filter by feature presentation: &nbsp <!-- Extra space need to make drop-downs same width. -->
                         <br>
-                        <select ng-model="filterData.featurePresentationFilterSelection">
+                        <select ng-model="filterData.featurePresentationFilterSelection" style="width:100%;">
                             <option ng-repeat="option in filterData.featurePresentationFilterOptions" ng-value="'{{option}}'">{{option}}</option>
                         </select>
                     </label>
@@ -30,7 +30,7 @@
                     <label ng-show="isAdmin() || isChair() || isReviewerOfAnything()">
                         Filter by flagged for resubmission:
                         <br>
-                        <select ng-model="filterData.flaggedForResubmitFilterSelection">
+                        <select ng-model="filterData.flaggedForResubmitFilterSelection" style="width:100%;">
                             <option ng-repeat="option in filterData.flaggedForResubmitFilterOptions" ng-value="'{{option}}'">{{option}}</option>
                         </select>
                     </label>
@@ -38,7 +38,7 @@
                     <label ng-show="isAdmin() || isChair() || isReviewerOfAnything()">
                         Filter by pending resubmissions:
                         <br>
-                        <select ng-model="filterData.pendingResubmissionsSelection">
+                        <select ng-model="filterData.pendingResubmissionsSelection" style="width:100%;">
                             <option ng-repeat="option in filterData.pendingResubmissionsOptions" ng-value="'{{option}}'">{{option}}</option>
                         </select>
                     </label>
@@ -46,14 +46,14 @@
                     <label ng-show="isAdmin() || isChair() || isReviewerOfAnything()">
                       Filter by status:
                       <br>
-                      <select ng-model="filterData.statusOptionsSelection">
+                      <select ng-model="filterData.statusOptionsSelection" style="width:100%;">
                         <option ng-repeat="option in filterData.statusOptions" ng-value="'{{option}}'">{{option}}</option>
                       </select>
                     </label>
 
                     <hr ng-show="isAdmin() || isChair() || isReviewerOfAnything()">
                     <ul  ng-show="isAdmin() || isChair() || isReviewerOfAnything()">
-                      <li class = "plainList" ng-repeat="sortMethod in filterData.sortOptions">
+                      <li class="plainList" ng-repeat="sortMethod in filterData.sortOptions">
                         <label>
                           <input type="radio" ng-model="filterData.sortOptionsSelection" ng-value="filterData.sortOptionsSelected" name="sortMethod" ng-click="sortSubmissions(sortMethod)">&nbsp;Sort by {{sortMethod}}
                         </label>
@@ -61,6 +61,25 @@
                     </ul>
                 </li>
             </ul>
+
+            <!-- START HTML FOR COLOR STATUS LEGEND HERE. -->
+
+            <ul class="list-group">
+                <li class="list-group-item">
+                  <label>Status Legend:
+                    <hr>
+                    <table bgcolor="#000000">
+                      <tbody>
+                        <tr ng-repeat="status in status">
+                          <td height="23" width="23" ng-style="statusBoxColor(status.color)"></td>
+                          <td>&nbsp{{status.strict}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </label>
+                </li>
+            </ul>
+
         </div>
 
         <!-- END HTML FOR FILTERS HERE. -->
@@ -252,7 +271,7 @@
                         <li class="subtext plainList" ng-show="(!isPrimaryAdviser(selection.item) && isAdviser(selection.item))">CoAdviser of this submission</li>
                         <li class="subtext plainList" ng-show="isReviewerGroup(selection.item)">Reviewer in Review Group {{selection.item.group}}</li>
                         <li class="plainList" ng-show="isAdmin() || isChair()">
-                        <button ng-show="isAdmin()" class="btn btn-md btn-danger sideMargins moveRight" ng-click="deleteSubmissionConfirm(selection.item)"><span class="glyphicon glyphicon-trash"></span></button>
+                        <button ng-show="hasAdminPrivs()" class="btn btn-md btn-danger sideMargins moveRight" ng-click="deleteSubmissionConfirm(selection.item)"><span class="glyphicon glyphicon-trash"></span></button>
                         </li>
                         <br>
                     </ul>
@@ -268,7 +287,7 @@
                   <div class="col-md-4">
                     <h3>Resubmission</h3>
                     <button type="button" ng-show="hasAdminPrivs()" class="btn btn-success resubbutton" ng-click="approveResubmitConfirm()">Approve Resubmission</button>
-                    <button type="button" ng-show="isAdmin()" class="btn btn-danger" ng-click="deleteSubmissionConfirm(selection.resubmission)"><span class="glyphicon glyphicon-trash"></span></button>
+                    <button type="button" ng-show="hasAdminPrivs()" class="btn btn-danger" ng-click="deleteSubmissionConfirm(selection.resubmission)"><span class="glyphicon glyphicon-trash"></span></button>
 
                   </div>
 
