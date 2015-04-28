@@ -630,7 +630,7 @@ angular.module('umm3601ursamajorApp')
             $http.delete('/api/submissions/' + item._id);
             $scope.resetSelection();
           } else {
-            console.log("Deleting submission: " + item.title);
+            //console.log("Deleting submission: " + item.title);
             $http.delete('/api/submissions/' + item._id);
             $scope.resetSelection();
           }
@@ -660,7 +660,7 @@ angular.module('umm3601ursamajorApp')
             $http.patch('api/submissions/' + $scope.selection.item._id,
                 {cc: true}).success(function(){
                     $scope.selection.item.cc = true;
-                    console.log("Successfully updated approval of submission with CC checked");
+                    //console.log("Successfully updated approval of submission with CC checked");
                 });
             sendGmailWithCC({
                 to: $scope.selection.item.presenterInfo.email + " " + $scope.selection.item.copresenterOneInfo.email + " " + $scope.selection.item.copresenterTwoInfo.email,
@@ -672,7 +672,7 @@ angular.module('umm3601ursamajorApp')
 
         $scope.approveSubmission = function(submission) {
             if($scope.isAdviser(submission) == true || $scope.hasAdminPrivs() == true){
-                console.log("submission");
+                //console.log("submission");
                 var newPriority = 15;
                 for (var k = 0; k < $scope.statusEdit.priority.length; k++) {
                     if ($scope.statusEdit.priority[k] < newPriority && $scope.statusEdit.priority[k] != -15) {
@@ -684,7 +684,7 @@ angular.module('umm3601ursamajorApp')
                         $scope.selection.item.status.strict = $scope.statusEdit.options[i];
                         for (var j = 0; j < $scope.submissions.length; j++) {
                             if ($scope.selection.item._id == $scope.submissions[j]._id) {
-                                console.log("Updates the strict of the current submission.");
+                                //console.log("Updates the strict of the current submission.");
                                 $scope.submissions[j].strict = $scope.statusEdit.options[i];
                             }
                         }
@@ -696,7 +696,7 @@ angular.module('umm3601ursamajorApp')
                         ).success(function () {
                                 $scope.selection.item.approval = true;
                                 $scope.selection.item.rejection = false;
-                                console.log("Successfully updated approval of submission (approved)");
+                                //console.log("Successfully updated approval of submission (approved)");
                             });
                     }
                 }
@@ -882,7 +882,6 @@ angular.module('umm3601ursamajorApp')
         $scope.updateReviewVoting = function(value){
             var userIdent = {name: $scope.getCurrentUser().name, email: $scope.getCurrentUser().email};
             if($scope.indexOfJsonArray($scope.selection.item.reviewVotes.Accepted, userIdent) != -1){
-                console.log("accepted detected");
                 $scope.selection.item.reviewVotes.Accepted.splice($scope.indexOfJsonArray($scope.selection.item.reviewVotes.Accepted, userIdent), 1);
             }
             else if($scope.indexOfJsonArray($scope.selection.item.reviewVotes.Minor, userIdent) != -1){
@@ -894,29 +893,23 @@ angular.module('umm3601ursamajorApp')
             else if($scope.indexOfJsonArray($scope.selection.item.reviewVotes.TotalRewrite, userIdent) != -1){
                 $scope.selection.item.reviewVotes.TotalRewrite.splice($scope.indexOfJsonArray($scope.selection.item.reviewVotes.TotalRewrite, userIdent), 1);
             } else {
-
-                console.log("This should appear first")
             }
 
             switch(value){
               case 'Accepted without changes':
                     $scope.selection.item.reviewVotes.Accepted.splice($scope.selection.item.reviewVotes.Accepted.length, 0, userIdent);
-                    console.log("This should appear Accepted");
                     $scope.submitVoting();
                     break;
                 case 'Minor revisions':
                     $scope.selection.item.reviewVotes.Minor.splice($scope.selection.item.reviewVotes.Minor.length, 0, userIdent);
-                    console.log("This should appear Minor");
                     $scope.submitVoting();
                     break;
                 case 'Major revisions':
                     $scope.selection.item.reviewVotes.Major.splice($scope.selection.item.reviewVotes.Major.length, 0, userIdent);
-                    console.log("This should appear Major");
                     $scope.submitVoting();
                     break;
                 case 'Total rewrite':
                     $scope.selection.item.reviewVotes.TotalRewrite.splice($scope.selection.item.reviewVotes.TotalRewrite.length, 0, userIdent);
-                    console.log("This should appear TotalRewrite");
                     $scope.submitVoting();
                     break;
             }
@@ -931,7 +924,7 @@ angular.module('umm3601ursamajorApp')
                     Major: $scope.selection.item.reviewVotes.Major,
                     TotalRewrite: $scope.selection.item.reviewVotes.TotalRewrite}
             }).success(function(){
-                    console.log("Updated Votes")
+                    //console.log("Updated Votes")
                 })
         };
 
@@ -980,7 +973,7 @@ angular.module('umm3601ursamajorApp')
             $http.patch('api/submissions/' + $scope.selection.item._id,
                 {status: {strict: $scope.statusEdit.temp.strict, priority: $scope.statusEdit.priority[$scope.statusEdit.options.indexOf($scope.statusEdit.temp.strict)], text: $scope.statusEdit.temp.text}}
             ).success(function(){
-                    console.log("Successfully updated status of submission");
+                    //console.log("Successfully updated status of submission");
                 });
 
             //TODO: needs to be updated to work with the current status system
@@ -989,14 +982,14 @@ angular.module('umm3601ursamajorApp')
                     {approval: false}
                 ).success(function(){
                         $scope.selection.item.approval = false;
-                        console.log("Successfully updated approval of submission (un-approved)");
+                        //console.log("Successfully updated approval of submission (un-approved)");
                     });
             } else if(!$scope.selection.item.approval && $scope.statusEdit.temp.strict !== "Awaiting Adviser Approval"){
                 $http.patch('api/submissions/' + $scope.selection.item._id,
                     {approval: true}
                 ).success(function(){
                         $scope.selection.item.approval = true;
-                        console.log("Successfully updated approval of submission (approved)");
+                        //console.log("Successfully updated approval of submission (approved)");
                     });
             }
             $scope.selection.item.status.strict = $scope.statusEdit.temp.strict;
@@ -1011,7 +1004,7 @@ angular.module('umm3601ursamajorApp')
                 {approval: true}
             ).success(function(){
                     $scope.selection.item.approval = true;
-                    console.log("Approve this submission");
+                    //console.log("Approve this submission");
                 });
         };
 
@@ -1089,13 +1082,13 @@ angular.module('umm3601ursamajorApp')
         };
 
         $scope.flagForResubmit = function(){
-            console.log("Attempting to flag for resubmission.");
+            //console.log("Attempting to flag for resubmission.");
             $http.patch('api/submissions/' + $scope.selection.item._id,
                 {
                     resubmissionData: {comment: $scope.selection.item.resubmissionData.comment, parentSubmission: $scope.selection.item.resubmissionData.parentSubmission, resubmitFlag: true, isPrimary: true}
                 }
             ).success(function(){
-                    console.log("Successfully flagged submission for resubmit");
+                    //console.log("Successfully flagged submission for resubmit");
                     $scope.selection.item.resubmissionData.resubmitFlag = true;
                     if (!$scope.hasAdminPrivs())
                     {$location.path('/subform');}
@@ -1116,13 +1109,13 @@ angular.module('umm3601ursamajorApp')
         };
 
         $scope.removeResubmitFlag = function(){
-            console.log("Attempting to remove resubmit flag.");
+            //console.log("Attempting to remove resubmit flag.");
             $http.patch('api/submissions/' + $scope.selection.item._id,
                 {
                     resubmissionData: {comment: $scope.selection.item.resubmissionData.comment, parentSubmission: $scope.selection.item.resubmissionData.parentSubmission, resubmitFlag: false, isPrimary: true}
                 }
             ).success(function(){
-                    console.log("Successfully removed resubmit flag");
+                    //console.log("Successfully removed resubmit flag");
                     $scope.selection.item.resubmissionData.resubmitFlag = false;
                 });
         };
@@ -1133,13 +1126,13 @@ angular.module('umm3601ursamajorApp')
 
         $scope.approveResubmit = function(){
             var reviewGroup = $scope.selection.item.group;
-                console.log("Attempting to approve resubmission.");
+                //console.log("Attempting to approve resubmission.");
                 $http.patch('api/submissions/' + $scope.selection.item._id,
                     {
                         resubmissionData: {isPrimary: false, comment: $scope.selection.item.resubmissionData.comment, parentSubmission: $scope.selection.item.resubmissionData.parentSubmission, resubmitFlag: false}
                     }
                 ).success(function () {
-                        console.log("old primary is no longer primary");
+                        //console.log("old primary is no longer primary");
                         $http.patch('api/submissions/' + $scope.selection.resubmission._id,
                             {
                                 resubmissionData: {isPrimary: true, comment: $scope.selection.resubmission.resubmissionData.comment, parentSubmission: $scope.selection.resubmission.resubmissionData.parentSubmission, resubmitFlag: false},
@@ -1151,7 +1144,7 @@ angular.module('umm3601ursamajorApp')
                                 $scope.selection.item = $scope.selection.resubmission;
                                 $scope.selection.resubmission = null;
                                 $scope.selection.item.group = reviewGroup;
-                                console.log("resubmission set as new primary")
+                                //console.log("resubmission set as new primary")
                             });
                     });
         };
@@ -1170,11 +1163,11 @@ angular.module('umm3601ursamajorApp')
 
         //Selects a comment nd sets its index
         $scope.selectComment = function(index) {
-            console.log("setting selected comment: " + index);
+            //console.log("setting selected comment: " + index);
             if(index == $scope.selectedCommentIndex){
-                console.log("case 1 ");
+                //console.log("case 1 ");
             } else {
-                console.log("case 2 ");
+                //console.log("case 2 ");
                 $scope.selectedCommentIndex = index;
             }
         };
@@ -1247,7 +1240,7 @@ angular.module('umm3601ursamajorApp')
                 $http.patch('api/submissions/' + submission._id,
                     {comments: comments}
                 ).success(function () {
-                        console.log("successfully pushed comments to submission!");
+                        //console.log("successfully pushed comments to submission!");
                     });
             }
         };
@@ -1308,7 +1301,7 @@ angular.module('umm3601ursamajorApp')
                 $http.patch('api/submissions/' + $scope.selection.item._id,
                     {comments: comments}
                 ).success(function () {
-                        console.log("successfully pushed response to submission!");
+                        //console.log("successfully pushed response to submission!");
                     });
             }
         };
@@ -1325,7 +1318,7 @@ angular.module('umm3601ursamajorApp')
                 $http.patch('api/submissions/' + $scope.selection.item._id,
                     {comments: comments}
                 ).success(function(){
-                        console.log("successfully deleted comments from a submission!");
+                        //console.log("successfully deleted comments from a submission!");
                     });
         };
 
@@ -1341,7 +1334,7 @@ angular.module('umm3601ursamajorApp')
                 $http.patch('api/submissions/' + $scope.selection.item._id,
                     {comments: comments}
                 ).success(function(){
-                        console.log("successfully deleted response from a comment to a submission!");
+                        //console.log("successfully deleted response from a comment to a submission!");
                     });
         };
 

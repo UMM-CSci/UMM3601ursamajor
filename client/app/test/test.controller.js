@@ -1,7 +1,11 @@
 'use strict';
 
 angular.module('umm3601ursamajorApp')
-  .controller('TestCtrl', function ($scope,$document,$http, $window) {
+  .controller('TestCtrl', function ($scope,$document,$http, $window, $location, Auth) {
+
+        if(!Auth.isAdmin() && !Auth.isChair()) {
+          $location.path('/');
+        }
 
         $scope.textArea = "I love candy so bloody much";
 

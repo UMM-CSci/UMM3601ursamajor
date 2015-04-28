@@ -163,7 +163,7 @@ angular.module('umm3601ursamajorApp')
       $http.patch('api/submissions/' + submission._id,
         {group: $scope.selection.reviewGroup}
       ).success( function(){
-          console.log("Successfully updated status of submission");
+          //console.log("Successfully updated status of submission");
           submission.group = $scope.selection.reviewGroup;
         });
     };
