@@ -371,64 +371,10 @@ Submission.find({}).remove(function(){
         group: 1,
         roomAssignment: "Science 2610",
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
-        comments: [
-            {
-                beginner: 0,
-                ender: 64,
-                commentText:"You don't need to restate the title of the submission...",
-                commenter: "Hongya Zhou",
-                selectionText : "The title of my project is called On Your March, Get Set, Rust! ",
-                indicator : 0,
-                timestamp : "Mon Dec 08 2015 18:41:16 GMT-0600 (CST)",
-                origin : "5486429c6adf9b0859cb58c7",
-                responses: []
-            }, {
-                beginner: 245 ,
-                ender: 284 ,
-                commentText: "Why were they sanded?" ,
-                commenter: "Hongya Zhou" ,
-                selectionText: "sanding ten galvanized and common nails" ,
-                indicator: 0 ,
-                timestamp: "Mon Dec 08 2015 18:42:05 GMT-0600 (CST)" ,
-                origin: "5486429c6adf9b0859cb58c7" ,
-                responses: [
-                    {
-                        "response": "Obviously to release the magical nail spirits.",
-                        "responder": "Hongya Zhou",
-                        "timestamp": "Mon Dec 08 2015 19:03:17 GMT-0600 (CST)"
-                    }
-                ]
-            }, {
-                beginner: 161 ,
-                ender: 222 ,
-                commentText: "Poorly worded. Should be \"more quickly\" ?" ,
-                commenter: "Hongya Zhou" ,
-                selectionText: " which type of nails, galvanized or common will rust quickly." ,
-                indicator: 0 ,
-                timestamp: "Mon Dec 08 2015 18:43:43 GMT-0600 (CST)" ,
-                origin: "5486429c6adf9b0859cb58c7" ,
-                responses: [ ]
-            }, {
-                beginner: 536 ,
-                ender: 678 ,
-                commentText: "Big portion needs re-write..." ,
-                commenter: "Hongya Zhou" ,
-                selectionText: "My results of my data resolves that galvanized and common nails in freshwater had a higher average or rust than the other nails in salt water." ,
-                indicator: 0 ,
-                timestamp: "Mon Dec 08 2015 18:44:47 GMT-0600 (CST)" ,
-                origin: "5486429c6adf9b0859cb58c7" ,
-                responses: [
-                    {
-                        response: "But WHYYYYY?" ,
-                        responder: "Hongya Zhou" ,
-                        timestamp: "Mon Dec 08 2015 18:52:18 GMT-0600 (CST)"
-                    }
-                ]
-            }
-        ],
+        comments: [],
         reviewVotes: {
-            Accepted: [{name: "Mark Lehet", email:"lehet005@morris.umn.edu"}],
-            Minor: [],
+            Accepted: [],
+            Minor: [{name: "Maggie Casale", email:"casal033@morris.umn.edu"}, {name: "Matthew Kangas", email:"kanga139@morris.umn.edu"}, {name: "Joseph Thelen", email: "thele116@morris.umn.edu"}],
             Major: [],
             TotalRewrite: []
         }
@@ -461,7 +407,7 @@ Submission.find({}).remove(function(){
         rejection: false,
         status: {strict: "Revisions Needed", priority: 3, text: "Your URS submission has been flagged for revisions, and is in need of changes."},
         timestamp: "Tue Jun 19 2015 23:22:54 GMT-0500 (CDT)",
-        group: 2,
+        group: 1,
         roomAssignment: "Imholte 109",
         resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
         comments:[],
@@ -800,6 +746,80 @@ Submission.find({}).remove(function(){
         TotalRewrite: []
       }
     },{
+      title: "Communal Chimney Roosting of Migrating Vaux's Swifts (Chaetura Vauxi) near Salem, Oregon (2)",
+      format: "Science or Social Science Abstract",
+      abstract: "Vaux's swifts are neotropical migrants that breed in western North America. Their natural roosts are in large, hollow trees, " +
+      "especially in old-growth forests. Due to the depletion of old-growth forest habitats, these birds have adapted to roosting and nesting in human-made structures, " +
+      "particularly in chimneys. The purpose of this study was to locate and monitor major chimney roosting sites of migrating Vaux's swifts in or near Salem, Oregon. " +
+      "The number of swifts peaked in mid-September, declined rapidly for a few days, and then tapered off at a slower rate. " +
+      "This and other results of the study will be discussed.",
+      presentationType: "Poster or visual display",
+      formatChange: true,
+      presenterInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
+      copresenterOneInfo: {first: "Brandon", last: "Moody", email: "moody107@morris.umn.edu"},
+      copresenterTwoInfo: {first: "Maggie",last: "Casale", email: "casal033@morris.umn.edu"},
+      discipline: "History",
+      sponsors: [], //Might need to worry about if this is static for the DB later.
+      adviserInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
+      coadviserOneInfo: {first: "", last: "", email: ""},
+      coadviserTwoInfo: {first: "", last: "", email: ""},
+      featured: false,
+      mediaServicesEquipment: "",
+      specialRequirements: "A small space to make the presentation personal.",
+      otherInfo: "yes.",
+      approval: true,
+      cc: false,
+      rejection: false,
+      status: {strict: "Accepted", priority: 15, text: "Your URS submission has been approved, congratulations!"},
+      timestamp: "Thur Aug 19 2014 1:48:54 GMT-0500 (CDT)",
+      group: 1,
+      roomAssignment: "Science 2610",
+      resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+      comments: [],
+      reviewVotes: {
+        Accepted: [{name: "Mark Lehet", email:"lehet005@morris.umn.edu"}],
+        Minor: [{name: "Matthew Kangas", email:"kanga139@morris.umn.edu"}],
+        Major: [{name: "Jacob Opdahl", email:"opdah023@morris.umn.edu"}],
+        TotalRewrite: []
+      }
+    },{
+      title: "Communal Chimney Roosting of Migrating Vaux's Swifts (Chaetura Vauxi) near Salem, Oregon (3)",
+      format: "Science or Social Science Abstract",
+      abstract: "Vaux's swifts are neotropical migrants that breed in western North America. Their natural roosts are in large, hollow trees, " +
+      "especially in old-growth forests. Due to the depletion of old-growth forest habitats, these birds have adapted to roosting and nesting in human-made structures, " +
+      "particularly in chimneys. The purpose of this study was to locate and monitor major chimney roosting sites of migrating Vaux's swifts in or near Salem, Oregon. " +
+      "The number of swifts peaked in mid-September, declined rapidly for a few days, and then tapered off at a slower rate. " +
+      "This and other results of the study will be discussed.",
+      presentationType: "Poster or visual display",
+      formatChange: true,
+      presenterInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
+      copresenterOneInfo: {first: "Brandon", last: "Moody", email: "moody107@morris.umn.edu"},
+      copresenterTwoInfo: {first: "Maggie",last: "Casale", email: "casal033@morris.umn.edu"},
+      discipline: "History",
+      sponsors: [], //Might need to worry about if this is static for the DB later.
+      adviserInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
+      coadviserOneInfo: {first: "", last: "", email: ""},
+      coadviserTwoInfo: {first: "", last: "", email: ""},
+      featured: false,
+      mediaServicesEquipment: "",
+      specialRequirements: "A small space to make the presentation personal.",
+      otherInfo: "yes.",
+      approval: true,
+      cc: false,
+      rejection: false,
+      status: {strict: "Accepted", priority: 15, text: "Your URS submission has been approved, congratulations!"},
+      timestamp: "Thur Aug 19 2014 1:48:54 GMT-0500 (CDT)",
+      group: 1,
+      roomAssignment: "Science 2610",
+      resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+      comments: [],
+      reviewVotes: {
+        Accepted: [{name: "Mark Lehet", email:"lehet005@morris.umn.edu"}],
+        Minor: [{name: "Matthew Kangas", email:"kanga139@morris.umn.edu"}],
+        Major: [{name: "Jacob Opdahl", email:"opdah023@morris.umn.edu"}],
+        TotalRewrite: []
+      }
+    },{
       title: "Katie Pierce",
       format: "Science or Social Science Abstract",
       abstract: "This project explores how paternalistic decision making by coaches often conflicts with the athlete's right to autonomy; that is, " +
@@ -830,7 +850,7 @@ Submission.find({}).remove(function(){
       resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
       comments: [],
       reviewVotes: {
-        Accepted: [{name: "Mark Lehet", email:"lehet005@morris.umn.edu"}],
+        Accepted: [{name: "Maggie Casale", email:"casal033@morris.umn.edu"}, {name: "Kristen Lamberty", email: "lamberty@morris.umn.edu"}, {name: "Joseph Thelen", email: "thele116@morris.umn.edu"}],
         Minor: [{name: "Matthew Kangas", email:"kanga139@morris.umn.edu"}],
         Major: [{name: "Jacob Opdahl", email:"opdah023@morris.umn.edu"}],
         TotalRewrite: []
@@ -842,6 +862,114 @@ Submission.find({}).remove(function(){
           "concerned with the unequal distribution of environmental hazards. The project analyzes important previous studies and then conducts an investigation that centers " +
           "around a series of GIs maps that revel correlations between environmental hazards and demographics, such as race and income level. " +
           "The results will be revealed and discussed.",
+      presentationType: "Poster or visual display",
+      formatChange: true,
+      presenterInfo: {first: "Joseph", last: "Thelen", email: "thele116@morris.umn.edu"},
+      copresenterOneInfo: {first: "", last: "", email: ""},
+      copresenterTwoInfo: {first: "", last: "", email: ""},
+      discipline: "Chemistry",
+      sponsors: [], //Might need to worry about if this is static for the DB later.
+      adviserInfo: {first: "Hongya", last: "Zhou", email: "zhou616@morris.umn.edu"},
+      coadviserOneInfo: {first: "Joseph", last: "Thelen", email: "thele116@morris.umn.edu"},
+      coadviserTwoInfo: {first: "Maggie",last: "Casale", email: "casal033@morris.umn.edu"},
+      featured: true,
+      mediaServicesEquipment: "",
+      specialRequirements: "A small space to make the presentation personal.",
+      otherInfo: "yes.",
+      approval: true,
+      cc: false,
+      rejection: false,
+      status: {strict: "Accepted", priority: 15, text: "Your URS submission has been approved, congratulations!"},
+      timestamp: "Thur Sep 23 2014 1:48:54 GMT-0500 (CDT)",
+      group: 3,
+      roomAssignment: "Science 2610",
+      resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+      comments: [],
+      reviewVotes: {
+        Accepted: [{name: "Mark Lehet", email:"lehet005@morris.umn.edu"}],
+        Minor: [{name: "Matthew Kangas", email:"kanga139@morris.umn.edu"}],
+        Major: [{name: "Jacob Opdahl", email:"opdah023@morris.umn.edu"}],
+        TotalRewrite: []
+      }
+    },{
+      title: "Unequal Exposure: A GIS Analysis of Race, Poverty, and Environmental Hazards in Oregon's Capital (2)",
+      format: "Science or Social Science Abstract",
+      abstract: "The purpose of this project is to measure environmental equity in Salem, Oregon, with an aim to contribute to a growing body of literature " +
+      "concerned with the unequal distribution of environmental hazards. The project analyzes important previous studies and then conducts an investigation that centers " +
+      "around a series of GIs maps that revel correlations between environmental hazards and demographics, such as race and income level. " +
+      "The results will be revealed and discussed.",
+      presentationType: "Poster or visual display",
+      formatChange: true,
+      presenterInfo: {first: "Joseph", last: "Thelen", email: "thele116@morris.umn.edu"},
+      copresenterOneInfo: {first: "", last: "", email: ""},
+      copresenterTwoInfo: {first: "", last: "", email: ""},
+      discipline: "Chemistry",
+      sponsors: [], //Might need to worry about if this is static for the DB later.
+      adviserInfo: {first: "Hongya", last: "Zhou", email: "zhou616@morris.umn.edu"},
+      coadviserOneInfo: {first: "Joseph", last: "Thelen", email: "thele116@morris.umn.edu"},
+      coadviserTwoInfo: {first: "Maggie",last: "Casale", email: "casal033@morris.umn.edu"},
+      featured: true,
+      mediaServicesEquipment: "",
+      specialRequirements: "A small space to make the presentation personal.",
+      otherInfo: "yes.",
+      approval: true,
+      cc: false,
+      rejection: false,
+      status: {strict: "Accepted", priority: 15, text: "Your URS submission has been approved, congratulations!"},
+      timestamp: "Thur Sep 23 2014 1:48:54 GMT-0500 (CDT)",
+      group: 3,
+      roomAssignment: "Science 2610",
+      resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+      comments: [],
+      reviewVotes: {
+        Accepted: [{name: "Mark Lehet", email:"lehet005@morris.umn.edu"}],
+        Minor: [{name: "Matthew Kangas", email:"kanga139@morris.umn.edu"}],
+        Major: [{name: "Jacob Opdahl", email:"opdah023@morris.umn.edu"}],
+        TotalRewrite: []
+      }
+    },{
+      title: "Unequal Exposure: A GIS Analysis of Race, Poverty, and Environmental Hazards in Oregon's Capital (3)",
+      format: "Science or Social Science Abstract",
+      abstract: "The purpose of this project is to measure environmental equity in Salem, Oregon, with an aim to contribute to a growing body of literature " +
+      "concerned with the unequal distribution of environmental hazards. The project analyzes important previous studies and then conducts an investigation that centers " +
+      "around a series of GIs maps that revel correlations between environmental hazards and demographics, such as race and income level. " +
+      "The results will be revealed and discussed.",
+      presentationType: "Poster or visual display",
+      formatChange: true,
+      presenterInfo: {first: "Joseph", last: "Thelen", email: "thele116@morris.umn.edu"},
+      copresenterOneInfo: {first: "", last: "", email: ""},
+      copresenterTwoInfo: {first: "", last: "", email: ""},
+      discipline: "Chemistry",
+      sponsors: [], //Might need to worry about if this is static for the DB later.
+      adviserInfo: {first: "Hongya", last: "Zhou", email: "zhou616@morris.umn.edu"},
+      coadviserOneInfo: {first: "Joseph", last: "Thelen", email: "thele116@morris.umn.edu"},
+      coadviserTwoInfo: {first: "Maggie",last: "Casale", email: "casal033@morris.umn.edu"},
+      featured: true,
+      mediaServicesEquipment: "",
+      specialRequirements: "A small space to make the presentation personal.",
+      otherInfo: "yes.",
+      approval: true,
+      cc: false,
+      rejection: false,
+      status: {strict: "Accepted", priority: 15, text: "Your URS submission has been approved, congratulations!"},
+      timestamp: "Thur Sep 23 2014 1:48:54 GMT-0500 (CDT)",
+      group: 3,
+      roomAssignment: "Science 2610",
+      resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+      comments: [],
+      reviewVotes: {
+        Accepted: [{name: "Mark Lehet", email:"lehet005@morris.umn.edu"}],
+        Minor: [{name: "Matthew Kangas", email:"kanga139@morris.umn.edu"}],
+        Major: [{name: "Jacob Opdahl", email:"opdah023@morris.umn.edu"}],
+        TotalRewrite: []
+      }
+    },{
+      title: "Unequal Exposure: A GIS Analysis of Race, Poverty, and Environmental Hazards in Oregon's Capital (4)",
+      format: "Science or Social Science Abstract",
+      abstract: "The purpose of this project is to measure environmental equity in Salem, Oregon, with an aim to contribute to a growing body of literature " +
+      "concerned with the unequal distribution of environmental hazards. The project analyzes important previous studies and then conducts an investigation that centers " +
+      "around a series of GIs maps that revel correlations between environmental hazards and demographics, such as race and income level. " +
+      "The results will be revealed and discussed.",
       presentationType: "Poster or visual display",
       formatChange: true,
       presenterInfo: {first: "Joseph", last: "Thelen", email: "thele116@morris.umn.edu"},
@@ -956,6 +1084,80 @@ Submission.find({}).remove(function(){
           "or a control group with practice only. Stereopsis (depth-perception), oculomotor skill (hand-eye coordination), and a sport-specific motor performance (a wall-volley test) " +
           "were measured before and after four weeks of training. The results of these studies will be revealed, and the conclusion that vision " +
           "training leads to no significant improvements in visual ability or in the transfer to motor performance for racquetball players will be discussed.",
+      presentationType: "Poster or visual display",
+      formatChange: true,
+      presenterInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
+      copresenterOneInfo: {first: "Brandon", last: "Moody", email: "moody107@morris.umn.edu"},
+      copresenterTwoInfo: {first: "", last: "", email: ""},
+      discipline: "History",
+      sponsors: [], //Might need to worry about if this is static for the DB later.
+      adviserInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
+      coadviserOneInfo: {first: "", last: "", email: ""},
+      coadviserTwoInfo: {first: "", last: "", email: ""},
+      featured: false,
+      mediaServicesEquipment: "",
+      specialRequirements: "A small space to make the presentation personal.",
+      otherInfo: "yes.",
+      approval: true,
+      cc: false,
+      rejection: false,
+      status: {strict: "Accepted", priority: 15, text: "Your URS submission has been approved, congratulations!"},
+      timestamp: "Thur Nov 19 2014 1:48:54 GMT-0500 (CDT)",
+      group: 2,
+      roomAssignment: "Science 2610",
+      resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+      comments: [],
+      reviewVotes: {
+        Accepted: [{name: "Mark Lehet", email:"lehet005@morris.umn.edu"}],
+        Minor: [{name: "Matthew Kangas", email:"kanga139@morris.umn.edu"}],
+        Major: [{name: "Jacob Opdahl", email:"opdah023@morris.umn.edu"}],
+        TotalRewrite: []
+      }
+    },{
+      title: "Vision Training: Effects on Motor Skills and Visual Ability in Experience Racquetball Players (2)",
+      format: "Science or Social Science Abstract",
+      abstract: "This study investigates the effects of vision training on visual ability and motor skills in racquetball players. " +
+      "Fourteen participants were randomly assigned to either a treatment using visual training and traditional racquetball practice, " +
+      "or a control group with practice only. Stereopsis (depth-perception), oculomotor skill (hand-eye coordination), and a sport-specific motor performance (a wall-volley test) " +
+      "were measured before and after four weeks of training. The results of these studies will be revealed, and the conclusion that vision " +
+      "training leads to no significant improvements in visual ability or in the transfer to motor performance for racquetball players will be discussed.",
+      presentationType: "Poster or visual display",
+      formatChange: true,
+      presenterInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
+      copresenterOneInfo: {first: "Brandon", last: "Moody", email: "moody107@morris.umn.edu"},
+      copresenterTwoInfo: {first: "", last: "", email: ""},
+      discipline: "History",
+      sponsors: [], //Might need to worry about if this is static for the DB later.
+      adviserInfo: {first: "Emma", last: "Sax", email: "saxxx027@morris.umn.edu"},
+      coadviserOneInfo: {first: "", last: "", email: ""},
+      coadviserTwoInfo: {first: "", last: "", email: ""},
+      featured: false,
+      mediaServicesEquipment: "",
+      specialRequirements: "A small space to make the presentation personal.",
+      otherInfo: "yes.",
+      approval: true,
+      cc: false,
+      rejection: false,
+      status: {strict: "Accepted", priority: 15, text: "Your URS submission has been approved, congratulations!"},
+      timestamp: "Thur Nov 19 2014 1:48:54 GMT-0500 (CDT)",
+      group: 2,
+      roomAssignment: "Science 2610",
+      resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
+      comments: [],
+      reviewVotes: {
+        Accepted: [{name: "Mark Lehet", email:"lehet005@morris.umn.edu"}],
+        Minor: [{name: "Matthew Kangas", email:"kanga139@morris.umn.edu"}],
+        Major: [{name: "Jacob Opdahl", email:"opdah023@morris.umn.edu"}],
+        TotalRewrite: []
+      }
+    },{
+      title: "Vision Training: Effects on Motor Skills and Visual Ability in Experience Racquetball Players (3)",
+      format: "Science or Social Science Abstract",
+      abstract: "This study investigates the effects of vision training on visual ability and motor skills in racquetball players. " +
+      "Fourteen participants were randomly assigned to either a treatment using visual training and traditional racquetball practice, " +
+      "or a control group with practice only. Stereopsis (depth-perception), oculomotor skill (hand-eye coordination), and a sport-specific motor performance (a wall-volley test) " +
+      "were measured before and after four weeks of training. The results of these studies will be revealed, and the conclusion that vision " +
+      "training leads to no significant improvements in visual ability or in the transfer to motor performance for racquetball players will be discussed.",
       presentationType: "Poster or visual display",
       formatChange: true,
       presenterInfo: {first: "Mark", last: "Lehet", email: "lehet005@morris.umn.edu"},
@@ -1331,39 +1533,6 @@ Submission.find({}).remove(function(){
             Minor: [],
             Major: [],
             TotalRewrite: [{name: "Jacob Opdahl", email:"opdah023@morris.umn.edu"}]
-        }
-    }, {
-        title: "Testing, Testing, Testing",
-        format: "Artist Statement",
-        abstract: "Abstract abstract abstract Abstract abstract abstract ",
-        presentationType: "Poster or visual display",
-        formatChange: true,
-        presenterInfo: {first: "Maggie", last: "Casale", email: "casal033@morris.umn.edu"},
-        copresenterOneInfo: {first: "", last: "", email: ""},
-        copresenterTwoInfo: {first: "", last: "", email: ""},
-        discipline: "Computer Sciences",
-        sponsors: [], //Might need to worry about if this is static for the DB later.
-        adviserInfo: {first: "Peter", last: "Dolan", email: "dolan118@morris.umn.edu"},
-        coadviserOneInfo: {first: "", last: "", email: ""},
-        coadviserTwoInfo: {first: "", last: "", email: ""},
-        featured: false,
-        mediaServicesEquipment: "",
-        specialRequirements: "A small space to make the presentation personal.",
-        otherInfo: "yes.",
-        approval: false,
-        cc: false,
-        rejection: false,
-        status: {strict: "Awaiting Adviser Approval", priority: -15, text: "Your URS submission is pending approval from your adviser."},
-        timestamp: "Thur Feb 23 2015 1:48:54 GMT-0500 (CDT)",
-        group: 3,
-        roomAssignment: "Science 2610",
-        resubmissionData: {comment: "Initial Submission", parentSubmission: "", isPrimary: true, resubmitFlag: false},
-        comments: [],
-        reviewVotes: {
-          Accepted: [],
-          Minor: [],
-          Major: [],
-          TotalRewrite: []
         }
     });
 });

@@ -11,8 +11,8 @@
                     <input type="text" ng-model="filterData.searchText" placeholder="Search by name">
                     <hr ng-show="isAdmin() || isChair()">
 
-                    <label ng-show="isAdmin() || isChair()">
-                        Filter by review group: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <!-- Extra spaces need to make drop-downs same width. -->
+                    <label ng-show="isAdmin() || isChair()" >
+                        Filter by review group:
                         <br>
                         <select ng-model="filterData.reviewGroupFilterSelection"  style="width:100%;">
                             <option ng-repeat="option in filterData.reviewGroupFilterOptions" ng-value="'{{option}}'">{{option}}</option>
@@ -20,7 +20,7 @@
                     </label>
 
                     <label ng-show="isAdmin() || isChair() || isReviewerOfAnything()">
-                        Filter by feature presentation: &nbsp <!-- Extra space need to make drop-downs same width. -->
+                        Filter by feature presentation:
                         <br>
                         <select ng-model="filterData.featurePresentationFilterSelection" style="width:100%;">
                             <option ng-repeat="option in filterData.featurePresentationFilterOptions" ng-value="'{{option}}'">{{option}}</option>
