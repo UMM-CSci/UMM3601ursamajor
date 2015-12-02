@@ -8,5 +8,5 @@ module.exports = {
     uri: 'mongodb://localhost/umm3601ursamajor-dev'
   },
 
-  seedDB: true
+  seedDB: false
 };
