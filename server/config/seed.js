@@ -1,6 +1,6 @@
 /**
  * Populate DB with sample data on server start
- * to disable, edit config/environment/index.js, and set `seedDB: false`
+ * to disable, edit config/environment/index.js, config/environment/production.js, config/environment/development.js, and set `seedDB: false`
  */
 
 'use strict';
@@ -300,6 +300,25 @@ User.find({}).remove(function() {
             role: "admin",
             __v: 0
         }, {
+        name: "Sam Miller",
+        email: "mill5978@morris.umn.edu",
+        tShirtSize: "Large",
+        provider: "google",
+        google: {
+          hd: "morris.umn.edu",
+          locale: "en",
+          gender: "male",
+          picture: "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg?sz=50",
+          family_name: "Miller",
+          given_name: "Sam",
+          name: "Sam Miller",
+          verified_email: true,
+          email: "mill5978@morris.umn.edu",
+          id: "117112506383874405526"
+        }, group: -1,
+        role: "admin",
+        __v: 0
+    }, {
             provider: 'local',
             role: 'user',
             name: 'User',
