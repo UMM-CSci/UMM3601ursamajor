@@ -13,6 +13,33 @@ angular.module('umm3601ursamajorApp')
       return Auth.getCurrentUser().email.indexOf("umn.edu") != -1;
     };
 
+    $scope.isReviewer = function(){
+      if(Auth.getCurrentUser().role == "reviewer"){
+        return true;
+      }
+      else{
+        return false;
+      }
+    }
+
+    $scope.isUser = function(){
+      if(Auth.getCurrentUser().role == "user"){
+        return true;
+      }
+      else{
+        return false;
+      }
+    }
+
+    $scope.isChair = function(){
+      if(Auth.getCurrentUser().role == "chair"){
+        return true;
+      }
+      else{
+        return false;
+      }
+    }
+
     // An array of possible tShirtSize's.
     $scope.tShirtSizeOptions =
       [ "Small",

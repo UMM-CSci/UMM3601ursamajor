@@ -9,8 +9,12 @@
   </div>
 </header>
 
-<div ng-show="isLoggedIn() && hasUMNEmail()" && is class="container">
-    <a ng-href="/subform" class="buttonMain">Create a submission</a>
+<div ng-show="isLoggedIn() && hasUMNEmail() && isUser() ||isAdmin()" && is class="container">
+    <a ng-href="/subform" class="buttonMain">Create a Submission</a>
+</div>
+
+<div ng-show="isLoggedIn() && hasUMNEmail() && isReviewer() || isAdmin() || isChair()">
+  <a ng-href="/submissionpage" class="buttonMain">Review Submissions</a>
 </div>
 
 <div ng-show="isLoggedIn() && !hasUMNEmail()">
@@ -32,7 +36,7 @@
       <span class="close">&times;</span>
       <h1 class="modalTitle">Please Select Your T-Shirt Size</h1>
       <br>
-      <p class="modalText">Every presenter in the Undergraduate Research Symposium receives a t-shirt. Please select your t-shirt size (even if you don't plan on submitting an abstract yet) </p>
+      <p class="modalText">Every presenter in the Undergraduate Research Symposium receives a t-shirt. Please select your t-shirt size (even if you don't plan on submitting an abstract yet). </p>
       <div class="other">T-Shirt size:
           <select ng-model="user.tShirtSize"  placeholder="">
             <option ng-repeat="size in tShirtSizeOptions" ng-value="'{{size}}'">{{size}}</option>
