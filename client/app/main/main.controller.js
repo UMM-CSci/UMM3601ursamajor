@@ -12,4 +12,69 @@ angular.module('umm3601ursamajorApp')
     $scope.hasUMNEmail = function(){
       return Auth.getCurrentUser().email.indexOf("umn.edu") != -1;
     };
+
+    $scope.isReviewer = function(){
+      if(Auth.getCurrentUser().role == "reviewer"){
+        return true;
+      }
+      else{
+        return false;
+      }
+    }
+
+    $scope.isUser = function(){
+      if(Auth.getCurrentUser().role == "user"){
+        return true;
+      }
+      else{
+        return false;
+      }
+    }
+
+    $scope.isChair = function(){
+      if(Auth.getCurrentUser().role == "chair"){
+        return true;
+      }
+      else{
+        return false;
+      }
+    }
+
+    // An array of possible tShirtSize's.
+    $scope.tShirtSizeOptions =
+      [ "Small",
+        "Medium",
+        "Large",
+        "XLarge",
+        "XXLarge",
+        "XXXLarge"
+      ];
+
+    // Changes the tShirtSize designated to a user.
+    $scope.updateTShirtSize = function(){
+      Auth.updateTShirtSize($scope.user.tShirtSize);
+      Auth.getCurrentUser().tShirtSize = $scope.user.tShirtSize;
+    };
+
+    $scope.pickTShirtSize = function(){
+      if(Auth.getCurrentUser().tShirtSize == ""){
+        return true;
+      }
+      else{
+        return false;
+      }
+
+    }
+
+    // Get the modal
+    var modal = document.getElementById('tShirtModal');
+
+    // Opens modal if user has not picked a t-shirt size yet
+    $scope.openModal = function() {
+      modal.style.display = "block";
+
+    }
+
+
+
   });
