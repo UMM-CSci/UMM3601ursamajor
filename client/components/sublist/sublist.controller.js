@@ -1172,6 +1172,28 @@ angular.module('umm3601ursamajorApp')
             }
         };
 
+        //highlights text
+        $scope.commentDisplay = function(submission, index) {
+          var comments = submission.comments;
+          var abstract = submission.abstract;
+          var start = comments[index].beginner;
+          var end = comments[index].ender;
+          if(index == $scope.selectedCommentIndex){
+            //console.log("case 1 ");
+            document.getElementById("submissionAbstract").innerHTML = abstract.substring(0, start) + '<mark>' + abstract.substring(start, end) + '</mark>' + abstract.substring(end, abstract.length);
+          } else {
+            //console.log("case 2 ");
+            $scope.selectedCommentIndex = index;
+            document.getElementById("submissionAbstract").innerHTML = abstract.substring(0, start) + '<mark>' + abstract.substring(start, end) + '</mark>' + abstract.substring(end, abstract.length);
+          }
+        };
+
+        //resets abstract to non highlighted version
+        $scope.normalAbstract = function(submission) {
+          document.getElementById("submissionAbstract").innerHTML = submission.abstract;
+          $scope.selectedCommentIndex=null;
+        };
+
         //Checks if a comment is the currently selected comment
         $scope.isSelectedComment = function(index){
             return index == $scope.selectedCommentIndex;
