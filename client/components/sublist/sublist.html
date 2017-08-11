@@ -258,7 +258,7 @@
                         <li class="list-group-item">
                             <h3>Abstract</h3>
                         </li>
-                        <li class="list-group-item"><p ng-bind-html="selection.item.abstract"></p></li>
+                        <li class="list-group-item"><p id="submissionAbstract" ng-bind-html="selection.item.abstract"></p></li>
                     </ul>
 
                     <span class="subtext">You are seeing this submission because you are a(n):</span>
@@ -271,9 +271,11 @@
                         <li class="subtext plainList" ng-show="(!isPrimaryAdviser(selection.item) && isAdviser(selection.item))">CoAdviser of this submission</li>
                         <li class="subtext plainList" ng-show="isReviewerGroup(selection.item)">Reviewer in Review Group {{selection.item.group}}</li>
                         <li class="plainList" ng-show="isAdmin() || isChair()">
-                        <button ng-show="hasAdminPrivs()" class="btn btn-md btn-danger sideMargins moveRight" ng-click="deleteSubmissionConfirm(selection.item)"><span class="glyphicon glyphicon-trash"></span></button>
-                        </li>
                         <br>
+                        <button style="float:right" class="btn btn-primary btn-lg" ng-click="addComment(selection.item)">New Comment <span class="glyphicon glyphicon-pencil"></span></button>
+                        <button style="float:left" ng-show="hasAdminPrivs()" class="btn btn-lg btn-danger" ng-click="deleteSubmissionConfirm(selection.item)">Delete Submission <span class="glyphicon glyphicon-trash"></span></button>
+                        <br>
+                        </li>
                     </ul>
                 </li> <!-- End where the colored sidebar is -->
             </ul>
@@ -350,24 +352,19 @@
 
         <!--Button for adding a comment-->
         <div ng-show="selection.selected" class="col-md-3">
-            <button class="btn btn-primary btn-block" ng-click="addComment(selection.item)">New Comment <span class="glyphicon glyphicon-pencil"></span></button>
             <!--Displays the comments as well as the buttons for showing/hiding responses, deleting comments if you have admin privs and viewing the details of a comment-->
             <ul class="plainList ">
-                <li ng-repeat="comment in displayedComments()" ng-click="selectComment($index)" class="clickable alert alert-warning block commentStyle">
+                <li ng-repeat="comment in displayedComments()" ng-mouseover="commentDisplay(selection.item, $index)" ng-mouseleave="normalAbstract(selection.item)" class="clickable alert alert-warning block commentStyle">
                     <p>{{comment.commentText | isntEmpty:"Comment:":"(No comment...)"}}</p>
+                    <br>
                     <p class="subText" ng-show="hasAdminPrivs() || isReviewerGroup(selection.item)"><i>- {{comment.commenter}}</i></p>
+                    <p class="padded">{{comment.timestamp}}</p>
+                    <br>
                     <div ng-show="isSelectedComment($index)">
-                        <button class="btn btn-xs responseButton" ng-hide="showResponses" ng-click="showResponses = true" title="show responses"><span class="glyphicon glyphicon-chevron-down"></span></button>
-                        <button class="btn btn-xs responseButton" ng-show="showResponses" ng-click="showResponses = false" title="hide responses"><span class="glyphicon glyphicon-chevron-up"></span></button>
-
-                        <div class="btn-group" dropdown>
-                            <button class="btn btn-xs btn-primary" ng-click="addResponse(selection.item, transformCommentIndex($index))">Respond</button>
-                            <button type="button" class="btn btn-xs btn-primary" dropdown-toggle><span class="glyphicon glyphicon-list"></span></button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a ng-click="getOriginAbstract(selection.item , transformCommentIndex($index))">Details</a></li>
-                                <li ng-show="hasAdminPrivs() || (isReviewerGroup(selection.item) && isCommenter(comment))"><a ng-click="deleteCommentModal(selection.item , transformCommentIndex($index))">Delete Comment</a></li>
-                            </ul>
-                        </div>
+                        <button class="btn btn-xs btn-primary" ng-hide="showResponses" ng-click="showResponses = true" title="show responses">Responses <span class="glyphicon glyphicon-chevron-down"></span></button>
+                        <button class="btn btn-xs btn-primary" ng-show="showResponses" ng-click="showResponses = false" title="hide responses">Hide <span class="glyphicon glyphicon-chevron-up"></span></button>
+                        <button class="btn btn-xs btn-info" ng-click="addResponse(selection.item, transformCommentIndex($index)); showResponses = true">Respond</button>
+                        <button class="btn btn-xs btn-danger" ng-show="hasAdminPrivs() || (isReviewerGroup(selection.item) && isCommenter(comment))" ng-click="deleteCommentModal(selection.item , transformCommentIndex($index))">Delete </button>
                     </div>
                     <!--Display of responses as well as buttons associated with deleting them if the user has admin privs-->
                     <div ng-show="showResponses">
