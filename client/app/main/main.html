@@ -7,16 +7,14 @@
     <!--Image source: http://www.ursamajor.cc/-->
     <img style="height: 100px" src="assets/images/ursamajor_logoMorris.png" width="175px" height="175px">
   </div>
-</header>
-
-<div ng-show="isLoggedIn() && hasUMNEmail() && isUser() ||isAdmin()" && is class="container">
+  <div ng-show="isLoggedIn() && hasUMNEmail() && isUser() ||isAdmin()" && is class="container">
     <a ng-href="/subform" class="buttonMain">Create a Submission</a>
-</div>
-
-<div ng-show="isLoggedIn() && hasUMNEmail() && isReviewer() || isAdmin() || isChair()">
-  <a ng-href="/submissionpage" class="buttonMain">Review Submissions</a>
-</div>
-
+  </div>
+  <div ng-show="isLoggedIn() && hasUMNEmail() && isReviewer() || isAdmin() || isChair()">
+    <a ng-href="/submissionpage" class="buttonMain">Review a Submission</a>
+  </div>
+</header>
+<br>
 <div ng-show="isLoggedIn() && !hasUMNEmail()">
     <alert type="danger"  class="nonUMNWarning">
       You must have a valid University of Minnesota email to use this website.
