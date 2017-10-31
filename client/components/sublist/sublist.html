@@ -182,10 +182,10 @@
                     <br>
 
                 </li>
-
+                <br>
                 <li class="list-group-item" ng-style="statusColorTab(selection.item.status.strict)">
-
-                    <div class="block alert clickable" ng-style="statusColorBody(selection.item.status.strict)" ng-click="editStatus(selection.item)">
+                <br>
+                  <div class="block alert clickable" ng-style="statusColorBody(selection.item.status.strict)" ng-click="editStatus(selection.item)">
                         <button ng-show="hasAdminPrivs()" class="btn btn-sm btn-warning close"><span class="glyphicon glyphicon-file"></span></button>
                         <b>Status:</b> {{selection.item.status.strict}} <br>
                         <b>Comment:</b> {{selection.item.status.text}}</p>
@@ -274,7 +274,7 @@
                         <br>
                         <button style="float:right" class="btn btn-primary btn-lg" ng-click="addComment(selection.item)">New Comment <span class="glyphicon glyphicon-pencil"></span></button>
                         <button style="float:left" ng-show="hasAdminPrivs()" class="btn btn-lg btn-danger" ng-click="deleteSubmissionConfirm(selection.item)">Delete Submission <span class="glyphicon glyphicon-trash"></span></button>
-                        <br>
+                        <br> <br>
                         </li>
                     </ul>
                 </li> <!-- End where the colored sidebar is -->
@@ -354,8 +354,8 @@
         <div ng-show="selection.selected" class="col-md-3">
             <!--Displays the comments as well as the buttons for showing/hiding responses, deleting comments if you have admin privs and viewing the details of a comment-->
             <ul class="plainList ">
-                <li ng-repeat="comment in displayedComments()" ng-mouseover="commentDisplay(selection.item, $index)" ng-mouseleave="normalAbstract(selection.item)" class="clickable alert alert-warning block commentStyle">
-                    <p>{{comment.commentText | isntEmpty:"Comment:":"(No comment...)"}}</p>
+                <li ng-repeat="comment in displayedComments()"  ng-mouseover="commentDisplay(selection.item, $index)" ng-mouseleave="normalAbstract(selection.item)" class="clickable alert alert-warning block commentStyle">
+                    <p>{{comment.commentText | isntEmpty:"":"(No comment...)"}}</p>
                     <br>
                     <p class="subText" ng-show="hasAdminPrivs() || isReviewerGroup(selection.item)"><i>- {{comment.commenter}}</i></p>
                     <p class="padded">{{comment.timestamp}}</p>
