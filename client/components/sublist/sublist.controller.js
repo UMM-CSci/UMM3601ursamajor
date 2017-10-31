@@ -1232,7 +1232,7 @@ angular.module('umm3601ursamajorApp')
             var comments = submission.comments;
             var commenter = $scope.getCurrentUser().name;
             var selection = $window.getSelection();
-            var commentText = prompt("Comment");
+            var commentText = prompt("Add comment below");
           if(selection.anchorNode != null) {
             if (selection.anchorNode.data && selection.focusNode.data == submission.abstract) {
               if (selection.anchorOffset <= selection.focusOffset) {
@@ -1314,7 +1314,7 @@ angular.module('umm3601ursamajorApp')
             var comments = submission.comments;
             var comment = comments[index];
             var responseObj = {};
-            var response = prompt("response");
+            var response = prompt("Enter response below");
             responseObj.response = response;
             responseObj.responder = $scope.getCurrentUser().name;
             responseObj.timestamp = Date();
