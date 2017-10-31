@@ -2,6 +2,16 @@
 
 }
 
+/*Make full area of accordion toggles clickable*/
+.accordion-toggle,.accordion-heading {
+  display: block;
+}
+
+/*Highlight clickable area to make it clear to user*/
+.accordion-toggle:hover, .accordion-heading:hover {
+  background-color: lightskyblue;
+}
+
 /*Centers the title and the priority*/
 .center {
     padding-left: 25%;
