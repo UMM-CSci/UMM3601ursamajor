@@ -221,7 +221,7 @@ angular.module('umm3601ursamajorApp')
                         ' has submitted a URS submission that requires your approval. ' +
                         'By approving the submission, you are authorizing the student(s) to submit this abstract for consideration by the Undergraduate Research Symposium. ' +
                         'This is not approving the final abstract; the student(s) will have the opportunity to further revise, improve, and finalize their submission. '+
-                        'Please go to the URS website and login with your X500 UMN email. Once there, navigate to the "Submissions List" tab and choose your advisees ' +
+                        'Please go to the URS website and login with your X500 UMN email. Once there, navigate to the "Submissions List" tab and choose your advisee\'s ' +
                         'submission to approve (or reject) it. You will have the option to be included in future emails pertaining to the submission, please read carefully.'
                 });
             }
