@@ -27,6 +27,7 @@ angular.module('umm3601ursamajorApp')
 
         $scope.submissions = [];
         $scope.status = [];
+        $scope.timeFrame = "current";
 
         $scope.getCurrentUser = Auth.getCurrentUser;
         $scope.group = Auth.getCurrentUser().group;
@@ -67,11 +68,35 @@ angular.module('umm3601ursamajorApp')
           }
         };
 
+        //determine acceptance status
         $scope.isAccepted = function(submission){
             return submission.status.priority === 15;
         };
 
+        //classifier functions for past/present abstracts
+        $scope.setCurrent = function(){
+          $scope.timeFrame = 'current';
+        };
 
+        $scope.setPast = function(){
+          $scope.timeFrame = 'past';
+        };
 
+        //sub-function to determine which abstracts to display depending on tab chosen
+        $scope.checkTime = function(sub) {
+          //if ($scope.timeFrame === 'current' && $scope.isAccepted(sub)) {
+          //display all current submissions for now due to testing
+          if ($scope.timeFrame === 'current') {
+            return $scope.currentYearFilter(sub);
+          } else if ($scope.timeFrame === 'past' && $scope.isAccepted(sub)){
+            return !$scope.currentYearFilter(sub);
+          }
+        };
 
+        //in-progress function to insert presentation type headers
+        //$scope.divideByType = function(submissions) {
+        //  if (submissions[$scope.index + 1].presentationType !== submissions[$scope.index].presentationType) {
+        //    return submissions[$scope.index +1].presentationType;
+        //  }
+        //};
   });
