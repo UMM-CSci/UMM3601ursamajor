@@ -1,14 +1,20 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 <div ng-controller="AbstractbookCtrl" class="container-fluid">
 
+
+  <button class="btn btn-primary btn-lg" ng-click= "downloadAbstract('main','text/html')">Download Abstract Text</button>
+
+  <br><br>
+
   <tabset>
     <tab heading="Current Submission Abstracts" ng-click="setCurrent()"></tab>
     <tab heading="Past Submission Abstracts" ng-click="setPast()"></tab>
   </tabset>
 
   <br>
-
-  <li class="list-group-item" ng-repeat="sub in submissions | orderBy : 'presentationType'" ng-show="checkTime(sub)">
+  <br>
+  <div id="main">
+    <li class="list-group-item" ng-repeat="sub in submissions | orderBy : 'presentationType'" ng-show="checkTime(sub)">
                   <hr class="hrThickness">
                   <b>Presenter(s):</b> {{sub.presenterInfo.first}} {{sub.presenterInfo.last}}{{sub.copresenterOneInfo.first | isntEmpty:", ":""}} {{sub.copresenterOneInfo.last | isntEmpty:"":""}}{{sub.copresenterTwoInfo.first | isntEmpty:",":""}} {{sub.copresenterTwoInfo.last | isntEmpty:"":""}}
                   <br>
@@ -20,8 +26,8 @@
                   <br>
                   <br>
                   <p ng-bind-html="sub.abstract"></p>
-            </li>
-        <br>
-        <br>
-    </div>
+    </li>
+    <br>
+    <br>
+  </div>
 </div>

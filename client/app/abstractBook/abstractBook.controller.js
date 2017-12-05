@@ -99,4 +99,22 @@ angular.module('umm3601ursamajorApp')
         //    return submissions[$scope.index +1].presentationType;
         //  }
         //};
+
+        $scope.downloadAbstract = function (elemId, mimeType) {
+            //generates a text file containing all abstracts on the active page
+            //output is a basic text file, nor formatting at the moment
+
+            var elemText = document.getElementById(elemId).innerText;
+            var link = document.createElement('a');
+            mimeType = mimeType || 'text/plain';
+
+            link.setAttribute('download', 'abstract.txt');
+            link.setAttribute('href', 'data:' + mimeType + ';charset=utf-8,' + encodeURIComponent(elemText));
+            link.click();
+
+            //possible word doc generator packages:
+            //jsPDF
+            //officeGen
+            //html-docx-js
+        };
   });
